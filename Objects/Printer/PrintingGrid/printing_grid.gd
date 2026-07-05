@@ -1,70 +1,210 @@
 extends Node2D
 
-@onready var GRID_SQUARE_SCENE = preload("res://Objects/Printer/PrintingGrid/grid_square.tscn")
-@onready var COLOR_NODE_SCENE = preload("res://Objects/Printer/PrintingGrid/color_node_better.tscn")
+@export var grid_size: Vector2 = Vector2(5, 5)
 
-@export var grid_size: Vector2
+@onready var square_scene = preload("res://Objects/Printer/PrintingGrid/grid_square.tscn")
+@onready var button_scene = preload("res://Objects/Printer/PrintingGrid/color_node.tscn")
+
 
 const GRID_SQUARE_SIZE: int = 32
+const CELL_GAP: int = 2
+const CHANNELS: Array[String] = ["c", "m", "y", "k"]
+const BUTTON_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000"]
 
-var grid_squares := []
-var color_nodes := {
-	"col": [],
-	"row": [],
+
+class GridCell:
+	var this: Node2D
+	var ink_locked: bool = false
+	var c: int = 0
+	var m: int = 0
+	var y: int = 0
+
+	func _init(p_node: Node2D) -> void :
+		this = p_node
+
+	func apply_ink(channel: String) -> void :
+		match channel:
+			"c": c += 1
+			"m": m += 1
+			"y": y += 1
+			_:
+				printerr("Unknown ink channel: %s" % channel)
+
+	func color_key() -> String :
+		return "%d%d%d" % [c, m, y]
+
+	func toggle_ink_lock(lock: bool) -> void :
+		ink_locked = lock
+		this.get_node("LockIndicator").visible = lock
+
+	func is_ink_locked() -> bool :
+		return ink_locked
+
+	func reset() -> void :
+		c = 0
+		m = 0
+		y = 0
+		toggle_ink_lock(false)
+
+
+# key = CMYK
+const COLOR_GLOSSARY: Dictionary = {
+	"000": "#FFFFFF",  # No ink (paper)
+	"100": "#00FFFF",  # C
+	"010": "#FF00FF",  # M
+	"001": "#FFFF00",  # Y
+
+	"200": "#00CCCC",  # C + C
+	"300": "#009999",  # C + C + C
+
+	"020": "#CC00CC",  # M + M
+	"030": "#990099",  # M + M + M
+
+	"002": "#CCCC00",  # Y + Y
+	"003": "#999900",  # Y + Y + Y
+
+	"110": "#8000FF",  # C + M
+	"101": "#00FF40",  # C + Y
+	"011": "#FF0080",  # M + Y
+	"111": "#2B2B2B",  # C + M + Y
+
+	"210": "#2E2EFF",  # C + C + M
+	"201": "#00A6A6",  # C + C + Y
+
+	"120": "#8000A6",  # M + M + C
+	"021": "#C00000",  # M + M + Y
+
+	"102": "#80FF00",  # Y + Y + C
+	"012": "#FF8000",  # Y + Y + M
+
+	# "2110": "#1A1A40",  # C + C + M + Y
+	# "1210": "#4A001F",  # M + M + C + Y
+	# "1120": "#3A3A00",  # Y + Y + C + M
 }
 
 
+var grid: Array = []
+
+
 func _ready() -> void :
-	grid_squares.resize(grid_size.x)
+	_init_grid()
+	_init_buttons()
 
-	for col in range(grid_size.x) :
-		grid_squares[col] = []
-		grid_squares[col].resize(grid_size.y)
+
+func _init_grid() -> void :
+	for col in range(grid_size.x):
+		var columns: Array = []
+
+		for row in range(grid_size.y):
+			var cell_node: Node2D = square_scene.instantiate()
+			cell_node.position = Vector2(col, row) * (GRID_SQUARE_SIZE + CELL_GAP)
+			add_child(cell_node)
+			columns.append(GridCell.new(cell_node))
+
+		grid.append(columns)
+
+
+func _init_buttons() -> void :
+	# column button
+	for col in range(grid_size.x):
+		for i in CHANNELS.size():
+			var btn: TextureButton = button_scene.instantiate()
+			btn.position = Vector2(
+				col * (GRID_SQUARE_SIZE + CELL_GAP) - 8,
+				-(GRID_SQUARE_SIZE + 2) * ((3-i)/2.0 + 1),
+			)
+			btn.grid_alignment = "col"
+			btn.grid_index = col
+			btn.ink_channel = CHANNELS[i]
+			btn.paint_requested.connect(_on_paint_request)
+			btn.modulate = Color.from_string(BUTTON_COLORS[i], "#670067")
+			add_child(btn)
+
+	# row buttons
+	for row in range(grid_size.y):
+		for i in CHANNELS.size():
+			var btn: TextureButton = button_scene.instantiate()
+			btn.position = Vector2(
+				-(GRID_SQUARE_SIZE + 2) * ((3-i)/2.0 + 1),
+				row * (GRID_SQUARE_SIZE + CELL_GAP) - 8,
+			)
+			btn.grid_alignment = "row"
+			btn.grid_index = row
+			btn.ink_channel = CHANNELS[i]
+			btn.paint_requested.connect(_on_paint_request)
+			btn.modulate = Color.from_string(BUTTON_COLORS[i], "#670067")
+			add_child(btn)
+
+
+func _on_paint_request(request: Dictionary) -> void :
+	var alignment: String = request.get("grid_alignment")
+	var index: int        = request.get("grid_index")
+	var channel: String   = request.get("ink_channel")
+
+	match alignment:
+		"col":
+			_paint_column(index, channel)
+		"row":
+			_paint_row(index, channel)
+		_:
+			printerr("Unknown grid alignment: %s" % alignment)
+
+
+func _paint_column(col: int, channel: String) -> void :
+
+	# iterate over all row in the column
+	for row in range(grid_size.y):
+		var cell: GridCell = grid[col][row] as GridCell
+
+		# if the grid is ink ink locked, dont draw
+		if (cell.is_ink_locked()) :
+			continue
 		
-		# instantiate color node for column
-		color_nodes.col.resize(grid_size.x)
-		color_nodes.col[col] = COLOR_NODE_SCENE.instantiate()
-		color_nodes.col[col].position = global_position + Vector2(col * GRID_SQUARE_SIZE , -GRID_SQUARE_SIZE - 2)
-		color_nodes.col[col].grid_alignment = "col"
-		color_nodes.col[col].grid_index = col
-		color_nodes.col[col].print_button_pressed.connect(_paint)
-		add_child(color_nodes.col[col])
+		# if channel = K, lock
+		if (channel == CHANNELS[3]) :
+			cell.toggle_ink_lock(true)
+			continue
 
-		# instantiate row of grid
-		for row in range(grid_size.y) :
-			# instantiate color node for row
-			color_nodes.row.resize(grid_size.x)
-			color_nodes.row[row] = COLOR_NODE_SCENE.instantiate()
-			color_nodes.row[row].position = global_position + Vector2(-GRID_SQUARE_SIZE - 2, row * GRID_SQUARE_SIZE)
-			color_nodes.row[row].grid_alignment = "row"
-			color_nodes.row[row].grid_index = row
-			color_nodes.row[row].print_button_pressed.connect(_paint)
-			add_child(color_nodes.row[row])
-
-			
-			grid_squares[col][row] = GRID_SQUARE_SCENE.instantiate()
-			grid_squares[col][row].position = global_position + Vector2(col, row) * (GRID_SQUARE_SIZE + 2)
-			add_child(grid_squares[col][row])
+		cell.apply_ink(channel)
+		_update_cell_color(cell)
 
 
+func _paint_row(row: int, channel: String) -> void :
+	# iterate over all column in the row
+	for col in range(grid_size.x):
+		var cell: GridCell = grid[col][row] as GridCell
+		
+		# if the grid is ink ink locked, dont draw
+		if (cell.is_ink_locked()) :
+			continue
+		
+		# if channel = K, lock
+		if (channel == CHANNELS[3]) :
+			cell.toggle_ink_lock(true)
+			continue
+
+		cell.apply_ink(channel)
+		_update_cell_color(cell)
+
+
+func _update_cell_color(cell: GridCell) -> void :
+	var key: String = cell.color_key()
+	var hex: String = COLOR_GLOSSARY.get(key, "#000000")
+
+	cell.this.get_node("GridTexture").modulate = Color.from_string(hex, Color.PURPLE)
+
+
+func _reset_all() -> void :
+	for column_variant in grid as Array:
+		var column: Array = column_variant as Array
+
+		for cell_variant in column:
+			var cell: GridCell = cell_variant as GridCell
+
+			cell.reset()
+			_update_cell_color(cell)
 
 
 func _input(event: InputEvent) -> void :
-	if (event.is_action_pressed("refresh_grid")) :
-		_paint({})
-
-
-func _paint(print_request: Dictionary):
-	var grid_alignmnet: String = print_request.get("grid_alignment")
-	var grid_index: int        = print_request.get("grid_index")
-		
-	if (grid_alignmnet == "row") :
-		for c in range(grid_size.y) :
-			grid_squares[c][grid_index].modulate.r -= 0.1
-
-	elif (grid_alignmnet == "col") :
-		for r in range(grid_size.x) :
-			grid_squares[grid_index][r].modulate.r -= 0.1
-
-	else :
-		printerr("ERROR WHEN PAINTING: Set row/col pls")
+	if event.is_action_pressed("reset_grid"):
+		_reset_all()

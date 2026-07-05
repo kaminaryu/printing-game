@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://8jouw18bf53t"]
+
+[ext_resource type="Texture2D" uid="uid://bqr6vw68o2svu" path="res://Assets/ColorNode.png" id="1_2rbr2"]
+[ext_resource type="Script" uid="uid://dye52h842pph" path="res://Objects/Printer/PrintingGrid/color_node.gd" id="1_vfc2v"]
+
+[node name="ColorNode" type="TextureButton" unique_id=1069555528]
+texture_filter = 1
+offset_right = 16.0
+offset_bottom = 16.0
+texture_normal = ExtResource("1_2rbr2")
+script = ExtResource("1_vfc2v")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
