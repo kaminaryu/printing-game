@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://8jouw18bf53t"]
+
+[ext_resource type="Texture2D" uid="uid://bwu6q31p51roj" path="res://Assets/Arrow.png" id="1_hoftr"]
+[ext_resource type="Script" uid="uid://dye52h842pph" path="res://Objects/Printer/PrintingGrid/line_picker.gd" id="2_n5rfh"]
+
+[node name="LinePicker" type="TextureButton" unique_id=1069555528]
+texture_filter = 1
+offset_right = 8.0
+offset_bottom = 8.0
+texture_normal = ExtResource("1_hoftr")
+script = ExtResource("2_n5rfh")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

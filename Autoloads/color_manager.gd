@@ -41,3 +41,9 @@ func get_selected_color() -> String :
 	if (selected_color == -1) :
 		return "#fff"
 	return CHANNEL_COLORS[selected_color]
+
+func get_color_channel() -> String :
+	return CHANNELS[selected_color]
+
+func is_selecting_color() -> bool :
+	return selected_color != -1

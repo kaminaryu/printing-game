@@ -3,7 +3,7 @@ extends Node2D
 @export var grid_size: Vector2 = Vector2(5, 5)
 
 @onready var square_scene = preload("res://Objects/Printer/PrintingGrid/grid_square.tscn")
-@onready var button_scene = preload("res://Objects/Printer/PrintingGrid/color_node.tscn")
+@onready var line_picker_scene = preload("res://Objects/Printer/PrintingGrid/line_picker.tscn")
 
 
 const GRID_SQUARE_SIZE: int = 32
@@ -67,41 +67,42 @@ func _init_grid() -> void :
 
 
 func _init_buttons() -> void :
+	const MARGIN: float = 4.0;
 	# column button
 	for col in range(grid_size.x):
-		for i in ColorManager.CHANNELS.size():
-			var btn: TextureButton = button_scene.instantiate()
-			btn.position = Vector2(
-				col * (GRID_SQUARE_SIZE + CELL_GAP) - 8,
-				-(GRID_SQUARE_SIZE + 2) * ((3-i)/2.0 + 1),
-			)
-			btn.grid_alignment = "col"
-			btn.grid_index = col
-			btn.ink_channel = ColorManager.CHANNELS[i]
-			btn.paint_requested.connect(_on_paint_request)
-			btn.modulate = Color.from_string(BUTTON_COLORS[i], "#670067")
-			add_child(btn)
+		var arrow: Node = line_picker_scene.instantiate()
+		
+		arrow.position = Vector2(
+			col * (GRID_SQUARE_SIZE + CELL_GAP) - 8,
+			-(GRID_SQUARE_SIZE + MARGIN),
+		)
+		arrow.grid_alignment = "col"
+		arrow.grid_index = col
+		arrow.paint_requested.connect(_on_paint_request)
+
+		add_child(arrow)
+
 
 	# row buttons
 	for row in range(grid_size.y):
-		for i in ColorManager.CHANNELS.size():
-			var btn: TextureButton = button_scene.instantiate()
-			btn.position = Vector2(
-				-(GRID_SQUARE_SIZE + 2) * ((3-i)/2.0 + 1),
-				row * (GRID_SQUARE_SIZE + CELL_GAP) - 8,
-			)
-			btn.grid_alignment = "row"
-			btn.grid_index = row
-			btn.ink_channel = ColorManager.CHANNELS[i]
-			btn.paint_requested.connect(_on_paint_request)
-			btn.modulate = Color.from_string(BUTTON_COLORS[i], "#670067")
-			add_child(btn)
+		var arrow: Node = line_picker_scene.instantiate()
+		
+		arrow.position = Vector2(
+			-(GRID_SQUARE_SIZE + MARGIN),
+			row * (GRID_SQUARE_SIZE + CELL_GAP) + 8,
+		)
+		arrow.grid_alignment = "row"
+		arrow.grid_index = row
+		arrow.rotation = -PI/2
+		arrow.paint_requested.connect(_on_paint_request)
+
+		add_child(arrow)
 
 
 func _on_paint_request(request: Dictionary) -> void :
 	var alignment: String = request.get("grid_alignment")
 	var index: int        = request.get("grid_index")
-	var channel: String   = request.get("ink_channel")
+	var channel: String   = ColorManager.get_color_channel()
 
 	match alignment:
 		"col":
