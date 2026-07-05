@@ -4,4 +4,3 @@
 
 [node name="PrintingGrid" type="Node2D" unique_id=1528432382]
 script = ExtResource("1_whvfb")
-grid_size = Vector2(10, 5)

@@ -6,32 +6,25 @@ const CHANNEL_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000
 # key = CMYK
 const COLOR_GLOSSARY: Dictionary = {
 	"000": "#FFFFFF",  # No ink (paper)
+
 	"100": "#00FFFF",  # C
 	"010": "#FF00FF",  # M
 	"001": "#FFFF00",  # Y
 
-	"200": "#00CCCC",  # C + C
-	"300": "#009999",  # C + C + C
+	"110": "#0000FF",  # C + M -> BLUE
+	"101": "#00FF00",  # C + Y -> GREEN
+	"011": "#FF0000",  # M + Y -> RED
 
-	"020": "#CC00CC",  # M + M
-	"030": "#990099",  # M + M + M
+	"210": "#007FFF",  # C + M + C -> BLUE + C  => SkyBlue
+	"120": "#670067",  # C + M + M -> BLUE + M  => Purple
 
-	"002": "#CCCC00",  # Y + Y
-	"003": "#999900",  # Y + Y + Y
+	"201": "#00BF7F",  # C + Y + C -> GREEN + C => Torquise
+	"102": "#7FFF00",  # C + Y + Y -> GREEN + Y => Lime
 
-	"110": "#8000FF",  # C + M
-	"101": "#00FF40",  # C + Y
-	"011": "#FF0080",  # M + Y
-	"111": "#2B2B2B",  # C + M + Y
+	"021": "#FF007F",  # M + Y + M -> RED + M   => HotPink
+	"012": "#FF7F00",  # M + Y + Y -> RED + Y   => Orange
 
-	"210": "#2E2EFF",  # C + C + M
-	"201": "#00A6A6",  # C + C + Y
-
-	"120": "#8000A6",  # M + M + C
-	"021": "#C00000",  # M + M + Y
-
-	"102": "#80FF00",  # Y + Y + C
-	"012": "#FF8000",  # Y + Y + M
+	"111": "#0E0E0E",  # M + Y + C -> BlAck
 }
 
 var selected_color: int = -1

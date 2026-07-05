@@ -21,20 +21,40 @@ class GridCell :
 	func _init(p_node: Node2D) -> void :
 		this = p_node
 
+	func _same_color_safeguard(channel: String) -> bool :
+		match channel :
+			"c": return color_key() != "100"
+			"m": return color_key() != "010"
+			"y": return color_key() != "001"
+
+		return false # fallabck
+
+
 	func apply_ink(channel: String) -> void :
-		match channel:
+		var is_allowed: bool = _same_color_safeguard(channel)
+		if (!is_allowed) :
+			return
+
+		match channel :
 			"c": c += 1
 			"m": m += 1
 			"y": y += 1
 			_:
 				printerr("Unknown ink channel: %s" % channel)
 
+
 	func color_key() -> String :
 		return "%d%d%d" % [c, m, y]
 
-	func toggle_ink_lock(lock: bool) -> void :
-		ink_locked = lock
-		this.get_node("LockIndicator").visible = lock
+
+	func toggle_ink_lock(toggle = null) -> void :
+		if (toggle != null) :
+			ink_locked = toggle
+		else :
+			ink_locked = !ink_locked
+
+		this.get_node("LockIndicator").visible = ink_locked
+
 
 	func is_ink_locked() -> bool :
 		return ink_locked
@@ -44,6 +64,7 @@ class GridCell :
 		m = 0
 		y = 0
 		toggle_ink_lock(false)
+
 
 var grid: Array = []
 
@@ -114,18 +135,17 @@ func _on_paint_request(request: Dictionary) -> void :
 
 
 func _paint_column(col: int, channel: String) -> void :
-
 	# iterate over all row in the column
 	for row in range(grid_size.y):
 		var cell: GridCell = grid[col][row] as GridCell
 
-		# if the grid is ink ink locked, dont draw
-		if (cell.is_ink_locked()) :
-			continue
-		
-		# if channel = K, lock
+		# if channel = K, toggle lock
 		if (channel == ColorManager.CHANNELS[3]) :
-			cell.toggle_ink_lock(true)
+			cell.toggle_ink_lock()
+			continue
+
+		# if the grid is ink locked, dont draw
+		if (cell.is_ink_locked()) :
 			continue
 
 		cell.apply_ink(channel)
@@ -137,13 +157,13 @@ func _paint_row(row: int, channel: String) -> void :
 	for col in range(grid_size.x):
 		var cell: GridCell = grid[col][row] as GridCell
 		
-		# if the grid is ink ink locked, dont draw
-		if (cell.is_ink_locked()) :
-			continue
-		
-		# if channel = K, lock
+		# if channel = K, toggle lock
 		if (channel == ColorManager.CHANNELS[3]) :
-			cell.toggle_ink_lock(true)
+			cell.toggle_ink_lock()
+			continue
+
+		# if the grid is ink locked, dont draw
+		if (cell.is_ink_locked()) :
 			continue
 
 		cell.apply_ink(channel)
