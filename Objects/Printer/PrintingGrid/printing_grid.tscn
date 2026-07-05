@@ -3,6 +3,5 @@
 [ext_resource type="Script" uid="uid://tox2yujgphde" path="res://Objects/Printer/PrintingGrid/printing_grid.gd" id="1_whvfb"]
 
 [node name="PrintingGrid" type="Node2D" unique_id=1528432382]
-position = Vector2(208, 150)
 script = ExtResource("1_whvfb")
 grid_size = Vector2(10, 5)

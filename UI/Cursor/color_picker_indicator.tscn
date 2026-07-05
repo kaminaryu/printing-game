@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dewnfey8vrhg7"]
+
+[ext_resource type="Texture2D" uid="uid://wu4jd5wtjjsq" path="res://Assets/GridPlaceholder.png" id="1_215ar"]
+[ext_resource type="Script" uid="uid://bndqkdsruoqav" path="res://UI/Cursor/color_picker_indicator.gd" id="1_x24y7"]
+
+[node name="ColorPickerIndicator" type="Node2D" unique_id=1218155847]
+texture_filter = 1
+scale = Vector2(0.25, 0.25)
+script = ExtResource("1_x24y7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=429102677]
+texture = ExtResource("1_215ar")

@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://45i1rane3fvq"]
+
+[ext_resource type="Texture2D" uid="uid://bqr6vw68o2svu" path="res://Assets/ColorNode.png" id="1_0nyf2"]
+[ext_resource type="Texture2D" uid="uid://wu4jd5wtjjsq" path="res://Assets/GridPlaceholder.png" id="1_5diiv"]
+[ext_resource type="Script" uid="uid://cr5anc36lon8y" path="res://UI/Widgets/color_picker.gd" id="1_fvttv"]
+
+[node name="ColorPicker" type="Control" unique_id=1473046839]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -360.0
+offset_right = -584.0
+offset_bottom = -320.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_fvttv")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1717155224]
+modulate = Color(1, 1, 1, 0.4862745)
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_5diiv")
+
+[node name="MainColumn" type="VBoxContainer" parent="." unique_id=1085291825]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="TopRow" type="HBoxContainer" parent="MainColumn" unique_id=45868617]
+layout_mode = 2
+alignment = 1
+
+[node name="CyanButton" type="TextureButton" parent="MainColumn/TopRow" unique_id=99509806]
+modulate = Color(0, 1, 1, 1)
+layout_mode = 2
+texture_normal = ExtResource("1_0nyf2")
+
+[node name="BottomRow" type="HBoxContainer" parent="MainColumn" unique_id=1806438980]
+layout_mode = 2
+alignment = 1
+
+[node name="MagentaButton" type="TextureButton" parent="MainColumn/BottomRow" unique_id=565149061]
+modulate = Color(1, 0, 1, 1)
+layout_mode = 2
+texture_normal = ExtResource("1_0nyf2")
+
+[node name="YellowButton" type="TextureButton" parent="MainColumn/BottomRow" unique_id=1821832126]
+modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("1_0nyf2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=248726521]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
+offset_bottom = 16.0
+grow_horizontal = 0
+scale = Vector2(0.75, 0.75)
+pivot_offset_ratio = Vector2(0, 1)
+size_flags_horizontal = 8
+
+[node name="KeyButton" type="TextureButton" parent="HBoxContainer" unique_id=1020488753]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("1_0nyf2")
+
+[connection signal="button_down" from="MainColumn/TopRow/CyanButton" to="." method="_on_cyan_button_button_down"]
+[connection signal="button_down" from="MainColumn/BottomRow/MagentaButton" to="." method="_on_magenta_button_button_down"]
+[connection signal="button_down" from="MainColumn/BottomRow/YellowButton" to="." method="_on_yellow_button_button_down"]
+[connection signal="button_down" from="HBoxContainer/KeyButton" to="." method="_on_key_button_button_down"]

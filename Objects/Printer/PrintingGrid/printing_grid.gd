@@ -8,11 +8,10 @@ extends Node2D
 
 const GRID_SQUARE_SIZE: int = 32
 const CELL_GAP: int = 2
-const CHANNELS: Array[String] = ["c", "m", "y", "k"]
 const BUTTON_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000"]
 
 
-class GridCell:
+class GridCell :
 	var this: Node2D
 	var ink_locked: bool = false
 	var c: int = 0
@@ -46,43 +45,6 @@ class GridCell:
 		y = 0
 		toggle_ink_lock(false)
 
-
-# key = CMYK
-const COLOR_GLOSSARY: Dictionary = {
-	"000": "#FFFFFF",  # No ink (paper)
-	"100": "#00FFFF",  # C
-	"010": "#FF00FF",  # M
-	"001": "#FFFF00",  # Y
-
-	"200": "#00CCCC",  # C + C
-	"300": "#009999",  # C + C + C
-
-	"020": "#CC00CC",  # M + M
-	"030": "#990099",  # M + M + M
-
-	"002": "#CCCC00",  # Y + Y
-	"003": "#999900",  # Y + Y + Y
-
-	"110": "#8000FF",  # C + M
-	"101": "#00FF40",  # C + Y
-	"011": "#FF0080",  # M + Y
-	"111": "#2B2B2B",  # C + M + Y
-
-	"210": "#2E2EFF",  # C + C + M
-	"201": "#00A6A6",  # C + C + Y
-
-	"120": "#8000A6",  # M + M + C
-	"021": "#C00000",  # M + M + Y
-
-	"102": "#80FF00",  # Y + Y + C
-	"012": "#FF8000",  # Y + Y + M
-
-	# "2110": "#1A1A40",  # C + C + M + Y
-	# "1210": "#4A001F",  # M + M + C + Y
-	# "1120": "#3A3A00",  # Y + Y + C + M
-}
-
-
 var grid: Array = []
 
 
@@ -107,7 +69,7 @@ func _init_grid() -> void :
 func _init_buttons() -> void :
 	# column button
 	for col in range(grid_size.x):
-		for i in CHANNELS.size():
+		for i in ColorManager.CHANNELS.size():
 			var btn: TextureButton = button_scene.instantiate()
 			btn.position = Vector2(
 				col * (GRID_SQUARE_SIZE + CELL_GAP) - 8,
@@ -115,14 +77,14 @@ func _init_buttons() -> void :
 			)
 			btn.grid_alignment = "col"
 			btn.grid_index = col
-			btn.ink_channel = CHANNELS[i]
+			btn.ink_channel = ColorManager.CHANNELS[i]
 			btn.paint_requested.connect(_on_paint_request)
 			btn.modulate = Color.from_string(BUTTON_COLORS[i], "#670067")
 			add_child(btn)
 
 	# row buttons
 	for row in range(grid_size.y):
-		for i in CHANNELS.size():
+		for i in ColorManager.CHANNELS.size():
 			var btn: TextureButton = button_scene.instantiate()
 			btn.position = Vector2(
 				-(GRID_SQUARE_SIZE + 2) * ((3-i)/2.0 + 1),
@@ -130,7 +92,7 @@ func _init_buttons() -> void :
 			)
 			btn.grid_alignment = "row"
 			btn.grid_index = row
-			btn.ink_channel = CHANNELS[i]
+			btn.ink_channel = ColorManager.CHANNELS[i]
 			btn.paint_requested.connect(_on_paint_request)
 			btn.modulate = Color.from_string(BUTTON_COLORS[i], "#670067")
 			add_child(btn)
@@ -161,7 +123,7 @@ func _paint_column(col: int, channel: String) -> void :
 			continue
 		
 		# if channel = K, lock
-		if (channel == CHANNELS[3]) :
+		if (channel == ColorManager.CHANNELS[3]) :
 			cell.toggle_ink_lock(true)
 			continue
 
@@ -179,7 +141,7 @@ func _paint_row(row: int, channel: String) -> void :
 			continue
 		
 		# if channel = K, lock
-		if (channel == CHANNELS[3]) :
+		if (channel == ColorManager.CHANNELS[3]) :
 			cell.toggle_ink_lock(true)
 			continue
 
@@ -189,7 +151,7 @@ func _paint_row(row: int, channel: String) -> void :
 
 func _update_cell_color(cell: GridCell) -> void :
 	var key: String = cell.color_key()
-	var hex: String = COLOR_GLOSSARY.get(key, "#000000")
+	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#000000")
 
 	cell.this.get_node("GridTexture").modulate = Color.from_string(hex, Color.PURPLE)
 
