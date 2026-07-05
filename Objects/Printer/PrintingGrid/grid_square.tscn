@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dtsvfbd488iet"]
+
+[ext_resource type="Texture2D" uid="uid://wu4jd5wtjjsq" path="res://Assets/GridPlaceholder.png" id="1_urbbl"]
+
+[node name="GridSquare" type="Node2D" unique_id=1659444708]
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1318791069]
+texture = ExtResource("1_urbbl")
