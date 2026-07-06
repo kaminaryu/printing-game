@@ -40,15 +40,29 @@ class GridCell :
 			"y": return color_key() != "001"
 		return true
 
-	func apply_ink(channel: String) -> void :
+	func apply_ink(channel: String) -> bool :
 		var is_allowed: bool = _same_color_safeguard(channel)
 		if (!is_allowed) :
-			return
+			return false
+
 		match channel :
 			"c": c += 1
 			"m": m += 1
 			"y": y += 1
 			_: printerr("Unknown ink channel: %s" % channel)
+
+		_check_for_valid_color()
+
+		return true
+
+
+	func _check_for_valid_color() -> void :
+		if (ColorManager.COLOR_GLOSSARY.has(color_key())) :
+			return
+
+		# set to black
+		c=1; m=1; y=1
+
 
 	func set_state(step: String) -> void :
 		var saved_color_key = saved_color[step]
@@ -71,9 +85,7 @@ class GridCell :
 		return ink_locked
 
 	func reset() -> void :
-		c = 0
-		m = 0
-		y = 0
+		c = 0 ;m = 0; y = 0
 		toggle_ink_lock(false)
 		saved_color = {"0": "000"}
 		saved_lock = {"0": false}
@@ -205,6 +217,7 @@ func _on_paint_request(request: Dictionary) -> void :
 	if (!locked_line) :
 		_save_current_state()
 
+
 func _paint_column(col: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
 	for row in range(grid_size.y):
@@ -218,11 +231,17 @@ func _paint_column(col: int, channel: String) -> bool :
 			lock_cell_count += 1
 			continue
 
-		cell.apply_ink(channel)
+		var changed_color: bool = cell.apply_ink(channel)
+
+		if (!changed_color) :
+			lock_cell_count += 1
+			continue
+
 		_update_cell_color(cell)
 
 	var locked: bool = (lock_cell_count == grid_size.y)
 	return locked
+
 
 func _paint_row(row: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
@@ -237,7 +256,12 @@ func _paint_row(row: int, channel: String) -> bool :
 			lock_cell_count += 1
 			continue
 
-		cell.apply_ink(channel)
+		var changed_color: bool = cell.apply_ink(channel)
+
+		if (!changed_color) :
+			lock_cell_count += 1
+			continue
+
 		_update_cell_color(cell)
 
 	var locked: bool = (lock_cell_count == grid_size.x)
@@ -257,9 +281,10 @@ func _set_cell_state(step: String) :
 			cell.set_state(step)
 			_update_cell_color(cell)
 
+
 func _update_cell_color(cell: GridCell) -> void :
 	var key: String = cell.color_key()
-	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#000000")
+	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#676767")
 	cell.this.get_node("GridTexture").modulate = Color.from_string(hex, Color.PURPLE)
 
 func _on_arrow_hovered(alignment: String, index: int) -> void:
