@@ -9,10 +9,14 @@
 script = ExtResource("1_jjvhh")
 
 [node name="PrintingGrid" parent="." unique_id=1528432382 instance=ExtResource("1_jjgbg")]
-position = Vector2(170, 130)
+position = Vector2(246, 360)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1606522880]
 
 [node name="ColorPicker" parent="CanvasLayer" unique_id=1473046839 instance=ExtResource("2_bo1nx")]
+offset_left = -147.0
+offset_top = -684.0
+offset_right = -91.0
+offset_bottom = -644.0
 
 [node name="ColorPickerIndicator" parent="CanvasLayer" unique_id=1218155847 instance=ExtResource("3_8gbba")]

@@ -3,13 +3,15 @@ extends Node2D
 @export var grid_size: Vector2 = Vector2(5, 5)
 
 @onready var square_scene = preload("res://Objects/Printer/PrintingGrid/grid_square.tscn")
-@onready var line_picker_scene = preload("res://Objects/Printer/PrintingGrid/line_picker.tscn")
+@onready var line_picker_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
 
-
-const GRID_SQUARE_SIZE: int = 32
+const MAX_GRID_BOUNDS: float = 300.0
 const CELL_GAP: int = 2
 const BUTTON_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000"]
 
+var dynamic_square_size: float = 128.0
+var step_size: float = 130.0
+var center_offset: Vector2 = Vector2.ZERO
 
 class GridCell :
 	var this: Node2D
@@ -25,57 +27,45 @@ class GridCell :
 		saved_color = {"0": "000"}
 		saved_lock = {"0": false}
 
-
 	func save_state() -> void :
 		var current_step: String = SaveStatesManager.get_current_step()
-
 		saved_color[current_step] = color_key()
 		saved_lock[current_step]  = is_ink_locked()
 		print(saved_color)
-
 
 	func _same_color_safeguard(channel: String) -> bool :
 		match channel :
 			"c": return color_key() != "100"
 			"m": return color_key() != "010"
 			"y": return color_key() != "001"
-
-		return true # fallabck
-
+		return true
 
 	func apply_ink(channel: String) -> void :
 		var is_allowed: bool = _same_color_safeguard(channel)
 		if (!is_allowed) :
 			return
-
 		match channel :
 			"c": c += 1
 			"m": m += 1
 			"y": y += 1
 			_: printerr("Unknown ink channel: %s" % channel)
 
-
 	func set_state(step: String) -> void :
 		var saved_color_key = saved_color[step]
-
 		toggle_ink_lock(saved_lock[step])
 		c = int(saved_color_key[0])
 		m = int(saved_color_key[1])
 		y = int(saved_color_key[2])
 
-
 	func color_key() -> String :
 		return "%d%d%d" % [c, m, y]
-
 
 	func toggle_ink_lock(toggle = null) -> void :
 		if (toggle != null) :
 			ink_locked = toggle
 		else :
 			ink_locked = !ink_locked
-
 		this.get_node("LockIndicator").visible = ink_locked
-
 
 	func is_ink_locked() -> bool :
 		return ink_locked
@@ -88,62 +78,122 @@ class GridCell :
 		saved_color = {"0": "000"}
 		saved_lock = {"0": false}
 
-
 var grid: Array = []
-
 
 func _ready() -> void :
 	_init_grid()
 	_init_buttons()
 	SaveStatesManager.grid_redraw_request.connect(_set_cell_state)
 
-
 func _init_grid() -> void :
+	var max_axis_count: float = max(grid_size.x, grid_size.y)
+	var available_space: float = MAX_GRID_BOUNDS - ((max_axis_count - 1.0) * CELL_GAP)
+	
+	dynamic_square_size = floor(available_space / max_axis_count)
+	step_size = dynamic_square_size + CELL_GAP
+	
+	var total_size: Vector2 = grid_size * step_size - Vector2(CELL_GAP, CELL_GAP)
+	center_offset = (-(total_size / 2.0) + Vector2(dynamic_square_size / 2.0, dynamic_square_size / 2.0)).floor()
+
 	for col in range(grid_size.x):
 		var columns: Array = []
 
 		for row in range(grid_size.y):
 			var cell_node: Node2D = square_scene.instantiate()
-
-			cell_node.position = Vector2(col, row) * (GRID_SQUARE_SIZE + CELL_GAP)
+			var cell_pos: Vector2 = (Vector2(col, row) * step_size) + center_offset
+			cell_node.position = cell_pos.floor()
+			
+			var sprite: Sprite2D = cell_node.get_node("GridTexture") as Sprite2D
+			var target_scale: Vector2 = Vector2.ONE
+			
+			if sprite and sprite.texture:
+				var original_size: Vector2 = sprite.texture.get_size()
+				target_scale = Vector2(dynamic_square_size, dynamic_square_size) / original_size
+			
+			cell_node.scale = Vector2.ZERO
 			add_child(cell_node)
 			columns.append(GridCell.new(cell_node))
+			
+			_animate_cell_entrance(cell_node, col, row, target_scale)
 
 		grid.append(columns)
 
+func _animate_cell_entrance(cell_node: Node2D, col: int, row: int, target_scale: Vector2) -> void :
+	var tween: Tween = create_tween()
+	var delay: float = (col * 0.15) + (row * 0.04)
+	
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_ease(Tween.EASE_OUT)
+	tween.tween_property(cell_node, "scale", target_scale, 0.4).set_delay(delay)
 
 func _init_buttons() -> void :
-	const MARGIN: float = 4.0;
-	# column button
+	const MARGIN: float = 48.0
+	
 	for col in range(grid_size.x):
-		var arrow: Node = line_picker_scene.instantiate()
+		var arrow: Node2D = line_picker_scene.instantiate() as Node2D
 		
-		arrow.position = Vector2(
-			col * (GRID_SQUARE_SIZE + CELL_GAP) - 8,
-			-(GRID_SQUARE_SIZE + MARGIN),
-		)
+		var arrow_x: float = (col * step_size) + center_offset.x
+		var arrow_y: float = center_offset.y - (dynamic_square_size / 2.0) - MARGIN
+		
+		arrow.position = Vector2(arrow_x, arrow_y).floor()
 		arrow.grid_alignment = "col"
 		arrow.grid_index = col
 		arrow.paint_requested.connect(_on_paint_request)
-
-		add_child(arrow)
-
-
-	# row buttons
-	for row in range(grid_size.y):
-		var arrow: Node = line_picker_scene.instantiate()
+		arrow.hovered.connect(_on_arrow_hovered)
+		arrow.unhovered.connect(_clear_highlight)
 		
-		arrow.position = Vector2(
-			-(GRID_SQUARE_SIZE + MARGIN),
-			row * (GRID_SQUARE_SIZE + CELL_GAP) + 8,
-		)
+		# --- NEW: Resize the invisible button to match the grid square size ---
+		var btn: Button = arrow.get_node("Button") as Button
+		if btn:
+			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
+			# Offset the button so it centers perfectly around the Node2D's (0,0) center point
+			btn.position = -btn.size / 2.0
+		# ----------------------------------------------------------------------
+		
+		arrow.scale = Vector2.ZERO
+		add_child(arrow)
+		_animate_arrow_entrance(arrow, col, 0)
+
+	for row in range(grid_size.y):
+		var arrow: Node2D = line_picker_scene.instantiate() as Node2D
+		
+		var arrow_x: float = center_offset.x - (dynamic_square_size / 2.0) - MARGIN
+		var arrow_y: float = (row * step_size) + center_offset.y
+		
+		arrow.position = Vector2(arrow_x, arrow_y).floor()
 		arrow.grid_alignment = "row"
 		arrow.grid_index = row
 		arrow.rotation = -PI/2
 		arrow.paint_requested.connect(_on_paint_request)
-
+		arrow.hovered.connect(_on_arrow_hovered)
+		arrow.unhovered.connect(_clear_highlight)
+		
+		# --- NEW: Resize the invisible button to match the grid square size ---
+		var btn: Button = arrow.get_node("Button") as Button
+		if btn:
+			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
+			# Offset the button so it centers perfectly around the Node2D's (0,0) center point
+			btn.position = -btn.size / 2.0
+		# ----------------------------------------------------------------------
+		
+		arrow.scale = Vector2.ZERO
 		add_child(arrow)
+		_animate_arrow_entrance(arrow, 0, row)
 
+func _animate_arrow_entrance(arrow_node: Node2D, col: int, row: int) -> void:
+	var tween: Tween = create_tween()
+	
+	# We add a small baseline offset (+ 0.1) so the grid tiles start popping first,
+	# followed immediately by their corresponding arrow selector.
+	var delay: float = 0.1 + (col * 0.15) + (row * 0.15)
+	
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_ease(Tween.EASE_OUT)
+	
+	# Scales up to full size (Vector2.ONE)
+	tween.tween_property(arrow_node, "scale", Vector2.ONE, 0.4).set_delay(delay)
 
 func _on_paint_request(request: Dictionary) -> void :
 	var alignment: String   = request.get("grid_alignment")
@@ -162,20 +212,15 @@ func _on_paint_request(request: Dictionary) -> void :
 	if (!locked_line) :
 		_save_current_state()
 
-
-
 func _paint_column(col: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
-	# iterate over all row in the column
 	for row in range(grid_size.y):
 		var cell: GridCell = grid[col][row]
 
-		# if channel = K, toggle lock
 		if (channel == ColorManager.CHANNELS[3]) :
 			cell.toggle_ink_lock()
 			continue
 
-		# if the grid is ink locked, dont draw
 		if (cell.is_ink_locked()) :
 			lock_cell_count += 1
 			continue
@@ -186,19 +231,15 @@ func _paint_column(col: int, channel: String) -> bool :
 	var locked: bool = (lock_cell_count == grid_size.y)
 	return locked
 
-
 func _paint_row(row: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
-	# iterate over all column in the row
 	for col in range(grid_size.x):
 		var cell: GridCell = grid[col][row]
 		
-		# if channel = K, toggle lock
 		if (channel == ColorManager.CHANNELS[3]) :
 			cell.toggle_ink_lock()
 			continue
 
-		# if the grid is ink locked, dont draw
 		if (cell.is_ink_locked()) :
 			lock_cell_count += 1
 			continue
@@ -209,44 +250,48 @@ func _paint_row(row: int, channel: String) -> bool :
 	var locked: bool = (lock_cell_count == grid_size.x)
 	return locked
 
-
 func _save_current_state() -> void :
-	# none zero
 	SaveStatesManager.increase_step()
-
 	for col in range(grid_size.x) :
 		for row in range(grid_size.y) :
 			var cell: GridCell = grid[col][row]
-
 			cell.save_state()
-
-
 
 func _set_cell_state(step: String) :
 	for col in range(grid_size.x) :
 		for row in range(grid_size.y) :
 			var cell: GridCell = grid[col][row]
-
 			cell.set_state(step)
 			_update_cell_color(cell)
-
-
 
 func _update_cell_color(cell: GridCell) -> void :
 	var key: String = cell.color_key()
 	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#000000")
-
 	cell.this.get_node("GridTexture").modulate = Color.from_string(hex, Color.PURPLE)
 
+func _on_arrow_hovered(alignment: String, index: int) -> void:
+	if alignment == "col":
+		for row in range(grid_size.y):
+			var cell: GridCell = grid[index][row]
+			cell.this.get_node("HighlightOverlay").visible = true
+	
+	elif alignment == "row":
+		for col in range(grid_size.x):
+			var cell: GridCell = grid[col][index]
+			cell.this.get_node("HighlightOverlay").visible = true
+
+func _clear_highlight() -> void:
+	for col in range(grid_size.x):
+		for row in range(grid_size.y):
+			var cell: GridCell = grid[col][row]
+			cell.this.get_node("HighlightOverlay").visible = false
 
 func _reset_all() -> void :
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
 			var cell: GridCell = grid[col][row]
-
 			cell.reset()
 			_update_cell_color(cell)
-
 
 func _input(event: InputEvent) -> void :
 	if event.is_action_pressed("reset_grid"):

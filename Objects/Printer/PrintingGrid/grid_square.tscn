@@ -1,13 +1,18 @@
 [gd_scene format=3 uid="uid://dtsvfbd488iet"]
 
-[ext_resource type="Texture2D" uid="uid://wu4jd5wtjjsq" path="res://Assets/GridPlaceholder.png" id="1_urbbl"]
+[ext_resource type="Texture2D" uid="uid://cbyrtdsa1tsft" path="res://Assets/Rectangle 1 (1).png" id="1_raani"]
+[ext_resource type="Texture2D" uid="uid://cf5cxmkadxnl8" path="res://Assets/highlight.png" id="2_mswmv"]
 [ext_resource type="Texture2D" uid="uid://ccyrcxvy1ooba" path="res://Assets/LockIndicator.png" id="2_raani"]
 
 [node name="GridSquare" type="Node2D" unique_id=1659444708]
 texture_filter = 1
 
 [node name="GridTexture" type="Sprite2D" parent="." unique_id=1318791069]
-texture = ExtResource("1_urbbl")
+texture = ExtResource("1_raani")
+
+[node name="HighlightOverlay" type="Sprite2D" parent="." unique_id=1016898037]
+visible = false
+texture = ExtResource("2_mswmv")
 
 [node name="LockIndicator" type="Node2D" parent="." unique_id=259100076]
 visible = false
