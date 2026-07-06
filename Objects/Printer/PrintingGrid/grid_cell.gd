@@ -16,7 +16,6 @@ func save_state() -> void :
 	var current_step: String = SaveStatesManager.get_current_step()
 	saved_color[current_step] = color_key()
 	saved_lock[current_step]  = is_ink_locked()
-	print(saved_color)
 
 func _same_color_safeguard(channel: String) -> bool :
 	match channel :

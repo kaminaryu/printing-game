@@ -1,22 +1,66 @@
-[gd_scene format=3 uid="uid://b51cck50u8a2w"]
+[gd_scene format=3 uid="uid://db8fia13a2akp"]
 
 [ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_grid.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/main.gd" id="1_jjvhh"]
-[ext_resource type="PackedScene" uid="uid://45i1rane3fvq" path="res://UI/Widgets/color_picker.tscn" id="2_bo1nx"]
-[ext_resource type="PackedScene" uid="uid://dewnfey8vrhg7" path="res://UI/Cursor/color_picker_indicator.tscn" id="3_8gbba"]
+[ext_resource type="Resource" uid="uid://dvqu2yenj6lms" path="res://Resources/Levels/level_1.tres" id="2_8gbba"]
+[ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://c5wqouv11ks52" path="res://Scenes/ink_palette.gd" id="5_kry3j"]
+[ext_resource type="Texture2D" uid="uid://c7t7hgvxmyvjp" path="res://Assets/Cyan_Button.png" id="6_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://dbsoa2lx04yjb" path="res://Assets/Magenta_Button.png" id="7_hptm8"]
+[ext_resource type="Texture2D" uid="uid://c70pva0x3x44h" path="res://Assets/Yellow_Button.png" id="8_d1ilt"]
+[ext_resource type="Texture2D" uid="uid://dmv1wnq5j1dge" path="res://Assets/Key_Button.png" id="9_6iyac"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_kry3j"]
 
 [node name="Main" type="Node2D" unique_id=1872288472]
 script = ExtResource("1_jjvhh")
+current_level = ExtResource("2_8gbba")
 
 [node name="PrintingGrid" parent="." unique_id=1528432382 instance=ExtResource("1_jjgbg")]
-position = Vector2(246, 360)
+position = Vector2(327, 363)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1606522880]
 
-[node name="ColorPicker" parent="CanvasLayer" unique_id=1473046839 instance=ExtResource("2_bo1nx")]
-offset_left = -147.0
-offset_top = -684.0
-offset_right = -91.0
-offset_bottom = -644.0
+[node name="TargetGrid" type="Control" parent="CanvasLayer" unique_id=1142256806]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 854.0
+offset_top = 163.0
+offset_right = 894.0
+offset_bottom = 203.0
+script = ExtResource("4_jjvhh")
+max_boundary_size = 250.0
+cell_gap = 3.0
 
-[node name="ColorPickerIndicator" parent="CanvasLayer" unique_id=1218155847 instance=ExtResource("3_8gbba")]
+[node name="Ink Palette" type="HBoxContainer" parent="CanvasLayer" unique_id=1133777245]
+offset_left = 810.0
+offset_top = 521.0
+offset_right = 1490.0
+offset_bottom = 649.0
+scale = Vector2(0.5, 0.5)
+theme_override_constants/separation = 56
+script = ExtResource("5_kry3j")
+
+[node name="Cyan" type="TextureButton" parent="CanvasLayer/Ink Palette" unique_id=1060580799]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_kry3j")
+texture_normal = ExtResource("6_ynf5e")
+
+[node name="Magenta" type="TextureButton" parent="CanvasLayer/Ink Palette" unique_id=146648080]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_kry3j")
+texture_normal = ExtResource("7_hptm8")
+
+[node name="Yellow" type="TextureButton" parent="CanvasLayer/Ink Palette" unique_id=252865151]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_kry3j")
+texture_normal = ExtResource("8_d1ilt")
+
+[node name="Key" type="TextureButton" parent="CanvasLayer/Ink Palette" unique_id=1721163070]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_kry3j")
+texture_normal = ExtResource("9_6iyac")

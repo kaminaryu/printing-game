@@ -11,9 +11,12 @@ config_version=5
 [application]
 
 config/name="printer"
-run/main_scene="uid://b51cck50u8a2w"
+run/main_scene="uid://db8fia13a2akp"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+run/defaults/default_clear_color=Color(0.3, 0.3, 0.3, 1)
+run/size/viewport_height=360
+run/size/viewport_width=1280
 
 [autoload]
 
@@ -60,4 +63,5 @@ redo={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.91764706, 0.9137255, 0.9019608, 1)
 viewport/size/viewport_height=720

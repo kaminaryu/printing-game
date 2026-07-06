@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dtsvfbd488iet"]
+[gd_scene format=3 uid="uid://lw8t5no1osk6"]
 
 [ext_resource type="Texture2D" uid="uid://cbyrtdsa1tsft" path="res://Assets/Rectangle 1 (1).png" id="1_3rbaj"]
 [ext_resource type="Script" uid="uid://csi37t1jd2my3" path="res://Objects/Printer/PrintingGrid/grid_cell.gd" id="1_ndp01"]

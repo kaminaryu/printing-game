@@ -5,9 +5,11 @@ extends Node2D
 @onready var cell_scene = preload("res://Objects/Printer/PrintingGrid/grid_cell.tscn")
 @onready var line_picker_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
 
-const MAX_GRID_BOUNDS: float = 300.0
+const MAX_GRID_BOUNDS: float = 400.0
 const CELL_GAP: int = 2
 const BUTTON_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000"]
+const PAINT_CASCADE_SPEED = 0.06
+const CELL_FADE_DURATION = 0.2
 
 var dynamic_square_size: float = 128.0
 var step_size: float = 130.0
@@ -15,10 +17,17 @@ var center_offset: Vector2 = Vector2.ZERO
 
 var grid: Array = []
 
+signal paint_cascade_finished
+
 func _ready() -> void :
+	
+	SaveStatesManager.grid_redraw_request.connect(_set_cell_state)
+
+func setup_and_build(size: Vector2i) -> void:
+	grid_size = size
 	_init_grid()
 	_init_buttons()
-	SaveStatesManager.grid_redraw_request.connect(_set_cell_state)
+	
 
 func _init_grid() -> void :
 	var max_axis_count: float = max(grid_size.x, grid_size.y)
@@ -59,12 +68,13 @@ func _animate_cell_entrance(cell_node: Node2D, col: int, row: int, target_scale:
 	var delay: float = (col * 0.15) + (row * 0.04)
 	
 	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_BACK)
+	tween.set_trans(Tween.TRANS_SINE)
 	tween.set_ease(Tween.EASE_OUT)
 	tween.tween_property(cell_node, "scale", target_scale, 0.4).set_delay(delay)
 
 
 func _init_buttons() -> void :
+	# Bumped to 48.0 per your previous request for a cleaner structural layout gap
 	const MARGIN: float = 48.0
 	
 	for col in range(grid_size.x):
@@ -84,7 +94,6 @@ func _init_buttons() -> void :
 		if btn:
 			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
 			btn.position = -btn.size / 2.0
-		
 		
 		arrow.scale = Vector2.ZERO
 		add_child(arrow)
@@ -109,7 +118,6 @@ func _init_buttons() -> void :
 			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
 			btn.position = -btn.size / 2.0
 
-		
 		arrow.scale = Vector2.ZERO
 		add_child(arrow)
 		_animate_arrow_entrance(arrow, 0, row)
@@ -117,13 +125,11 @@ func _init_buttons() -> void :
 
 func _animate_arrow_entrance(arrow_node: Node2D, col: int, row: int) -> void:
 	var tween: Tween = create_tween()
-
 	var delay: float = 0.1 + (col * 0.15) + (row * 0.15)
 	
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_BACK)
 	tween.set_ease(Tween.EASE_OUT)
-	
 	tween.tween_property(arrow_node, "scale", Vector2.ONE, 0.4).set_delay(delay)
 
 
@@ -147,6 +153,8 @@ func _on_paint_request(request: Dictionary) -> void :
 
 func _paint_column(col: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
+	var tween: Tween = create_tween()
+	
 	for row in range(grid_size.y):
 		var cell: Node = grid[col][row]
 
@@ -158,20 +166,26 @@ func _paint_column(col: int, channel: String) -> bool :
 			lock_cell_count += 1
 			continue
 
-		var changed_color: bool = cell.apply_ink(channel)
-
-		if (!changed_color) :
-			lock_cell_count += 1
-			continue
-
-		_update_cell_color(cell)
+		var delay: float = row * PAINT_CASCADE_SPEED
+		
+		tween.tween_callback(func():
+			var changed_color: bool = cell.apply_ink(channel)
+			if (changed_color):
+				_update_cell_color(cell)
+		).set_delay(delay)
 
 	var locked: bool = (lock_cell_count == grid_size.y)
+	
+	# Uses grid_size.y because columns go downwards vertically
+	var total_delay: float = (grid_size.y - 1) * PAINT_CASCADE_SPEED + CELL_FADE_DURATION
+	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
 
 
 func _paint_row(row: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
+	var tween: Tween = create_tween()
+	
 	for col in range(grid_size.x):
 		var cell: Node = grid[col][row]
 		
@@ -183,17 +197,20 @@ func _paint_row(row: int, channel: String) -> bool :
 			lock_cell_count += 1
 			continue
 
-		var changed_color: bool = cell.apply_ink(channel)
-
-		if (!changed_color) :
-			lock_cell_count += 1
-			continue
-
-		_update_cell_color(cell)
+		var delay: float = col * PAINT_CASCADE_SPEED
+		
+		tween.tween_callback(func():
+			var changed_color: bool = cell.apply_ink(channel)
+			if (changed_color):
+				_update_cell_color(cell)
+		).set_delay(delay)
 
 	var locked: bool = (lock_cell_count == grid_size.x)
+	
+	# FIXED: Changed from grid_size.y to grid_size.x because rows cascade horizontally!
+	var total_delay: float = (grid_size.x - 1) * PAINT_CASCADE_SPEED + CELL_FADE_DURATION
+	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
-
 
 func _save_current_state() -> void :
 	SaveStatesManager.increase_step()
@@ -213,7 +230,13 @@ func _set_cell_state(step: String) :
 func _update_cell_color(cell: Node) -> void :
 	var key: String = cell.color_key()
 	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#676767")
-	cell.get_node("GridTexture").modulate = Color.from_string(hex, Color.PURPLE)
+	var target_color: Color = Color.from_string(hex, Color.PURPLE)
+	
+	var color_tween: Tween = create_tween()
+	color_tween.set_trans(Tween.TRANS_LINEAR)
+	color_tween.set_ease(Tween.EASE_IN)
+	color_tween.tween_property(cell.get_node("GridTexture"), "modulate", target_color, 0.1)
+
 
 func _on_arrow_hovered(alignment: String, index: int) -> void:
 	if alignment == "col":
@@ -224,7 +247,7 @@ func _on_arrow_hovered(alignment: String, index: int) -> void:
 	elif alignment == "row":
 		for col in range(grid_size.x):
 			var cell: Node = grid[col][index]
-			cell.get_node("HighlightOverlay").visible = false
+			cell.get_node("HighlightOverlay").visible = true
 
 func _clear_highlight() -> void:
 	for col in range(grid_size.x):
