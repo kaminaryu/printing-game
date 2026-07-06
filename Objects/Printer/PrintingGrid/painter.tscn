@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://ctwv505ollq1k"]
+
+[ext_resource type="Texture2D" uid="uid://cxb7b4g31wacc" path="res://Assets/Arrow 1 (1).png" id="1_tdnlv"]
+[ext_resource type="Script" uid="uid://b28ixmb16kgsy" path="res://Objects/Printer/PrintingGrid/painter.gd" id="1_yx653"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tdnlv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yx653"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sp5co"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7an6j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rghq1"]
+
+[node name="Painter" type="Node2D" unique_id=1056665526]
+script = ExtResource("1_yx653")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=510015034]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_tdnlv")
+
+[node name="Button" type="Button" parent="." unique_id=215788171]
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 8.0
+offset_bottom = 12.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_tdnlv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_yx653")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_sp5co")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_7an6j")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rghq1")

@@ -1,0 +1,29 @@
+extends Node2D
+
+signal paint_requested(print_request: Dictionary)
+# NEW: Signals to notify the main grid of hover events
+signal hovered(alignment: String, index: int)
+signal unhovered()
+
+var grid_alignment: String
+var grid_index: int
+
+func _ready() -> void:
+	$Button.button_down.connect(_on_button_down)
+	$Button.mouse_entered.connect(_on_mouse_entered)
+	$Button.mouse_exited.connect(_on_mouse_exited)
+
+func _on_button_down() -> void :
+	if (!ColorManager.is_selecting_color()) :
+		return
+		
+	paint_requested.emit({
+		"grid_alignment": grid_alignment,
+		"grid_index": grid_index,
+	})
+
+func _on_mouse_entered() -> void:
+	hovered.emit(grid_alignment, grid_index)
+
+func _on_mouse_exited() -> void:
+	unhovered.emit()
