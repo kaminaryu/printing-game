@@ -17,9 +17,22 @@ class GridCell :
 	var c: int = 0
 	var m: int = 0
 	var y: int = 0
+	var saved_color: Dictionary
+	var saved_lock: Dictionary
 
 	func _init(p_node: Node2D) -> void :
 		this = p_node
+		saved_color = {"0": "000"}
+		saved_lock = {"0": false}
+
+
+	func save_state() -> void :
+		var current_step: String = SaveStatesManager.get_current_step()
+
+		saved_color[current_step] = color_key()
+		saved_lock[current_step]  = is_ink_locked()
+		print(saved_color)
+
 
 	func _same_color_safeguard(channel: String) -> bool :
 		match channel :
@@ -27,7 +40,7 @@ class GridCell :
 			"m": return color_key() != "010"
 			"y": return color_key() != "001"
 
-		return false # fallabck
+		return true # fallabck
 
 
 	func apply_ink(channel: String) -> void :
@@ -39,8 +52,16 @@ class GridCell :
 			"c": c += 1
 			"m": m += 1
 			"y": y += 1
-			_:
-				printerr("Unknown ink channel: %s" % channel)
+			_: printerr("Unknown ink channel: %s" % channel)
+
+
+	func set_state(step: String) -> void :
+		var saved_color_key = saved_color[step]
+
+		toggle_ink_lock(saved_lock[step])
+		c = int(saved_color_key[0])
+		m = int(saved_color_key[1])
+		y = int(saved_color_key[2])
 
 
 	func color_key() -> String :
@@ -64,6 +85,8 @@ class GridCell :
 		m = 0
 		y = 0
 		toggle_ink_lock(false)
+		saved_color = {"0": "000"}
+		saved_lock = {"0": false}
 
 
 var grid: Array = []
@@ -72,6 +95,7 @@ var grid: Array = []
 func _ready() -> void :
 	_init_grid()
 	_init_buttons()
+	SaveStatesManager.grid_redraw_request.connect(_set_cell_state)
 
 
 func _init_grid() -> void :
@@ -80,6 +104,7 @@ func _init_grid() -> void :
 
 		for row in range(grid_size.y):
 			var cell_node: Node2D = square_scene.instantiate()
+
 			cell_node.position = Vector2(col, row) * (GRID_SQUARE_SIZE + CELL_GAP)
 			add_child(cell_node)
 			columns.append(GridCell.new(cell_node))
@@ -121,23 +146,29 @@ func _init_buttons() -> void :
 
 
 func _on_paint_request(request: Dictionary) -> void :
-	var alignment: String = request.get("grid_alignment")
-	var index: int        = request.get("grid_index")
-	var channel: String   = ColorManager.get_color_channel()
+	var alignment: String   = request.get("grid_alignment")
+	var index: int          = request.get("grid_index")
+	var channel: String     = ColorManager.get_color_channel()
+	var locked_line: bool = false
 
 	match alignment:
 		"col":
-			_paint_column(index, channel)
+			locked_line = _paint_column(index, channel)
 		"row":
-			_paint_row(index, channel)
+			locked_line = _paint_row(index, channel)
 		_:
 			printerr("Unknown grid alignment: %s" % alignment)
 
+	if (!locked_line) :
+		_save_current_state()
 
-func _paint_column(col: int, channel: String) -> void :
+
+
+func _paint_column(col: int, channel: String) -> bool :
+	var lock_cell_count: int = 0
 	# iterate over all row in the column
 	for row in range(grid_size.y):
-		var cell: GridCell = grid[col][row] as GridCell
+		var cell: GridCell = grid[col][row]
 
 		# if channel = K, toggle lock
 		if (channel == ColorManager.CHANNELS[3]) :
@@ -146,16 +177,21 @@ func _paint_column(col: int, channel: String) -> void :
 
 		# if the grid is ink locked, dont draw
 		if (cell.is_ink_locked()) :
+			lock_cell_count += 1
 			continue
 
 		cell.apply_ink(channel)
 		_update_cell_color(cell)
 
+	var locked: bool = (lock_cell_count == grid_size.y)
+	return locked
 
-func _paint_row(row: int, channel: String) -> void :
+
+func _paint_row(row: int, channel: String) -> bool :
+	var lock_cell_count: int = 0
 	# iterate over all column in the row
 	for col in range(grid_size.x):
-		var cell: GridCell = grid[col][row] as GridCell
+		var cell: GridCell = grid[col][row]
 		
 		# if channel = K, toggle lock
 		if (channel == ColorManager.CHANNELS[3]) :
@@ -164,10 +200,36 @@ func _paint_row(row: int, channel: String) -> void :
 
 		# if the grid is ink locked, dont draw
 		if (cell.is_ink_locked()) :
+			lock_cell_count += 1
 			continue
 
 		cell.apply_ink(channel)
 		_update_cell_color(cell)
+
+	var locked: bool = (lock_cell_count == grid_size.x)
+	return locked
+
+
+func _save_current_state() -> void :
+	# none zero
+	SaveStatesManager.increase_step()
+
+	for col in range(grid_size.x) :
+		for row in range(grid_size.y) :
+			var cell: GridCell = grid[col][row]
+
+			cell.save_state()
+
+
+
+func _set_cell_state(step: String) :
+	for col in range(grid_size.x) :
+		for row in range(grid_size.y) :
+			var cell: GridCell = grid[col][row]
+
+			cell.set_state(step)
+			_update_cell_color(cell)
+
 
 
 func _update_cell_color(cell: GridCell) -> void :
@@ -178,11 +240,9 @@ func _update_cell_color(cell: GridCell) -> void :
 
 
 func _reset_all() -> void :
-	for column_variant in grid as Array:
-		var column: Array = column_variant as Array
-
-		for cell_variant in column:
-			var cell: GridCell = cell_variant as GridCell
+	for col in range(grid_size.x):
+		for row in range(grid_size.y):
+			var cell: GridCell = grid[col][row]
 
 			cell.reset()
 			_update_cell_color(cell)
@@ -191,3 +251,4 @@ func _reset_all() -> void :
 func _input(event: InputEvent) -> void :
 	if event.is_action_pressed("reset_grid"):
 		_reset_all()
+		SaveStatesManager.reset()

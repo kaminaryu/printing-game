@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://b51cck50u8a2w"]
 
 [ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_grid.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/main.gd" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://45i1rane3fvq" path="res://UI/Widgets/color_picker.tscn" id="2_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://dewnfey8vrhg7" path="res://UI/Cursor/color_picker_indicator.tscn" id="3_8gbba"]
 
 [node name="Main" type="Node2D" unique_id=1872288472]
+script = ExtResource("1_jjvhh")
 
 [node name="PrintingGrid" parent="." unique_id=1528432382 instance=ExtResource("1_jjgbg")]
 position = Vector2(170, 130)
