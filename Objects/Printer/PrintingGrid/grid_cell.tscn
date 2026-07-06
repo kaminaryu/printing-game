@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://dtsvfbd488iet"]
+
+[ext_resource type="Texture2D" uid="uid://cbyrtdsa1tsft" path="res://Assets/Rectangle 1 (1).png" id="1_3rbaj"]
+[ext_resource type="Script" uid="uid://csi37t1jd2my3" path="res://Objects/Printer/PrintingGrid/grid_cell.gd" id="1_ndp01"]
+[ext_resource type="Texture2D" uid="uid://cf5cxmkadxnl8" path="res://Assets/highlight.png" id="2_ndp01"]
+[ext_resource type="Texture2D" uid="uid://ccyrcxvy1ooba" path="res://Assets/LockIndicator.png" id="3_uk413"]
+
+[node name="GridCell" type="Node2D" unique_id=1659444708]
+texture_filter = 1
+script = ExtResource("1_ndp01")
+
+[node name="GridTexture" type="Sprite2D" parent="." unique_id=1318791069]
+texture = ExtResource("1_3rbaj")
+
+[node name="HighlightOverlay" type="Sprite2D" parent="." unique_id=1016898037]
+visible = false
+texture = ExtResource("2_ndp01")
+
+[node name="LockIndicator" type="Node2D" parent="." unique_id=259100076]
+visible = false
+
+[node name="Shadow" type="Sprite2D" parent="LockIndicator" unique_id=135730023]
+modulate = Color(0.011764706, 0.011764706, 0.011764706, 0.40392157)
+position = Vector2(11, 11)
+texture = ExtResource("3_uk413")
+
+[node name="Main" type="Sprite2D" parent="LockIndicator" unique_id=1262207505]
+position = Vector2(10.5, 10.5)
+texture = ExtResource("3_uk413")
