@@ -143,13 +143,11 @@ func _init_buttons() -> void :
 		arrow.hovered.connect(_on_arrow_hovered)
 		arrow.unhovered.connect(_clear_highlight)
 		
-		# --- NEW: Resize the invisible button to match the grid square size ---
 		var btn: Button = arrow.get_node("Button") as Button
 		if btn:
 			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
-			# Offset the button so it centers perfectly around the Node2D's (0,0) center point
 			btn.position = -btn.size / 2.0
-		# ----------------------------------------------------------------------
+		
 		
 		arrow.scale = Vector2.ZERO
 		add_child(arrow)
@@ -169,13 +167,11 @@ func _init_buttons() -> void :
 		arrow.hovered.connect(_on_arrow_hovered)
 		arrow.unhovered.connect(_clear_highlight)
 		
-		# --- NEW: Resize the invisible button to match the grid square size ---
 		var btn: Button = arrow.get_node("Button") as Button
 		if btn:
 			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
-			# Offset the button so it centers perfectly around the Node2D's (0,0) center point
 			btn.position = -btn.size / 2.0
-		# ----------------------------------------------------------------------
+
 		
 		arrow.scale = Vector2.ZERO
 		add_child(arrow)
@@ -183,16 +179,13 @@ func _init_buttons() -> void :
 
 func _animate_arrow_entrance(arrow_node: Node2D, col: int, row: int) -> void:
 	var tween: Tween = create_tween()
-	
-	# We add a small baseline offset (+ 0.1) so the grid tiles start popping first,
-	# followed immediately by their corresponding arrow selector.
+
 	var delay: float = 0.1 + (col * 0.15) + (row * 0.15)
 	
 	tween.set_parallel(true)
 	tween.set_trans(Tween.TRANS_BACK)
 	tween.set_ease(Tween.EASE_OUT)
 	
-	# Scales up to full size (Vector2.ONE)
 	tween.tween_property(arrow_node, "scale", Vector2.ONE, 0.4).set_delay(delay)
 
 func _on_paint_request(request: Dictionary) -> void :
@@ -278,7 +271,7 @@ func _on_arrow_hovered(alignment: String, index: int) -> void:
 	elif alignment == "row":
 		for col in range(grid_size.x):
 			var cell: GridCell = grid[col][index]
-			cell.this.get_node("HighlightOverlay").visible = true
+			cell.this.get_node("HighlightOverlay").visible = false
 
 func _clear_highlight() -> void:
 	for col in range(grid_size.x):

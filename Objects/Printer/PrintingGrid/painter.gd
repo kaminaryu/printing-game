@@ -1,7 +1,6 @@
 extends Node2D
 
 signal paint_requested(print_request: Dictionary)
-# NEW: Signals to notify the main grid of hover events
 signal hovered(alignment: String, index: int)
 signal unhovered()
 
