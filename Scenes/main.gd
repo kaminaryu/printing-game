@@ -10,8 +10,6 @@ extends Node2D
 @onready var victory_animation = $CanvasLayer/VictoryPanel/AnimationPlayer
 @onready var blur_panel = $"CanvasLayer/Blur Panel"
 
-var current_level_num: int = 1
-
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
 
@@ -26,12 +24,14 @@ func _ready() -> void:
 	
 	# Try loading the numeric level sequence first. 
 	# If no dynamic file is found, fallback to whatever is manually assigned in the inspector slot.
-	if not _load_level_by_number(current_level_num) and current_level:
+	
+	var _load_level_by_number_successful: bool = _load_level_by_number(GameMaster.current_level_num)
+
+	if not _load_level_by_number_successful and current_level:
 		_load_level(current_level)
-		
-		
+
+
 func _load_level(level_data: LevelData) -> void:
-	current_level = level_data
 	target_grid_data = level_data.get_target_grid_2d()
 	
 	remaining_ink = level_data.ink_limits.duplicate()
@@ -116,8 +116,8 @@ func _handle_level_victory() -> void:
 	if victory_animation:
 		victory_animation.play("Print In")
 
-	#current_level_num += 1
-	#_load_level_by_number(current_level_num)
+	# GameMaster.current_level_num += 1
+	#_load_level_by_number(GameMaster.current_level_num)
 	
 
 
@@ -138,8 +138,9 @@ func _on_continue_button_pressed() -> void:
 	blur_panel.visible = false
 	
 	
-	current_level_num += 1
-	_load_level_by_number(current_level_num)
+	GameMaster.current_level_num += 1
+	_load_level_by_number(GameMaster.current_level_num)
+
 
 func _input(event: InputEvent) -> void :
 	if printing_grid.is_cascading:

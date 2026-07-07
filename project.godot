@@ -27,6 +27,7 @@ buses/default_bus_layout="uid://doyxlrav6762t"
 ColorManager="*uid://d3q1sgy2f5use"
 SaveStatesManager="*uid://cgjcf26sutm23"
 CursorManager="*uid://bib3mqgg4b6yi"
+GameMaster="*uid://dksb0eccot54l"
 
 [display]
 

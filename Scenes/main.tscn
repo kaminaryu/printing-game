@@ -1,10 +1,8 @@
 [gd_scene format=3 uid="uid://b51cck50u8a2w"]
 
 [ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_grid.tscn" id="1_jjgbg"]
-[ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/game_manager.gd" id="1_ynf5e"]
-[ext_resource type="Resource" path="res://Resources/Levels/6.tres" id="2_kry3j"]
-[ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="6_21xkr"]
-[ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
+[ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/main.gd" id="1_ynf5e"]
+[ext_resource type="Script" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="5_21xkr"]
 [ext_resource type="PackedScene" uid="uid://dqu6xara3up6f" path="res://UI/Widgets/palette.tscn" id="5_kry3j"]
 [ext_resource type="Texture2D" uid="uid://48w2knhwqkkv" path="res://Assets/game/paper.png" id="6_21xkr"]
@@ -83,7 +81,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.30778635, 1),
 "update": 0,
-"values": [0.0, 1.5000000712500001]
+"values": [0.0, 1.50000007125]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -135,7 +133,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [1.5000000712500001, 0.0]
+"values": [1.50000007125, 0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -219,8 +217,6 @@ max_boundary_size = 250.0
 cell_gap = 3.0
 
 [node name="Palette" parent="CanvasLayer" unique_id=1883377568 instance=ExtResource("5_kry3j")]
-
-[node name="MainGUI" parent="CanvasLayer" unique_id=1677267965 instance=ExtResource("6_21xkr")]
 
 [node name="Blur Panel" type="Panel" parent="CanvasLayer" unique_id=369835859]
 visible = false

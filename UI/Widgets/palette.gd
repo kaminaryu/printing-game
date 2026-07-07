@@ -61,6 +61,7 @@ func update_visible_channels(level_data: LevelData) -> void:
 		first_visible_button.button_pressed = true
 		_on_palette_button_pressed(first_visible_button)
 
+
 ## Triggered when a player selects a color block
 func _on_palette_button_pressed(button: BaseButton) -> void:
 	# Match the node names in your image ("Cyan", "Magenta", "Yellow", "Key")
@@ -69,3 +70,5 @@ func _on_palette_button_pressed(button: BaseButton) -> void:
 		"Magenta": ColorManager.selected_color = 1
 		"Yellow": ColorManager.selected_color = 2
 		"Key": ColorManager.selected_color = 3
+
+	CursorManager.set_cursor()
