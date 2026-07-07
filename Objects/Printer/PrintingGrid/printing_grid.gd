@@ -284,19 +284,19 @@ func _on_arrow_hovered(alignment: String, index: int) -> void:
 	if alignment == "col":
 		for row in range(grid_size.y):
 			var cell: Node = grid[index][row]
-			cell.get_node("HighlightOverlay").visible = true
+			cell.get_node("HighlightOverlay").show()
 	
 	elif alignment == "row":
 		for col in range(grid_size.x):
 			var cell: Node = grid[col][index]
-			cell.get_node("HighlightOverlay").visible = true
+			cell.get_node("HighlightOverlay").show()
 
 
 func _clear_highlight() -> void:
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
 			var cell: Node = grid[col][row]
-			cell.get_node("HighlightOverlay").visible = false
+			cell.get_node("HighlightOverlay").hide()
 
 
 func reset_grid_visuals() -> void:
