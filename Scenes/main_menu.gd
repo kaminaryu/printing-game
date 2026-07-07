@@ -2,11 +2,10 @@ extends Control
 
 
 func _ready() -> void :
-	# disable the quit button if on web
-	if (OS.has_feature("web")) :
-		$VBoxContainer/Quit.hide()
-	else :
-		$VBoxContainer/Quit.show()
+	ColorManager.reset()
+	SaveStatesManager.reset() 
+	CursorManager.reset()
+
 
 
 func _on_play_button_down() -> void:
@@ -19,5 +18,6 @@ func _on_settings_button_down() -> void:
 
 
 func _on_quit_button_down() -> void:
-	get_tree().quit()
-	pass # Replace with function body.
+	# disable the quit button if on web
+	if (!OS.has_feature("web")) :
+		get_tree().quit()

@@ -22,7 +22,9 @@ func _on_button_down() -> void :
 	})
 
 func _on_mouse_entered() -> void:
+	CursorManager.set_roller()
 	hovered.emit(grid_alignment, grid_index)
 
 func _on_mouse_exited() -> void:
+	CursorManager.set_cursor()
 	unhovered.emit()

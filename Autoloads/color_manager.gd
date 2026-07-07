@@ -30,6 +30,10 @@ const COLOR_GLOSSARY: Dictionary = {
 var selected_color: int = -1
 
 
+func reset() -> void :
+	selected_color = -1
+
+
 func get_selected_color() -> String :
 	if (selected_color == -1) :
 		return "#fff"

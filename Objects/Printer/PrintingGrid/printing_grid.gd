@@ -4,7 +4,7 @@ extends Node2D
 @export var is_editor_mode: bool = false # <--- Clean toggle flag for editor canvas logic
 
 @onready var cell_scene = preload("res://Objects/Printer/PrintingGrid/grid_cell.tscn")
-@onready var line_picker_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
+@onready var painter_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
 
 const MAX_GRID_BOUNDS: float = 400.0
 const CELL_GAP: int = 2
@@ -85,7 +85,7 @@ func _init_buttons() -> void :
 	const MARGIN: float = 48.0
 	
 	for col in range(grid_size.x):
-		var arrow: Node2D = line_picker_scene.instantiate() as Node2D
+		var arrow: Node2D = painter_scene.instantiate() as Node2D
 		
 		var arrow_x: float = (col * step_size) + center_offset.x
 		var arrow_y: float = center_offset.y - (dynamic_square_size / 2.0) - MARGIN
@@ -107,7 +107,7 @@ func _init_buttons() -> void :
 		_animate_arrow_entrance(arrow, col, 0)
 
 	for row in range(grid_size.y):
-		var arrow: Node2D = line_picker_scene.instantiate() as Node2D
+		var arrow: Node2D = painter_scene.instantiate() as Node2D
 		
 		var arrow_x: float = center_offset.x - (dynamic_square_size / 2.0) - MARGIN
 		var arrow_y: float = (row * step_size) + center_offset.y
@@ -280,7 +280,7 @@ func _update_cell_color(cell: Node) -> void :
 	color_tween.tween_property(cell.get_node("GridTexture"), "modulate", target_color, 0.1)
 
 
-func _on_arrow_hovered(alignment: String, index: int) -> void:
+func _on_arrow_hovered(alignment: String, index: int) -> void :
 	if alignment == "col":
 		for row in range(grid_size.y):
 			var cell: Node = grid[index][row]
