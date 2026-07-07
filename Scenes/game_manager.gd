@@ -35,7 +35,7 @@ func use_ink_channel(channel: String) -> bool:
 		return true
 		
 	if remaining_ink[channel] <= 0:
-		print("❌ Click Blocked: Out of ink for channel: ", channel)
+		print("Click Blocked: Out of ink for channel: ", channel)
 		return false
 		
 	remaining_ink[channel] -= 1

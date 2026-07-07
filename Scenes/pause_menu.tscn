@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dnps80gkhd8d5"]
+
+[ext_resource type="Script" uid="uid://dps7do6wnpu72" path="res://Scenes/pause_menu.gd" id="1_emv3i"]
+[ext_resource type="PackedScene" uid="uid://1f1kykdhkpbb" path="res://Scenes/settings.tscn" id="2_k0w1u"]
+
+[node name="PauseMenu" type="Control" unique_id=809285226]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_emv3i")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2111812975]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -16.0
+offset_right = 4.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 130
+alignment = 1
+
+[node name="Continue" type="Button" parent="VBoxContainer" unique_id=456391842]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Continue"
+
+[node name="Settings" type="Button" parent="VBoxContainer" unique_id=1188518414]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Settings"
+
+[node name="MainMenu" type="Button" parent="VBoxContainer" unique_id=1986142597]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 64
+text = "Main Menu"
+
+[node name="Settings" parent="." unique_id=1684481824 instance=ExtResource("2_k0w1u")]
+visible = false
+layout_mode = 1
+
+[connection signal="button_down" from="VBoxContainer/Continue" to="." method="_on_continue_button_down"]
+[connection signal="button_down" from="VBoxContainer/Settings" to="." method="_on_settings_button_down"]
+[connection signal="button_down" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_button_down"]
