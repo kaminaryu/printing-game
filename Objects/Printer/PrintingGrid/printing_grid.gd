@@ -37,8 +37,7 @@ func setup_and_build(size: Vector2i) -> void:
 	
 	_init_grid()
 	_init_buttons()
-	
-	_animate_entrance_from_top()
+
 	
 
 func _init_grid() -> void :
@@ -66,7 +65,6 @@ func _init_grid() -> void :
 				var original_size: Vector2 = sprite.texture.get_size()
 				target_scale = Vector2(dynamic_square_size, dynamic_square_size) / original_size
 			
-			# REMOVED: cell_node.scale = Vector2.ZERO setup
 			cell_node.scale = target_scale
 			add_child(cell_node)
 			columns.append(cell_node)
@@ -95,7 +93,6 @@ func _init_buttons() -> void :
 			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
 			btn.position = -btn.size / 2.0
 		
-		# REMOVED: arrow.scale = Vector2.ZERO setup
 		add_child(arrow)
 
 	for row in range(grid_size.y):
@@ -117,31 +114,10 @@ func _init_buttons() -> void :
 			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
 			btn.position = -btn.size / 2.0
 
-		# REMOVED: arrow.scale = Vector2.ZERO setup
 		add_child(arrow)
 
 
-## Animates the entire grid entering from above the viewport window
-func _animate_entrance_from_top() -> void:
-	# Instantly teleport the container way above the visible camera space
-	
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_EXPO)
-	tween.set_ease(Tween.EASE_OUT)
-	# Slide smoothly down into the default gameplay center position
-	tween.tween_property(self, "position:y", default_screen_y, 1)
-
-
-## Public function called by your main level controller during a victory match event[cite: 4]
-func animate_exit_to_bottom() -> void:
-	var tween: Tween = create_tween()
-	tween.set_trans(Tween.TRANS_CUBIC)
-	tween.set_ease(Tween.EASE_IN)
-	# Slide downward off the bottom edge of the viewport
-	tween.tween_property(self, "position:y", default_screen_y + 800.0, 0.5)
-
 func _on_paint_request(request: Dictionary) -> void:
-	# BLOCK INPUT: If a cascade is currently active, ignore new paint requests entirely
 	if is_cascading:
 		return
 
@@ -157,7 +133,6 @@ func _on_paint_request(request: Dictionary) -> void:
 
 	var is_lock_action: bool = (channel == ColorManager.CHANNELS[3])
 
-	# If it's a real coloring action, trip the lock before doing anything else
 	if not is_lock_action:
 		is_cascading = true
 		SaveStatesManager.save_snapshot(get_grid_color_matrix(), owner.remaining_ink)
@@ -165,7 +140,7 @@ func _on_paint_request(request: Dictionary) -> void:
 	if owner and owner.has_method("use_ink_channel"):
 		if not owner.use_ink_channel(channel):
 			if not is_lock_action:
-				is_cascading = false # Reset if ink usage failed
+				is_cascading = false 
 				SaveStatesManager.undo_action() 
 			return
 
@@ -176,8 +151,6 @@ func _on_paint_request(request: Dictionary) -> void:
 		"row":
 			_locked_line = _paint_row(index, channel)
 			
-	# If the row/col was entirely locked, no cascade animation happens. 
-	# Reset the flag immediately so the player isn't stuck.
 	if _locked_line:
 		is_cascading = false
 

@@ -3,8 +3,12 @@ extends Node2D
 @export var current_level: LevelData
 
 @onready var printing_grid = $PrintingGrid
+@onready var grid_animator = $GridAnimator
 @onready var target_preview_grid = $CanvasLayer/TargetGrid
+@onready var victory_grid = $CanvasLayer/VictoryPanel/VictoryTarget
 @onready var palette = $CanvasLayer/Palette
+@onready var victory_animation = $CanvasLayer/VictoryPanel/AnimationPlayer
+@onready var blur_panel = $"CanvasLayer/Blur Panel"
 
 var current_level_num: int = 1
 
@@ -34,7 +38,10 @@ func _load_level(level_data: LevelData) -> void:
 	_starting_ink = level_data.ink_limits.duplicate()
 	
 	target_preview_grid.update_preview(level_data)
+	victory_grid.update_preview(level_data)
 	printing_grid.setup_and_build(level_data.grid_size)
+	
+	grid_animator.play("Level Start")
 
 	palette.update_visible_channels(level_data)
 
@@ -101,41 +108,17 @@ func check_victory_condition() -> bool:
 	
 
 func _handle_level_victory() -> void:
-	print("Level Cleared! Starting transition...")
+	is_transitioning = true
+	grid_animator.play("Level End")
+	await grid_animator.animation_finished
+	blur_panel.visible = true
 	
-	# Advance to the next level index
-	current_level_num += 1
+	if victory_animation:
+		victory_animation.play("Print In")
+
+	#current_level_num += 1
+	#_load_level_by_number(current_level_num)
 	
-	# 1. Slide the old printing grid down off the screen
-	printing_grid.animate_exit_to_bottom()
-	
-	# 2. Fade out the supporting UI elements in parallel
-	var transition_tween = create_tween().set_parallel(true)
-	var target_fade_color = Color(1, 1, 1, 0)
-	transition_tween.tween_property(target_preview_grid, "modulate", target_fade_color, 0.4)
-	transition_tween.tween_property(palette, "modulate", target_fade_color, 0.4)
-	
-	# Chain a callback function to trigger right as the exit animations finish
-	transition_tween.chain().tween_callback(func():
-		# 3. Load the new level layout data under the hood
-		var load_success = _load_level_by_number(current_level_num)
-		
-		if load_success:
-			# NOTE: printing_grid.setup_and_build() is called inside _load_level(),
-			# which automatically fires off its slide-down animation from the top!
-			
-			# 4. Fade the UI elements back into full visibility
-			var reveal_tween = create_tween().set_parallel(true)
-			var target_reveal_color = Color(1, 1, 1, 1)
-			reveal_tween.tween_property(target_preview_grid, "modulate", target_reveal_color, 0.4)
-			reveal_tween.tween_property(palette, "modulate", target_reveal_color, 0.4)
-			
-			# Ensure the printing grid's alpha modulation remains fully visible (Color.WHITE)
-			printing_grid.modulate = target_reveal_color
-		else:
-			print("🏆 Hurrah! No file found for Level ", current_level_num, ". You have conquered every single level!")
-			# Optional: Put scene loading logic here to load a Main Menu or End Screen sequence.
-	)
 
 
 func reset_entire_level() -> void:
@@ -148,6 +131,15 @@ func reset_entire_level() -> void:
 	if printing_grid and printing_grid.has_method("reset_grid_visuals"):
 		printing_grid.reset_grid_visuals()
 
+
+func _on_continue_button_pressed() -> void:
+	victory_animation.play("Print Out")
+	await victory_animation.animation_finished
+	blur_panel.visible = false
+	
+	
+	current_level_num += 1
+	_load_level_by_number(current_level_num)
 
 func _input(event: InputEvent) -> void :
 	if printing_grid.is_cascading:
