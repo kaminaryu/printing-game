@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://nvik6vji2nic"]
+
+[ext_resource type="Script" uid="uid://d0kljlg57w2c4" path="res://Scenes/LevelSelector/level_card.gd" id="1_xuvr3"]
+[ext_resource type="Script" uid="uid://dpdmq8bttnua2" path="res://Scenes/LevelSelector/level_thumbnail.gd" id="2_vga0f"]
+
+[node name="LevelCard" type="Control" unique_id=1895999053]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xuvr3")
+
+[node name="LevelThumbnail" type="Control" parent="." unique_id=92288196]
+anchors_preset = 0
+offset_left = 535.0
+offset_top = 125.0
+offset_right = 575.0
+offset_bottom = 165.0
+script = ExtResource("2_vga0f")
+
+[node name="Controller" type="HBoxContainer" parent="." unique_id=490664358]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -177.0
+offset_top = -254.0
+offset_right = 178.0
+offset_bottom = -158.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Previous" type="Button" parent="Controller" unique_id=2041752064]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "<"
+
+[node name="Play" type="Button" parent="Controller" unique_id=314003043]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Play
+"
+
+[node name="Next" type="Button" parent="Controller" unique_id=2004519691]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = ">"
+
+[node name="LevelLabel" type="HBoxContainer" parent="." unique_id=586040426]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -124.0
+offset_top = -131.0
+offset_right = 125.0
+offset_bottom = -43.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="LevelLabel" unique_id=1391392793]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Level: "
+
+[node name="LevelNum" type="Label" parent="LevelLabel" unique_id=1107807103]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "N"
+
+[connection signal="button_down" from="Controller/Previous" to="." method="_on_previous_button_down"]
+[connection signal="button_down" from="Controller/Play" to="." method="_on_play_button_down"]
+[connection signal="button_down" from="Controller/Next" to="." method="_on_next_button_down"]

@@ -118,7 +118,7 @@ func _handle_level_victory() -> void:
 	if victory_animation:
 		victory_animation.play("Print In")
 
-	# GameMaster.current_level_num += 1
+	# GameMaster.increase_level()
 	#_load_level_by_number(GameMaster.current_level_num)
 	
 
@@ -140,7 +140,7 @@ func _on_continue_button_pressed() -> void:
 	blur_panel.visible = false
 	
 	
-	GameMaster.current_level_num += 1
+	GameMaster.increase_level()
 	_load_level_by_number(GameMaster.current_level_num)
 
 

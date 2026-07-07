@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://birsay0pvysyg"]
 
+[ext_resource type="Script" uid="uid://crojpid3whlh0" path="res://Scenes/LevelSelector/level_selector.gd" id="1_jabjh"]
 [ext_resource type="PackedScene" uid="uid://bayck00lurmbm" path="res://Scenes/LevelSelector/level_tile.tscn" id="1_qejn8"]
 
 [node name="LevelSelector" type="Control" unique_id=2136194899]
@@ -9,8 +10,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_jabjh")
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=305377563]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -29,7 +32,6 @@ columns = 5
 
 [node name="Level" parent="GridContainer" unique_id=430807059 instance=ExtResource("1_qejn8")]
 layout_mode = 2
-text = "1"
 
 [node name="Level2" parent="GridContainer" unique_id=646816040 instance=ExtResource("1_qejn8")]
 layout_mode = 2
