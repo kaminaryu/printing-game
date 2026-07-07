@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://4fdij3xa5bj7"]
+
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_tsfje"]
+
+[resource]
+script = ExtResource("1_tsfje")
+grid_size = Vector2i(3, 3)
+available_channels = Array[String](["c", "y", "m"])
+target_colors = Array[String](["110", "000", "011", "110", "000", "011", "110", "000", "011"])

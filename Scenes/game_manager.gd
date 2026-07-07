@@ -3,20 +3,34 @@ extends Node2D
 @export var current_level: LevelData
 
 @onready var printing_grid = $PrintingGrid
+@onready var grid_animator = $GridAnimator
 @onready var target_preview_grid = $CanvasLayer/TargetGrid
+@onready var victory_grid = $CanvasLayer/VictoryPanel/VictoryTarget
+@onready var palette = $CanvasLayer/Palette
+@onready var victory_animation = $CanvasLayer/VictoryPanel/AnimationPlayer
+@onready var blur_panel = $"CanvasLayer/Blur Panel"
+
+var current_level_num: int = 1
+
+# Safety gate to prevent rapid multiple level loads
+var is_transitioning: bool = false
 
 var target_grid_data: Array = []
 var remaining_ink: Dictionary = {}
 var _starting_ink: Dictionary = {} 
+
 signal ink_inventory_updated(channel: String, remaining_count: int)
 
 func _ready() -> void:
 	printing_grid.paint_cascade_finished.connect(_on_grid_updated)
-	if current_level:
-		load_level(current_level)
+	
+	# Try loading the numeric level sequence first. 
+	# If no dynamic file is found, fallback to whatever is manually assigned in the inspector slot.
+	if not _load_level_by_number(current_level_num) and current_level:
+		_load_level(current_level)
 		
 		
-func load_level(level_data: LevelData) -> void:
+func _load_level(level_data: LevelData) -> void:
 	current_level = level_data
 	target_grid_data = level_data.get_target_grid_2d()
 	
@@ -24,10 +38,36 @@ func load_level(level_data: LevelData) -> void:
 	_starting_ink = level_data.ink_limits.duplicate()
 	
 	target_preview_grid.update_preview(level_data)
+	victory_grid.update_preview(level_data)
 	printing_grid.setup_and_build(level_data.grid_size)
+	
+	grid_animator.play("Level Start")
+
+	palette.update_visible_channels(level_data)
 
 	for channel in remaining_ink.keys():
 		ink_inventory_updated.emit(channel, remaining_ink[channel])
+
+
+## Helper to safely format paths, check if the resource file exists, and run setup
+func _load_level_by_number(level_num: int) -> bool:
+	var path: String = "res://Resources/Levels/%d.tres" % level_num
+	
+	if ResourceLoader.exists(path):
+		var loaded_resource = load(path) as LevelData
+		if loaded_resource:
+			# Safely reset global undo/redo states before building the new map
+			SaveStatesManager.reset() 
+			
+			_load_level(loaded_resource)
+			
+			# Reset our gate state since a fresh new map is ready for inputs
+			is_transitioning = false
+			
+			print("🎮 Successfully loaded Level ", level_num)
+			return true
+			
+	return false
 
 
 func use_ink_channel(channel: String) -> bool:
@@ -40,12 +80,17 @@ func use_ink_channel(channel: String) -> bool:
 		
 	remaining_ink[channel] -= 1
 	ink_inventory_updated.emit(channel, remaining_ink[channel])
-	print("Ink Remaining: ", remaining_ink, "\n")
 	return true
 
 
 func _on_grid_updated() -> void:
+	# Slam the door shut if a level update signal comes in mid-transition
+	if is_transitioning:
+		return
+
 	if check_victory_condition():
+		# Lock the gate instantly so no more checks can sneak past
+		is_transitioning = true
 		_handle_level_victory()
 		
 
@@ -63,8 +108,18 @@ func check_victory_condition() -> bool:
 	
 
 func _handle_level_victory() -> void:
-	print("Level Cleared! Advancing game state...")
+	is_transitioning = true
+	grid_animator.play("Level End")
+	await grid_animator.animation_finished
+	blur_panel.visible = true
 	
+	if victory_animation:
+		victory_animation.play("Print In")
+
+	#current_level_num += 1
+	#_load_level_by_number(current_level_num)
+	
+
 
 func reset_entire_level() -> void:
 	SaveStatesManager.reset()
@@ -77,7 +132,19 @@ func reset_entire_level() -> void:
 		printing_grid.reset_grid_visuals()
 
 
+func _on_continue_button_pressed() -> void:
+	victory_animation.play("Print Out")
+	await victory_animation.animation_finished
+	blur_panel.visible = false
+	
+	
+	current_level_num += 1
+	_load_level_by_number(current_level_num)
+
 func _input(event: InputEvent) -> void :
+	if printing_grid.is_cascading:
+		return
+	
 	if event.is_action_pressed("undo"):
 		SaveStatesManager.undo_action()
 

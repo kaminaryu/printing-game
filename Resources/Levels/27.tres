@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://bcescuobacgqw"]
+
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_8lbxf"]
+
+[resource]
+script = ExtResource("1_8lbxf")
+target_colors = Array[String](["000", "000", "000", "000", "000", "000", "210", "000", "210", "000", "000", "210", "000", "210", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000"])
+ink_limits = {
+"c": 4,
+"k": 3,
+"m": 2,
+"y": 0
+}

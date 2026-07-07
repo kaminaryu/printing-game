@@ -1,12 +1,12 @@
 extends Node2D
 
 @export var grid_size: Vector2 = Vector2(5, 5)
-@export var is_editor_mode: bool = false # <--- Clean toggle flag for editor canvas logic
+@export var is_editor_mode: bool = false 
 
 @onready var cell_scene = preload("res://Objects/Printer/PrintingGrid/grid_cell.tscn")
 @onready var painter_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
 
-const MAX_GRID_BOUNDS: float = 400.0
+const MAX_GRID_BOUNDS: float = 350.0
 const CELL_GAP: int = 2
 const BUTTON_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000"]
 const PAINT_CASCADE_SPEED = 0.06
@@ -15,26 +15,29 @@ const CELL_FADE_DURATION = 0.2
 var dynamic_square_size: float = 128.0
 var step_size: float = 130.0
 var center_offset: Vector2 = Vector2.ZERO
+var is_cascading: bool = false
 
 var grid: Array = []
+
+var default_screen_y: float = 360.0
 
 signal paint_cascade_finished
 
 func _ready() -> void :
-	# Listen directly to the central state manager's grid snapshots
 	SaveStatesManager.state_restored.connect(_on_state_restored)
-
+	paint_cascade_finished.connect(func(): is_cascading = false)
 
 func setup_and_build(size: Vector2i) -> void:
-	# 1. Safely remove old elements so resizing doesn't pile up nodes
 	for child in get_children():
-		if child is Node2D: 
+		if child is Node2D and child.name != "Paper": 
 			child.queue_free()
 	
-	grid.clear() # Reset matrix data references
+	grid.clear() 
 	grid_size = size
+	
 	_init_grid()
 	_init_buttons()
+
 	
 
 func _init_grid() -> void :
@@ -62,23 +65,11 @@ func _init_grid() -> void :
 				var original_size: Vector2 = sprite.texture.get_size()
 				target_scale = Vector2(dynamic_square_size, dynamic_square_size) / original_size
 			
-			cell_node.scale = Vector2.ZERO
+			cell_node.scale = target_scale
 			add_child(cell_node)
 			columns.append(cell_node)
-			
-			_animate_cell_entrance(cell_node, col, row, target_scale)
 
 		grid.append(columns)
-
-
-func _animate_cell_entrance(cell_node: Node2D, col: int, row: int, target_scale: Vector2) -> void :
-	var tween: Tween = create_tween()
-	var delay: float = (col * 0.15) + (row * 0.04)
-	
-	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_SINE)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(cell_node, "scale", target_scale, 0.4).set_delay(delay)
 
 
 func _init_buttons() -> void :
@@ -102,9 +93,7 @@ func _init_buttons() -> void :
 			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
 			btn.position = -btn.size / 2.0
 		
-		arrow.scale = Vector2.ZERO
 		add_child(arrow)
-		_animate_arrow_entrance(arrow, col, 0)
 
 	for row in range(grid_size.y):
 		var arrow: Node2D = painter_scene.instantiate() as Node2D
@@ -125,42 +114,33 @@ func _init_buttons() -> void :
 			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
 			btn.position = -btn.size / 2.0
 
-		arrow.scale = Vector2.ZERO
 		add_child(arrow)
-		_animate_arrow_entrance(arrow, 0, row)
-
-
-func _animate_arrow_entrance(arrow_node: Node2D, col: int, row: int) -> void:
-	var tween: Tween = create_tween()
-	var delay: float = 0.1 + (col * 0.15) + (row * 0.15)
-	
-	tween.set_parallel(true)
-	tween.set_trans(Tween.TRANS_BACK)
-	tween.set_ease(Tween.EASE_OUT)
-	tween.tween_property(arrow_node, "scale", Vector2.ONE, 0.4).set_delay(delay)
 
 
 func _on_paint_request(request: Dictionary) -> void:
+	if is_cascading:
+		return
+
 	var alignment: String   = request.get("grid_alignment")
 	var index: int          = request.get("grid_index")
 	var channel: String     = ColorManager.get_color_channel()
 	
-	# If editing, execute placement immediately and ignore gameplay loops
 	if is_editor_mode:
 		match alignment:
 			"col": _paint_column(index, channel)
 			"row": _paint_row(index, channel)
 		return
 
-	# --- ORIGINAL GAMEPLAY LOGIC ---
 	var is_lock_action: bool = (channel == ColorManager.CHANNELS[3])
 
 	if not is_lock_action:
+		is_cascading = true
 		SaveStatesManager.save_snapshot(get_grid_color_matrix(), owner.remaining_ink)
 
 	if owner and owner.has_method("use_ink_channel"):
 		if not owner.use_ink_channel(channel):
 			if not is_lock_action:
+				is_cascading = false 
 				SaveStatesManager.undo_action() 
 			return
 
@@ -170,13 +150,14 @@ func _on_paint_request(request: Dictionary) -> void:
 			_locked_line = _paint_column(index, channel)
 		"row":
 			_locked_line = _paint_row(index, channel)
+			
+	if _locked_line:
+		is_cascading = false
 
 
 func _paint_column(col: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
 	var tween: Tween = create_tween()
-	
-	# Zero out cascade speed if we are designing a level to make painting snappy
 	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
 	for row in range(grid_size.y):
@@ -199,7 +180,6 @@ func _paint_column(col: int, channel: String) -> bool :
 		).set_delay(delay)
 
 	var locked: bool = (lock_cell_count == grid_size.y)
-	
 	var total_delay: float = (grid_size.y - 1) * speed_modifier + CELL_FADE_DURATION
 	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
@@ -208,8 +188,6 @@ func _paint_column(col: int, channel: String) -> bool :
 func _paint_row(row: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
 	var tween: Tween = create_tween()
-	
-	# Zero out cascade speed if we are designing a level to make painting snappy
 	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
 	for col in range(grid_size.x):
@@ -232,7 +210,6 @@ func _paint_row(row: int, channel: String) -> bool :
 		).set_delay(delay)
 
 	var locked: bool = (lock_cell_count == grid_size.x)
-	
 	var total_delay: float = (grid_size.x - 1) * speed_modifier + CELL_FADE_DURATION
 	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
