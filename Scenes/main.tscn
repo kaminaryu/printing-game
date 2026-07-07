@@ -2,13 +2,24 @@
 
 [ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_grid.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/game_manager.gd" id="1_ynf5e"]
-[ext_resource type="Resource" path="res://Resources/Levels/6.tres" id="2_kry3j"]
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="2_kry3j"]
 [ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://dqu6xara3up6f" path="res://UI/Widgets/palette.tscn" id="5_kry3j"]
 
+[sub_resource type="Resource" id="Resource_kry3j"]
+script = ExtResource("2_kry3j")
+grid_size = Vector2i(3, 3)
+target_colors = Array[String](["001", "011", "001", "001", "011", "001", "000", "010", "000"])
+ink_limits = {
+"c": 0,
+"k": 0,
+"m": 1,
+"y": 2
+}
+
 [node name="Main" type="Node2D" unique_id=1872288472]
 script = ExtResource("1_ynf5e")
-current_level = ExtResource("2_kry3j")
+current_level = SubResource("Resource_kry3j")
 
 [node name="PrintingGrid" parent="." unique_id=1528432382 instance=ExtResource("1_jjgbg")]
 position = Vector2(327, 363)

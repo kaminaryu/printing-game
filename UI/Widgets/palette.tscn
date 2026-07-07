@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://dqu6xara3up6f"]
 
+[ext_resource type="Script" uid="uid://be8t83hgj5itp" path="res://UI/Widgets/palette.gd" id="1_1xrb0"]
 [ext_resource type="Script" uid="uid://cchb8xgu4rlgr" path="res://UI/ink_ammo_label.gd" id="1_it4q7"]
 [ext_resource type="Script" uid="uid://c5wqouv11ks52" path="res://Scenes/ink_palette.gd" id="2_1xrb0"]
 [ext_resource type="Texture2D" uid="uid://c7t7hgvxmyvjp" path="res://Assets/Cyan_Button.png" id="3_72a7u"]
@@ -19,6 +20,7 @@ offset_top = 472.0
 offset_right = 1511.0
 offset_bottom = 655.0
 scale = Vector2(0.45281297, 0.45281297)
+script = ExtResource("1_1xrb0")
 
 [node name="Remaining Ink" type="HBoxContainer" parent="." unique_id=811871696]
 layout_mode = 2

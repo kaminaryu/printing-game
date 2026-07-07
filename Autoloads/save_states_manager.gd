@@ -25,7 +25,6 @@ func save_snapshot(grid_matrix: Array, ink_limits: Dictionary) -> void:
 		"ink": ink_limits.duplicate()
 	}
 	
-	print("Current State: ", _history[_current_step], "\n")
 	_current_step += 1
 	_max_step = _current_step
 

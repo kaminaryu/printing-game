@@ -116,6 +116,7 @@ horizontal_alignment = 2
 [node name="InkCBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/CyanAmmo" unique_id=445026838]
 layout_mode = 2
 size_flags_horizontal = 3
+min_value = -1.0
 
 [node name="MagentaAmmo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=91674885]
 layout_mode = 2
@@ -130,6 +131,7 @@ horizontal_alignment = 2
 [node name="InkMBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/MagentaAmmo" unique_id=444863150]
 layout_mode = 2
 size_flags_horizontal = 3
+min_value = -1.0
 
 [node name="YellowAmmo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=316025833]
 layout_mode = 2
@@ -144,6 +146,7 @@ horizontal_alignment = 2
 [node name="InkYBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/YellowAmmo" unique_id=550380592]
 layout_mode = 2
 size_flags_horizontal = 3
+min_value = -1.0
 
 [node name="KeyAmmo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1504792290]
 layout_mode = 2
@@ -158,6 +161,7 @@ horizontal_alignment = 2
 [node name="InkKBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/KeyAmmo" unique_id=2076635435]
 layout_mode = 2
 size_flags_horizontal = 3
+min_value = -1.0
 
 [node name="SaveButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=949342787]
 layout_mode = 2

@@ -94,9 +94,9 @@ func _on_save_button_pressed() -> void:
 
 # --- History controls ---
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("undo") and has_node("/root/SaveStatesManager"):
+	if event.is_action_pressed("undo"):
 		SaveStatesManager.undo_action()
-	elif event.is_action_pressed("redo") and has_node("/root/SaveStatesManager"):
+	elif event.is_action_pressed("redo"):
 		SaveStatesManager.redo_action()
 	elif event.is_action_pressed("reset_grid"):
 		_refresh_grid_canvas()

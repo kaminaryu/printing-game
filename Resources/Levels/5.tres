@@ -1,14 +1,9 @@
-[gd_resource type="Resource" script_class="LevelData" format=3]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://b08yhdahmicd5"]
 
-[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_7ptsx"]
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_7ptsx"]
 
 [resource]
 script = ExtResource("1_7ptsx")
 grid_size = Vector2i(3, 3)
-target_colors = Array[String](["100", "100", "100", "010", "010", "010", "001", "001", "001"])
-ink_limits = {
-"c": 1,
-"k": 0,
-"m": 1,
-"y": 1
-}
+available_channels = Array[String](["c", "m"])
+target_colors = Array[String](["100", "110", "100", "000", "010", "000", "100", "110", "100"])
