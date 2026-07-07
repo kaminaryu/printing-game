@@ -4,18 +4,20 @@ var ink_locked: bool = false
 var c: int = 0
 var m: int = 0
 var y: int = 0
-var saved_color: Dictionary
-var saved_lock: Dictionary
 
+# CLEANED: Removed the old saved_color and saved_lock dictionaries entirely
 
 func _ready() -> void :
-	saved_color = {"0": "000"}
-	saved_lock = {"0": false}
+	pass
 
-func save_state() -> void :
-	var current_step: String = SaveStatesManager.get_current_step()
-	saved_color[current_step] = color_key()
-	saved_lock[current_step]  = is_ink_locked()
+## NEW FUNCTION: Decodes the central snapshot string back into live cell integers
+func set_color_key(new_key: String) -> void:
+	if new_key.length() == 3:
+		c = int(new_key[0])
+		m = int(new_key[1])
+		y = int(new_key[2])
+	else:
+		printerr("Invalid color key format received: ", new_key)
 
 func _same_color_safeguard(channel: String) -> bool :
 	match channel :
@@ -36,7 +38,6 @@ func apply_ink(channel: String) -> bool :
 		_: printerr("Unknown ink channel: %s" % channel)
 
 	_check_for_valid_color()
-
 	return true
 
 
@@ -46,14 +47,6 @@ func _check_for_valid_color() -> void :
 
 	# set to black
 	c=1; m=1; y=1
-
-
-func set_state(step: String) -> void :
-	var saved_color_key = saved_color[step]
-	toggle_ink_lock(saved_lock[step])
-	c = int(saved_color_key[0])
-	m = int(saved_color_key[1])
-	y = int(saved_color_key[2])
 
 
 func color_key() -> String :
@@ -74,7 +67,5 @@ func is_ink_locked() -> bool :
 
 
 func reset() -> void :
-	c = 0 ;m = 0; y = 0
+	c = 0; m = 0; y = 0
 	toggle_ink_lock(false)
-	saved_color = {"0": "000"}
-	saved_lock = {"0": false}

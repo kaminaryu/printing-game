@@ -1,38 +1,47 @@
 extends Node
 
-signal grid_redraw_request(current_paint_step: String)
+signal state_restored(snapshot: Dictionary)
 
-var _current_step: int
-var _max_step: int
+var _current_step: int = 0
+var _max_step: int = 0
 
-func _ready() -> void :
+var _history: Dictionary = {}
+
+func _ready() -> void:
 	reset()
 
-func reset() -> void :
+func reset() -> void:
 	_current_step = 0
 	_max_step = 0
+	_history.clear()
 
-
-func get_current_step() -> String :	
-	return str(_current_step)
-
-func increase_step() -> void :
+func save_snapshot(grid_matrix: Array, ink_limits: Dictionary) -> void:
+	if _current_step < _max_step:
+		for i in range(_current_step + 1, _max_step + 1):
+			_history.erase(i)
+			
+	_history[_current_step] = {
+		"grid": grid_matrix.duplicate(true),
+		"ink": ink_limits.duplicate()
+	}
+	
+	print("Current State: ", _history[_current_step], "\n")
 	_current_step += 1
 	_max_step = _current_step
 
-
-func undo_action() -> void :
-	if (_current_step == 0) :
+func undo_action() -> void:
+	if _current_step == 0:
 		return
 
 	_current_step -= 1
-	grid_redraw_request.emit(get_current_step())
 	print("Reverting to step: ", _current_step)
+	state_restored.emit(_history[_current_step])
 
-func redo_action() -> void :
-	if (_current_step == _max_step) :
+func redo_action() -> void:
+	if _current_step == _max_step:
 		return
 
 	_current_step += 1
-	grid_redraw_request.emit(get_current_step())
-	print("Reverting to step: ", _current_step)
+	print("Advancing to step: ", _current_step)
+	state_restored.emit(_history[_current_step])
+	

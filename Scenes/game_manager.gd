@@ -7,19 +7,21 @@ extends Node2D
 
 var target_grid_data: Array = []
 var remaining_ink: Dictionary = {}
-
+var _starting_ink: Dictionary = {} 
 signal ink_inventory_updated(channel: String, remaining_count: int)
 
 func _ready() -> void:
 	printing_grid.paint_cascade_finished.connect(_on_grid_updated)
-	if(current_level):
+	if current_level:
 		load_level(current_level)
+		
 		
 func load_level(level_data: LevelData) -> void:
 	current_level = level_data
 	target_grid_data = level_data.get_target_grid_2d()
 	
 	remaining_ink = level_data.ink_limits.duplicate()
+	_starting_ink = level_data.ink_limits.duplicate()
 	
 	target_preview_grid.update_preview(level_data)
 	printing_grid.setup_and_build(level_data.grid_size)
@@ -27,8 +29,8 @@ func load_level(level_data: LevelData) -> void:
 	for channel in remaining_ink.keys():
 		ink_inventory_updated.emit(channel, remaining_ink[channel])
 
+
 func use_ink_channel(channel: String) -> bool:
-	print(remaining_ink)
 	if not remaining_ink.has(channel) or remaining_ink[channel] == -1:
 		return true
 		
@@ -38,12 +40,15 @@ func use_ink_channel(channel: String) -> bool:
 		
 	remaining_ink[channel] -= 1
 	ink_inventory_updated.emit(channel, remaining_ink[channel])
+	print("Ink Remaining: ", remaining_ink, "\n")
 	return true
+
 
 func _on_grid_updated() -> void:
 	if check_victory_condition():
 		_handle_level_victory()
 		
+
 func check_victory_condition() -> bool:
 	if target_grid_data.is_empty() or printing_grid.grid.is_empty():
 		return false
@@ -56,12 +61,28 @@ func check_victory_condition() -> bool:
 				
 	return true
 	
+
 func _handle_level_victory() -> void:
 	print("Level Cleared! Advancing game state...")
+	
+
+func reset_entire_level() -> void:
+	SaveStatesManager.reset()
+	
+	remaining_ink = _starting_ink.duplicate()
+	for channel in remaining_ink.keys():
+		ink_inventory_updated.emit(channel, remaining_ink[channel])
+			
+	if printing_grid and printing_grid.has_method("reset_grid_visuals"):
+		printing_grid.reset_grid_visuals()
+
 
 func _input(event: InputEvent) -> void :
-	if (event.is_action_pressed("undo")) :
+	if event.is_action_pressed("undo"):
 		SaveStatesManager.undo_action()
 
-	elif (event.is_action_pressed("redo")) :
+	elif event.is_action_pressed("redo"):
 		SaveStatesManager.redo_action()
+		
+	elif event.is_action_pressed("reset_grid"):
+		reset_entire_level()

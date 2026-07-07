@@ -4,7 +4,6 @@ extends Node2D
 
 @onready var cell_scene = preload("res://Objects/Printer/PrintingGrid/grid_cell.tscn")
 @onready var line_picker_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
-@onready var game_manager_scene = $".."
 
 const MAX_GRID_BOUNDS: float = 400.0
 const CELL_GAP: int = 2
@@ -21,8 +20,9 @@ var grid: Array = []
 signal paint_cascade_finished
 
 func _ready() -> void :
-	
-	SaveStatesManager.grid_redraw_request.connect(_set_cell_state)
+	# Listen directly to the central state manager's grid snapshots
+	SaveStatesManager.state_restored.connect(_on_state_restored)
+
 
 func setup_and_build(size: Vector2i) -> void:
 	grid_size = size
@@ -75,7 +75,6 @@ func _animate_cell_entrance(cell_node: Node2D, col: int, row: int, target_scale:
 
 
 func _init_buttons() -> void :
-	# Bumped to 48.0 per your previous request for a cleaner structural layout gap
 	const MARGIN: float = 48.0
 	
 	for col in range(grid_size.x):
@@ -134,27 +133,34 @@ func _animate_arrow_entrance(arrow_node: Node2D, col: int, row: int) -> void:
 	tween.tween_property(arrow_node, "scale", Vector2.ONE, 0.4).set_delay(delay)
 
 
-func _on_paint_request(request: Dictionary) -> void :
+func _on_paint_request(request: Dictionary) -> void:
 	var alignment: String   = request.get("grid_alignment")
 	var index: int          = request.get("grid_index")
 	var channel: String     = ColorManager.get_color_channel()
 	
-	var can_paint: bool = game_manager_scene.use_ink_channel(channel)
-	if not can_paint:
-		return # Exit early without updating state or playing animations!
+	# --- BUNDLE ACTION FIX ---
+	# Check if this click is a Lock/Black action (ColorManager.CHANNELS[3])
+	var is_lock_action: bool = (channel == ColorManager.CHANNELS[3])
 
-	var locked_line: bool = false
+	# ONLY save a brand new snapshot state if this is NOT a lock placement!
+	if not is_lock_action:
+		SaveStatesManager.save_snapshot(get_grid_color_matrix(), owner.remaining_ink)
+
+	# Process ink deduction (Your manager handles the validation check)
+	if owner and owner.has_method("use_ink_channel"):
+		if not owner.use_ink_channel(channel):
+			# If out of ink on a color stroke, revert the step we just added
+			if not is_lock_action:
+				SaveStatesManager.undo_action() 
+			return
+
+	# Execute the painting logic on the rows/columns
+	var _locked_line: bool = false
 	match alignment:
 		"col":
-			locked_line = _paint_column(index, channel)
+			_locked_line = _paint_column(index, channel)
 		"row":
-			locked_line = _paint_row(index, channel)
-		_:
-			printerr("Unknown grid alignment: %s" % alignment)
-
-	if (!locked_line) :
-		_save_current_state()
-
+			_locked_line = _paint_row(index, channel)
 
 func _paint_column(col: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
@@ -181,7 +187,6 @@ func _paint_column(col: int, channel: String) -> bool :
 
 	var locked: bool = (lock_cell_count == grid_size.y)
 	
-	# Uses grid_size.y because columns go downwards vertically
 	var total_delay: float = (grid_size.y - 1) * PAINT_CASCADE_SPEED + CELL_FADE_DURATION
 	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
@@ -216,19 +221,36 @@ func _paint_row(row: int, channel: String) -> bool :
 	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
 
-func _save_current_state() -> void :
-	SaveStatesManager.increase_step()
-	for col in range(grid_size.x) :
-		for row in range(grid_size.y) :
-			var cell: Node = grid[col][row]
-			cell.save_state()
 
-func _set_cell_state(step: String) :
-	for col in range(grid_size.x) :
-		for row in range(grid_size.y) :
-			var cell: Node = grid[col][row]
-			cell.set_state(step)
-			_update_cell_color(cell)
+func get_grid_color_matrix() -> Array:
+	var matrix: Array = []
+	for col in range(grid_size.x):
+		var column_data: Array = []
+		for row in range(grid_size.y):
+			column_data.append(grid[col][row].color_key())
+		matrix.append(column_data)
+	return matrix
+
+
+func _on_state_restored(snapshot: Dictionary) -> void:
+	if not snapshot.has("grid") or not snapshot.has("ink"):
+		return
+		
+	var color_matrix: Array = snapshot["grid"]
+	
+	for col in range(grid_size.x):
+		for row in range(grid_size.y):
+			var target_color_key: String = color_matrix[col][row]
+			grid[col][row].set_color_key(target_color_key) 
+			_update_cell_color(grid[col][row]) 
+			
+	var level_manager = get_parent()
+	if level_manager and "remaining_ink" in level_manager:
+		level_manager.remaining_ink = snapshot["ink"].duplicate()
+		
+		if level_manager.has_signal("ink_inventory_updated"):
+			for channel in level_manager.remaining_ink.keys():
+				level_manager.ink_inventory_updated.emit(channel, level_manager.remaining_ink[channel])
 
 
 func _update_cell_color(cell: Node) -> void :
@@ -253,6 +275,7 @@ func _on_arrow_hovered(alignment: String, index: int) -> void:
 			var cell: Node = grid[col][index]
 			cell.get_node("HighlightOverlay").visible = true
 
+
 func _clear_highlight() -> void:
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
@@ -260,14 +283,9 @@ func _clear_highlight() -> void:
 			cell.get_node("HighlightOverlay").visible = false
 
 
-func _reset_all() -> void :
+func reset_grid_visuals() -> void:
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
 			var cell: Node = grid[col][row]
 			cell.reset()
 			_update_cell_color(cell)
-
-func _input(event: InputEvent) -> void :
-	if event.is_action_pressed("reset_grid"):
-		_reset_all()
-		SaveStatesManager.reset()
