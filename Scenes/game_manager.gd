@@ -6,7 +6,6 @@ extends Node2D
 @onready var target_preview_grid = $CanvasLayer/TargetGrid
 @onready var palette = $CanvasLayer/Palette
 
-# Start tracking your numeric level sequence
 var current_level_num: int = 1
 
 # Safety gate to prevent rapid multiple level loads
@@ -102,19 +101,38 @@ func check_victory_condition() -> bool:
 	
 
 func _handle_level_victory() -> void:
-	print("Level Cleared! Advancing game state...")
+	print("Level Cleared! Starting transition...")
 	
 	# Advance to the next level index
 	current_level_num += 1
 	
-	# Give the player a quick moment (0.5 second pause) to appreciate their flawless artwork 
-	# before triggering the screen refresh!
-	var transition_timer = create_tween()
-	transition_timer.tween_interval(0.5)
-	transition_timer.tween_callback(func():
+	# 1. Slide the old printing grid down off the screen
+	printing_grid.animate_exit_to_bottom()
+	
+	# 2. Fade out the supporting UI elements in parallel
+	var transition_tween = create_tween().set_parallel(true)
+	var target_fade_color = Color(1, 1, 1, 0)
+	transition_tween.tween_property(target_preview_grid, "modulate", target_fade_color, 0.4)
+	transition_tween.tween_property(palette, "modulate", target_fade_color, 0.4)
+	
+	# Chain a callback function to trigger right as the exit animations finish
+	transition_tween.chain().tween_callback(func():
+		# 3. Load the new level layout data under the hood
 		var load_success = _load_level_by_number(current_level_num)
 		
-		if not load_success:
+		if load_success:
+			# NOTE: printing_grid.setup_and_build() is called inside _load_level(),
+			# which automatically fires off its slide-down animation from the top!
+			
+			# 4. Fade the UI elements back into full visibility
+			var reveal_tween = create_tween().set_parallel(true)
+			var target_reveal_color = Color(1, 1, 1, 1)
+			reveal_tween.tween_property(target_preview_grid, "modulate", target_reveal_color, 0.4)
+			reveal_tween.tween_property(palette, "modulate", target_reveal_color, 0.4)
+			
+			# Ensure the printing grid's alpha modulation remains fully visible (Color.WHITE)
+			printing_grid.modulate = target_reveal_color
+		else:
 			print("🏆 Hurrah! No file found for Level ", current_level_num, ". You have conquered every single level!")
 			# Optional: Put scene loading logic here to load a Main Menu or End Screen sequence.
 	)
@@ -132,6 +150,9 @@ func reset_entire_level() -> void:
 
 
 func _input(event: InputEvent) -> void :
+	if printing_grid.is_cascading:
+		return
+	
 	if event.is_action_pressed("undo"):
 		SaveStatesManager.undo_action()
 

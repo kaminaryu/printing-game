@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://dqatgxme2fe8p"]
+
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_su3yt"]
+
+[resource]
+script = ExtResource("1_su3yt")
+available_channels = Array[String](["c", "y", "m"])
+target_colors = Array[String](["010", "011", "010", "011", "010", "011", "001", "011", "001", "011", "010", "011", "010", "011", "010", "011", "001", "011", "001", "011", "010", "011", "010", "011", "010"])
+ink_limits = {
+"c": 0,
+"k": 0,
+"m": 6,
+"y": 4
+}
