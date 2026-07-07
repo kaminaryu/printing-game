@@ -6,7 +6,9 @@ extends Node2D
 @onready var target_preview_grid = $CanvasLayer/TargetGrid
 
 var target_grid_data: Array = []
+var remaining_ink: Dictionary = {}
 
+signal ink_inventory_updated(channel: String, remaining_count: int)
 
 func _ready() -> void:
 	printing_grid.paint_cascade_finished.connect(_on_grid_updated)
@@ -17,10 +19,26 @@ func load_level(level_data: LevelData) -> void:
 	current_level = level_data
 	target_grid_data = level_data.get_target_grid_2d()
 	
-	# 1. Direct the UI component to draw itself
-	target_preview_grid.update_preview(level_data)
+	remaining_ink = level_data.ink_limits.duplicate()
 	
+	target_preview_grid.update_preview(level_data)
 	printing_grid.setup_and_build(level_data.grid_size)
+
+	for channel in remaining_ink.keys():
+		ink_inventory_updated.emit(channel, remaining_ink[channel])
+
+func use_ink_channel(channel: String) -> bool:
+	print(remaining_ink)
+	if not remaining_ink.has(channel) or remaining_ink[channel] == -1:
+		return true
+		
+	if remaining_ink[channel] <= 0:
+		print("❌ Click Blocked: Out of ink for channel: ", channel)
+		return false
+		
+	remaining_ink[channel] -= 1
+	ink_inventory_updated.emit(channel, remaining_ink[channel])
+	return true
 
 func _on_grid_updated() -> void:
 	if check_victory_condition():

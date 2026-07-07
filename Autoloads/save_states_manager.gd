@@ -13,7 +13,7 @@ func reset() -> void :
 	_max_step = 0
 
 
-func get_current_step() -> String :
+func get_current_step() -> String :	
 	return str(_current_step)
 
 func increase_step() -> void :

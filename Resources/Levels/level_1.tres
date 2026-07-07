@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://dvqu2yenj6lms"]
-
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_0nvgt"]
-
-[resource]
-script = ExtResource("1_0nvgt")
-target_colors = Array[String](["001", "001", "001", "001", "001"])
-metadata/_custom_type_script = "uid://cioivj6k56epn"

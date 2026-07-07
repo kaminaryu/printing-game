@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://dvqu2yenj6lms"]
+
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_envha"]
+
+[resource]
+script = ExtResource("1_envha")
+grid_size = Vector2i(3, 3)
+target_colors = Array[String](["000", "000", "000", "001", "001", "001"])
+ink_limits = {
+"c": 2,
+"k": -1,
+"m": -1,
+"y": -1
+}
+metadata/_custom_type_script = "uid://cioivj6k56epn"

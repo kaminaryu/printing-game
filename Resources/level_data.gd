@@ -24,3 +24,11 @@ func get_target_grid_2d() -> Array:
 			index += 1
 			
 	return grid_2d
+	
+@export_subgroup("Ink Limitations")
+@export var ink_limits: Dictionary = {
+	"c": -1,
+	"m": -1,
+	"y": -1,
+	"k": -1
+}

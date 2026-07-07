@@ -4,6 +4,7 @@ extends Node2D
 
 @onready var cell_scene = preload("res://Objects/Printer/PrintingGrid/grid_cell.tscn")
 @onready var line_picker_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
+@onready var game_manager_scene = $".."
 
 const MAX_GRID_BOUNDS: float = 400.0
 const CELL_GAP: int = 2
@@ -137,8 +138,12 @@ func _on_paint_request(request: Dictionary) -> void :
 	var alignment: String   = request.get("grid_alignment")
 	var index: int          = request.get("grid_index")
 	var channel: String     = ColorManager.get_color_channel()
-	var locked_line: bool = false
+	
+	var can_paint: bool = game_manager_scene.use_ink_channel(channel)
+	if not can_paint:
+		return # Exit early without updating state or playing animations!
 
+	var locked_line: bool = false
 	match alignment:
 		"col":
 			locked_line = _paint_column(index, channel)
@@ -207,7 +212,6 @@ func _paint_row(row: int, channel: String) -> bool :
 
 	var locked: bool = (lock_cell_count == grid_size.x)
 	
-	# FIXED: Changed from grid_size.y to grid_size.x because rows cascade horizontally!
 	var total_delay: float = (grid_size.x - 1) * PAINT_CASCADE_SPEED + CELL_FADE_DURATION
 	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
