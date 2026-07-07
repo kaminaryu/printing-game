@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dqu6xara3up6f" path="res://UI/Widgets/palette.tscn" id="5_kry3j"]
 [ext_resource type="Texture2D" uid="uid://48w2knhwqkkv" path="res://Assets/game/paper.png" id="6_21xkr"]
 [ext_resource type="Texture2D" uid="uid://uhvf14vx7dqq" path="res://Assets/game/Continue.png" id="7_6bp64"]
+[ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="8_344ge"]
 
 [sub_resource type="Animation" id="Animation_hptm8"]
 resource_name = "Level End"
@@ -279,5 +280,7 @@ offset_right = 333.0
 offset_bottom = 565.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture_normal = ExtResource("7_6bp64")
+
+[node name="MainGUI" parent="CanvasLayer" unique_id=1677267965 instance=ExtResource("8_344ge")]
 
 [connection signal="pressed" from="CanvasLayer/VictoryPanel/ContinueButton" to="." method="_on_continue_button_pressed"]

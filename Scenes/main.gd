@@ -1,6 +1,7 @@
 extends Node2D
 
-@export var current_level: LevelData
+# @export var current_level: LevelData
+var current_level: LevelData
 
 @onready var printing_grid = $PrintingGrid
 @onready var grid_animator = $GridAnimator
@@ -27,11 +28,12 @@ func _ready() -> void:
 	
 	var _load_level_by_number_successful: bool = _load_level_by_number(GameMaster.current_level_num)
 
-	if not _load_level_by_number_successful and current_level:
-		_load_level(current_level)
+	# if not _load_level_by_number_successful and current_level:
+	# 	_load_level(current_level)
 
 
 func _load_level(level_data: LevelData) -> void:
+	current_level = level_data
 	target_grid_data = level_data.get_target_grid_2d()
 	
 	remaining_ink = level_data.ink_limits.duplicate()
@@ -146,11 +148,14 @@ func _input(event: InputEvent) -> void :
 	if printing_grid.is_cascading:
 		return
 	
-	if event.is_action_pressed("undo"):
+	if event.is_action_pressed("undo") :
 		SaveStatesManager.undo_action()
 
-	elif event.is_action_pressed("redo"):
+	elif event.is_action_pressed("redo") :
 		SaveStatesManager.redo_action()
 		
-	elif event.is_action_pressed("reset_grid"):
+	elif event.is_action_pressed("reset_grid") :
 		reset_entire_level()
+
+	elif event.is_action_pressed("escape") :
+		pass
