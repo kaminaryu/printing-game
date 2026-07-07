@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://dqu6xara3up6f"]
+
+[ext_resource type="Script" uid="uid://cchb8xgu4rlgr" path="res://UI/ink_ammo_label.gd" id="1_it4q7"]
+[ext_resource type="Script" uid="uid://c5wqouv11ks52" path="res://Scenes/ink_palette.gd" id="2_1xrb0"]
+[ext_resource type="Texture2D" uid="uid://c7t7hgvxmyvjp" path="res://Assets/Cyan_Button.png" id="3_72a7u"]
+[ext_resource type="Texture2D" uid="uid://dbsoa2lx04yjb" path="res://Assets/Magenta_Button.png" id="4_bsw7c"]
+[ext_resource type="Texture2D" uid="uid://c70pva0x3x44h" path="res://Assets/Yellow_Button.png" id="5_fk5ab"]
+[ext_resource type="Texture2D" uid="uid://dmv1wnq5j1dge" path="res://Assets/Key_Button.png" id="6_cmtmw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ynf5e"]
+font_size = 37
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_kry3j"]
+
+[node name="Palette" type="VBoxContainer" unique_id=1883377568]
+offset_left = 831.0
+offset_top = 472.0
+offset_right = 1511.0
+offset_bottom = 655.0
+scale = Vector2(0.45281297, 0.45281297)
+
+[node name="Remaining Ink" type="HBoxContainer" parent="." unique_id=811871696]
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("1_it4q7")
+
+[node name="Cyan" type="Label" parent="Remaining Ink" unique_id=1810830395]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_ynf5e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Magenta" type="Label" parent="Remaining Ink" unique_id=864041384]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_ynf5e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Yellow" type="Label" parent="Remaining Ink" unique_id=718357405]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_ynf5e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Key" type="Label" parent="Remaining Ink" unique_id=1965506073]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+label_settings = SubResource("LabelSettings_ynf5e")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ink Palette" type="HBoxContainer" parent="." unique_id=1930864258]
+layout_mode = 2
+script = ExtResource("2_1xrb0")
+
+[node name="Cyan" type="TextureButton" parent="Ink Palette" unique_id=836941281]
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+button_group = SubResource("ButtonGroup_kry3j")
+texture_normal = ExtResource("3_72a7u")
+
+[node name="Magenta" type="TextureButton" parent="Ink Palette" unique_id=417623046]
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+button_group = SubResource("ButtonGroup_kry3j")
+texture_normal = ExtResource("4_bsw7c")
+
+[node name="Yellow" type="TextureButton" parent="Ink Palette" unique_id=352610287]
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+button_group = SubResource("ButtonGroup_kry3j")
+texture_normal = ExtResource("5_fk5ab")
+
+[node name="Key" type="TextureButton" parent="Ink Palette" unique_id=701629895]
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+button_group = SubResource("ButtonGroup_kry3j")
+texture_normal = ExtResource("6_cmtmw")

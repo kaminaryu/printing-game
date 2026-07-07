@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://drib2vrswdac1"]
+
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_h8lqh"]
+
+[resource]
+script = ExtResource("1_h8lqh")
+target_colors = Array[String](["", "", "", "", "", "", "", "", "", ""])
+metadata/_custom_type_script = "uid://cioivj6k56epn"

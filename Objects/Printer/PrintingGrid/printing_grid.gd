@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var grid_size: Vector2 = Vector2(5, 5)
+@export var is_editor_mode: bool = false # <--- Clean toggle flag for editor canvas logic
 
 @onready var cell_scene = preload("res://Objects/Printer/PrintingGrid/grid_cell.tscn")
 @onready var line_picker_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
@@ -25,6 +26,12 @@ func _ready() -> void :
 
 
 func setup_and_build(size: Vector2i) -> void:
+	# 1. Safely remove old elements so resizing doesn't pile up nodes
+	for child in get_children():
+		if child is Node2D: 
+			child.queue_free()
+	
+	grid.clear() # Reset matrix data references
 	grid_size = size
 	_init_grid()
 	_init_buttons()
@@ -138,23 +145,25 @@ func _on_paint_request(request: Dictionary) -> void:
 	var index: int          = request.get("grid_index")
 	var channel: String     = ColorManager.get_color_channel()
 	
-	# --- BUNDLE ACTION FIX ---
-	# Check if this click is a Lock/Black action (ColorManager.CHANNELS[3])
+	# If editing, execute placement immediately and ignore gameplay loops
+	if is_editor_mode:
+		match alignment:
+			"col": _paint_column(index, channel)
+			"row": _paint_row(index, channel)
+		return
+
+	# --- ORIGINAL GAMEPLAY LOGIC ---
 	var is_lock_action: bool = (channel == ColorManager.CHANNELS[3])
 
-	# ONLY save a brand new snapshot state if this is NOT a lock placement!
 	if not is_lock_action:
 		SaveStatesManager.save_snapshot(get_grid_color_matrix(), owner.remaining_ink)
 
-	# Process ink deduction (Your manager handles the validation check)
 	if owner and owner.has_method("use_ink_channel"):
 		if not owner.use_ink_channel(channel):
-			# If out of ink on a color stroke, revert the step we just added
 			if not is_lock_action:
 				SaveStatesManager.undo_action() 
 			return
 
-	# Execute the painting logic on the rows/columns
 	var _locked_line: bool = false
 	match alignment:
 		"col":
@@ -162,9 +171,13 @@ func _on_paint_request(request: Dictionary) -> void:
 		"row":
 			_locked_line = _paint_row(index, channel)
 
+
 func _paint_column(col: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
 	var tween: Tween = create_tween()
+	
+	# Zero out cascade speed if we are designing a level to make painting snappy
+	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
 	for row in range(grid_size.y):
 		var cell: Node = grid[col][row]
@@ -177,7 +190,7 @@ func _paint_column(col: int, channel: String) -> bool :
 			lock_cell_count += 1
 			continue
 
-		var delay: float = row * PAINT_CASCADE_SPEED
+		var delay: float = row * speed_modifier
 		
 		tween.tween_callback(func():
 			var changed_color: bool = cell.apply_ink(channel)
@@ -187,7 +200,7 @@ func _paint_column(col: int, channel: String) -> bool :
 
 	var locked: bool = (lock_cell_count == grid_size.y)
 	
-	var total_delay: float = (grid_size.y - 1) * PAINT_CASCADE_SPEED + CELL_FADE_DURATION
+	var total_delay: float = (grid_size.y - 1) * speed_modifier + CELL_FADE_DURATION
 	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
 
@@ -195,6 +208,9 @@ func _paint_column(col: int, channel: String) -> bool :
 func _paint_row(row: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
 	var tween: Tween = create_tween()
+	
+	# Zero out cascade speed if we are designing a level to make painting snappy
+	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
 	for col in range(grid_size.x):
 		var cell: Node = grid[col][row]
@@ -207,7 +223,7 @@ func _paint_row(row: int, channel: String) -> bool :
 			lock_cell_count += 1
 			continue
 
-		var delay: float = col * PAINT_CASCADE_SPEED
+		var delay: float = col * speed_modifier
 		
 		tween.tween_callback(func():
 			var changed_color: bool = cell.apply_ink(channel)
@@ -217,7 +233,7 @@ func _paint_row(row: int, channel: String) -> bool :
 
 	var locked: bool = (lock_cell_count == grid_size.x)
 	
-	var total_delay: float = (grid_size.x - 1) * PAINT_CASCADE_SPEED + CELL_FADE_DURATION
+	var total_delay: float = (grid_size.x - 1) * speed_modifier + CELL_FADE_DURATION
 	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
 
