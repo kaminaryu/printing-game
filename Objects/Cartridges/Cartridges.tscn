@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://cdypfd1fot60v"]
+
+[ext_resource type="PackedScene" uid="uid://cr3i016hqut7h" path="res://Objects/Cartridges/CyanCartridge.tscn" id="1_7tcfm"]
+[ext_resource type="Script" uid="uid://cabg3q5hwcxyu" path="res://Objects/Cartridges/cartridges.gd" id="1_i11mm"]
+[ext_resource type="PackedScene" uid="uid://cvlbj6xglkwi1" path="res://Objects/Cartridges/MagentaCartridge.tscn" id="2_4wfcv"]
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_cikh1"]
+[ext_resource type="PackedScene" uid="uid://rwp5elxg0bmm" path="res://Objects/Cartridges/KeyCartridge.tscn" id="3_i11mm"]
+[ext_resource type="PackedScene" uid="uid://cku6ifp7ivivn" path="res://Objects/Cartridges/YellowCartridge.tscn" id="4_cikh1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nf5ql"]
+font = ExtResource("3_cikh1")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[node name="Cartridges" type="Node2D" unique_id=1094193855]
+script = ExtResource("1_i11mm")
+
+[node name="CyanCartridge" parent="." unique_id=189875727 instance=ExtResource("1_7tcfm")]
+position = Vector2(-145, 0)
+
+[node name="CyanLabel" type="Label" parent="CyanCartridge" unique_id=353027944]
+offset_left = -16.0
+offset_top = -107.0
+offset_right = 24.0
+offset_bottom = -79.0
+text = "1"
+label_settings = SubResource("LabelSettings_nf5ql")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MagentaCartridge" parent="." unique_id=1472897504 instance=ExtResource("2_4wfcv")]
+position = Vector2(-50, 0)
+
+[node name="MagentaLabel" type="Label" parent="MagentaCartridge" unique_id=1534951055]
+offset_left = -16.0
+offset_top = -107.0
+offset_right = 24.0
+offset_bottom = -79.0
+text = "1"
+label_settings = SubResource("LabelSettings_nf5ql")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="YellowCartridge" parent="." unique_id=906833021 instance=ExtResource("4_cikh1")]
+position = Vector2(50, 0)
+
+[node name="YellowLabel" type="Label" parent="YellowCartridge" unique_id=851968919]
+offset_left = -16.0
+offset_top = -107.0
+offset_right = 24.0
+offset_bottom = -79.0
+text = "1"
+label_settings = SubResource("LabelSettings_nf5ql")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyCartridge" parent="." unique_id=1628611169 instance=ExtResource("3_i11mm")]
+position = Vector2(145, 0)
+
+[node name="KeyLabel" type="Label" parent="KeyCartridge" unique_id=704354547]
+offset_left = -16.0
+offset_top = -107.0
+offset_right = 24.0
+offset_bottom = -79.0
+text = "1"
+label_settings = SubResource("LabelSettings_nf5ql")
+horizontal_alignment = 1
+vertical_alignment = 1

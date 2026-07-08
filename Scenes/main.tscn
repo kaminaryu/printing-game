@@ -4,11 +4,11 @@
 [ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/main.gd" id="1_ynf5e"]
 [ext_resource type="AudioStream" uid="uid://65xy81ra2plr" path="res://Assets/Audio/Level_Win.wav" id="3_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="4_h1bgf"]
+[ext_resource type="PackedScene" uid="uid://cdypfd1fot60v" path="res://Objects/Cartridges/Cartridges.tscn" id="4_hibaj"]
 [ext_resource type="AudioStream" uid="uid://bop14mispwu0n" path="res://Assets/Audio/Level_Start.wav" id="4_hptm8"]
 [ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="5_21xkr"]
 [ext_resource type="AudioStream" uid="uid://djbrc0cr1yo7u" path="res://Assets/BGM/Lobby Time - Kevin MacLeod.mp3" id="5_d1ilt"]
-[ext_resource type="PackedScene" uid="uid://dqu6xara3up6f" path="res://UI/Widgets/palette.tscn" id="5_kry3j"]
 [ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://gvddv4gloabi" path="res://Scenes/bgm.gd" id="6_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://uhvf14vx7dqq" path="res://Assets/game/Continue.png" id="7_6bp64"]
@@ -335,6 +335,9 @@ texture = ExtResource("16_k12tt")
 [node name="PrintingGrid" parent="." unique_id=1528432382 instance=ExtResource("1_jjgbg")]
 position = Vector2(327, -380)
 
+[node name="Cartridges" parent="." unique_id=1094193855 instance=ExtResource("4_hibaj")]
+position = Vector2(969, 685)
+
 [node name="Foreground" type="TextureRect" parent="." unique_id=1140767862]
 offset_right = 40.0
 offset_bottom = 40.0
@@ -410,8 +413,6 @@ offset_bottom = 244.0
 script = ExtResource("4_jjvhh")
 max_boundary_size = 175.0
 cell_gap = 3.0
-
-[node name="Palette" parent="CanvasLayer" unique_id=1883377568 instance=ExtResource("5_kry3j")]
 
 [node name="Blur Panel" type="Panel" parent="CanvasLayer" unique_id=369835859]
 visible = false

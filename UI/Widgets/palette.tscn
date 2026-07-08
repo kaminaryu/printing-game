@@ -1,92 +1,129 @@
 [gd_scene format=3 uid="uid://dqu6xara3up6f"]
 
-[ext_resource type="Script" path="res://UI/Widgets/palette.gd" id="1_1xrb0"]
-[ext_resource type="Script" uid="uid://cchb8xgu4rlgr" path="res://UI/ink_ammo_label.gd" id="1_it4q7"]
-[ext_resource type="Script" uid="uid://c5wqouv11ks52" path="res://Scenes/ink_palette.gd" id="2_1xrb0"]
-[ext_resource type="Texture2D" uid="uid://c7t7hgvxmyvjp" path="res://Assets/Cyan_Button.png" id="3_72a7u"]
-[ext_resource type="Texture2D" uid="uid://dbsoa2lx04yjb" path="res://Assets/Magenta_Button.png" id="4_bsw7c"]
-[ext_resource type="Texture2D" uid="uid://c70pva0x3x44h" path="res://Assets/Yellow_Button.png" id="5_fk5ab"]
-[ext_resource type="Texture2D" uid="uid://dmv1wnq5j1dge" path="res://Assets/Key_Button.png" id="6_cmtmw"]
+[ext_resource type="Script" uid="uid://be8t83hgj5itp" path="res://UI/Widgets/palette.gd" id="1_1xrb0"]
+[ext_resource type="Texture2D" uid="uid://cs34divjhgm0t" path="res://Assets/Catridges/C.png" id="4_1xrb0"]
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="4_72a7u"]
+[ext_resource type="Texture2D" uid="uid://bspcddqxapf53" path="res://Assets/Catridges/M.png" id="5_72a7u"]
+[ext_resource type="Texture2D" uid="uid://bhci4kkr8mxaf" path="res://Assets/Catridges/Y.png" id="6_bsw7c"]
+[ext_resource type="Texture2D" uid="uid://26hukywc3hak" path="res://Assets/Catridges/K.png" id="7_fk5ab"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ynf5e"]
-font_size = 37
+[sub_resource type="ButtonGroup" id="ButtonGroup_1xrb0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1xrb0"]
+font = ExtResource("4_72a7u")
+font_size = 20
 font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_kry3j"]
 
 [node name="Palette" type="VBoxContainer" unique_id=1883377568]
 offset_left = 831.0
 offset_top = 472.0
 offset_right = 1511.0
 offset_bottom = 655.0
-scale = Vector2(0.45281297, 0.45281297)
+size_flags_horizontal = 4
+size_flags_vertical = 0
 script = ExtResource("1_1xrb0")
-
-[node name="Remaining Ink" type="HBoxContainer" parent="." unique_id=811871696]
-layout_mode = 2
-theme_override_constants/separation = 4
-script = ExtResource("1_it4q7")
-
-[node name="Cyan" type="Label" parent="Remaining Ink" unique_id=1810830395]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1"
-label_settings = SubResource("LabelSettings_ynf5e")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Magenta" type="Label" parent="Remaining Ink" unique_id=864041384]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1"
-label_settings = SubResource("LabelSettings_ynf5e")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Yellow" type="Label" parent="Remaining Ink" unique_id=718357405]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1"
-label_settings = SubResource("LabelSettings_ynf5e")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Key" type="Label" parent="Remaining Ink" unique_id=1965506073]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1"
-label_settings = SubResource("LabelSettings_ynf5e")
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Ink Palette" type="HBoxContainer" parent="." unique_id=1930864258]
 layout_mode = 2
-script = ExtResource("2_1xrb0")
+size_flags_horizontal = 4
+theme_override_constants/separation = -70
 
-[node name="Cyan" type="TextureButton" parent="Ink Palette" unique_id=836941281]
+[node name="Cyan" type="TextureRect" parent="Ink Palette" unique_id=1536177863]
 layout_mode = 2
-size_flags_horizontal = 6
-toggle_mode = true
-button_group = SubResource("ButtonGroup_kry3j")
-texture_normal = ExtResource("3_72a7u")
+texture = ExtResource("4_1xrb0")
 
-[node name="Magenta" type="TextureButton" parent="Ink Palette" unique_id=417623046]
-layout_mode = 2
-size_flags_horizontal = 6
+[node name="CyanButton" type="Button" parent="Ink Palette/Cyan" unique_id=503555619]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 47.0
+offset_top = 41.0
+offset_right = 117.0
+offset_bottom = 396.0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_kry3j")
-texture_normal = ExtResource("4_bsw7c")
+button_group = SubResource("ButtonGroup_1xrb0")
 
-[node name="Yellow" type="TextureButton" parent="Ink Palette" unique_id=352610287]
-layout_mode = 2
-size_flags_horizontal = 6
-toggle_mode = true
-button_group = SubResource("ButtonGroup_kry3j")
-texture_normal = ExtResource("5_fk5ab")
+[node name="CyanLabel" type="Label" parent="Ink Palette/Cyan" unique_id=719317571]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 107.0
+offset_right = 101.0
+offset_bottom = 135.0
+text = "1"
+label_settings = SubResource("LabelSettings_1xrb0")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Key" type="TextureButton" parent="Ink Palette" unique_id=701629895]
+[node name="Magenta" type="TextureRect" parent="Ink Palette" unique_id=483448264]
 layout_mode = 2
-size_flags_horizontal = 6
+texture = ExtResource("5_72a7u")
+
+[node name="MagentaButton" type="Button" parent="Ink Palette/Magenta" unique_id=1934095359]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 47.0
+offset_top = 41.0
+offset_right = 117.0
+offset_bottom = 396.0
 toggle_mode = true
-button_group = SubResource("ButtonGroup_kry3j")
-texture_normal = ExtResource("6_cmtmw")
+button_group = SubResource("ButtonGroup_1xrb0")
+
+[node name="MagentaLabel" type="Label" parent="Ink Palette/Magenta" unique_id=564558260]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 107.0
+offset_right = 101.0
+offset_bottom = 135.0
+text = "1"
+label_settings = SubResource("LabelSettings_1xrb0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Yellow" type="TextureRect" parent="Ink Palette" unique_id=309544842]
+layout_mode = 2
+texture = ExtResource("6_bsw7c")
+
+[node name="YellowButton" type="Button" parent="Ink Palette/Yellow" unique_id=1337522751]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 47.0
+offset_top = 41.0
+offset_right = 117.0
+offset_bottom = 396.0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_1xrb0")
+
+[node name="YellowLabel" type="Label" parent="Ink Palette/Yellow" unique_id=1578686181]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 107.0
+offset_right = 101.0
+offset_bottom = 135.0
+text = "1"
+label_settings = SubResource("LabelSettings_1xrb0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Key" type="TextureRect" parent="Ink Palette" unique_id=2088699484]
+layout_mode = 2
+texture = ExtResource("7_fk5ab")
+
+[node name="KeyButton" type="Button" parent="Ink Palette/Key" unique_id=1788344512]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 47.0
+offset_top = 41.0
+offset_right = 117.0
+offset_bottom = 396.0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_1xrb0")
+
+[node name="KeyLabel" type="Label" parent="Ink Palette/Key" unique_id=1532399071]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 107.0
+offset_right = 101.0
+offset_bottom = 135.0
+text = "1"
+label_settings = SubResource("LabelSettings_1xrb0")
+horizontal_alignment = 1
+vertical_alignment = 1

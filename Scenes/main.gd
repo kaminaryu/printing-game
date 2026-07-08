@@ -7,7 +7,6 @@ var current_level: LevelData
 @onready var grid_animator = $GridAnimator
 @onready var target_preview_grid = $CanvasLayer/TargetGrid
 @onready var victory_grid = $CanvasLayer/VictoryPanel/VictoryTarget
-@onready var palette = $CanvasLayer/Palette
 @onready var victory_animation = $CanvasLayer/VictoryPanel/AnimationPlayer
 @onready var blur_panel = $"CanvasLayer/Blur Panel"
 
@@ -58,9 +57,7 @@ func _load_level(level_data: LevelData) -> void:
 	level_start.pitch_scale = randf_range(0.9, 1.1)
 	level_start.play()
 	grid_animator.play("Level Start")
-
-	palette.update_visible_channels(level_data)
-
+	
 	for channel in remaining_ink.keys():
 		ink_inventory_updated.emit(channel, remaining_ink[channel])
 

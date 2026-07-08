@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cr3i016hqut7h"]
+
+[ext_resource type="Texture2D" uid="uid://cs34divjhgm0t" path="res://Assets/Catridges/C.png" id="1_2e48p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2e48p"]
+size = Vector2(67, 351)
+
+[node name="CyanCartridge" type="Node2D" unique_id=189875727]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=390178628]
+texture = ExtResource("1_2e48p")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=306082970]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1564681666]
+position = Vector2(1.5, 5.5)
+shape = SubResource("RectangleShape2D_2e48p")
