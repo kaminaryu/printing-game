@@ -1,0 +1,23 @@
+[gd_resource type="Theme" format=3 uid="uid://bb4raws7qrg7t"]
+
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="1_bg20o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x3kqb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bg20o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7cvef"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g4hwt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0sj33"]
+
+[resource]
+Button/colors/font_color = Color(0.47568142, 0.66876364, 0.6595776, 1)
+Button/font_sizes/font_size = 26
+Button/fonts/font = ExtResource("1_bg20o")
+Button/styles/disabled = SubResource("StyleBoxEmpty_x3kqb")
+Button/styles/focus = SubResource("StyleBoxEmpty_bg20o")
+Button/styles/hover = SubResource("StyleBoxEmpty_7cvef")
+Button/styles/normal = SubResource("StyleBoxEmpty_g4hwt")
+Button/styles/pressed = SubResource("StyleBoxEmpty_0sj33")
