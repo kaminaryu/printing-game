@@ -30,7 +30,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1.999998, 1.8660662),
 "update": 0,
-"values": [Vector2(390, 360), Vector2(365, 1104)]
+"values": [Vector2(390, 360), Vector2(390, 1104)]
 }
 
 [sub_resource type="Animation" id="Animation_344ge"]
