@@ -9,7 +9,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_nf5ql"]
 font = ExtResource("3_cikh1")
-font_size = 20
+font_size = 15
 font_color = Color(0, 0, 0, 1)
 
 [node name="Cartridges" type="Node2D" unique_id=1094193855]
@@ -23,7 +23,7 @@ offset_left = -16.0
 offset_top = -107.0
 offset_right = 24.0
 offset_bottom = -79.0
-text = "1"
+text = "INF"
 label_settings = SubResource("LabelSettings_nf5ql")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -36,7 +36,7 @@ offset_left = -16.0
 offset_top = -107.0
 offset_right = 24.0
 offset_bottom = -79.0
-text = "1"
+text = "INF"
 label_settings = SubResource("LabelSettings_nf5ql")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -49,7 +49,7 @@ offset_left = -16.0
 offset_top = -107.0
 offset_right = 24.0
 offset_bottom = -79.0
-text = "1"
+text = "INF"
 label_settings = SubResource("LabelSettings_nf5ql")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -62,7 +62,7 @@ offset_left = -16.0
 offset_top = -107.0
 offset_right = 24.0
 offset_bottom = -79.0
-text = "1"
+text = "INF"
 label_settings = SubResource("LabelSettings_nf5ql")
 horizontal_alignment = 1
 vertical_alignment = 1

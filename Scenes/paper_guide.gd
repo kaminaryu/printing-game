@@ -20,6 +20,9 @@ func _on_arrow_button_mouse_exited() -> void:
 
 
 func _on_arrow_button_pressed() -> void:
+	show_hint()
+
+func show_hint() -> void:
 	if !in_view:
 		in_view = true;
 		animation.play("slide_in");

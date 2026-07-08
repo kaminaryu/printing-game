@@ -81,6 +81,6 @@ func update_ink_label(channel: String, remaining_count: int) -> void:
 	if remaining_labels.has(channel) and remaining_labels[channel]:
 		# If ink is set to -1 (infinite ink), you can display an infinity symbol "∞" or leave it blank
 		if remaining_count == -1:
-			remaining_labels[channel].text = "∞"
+			remaining_labels[channel].text = "INF"
 		else:
 			remaining_labels[channel].text = str(remaining_count)
