@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ctwv505ollq1k"]
 
-[ext_resource type="Texture2D" uid="uid://cxb7b4g31wacc" path="res://Assets/Arrow 1 (1).png" id="1_tdnlv"]
 [ext_resource type="Script" uid="uid://b28ixmb16kgsy" path="res://Objects/Printer/PrintingGrid/painter.gd" id="1_yx653"]
+[ext_resource type="Texture2D" uid="uid://b3rdsiea4sjpu" path="res://Assets/game/brush_icon.png" id="2_yx653"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tdnlv"]
 
@@ -18,7 +18,7 @@ script = ExtResource("1_yx653")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=510015034]
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_tdnlv")
+texture = ExtResource("2_yx653")
 
 [node name="Button" type="Button" parent="." unique_id=215788171]
 offset_left = -8.0
