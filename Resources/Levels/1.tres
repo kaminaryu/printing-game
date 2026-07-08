@@ -6,4 +6,5 @@
 script = ExtResource("1_envha")
 grid_size = Vector2i(3, 3)
 available_channels = Array[String](["c", "m"])
+level_name = "Cyan Rows"
 target_colors = Array[String](["100", "100", "100", "000", "000", "000", "100", "100", "100"])

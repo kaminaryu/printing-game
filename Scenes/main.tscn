@@ -17,11 +17,13 @@
 [ext_resource type="AudioStream" uid="uid://b7ipjcgdsebph" path="res://Assets/BGM/Morning Routine - Ghostrifter Official.mp3" id="8_k12tt"]
 [ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George Street Shuffle - Kevin Macleod.mp3" id="9_h1bgf"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="12_b3802"]
-[ext_resource type="Script" uid="uid://dflo07lks266m" path="res://Scenes/level_title.gd" id="13_fevyy"]
-[ext_resource type="Shader" uid="uid://dopmwf3iiekup" path="res://Assets/Shaders/screen_effects.gdshader" id="14_hibaj"]
+[ext_resource type="Script" path="res://Scenes/level_title.gd" id="13_fevyy"]
+[ext_resource type="Shader" path="res://Assets/Shaders/screen_effects.gdshader" id="14_hibaj"]
 [ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="16_k12tt"]
 [ext_resource type="PackedScene" uid="uid://dur7se0w0i3oa" path="res://UI/UtilityButtons/UtilityButtons.tscn" id="21_pdsj5"]
-[ext_resource type="Script" uid="uid://dg5mprsta4fsr" path="res://Assets/Audio/printer_noises.gd" id="22_ee4r6"]
+[ext_resource type="Script" path="res://Assets/Audio/printer_noises.gd" id="22_ee4r6"]
+[ext_resource type="Texture2D" uid="uid://cc58jqxty35fy" path="res://Assets/game/Buttons/start/start.png" id="22_ueoa1"]
+[ext_resource type="Texture2D" uid="uid://tradybmvlqef" path="res://Assets/game/Buttons/start/start_pressed.png" id="23_6vcvc"]
 [ext_resource type="AudioStream" uid="uid://dk65n0rjxk5q" path="res://Assets/Audio/printer_noise_1.wav" id="23_cbgmd"]
 [ext_resource type="AudioStream" uid="uid://clyxjd0d36iib" path="res://Assets/Audio/printer_noise_2.wav" id="24_1w6v2"]
 [ext_resource type="AudioStream" uid="uid://d32ith8mmjq81" path="res://Assets/Audio/printer_noise_3.wav" id="25_ueoa1"]
@@ -386,6 +388,14 @@ offset_left = 22.0
 offset_top = -334.0
 offset_right = 22.0
 offset_bottom = -334.0
+
+[node name="Start" type="TextureButton" parent="CanvasLayer" unique_id=1736257468]
+offset_left = 1121.0
+offset_top = 300.0
+offset_right = 1277.0
+offset_bottom = 435.0
+texture_normal = ExtResource("22_ueoa1")
+texture_pressed = ExtResource("23_6vcvc")
 
 [node name="Timer" type="Label" parent="CanvasLayer" unique_id=406849922]
 modulate = Color(1, 1, 1, 0)

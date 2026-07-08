@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource("1_su3yt")
 available_channels = Array[String](["c", "y", "m"])
+level_name = "Meadow"
 target_colors = Array[String](["010", "011", "010", "011", "010", "011", "001", "011", "001", "011", "010", "011", "010", "011", "010", "011", "001", "011", "001", "011", "010", "011", "010", "011", "010"])
 ink_limits = {
 "c": 0,

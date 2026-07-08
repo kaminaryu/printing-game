@@ -31,4 +31,7 @@ func _on_play_pressed() -> void:
 
 
 func _on_level_select_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/LevelSelector/level_selector.tscn")
+	animationPlayer.play("papermasuk");
+	game_start.play()
+	await animationPlayer.animation_finished
+	get_tree().change_scene_to_file("res://Scenes/LevelSelect/level_select.tscn")

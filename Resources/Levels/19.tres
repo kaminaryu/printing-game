@@ -6,6 +6,7 @@
 script = ExtResource("1_btowq")
 grid_size = Vector2i(4, 4)
 available_channels = Array[String](["c", "y", "m"])
+level_name = "Pool"
 target_colors = Array[String](["101", "101", "101", "101", "101", "100", "100", "101", "101", "100", "100", "101", "101", "101", "101", "101"])
 ink_limits = {
 "c": 4,

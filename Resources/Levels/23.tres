@@ -5,4 +5,5 @@
 [resource]
 script = ExtResource("1_ajopu")
 grid_size = Vector2i(4, 4)
+level_name = "Halo"
 target_colors = Array[String](["001", "001", "001", "001", "001", "010", "010", "001", "001", "010", "010", "001", "001", "001", "001", "001"])

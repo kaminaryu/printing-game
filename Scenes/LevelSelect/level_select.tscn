@@ -1,7 +1,26 @@
 [gd_scene format=3 uid="uid://bkkbfcx8rbonp"]
 
 [ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="1_1fdgm"]
+[ext_resource type="Script" uid="uid://c4raou4qqgak3" path="res://Scenes/LevelSelect/level_select.gd" id="1_dglhw"]
 [ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="2_brah1"]
+[ext_resource type="Shader" path="res://Assets/Shaders/screen_effects.gdshader" id="3_tnwcr"]
+[ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_dglhw"]
+[ext_resource type="Texture2D" uid="uid://dmniutjrj375r" path="res://Assets/game/Buttons/reset/reset.png" id="6_4fu6m"]
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="6_h4n71"]
+[ext_resource type="Texture2D" uid="uid://sc1asr54t02t" path="res://Assets/game/Buttons/reset/reset_pressed.png" id="7_ayrr0"]
+[ext_resource type="Texture2D" uid="uid://ca1sdns3xf5jt" path="res://Assets/game/Buttons/redo/redo.png" id="8_h4n71"]
+[ext_resource type="Texture2D" uid="uid://y41eruxfebjv" path="res://Assets/game/Buttons/redo/redo_pressed.png" id="9_1jr32"]
+[ext_resource type="Texture2D" uid="uid://ff22b01soq25" path="res://Assets/game/Buttons/undo/undo.png" id="10_yof5r"]
+[ext_resource type="Texture2D" uid="uid://cyiticipar0ix" path="res://Assets/game/Buttons/undo/undo_pressed.png" id="11_t45ri"]
+[ext_resource type="Texture2D" uid="uid://cc58jqxty35fy" path="res://Assets/game/Buttons/start/start.png" id="13_1jr32"]
+[ext_resource type="Texture2D" uid="uid://tradybmvlqef" path="res://Assets/game/Buttons/start/start_pressed.png" id="14_yof5r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rfj7w"]
+shader = ExtResource("3_tnwcr")
+
+[sub_resource type="LabelSettings" id="LabelSettings_yof5r"]
+font = ExtResource("6_h4n71")
+font_size = 20
 
 [node name="LevelSelect" type="Control" unique_id=1337499084]
 layout_mode = 3
@@ -10,6 +29,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_dglhw")
 
 [node name="BG" type="TextureRect" parent="." unique_id=1253640949]
 layout_mode = 0
@@ -23,3 +43,61 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource("2_brah1")
+
+[node name="TargetGrid" type="Control" parent="." unique_id=2092430733]
+modulate = Color(1, 1, 1, 0.78431374)
+material = SubResource("ShaderMaterial_rfj7w")
+anchors_preset = 0
+offset_left = 880.0
+offset_top = 204.0
+offset_right = 920.0
+offset_bottom = 244.0
+script = ExtResource("4_dglhw")
+max_boundary_size = 175.0
+cell_gap = 3.0
+
+[node name="Level Title" type="Label" parent="." unique_id=302422963]
+layout_mode = 0
+offset_left = 811.0
+offset_top = 67.0
+offset_right = 1119.0
+offset_bottom = 101.0
+text = "The Basics"
+label_settings = SubResource("LabelSettings_yof5r")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=698869691]
+layout_mode = 0
+offset_left = 662.0
+offset_top = 26.0
+offset_right = 818.0
+offset_bottom = 439.0
+
+[node name="Reset" type="TextureButton" parent="VBoxContainer2" unique_id=1473157853]
+layout_mode = 2
+texture_normal = ExtResource("6_4fu6m")
+texture_pressed = ExtResource("7_ayrr0")
+
+[node name="Forward" type="TextureButton" parent="VBoxContainer2" unique_id=1166668137]
+layout_mode = 2
+texture_normal = ExtResource("8_h4n71")
+texture_pressed = ExtResource("9_1jr32")
+
+[node name="Backward" type="TextureButton" parent="VBoxContainer2" unique_id=641632554]
+layout_mode = 2
+texture_normal = ExtResource("10_yof5r")
+texture_pressed = ExtResource("11_t45ri")
+
+[node name="Start" type="TextureButton" parent="." unique_id=1609608329]
+layout_mode = 0
+offset_left = 1121.0
+offset_top = 300.0
+offset_right = 1277.0
+offset_bottom = 435.0
+texture_normal = ExtResource("13_1jr32")
+texture_pressed = ExtResource("14_yof5r")
+
+[connection signal="pressed" from="VBoxContainer2/Forward" to="." method="_on_forward_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Backward" to="." method="_on_backward_pressed"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
