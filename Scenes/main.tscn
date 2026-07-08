@@ -341,6 +341,46 @@ _data = {
 &"Title In": SubResource("Animation_b3802")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cbgmd"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_1w6v2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ueoa1"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6vcvc"]
+_data = {
+&"RESET": SubResource("Animation_1w6v2"),
+&"fade_in": SubResource("Animation_ueoa1")
+}
+
 [node name="Main" type="Node2D" unique_id=1872288472]
 script = ExtResource("1_ynf5e")
 
@@ -536,6 +576,20 @@ texture_normal = ExtResource("7_6bp64")
 
 [node name="MainGUI" parent="CanvasLayer" unique_id=1677267965 instance=ExtResource("8_344ge")]
 visible = false
+
+[node name="FadeOut" type="Panel" parent="CanvasLayer" unique_id=1166514051]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cbgmd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/FadeOut" unique_id=427958351]
+libraries/ = SubResource("AnimationLibrary_6vcvc")
+autoplay = &"fade_in"
 
 [node name="PrinterNoises" type="AudioStreamPlayer" parent="." unique_id=630669394]
 volume_db = -15.0
