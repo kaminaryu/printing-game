@@ -11,7 +11,10 @@ extends Control
 func _ready() -> void:
 	fadeOutTransition();
 	CursorManager.reset()
-	
+
+	if (OS.has_feature("web")) :
+		$VBoxContainer/Quit.hide()
+
 func fadeOutTransition() -> void:
 	fadeOutScreen.modulate.a = 1.0;
 	var fadeout_tween = create_tween()
@@ -49,3 +52,7 @@ func _on_credits_pressed() -> void:
 
 func _on_back_pressed() -> void:
 	animationPlayer.play("show_credits_2")
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

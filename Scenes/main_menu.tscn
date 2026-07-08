@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c4iqjtgrs8e44"]
+[gd_scene format=3 uid="uid://ciadiarvvyck3"]
 
 [ext_resource type="Texture2D" uid="uid://gm3wmvgo4e2l" path="res://Assets/menu/printer_back.png" id="1_ce3w2"]
 [ext_resource type="Script" uid="uid://dohiljln5sel3" path="res://Scenes/main_menu.gd" id="1_opfnp"]
@@ -415,7 +415,7 @@ anchor_right = 1.0
 offset_left = -663.0
 offset_top = 26.0
 offset_right = -58.000244
-offset_bottom = 589.0
+offset_bottom = 648.0
 grow_horizontal = 0
 theme_override_constants/separation = 37
 metadata/_edit_group_ = true
@@ -452,6 +452,13 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme = SubResource("Theme_ce3w2")
 text = "credits"
+alignment = 2
+
+[node name="Quit" type="Button" parent="VBoxContainer" unique_id=1091840923]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = SubResource("Theme_ce3w2")
+text = "quit"
 alignment = 2
 
 [node name="Settings" parent="." unique_id=1684481824 instance=ExtResource("7_trj04")]
@@ -494,7 +501,7 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_left = -495.0
 offset_top = 75.0
-offset_bottom = 651.0
+offset_bottom = 702.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Credits/ScrollContainer" unique_id=1094284129]
 layout_mode = 2
@@ -514,7 +521,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("10_16hvj")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 32
 text = "coding and stuff"
 
 [node name="Text" type="Label" parent="Credits/ScrollContainer/VBoxContainer/VBoxContainer" unique_id=748111314]
@@ -531,7 +538,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("10_16hvj")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 32
 text = "art and ui"
 
 [node name="Text" type="Label" parent="Credits/ScrollContainer/VBoxContainer/VBoxContainer2" unique_id=1361392912]
@@ -548,15 +555,34 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("10_16hvj")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 25
-text = "music and sfx"
+theme_override_font_sizes/font_size = 32
+text = "music"
 
 [node name="Text" type="Label" parent="Credits/ScrollContainer/VBoxContainer/VBoxContainer3" unique_id=327065304]
 layout_mode = 2
 theme = ExtResource("10_16hvj")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 25
-text = "minna de arigatou!"
+text = "Kevin Macleod
+Ghostrifter"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Credits/ScrollContainer/VBoxContainer" unique_id=1706184661]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Credits/ScrollContainer/VBoxContainer/VBoxContainer4" unique_id=484515754]
+layout_mode = 2
+theme = ExtResource("10_16hvj")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "sfx"
+
+[node name="Text" type="Label" parent="Credits/ScrollContainer/VBoxContainer/VBoxContainer4" unique_id=1725672531]
+layout_mode = 2
+theme = ExtResource("10_16hvj")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = "Wonderful people
+on YouTube <3"
 
 [node name="Back" type="Button" parent="Credits" unique_id=1596375888]
 layout_mode = 0
@@ -572,4 +598,5 @@ text = "back"
 [connection signal="pressed" from="VBoxContainer/LevelSelect" to="." method="_on_level_select_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Credits/Back" to="." method="_on_back_pressed"]
