@@ -6,10 +6,15 @@
 [ext_resource type="AudioStream" uid="uid://bop14mispwu0n" path="res://Assets/Audio/Level_Start.wav" id="4_hptm8"]
 [ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="5_21xkr"]
+[ext_resource type="AudioStream" uid="uid://djbrc0cr1yo7u" path="res://Assets/BGM/Lobby-Time(chosic.com).mp3" id="5_d1ilt"]
 [ext_resource type="PackedScene" uid="uid://dqu6xara3up6f" path="res://UI/Widgets/palette.tscn" id="5_kry3j"]
-[ext_resource type="Texture2D" uid="uid://48w2knhwqkkv" path="res://Assets/game/paper.png" id="6_21xkr"]
+[ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="6_21xkr"]
+[ext_resource type="Script" uid="uid://gvddv4gloabi" path="res://Scenes/bgm.gd" id="6_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://uhvf14vx7dqq" path="res://Assets/game/Continue.png" id="7_6bp64"]
+[ext_resource type="AudioStream" uid="uid://dl8sxrydj1xtm" path="res://Assets/BGM/Airport-Lounge(chosic.com).mp3" id="7_wsu2k"]
 [ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="8_344ge"]
+[ext_resource type="AudioStream" uid="uid://b7ipjcgdsebph" path="res://Assets/BGM/Morning-Routine-Lofi-Study-Music(chosic.com).mp3" id="8_k12tt"]
+[ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George-Street-Shuffle(chosic.com).mp3" id="9_h1bgf"]
 
 [sub_resource type="Animation" id="Animation_hptm8"]
 resource_name = "Level End"
@@ -214,6 +219,11 @@ bus = &"SFX"
 [node name="LevelStart" type="AudioStreamPlayer" parent="." unique_id=694367348]
 stream = ExtResource("4_hptm8")
 bus = &"SFX"
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=762016470]
+stream = ExtResource("5_d1ilt")
+script = ExtResource("6_fdnlq")
+playlist = Array[AudioStream]([ExtResource("5_d1ilt"), ExtResource("7_wsu2k"), ExtResource("8_k12tt"), ExtResource("9_h1bgf")])
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1606522880]
 

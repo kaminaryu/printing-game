@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://c8sxt7sm3y5cu" path="res://Assets/menu/printer_front.png" id="3_opfnp"]
 [ext_resource type="Texture2D" uid="uid://bhisqp5qtwhqg" path="res://Assets/menu/the_riso.png" id="4_cp0ys"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="5_n45e2"]
+[ext_resource type="AudioStream" uid="uid://cdtkikwrgks4u" path="res://Assets/Audio/Game_Start.wav" id="7_cp0ys"]
+[ext_resource type="AudioStream" uid="uid://dvthgkuq42xui" path="res://Assets/BGM/Menu-BGM.mp3" id="8_yhxw7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opfnp"]
 bg_color = Color(0.91764706, 0.9137255, 0.9019608, 1)
@@ -323,6 +325,13 @@ theme = SubResource("Theme_ce3w2")
 text = "play"
 alignment = 2
 
+[node name="LevelSelect" type="Button" parent="VBoxContainer" unique_id=777040875]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = SubResource("Theme_ce3w2")
+text = "level select"
+alignment = 2
+
 [node name="Options" type="Button" parent="VBoxContainer" unique_id=355857872]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -355,4 +364,13 @@ anchor_mode = 0
 ignore_rotation = false
 limit_enabled = false
 
+[node name="GameStart" type="AudioStreamPlayer" parent="." unique_id=104590312]
+stream = ExtResource("7_cp0ys")
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1234807056]
+stream = ExtResource("8_yhxw7")
+autoplay = true
+bus = &"Music"
+
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/LevelSelect" to="." method="_on_level_select_pressed"]
