@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://dflo07lks266m" path="res://Scenes/level_title.gd" id="13_fevyy"]
 [ext_resource type="Shader" uid="uid://dopmwf3iiekup" path="res://Assets/Shaders/screen_effects.gdshader" id="14_hibaj"]
 [ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="16_k12tt"]
+[ext_resource type="PackedScene" uid="uid://dur7se0w0i3oa" path="res://UI/UtilityButtons/UtilityButtons.tscn" id="21_pdsj5"]
 
 [sub_resource type="Animation" id="Animation_hptm8"]
 resource_name = "Level End"
@@ -363,6 +364,12 @@ playlist = Array[AudioStream]([ExtResource("5_d1ilt"), ExtResource("7_wsu2k"), E
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1606522880]
 
+[node name="UtilityButtons" parent="CanvasLayer" unique_id=939083526 instance=ExtResource("21_pdsj5")]
+offset_left = 22.0
+offset_top = -334.0
+offset_right = 22.0
+offset_bottom = -334.0
+
 [node name="Timer" type="Label" parent="CanvasLayer" unique_id=406849922]
 modulate = Color(1, 1, 1, 0)
 offset_left = 934.0
@@ -388,6 +395,7 @@ script = ExtResource("13_fevyy")
 
 [node name="NowPlaying Label" type="Label" parent="CanvasLayer" unique_id=1052440976]
 modulate = Color(1, 1, 1, 0)
+z_index = 5
 offset_left = 1.0
 offset_top = -30.0
 offset_right = 1276.0
