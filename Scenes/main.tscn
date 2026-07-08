@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_grid.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/main.gd" id="1_ynf5e"]
 [ext_resource type="AudioStream" uid="uid://65xy81ra2plr" path="res://Assets/Audio/Level_Win.wav" id="3_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="4_h1bgf"]
 [ext_resource type="AudioStream" uid="uid://bop14mispwu0n" path="res://Assets/Audio/Level_Start.wav" id="4_hptm8"]
 [ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="5_21xkr"]
@@ -15,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="8_344ge"]
 [ext_resource type="AudioStream" uid="uid://b7ipjcgdsebph" path="res://Assets/BGM/Morning-Routine-Lofi-Study-Music(chosic.com).mp3" id="8_k12tt"]
 [ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George-Street-Shuffle(chosic.com).mp3" id="9_h1bgf"]
+[ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="16_k12tt"]
 
 [sub_resource type="Animation" id="Animation_hptm8"]
 resource_name = "Level End"
@@ -25,10 +27,10 @@ tracks/0/path = NodePath("PrintingGrid:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(0.31863996, 1.8660662),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.999998, 1.8660662),
 "update": 0,
-"values": [Vector2(327, 360), Vector2(327, 1104)]
+"values": [Vector2(390, 360), Vector2(365, 1104)]
 }
 
 [sub_resource type="Animation" id="Animation_344ge"]
@@ -44,7 +46,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(0.24148421, 1),
 "update": 0,
-"values": [Vector2(327, -380), Vector2(327, 360)]
+"values": [Vector2(390, -380), Vector2(390, 360)]
 }
 
 [sub_resource type="Animation" id="Animation_ynf5e"]
@@ -205,8 +207,19 @@ _data = {
 [node name="Main" type="Node2D" unique_id=1872288472]
 script = ExtResource("1_ynf5e")
 
+[node name="BG" type="TextureRect" parent="." unique_id=648084875]
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("16_k12tt")
+
 [node name="PrintingGrid" parent="." unique_id=1528432382 instance=ExtResource("1_jjgbg")]
 position = Vector2(327, -380)
+
+[node name="Foreground" type="TextureRect" parent="." unique_id=1140767862]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("4_h1bgf")
 
 [node name="GridAnimator" type="AnimationPlayer" parent="." unique_id=1837593053]
 libraries/ = SubResource("AnimationLibrary_hptm8")
