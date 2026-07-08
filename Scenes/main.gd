@@ -9,6 +9,7 @@ var current_level: LevelData
 @onready var victory_grid = $CanvasLayer/VictoryPanel/VictoryTarget
 @onready var victory_animation = $CanvasLayer/VictoryPanel/AnimationPlayer
 @onready var blur_panel = $"CanvasLayer/Blur Panel"
+@onready var ink_cartridges = $Cartridges
 
 @onready var level_win = $LevelWin
 @onready var level_start = $LevelStart
@@ -30,6 +31,7 @@ signal ink_inventory_updated(channel: String, remaining_count: int)
 
 func _ready() -> void:
 	printing_grid.paint_cascade_finished.connect(_on_grid_updated)
+	ink_inventory_updated.connect(ink_cartridges.update_ink_label)
 	var _load_level_by_number_successful: bool = _load_level_by_number(GameMaster.current_level_num)
 
 
@@ -71,7 +73,7 @@ func _load_level_by_number(level_num: int) -> bool:
 		if loaded_resource:
 			# Safely reset global undo/redo states before building the new map
 			SaveStatesManager.reset() 
-			
+			ink_cartridges.update_visible_channels(loaded_resource)
 			_load_level(loaded_resource)
 			
 			# Reset our gate state since a fresh new map is ready for inputs
