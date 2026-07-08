@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="printer (Copy)"
+config/name="Riso"
+config/description="A game about you being a printer"
+config/version="1.0.0"
 run/main_scene="uid://c4iqjtgrs8e44"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://bnh33biuhs5yl"
 run/defaults/default_clear_color=Color(0.3, 0.3, 0.3, 1)
 run/size/viewport_height=360
 run/size/viewport_width=1280

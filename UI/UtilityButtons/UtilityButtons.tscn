@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://sc1asr54t02t" path="res://Assets/game/Buttons/reset/reset_pressed.png" id="2_mxs5k"]
 [ext_resource type="Texture2D" uid="uid://ca1sdns3xf5jt" path="res://Assets/game/Buttons/redo/redo.png" id="3_u506a"]
 [ext_resource type="Texture2D" uid="uid://y41eruxfebjv" path="res://Assets/game/Buttons/redo/redo_pressed.png" id="4_fcu2t"]
-[ext_resource type="Texture2D" uid="uid://ff22b01soq25" path="res://Assets/game/Buttons/undo/undo.png" id="5_75dh0"]
-[ext_resource type="Texture2D" uid="uid://cyiticipar0ix" path="res://Assets/game/Buttons/undo/undo_pressed.png" id="6_dc2vv"]
+[ext_resource type="Texture2D" uid="uid://d3x8b52yvswip" path="res://Assets/game/Buttons/undo2.png" id="6_mxs5k"]
+[ext_resource type="Texture2D" uid="uid://c0wg7bsxthiqt" path="res://Assets/game/Buttons/undo2_pressed.png" id="7_u506a"]
 
 [node name="UtilityButtons" type="Control" unique_id=939083526]
 layout_mode = 3
@@ -32,14 +32,15 @@ texture_normal = ExtResource("1_gv5gi")
 texture_pressed = ExtResource("2_mxs5k")
 
 [node name="Redo" type="TextureButton" parent="VBoxContainer" unique_id=1815308927]
+visible = false
 layout_mode = 2
 texture_normal = ExtResource("3_u506a")
 texture_pressed = ExtResource("4_fcu2t")
 
 [node name="Undo" type="TextureButton" parent="VBoxContainer" unique_id=1997365931]
 layout_mode = 2
-texture_normal = ExtResource("5_75dh0")
-texture_pressed = ExtResource("6_dc2vv")
+texture_normal = ExtResource("6_mxs5k")
+texture_pressed = ExtResource("7_u506a")
 
 [connection signal="pressed" from="VBoxContainer/Reset" to="." method="_on_reset_pressed"]
 [connection signal="pressed" from="VBoxContainer/Redo" to="." method="_on_redo_pressed"]
