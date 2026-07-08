@@ -1,23 +1,26 @@
 extends Control
 
+@export var fadeOutScreen: Panel;
+@export var animationPlayer: AnimationPlayer;
+@export var camera2d: Camera2D;
 
-func _ready() -> void :
-	ColorManager.reset()
-	SaveStatesManager.reset() 
-	CursorManager.reset()
+func _ready() -> void:
+    fadeOutTransition();
+    
+func fadeOutTransition() -> void:
+    fadeOutScreen.modulate.a = 1.0;
+    var fadeout_tween = create_tween()
+    fadeout_tween.tween_property(fadeOutScreen, "modulate:a", 0.0, 1.0);
+    await fadeout_tween.finished;
+    fadeOutScreen.visible = false;
 
-
-
-func _on_play_button_down() -> void:
-	get_tree().change_scene_to_file("res://Scenes/LevelSelector/level_selector.tscn")
-	pass # Replace with function body.
-
-
-func _on_settings_button_down() -> void:
-	$Settings.open()
-
-
-func _on_quit_button_down() -> void:
-	# disable the quit button if on web
-	if (!OS.has_feature("web")) :
-		get_tree().quit()
+func _on_play_pressed() -> void:
+    
+    animationPlayer.play("papermasuk");
+    await animationPlayer.animation_finished
+    #
+    #var camerazoom = create_tween().set_parallel(true);
+     #
+    #camerazoom.tween_property(camera2d, "global_position", Vector2(250, 190), 1).set_trans(Tween.TRANS_SINE).set_trans(Tween.TRANS_LINEAR);
+    #camerazoom.tween_property(camera2d, "zoom", Vector2(5,5), 1).set_trans(Tween.TRANS_SINE).set_trans(Tween.TRANS_LINEAR);
+    get_tree().change_scene_to_file("res://Scenes/main.tscn")

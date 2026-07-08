@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tp2s1ajw6avb"
-path="res://.godot/imported/paper.png-63ba114d026d4be43dcd16c00b660433.ctex"
+uid="uid://bhisqp5qtwhqg"
+path="res://.godot/imported/the_riso.png-6eabbff8e793214f9b140aee05e1c859.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/game/paper.png"
-dest_files=["res://.godot/imported/paper.png-63ba114d026d4be43dcd16c00b660433.ctex"]
+source_file="res://Assets/menu/the_riso.png"
+dest_files=["res://.godot/imported/the_riso.png-6eabbff8e793214f9b140aee05e1c859.ctex"]
 
 [params]
 

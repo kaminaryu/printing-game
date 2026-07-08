@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tp2s1ajw6avb"
-path="res://.godot/imported/paper.png-63ba114d026d4be43dcd16c00b660433.ctex"
+uid="uid://gm3wmvgo4e2l"
+path="res://.godot/imported/printer_back.png-2d5e46b393e3aaa29c8130e9b1a045b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/game/paper.png"
-dest_files=["res://.godot/imported/paper.png-63ba114d026d4be43dcd16c00b660433.ctex"]
+source_file="res://Assets/menu/printer_back.png"
+dest_files=["res://.godot/imported/printer_back.png-2d5e46b393e3aaa29c8130e9b1a045b8.ctex"]
 
 [params]
 
