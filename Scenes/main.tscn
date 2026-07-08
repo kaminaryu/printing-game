@@ -7,15 +7,18 @@
 [ext_resource type="AudioStream" uid="uid://bop14mispwu0n" path="res://Assets/Audio/Level_Start.wav" id="4_hptm8"]
 [ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="5_21xkr"]
-[ext_resource type="AudioStream" uid="uid://djbrc0cr1yo7u" path="res://Assets/BGM/Lobby-Time(chosic.com).mp3" id="5_d1ilt"]
+[ext_resource type="AudioStream" uid="uid://djbrc0cr1yo7u" path="res://Assets/BGM/Lobby Time - Kevin MacLeod.mp3" id="5_d1ilt"]
 [ext_resource type="PackedScene" uid="uid://dqu6xara3up6f" path="res://UI/Widgets/palette.tscn" id="5_kry3j"]
 [ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="6_21xkr"]
 [ext_resource type="Script" uid="uid://gvddv4gloabi" path="res://Scenes/bgm.gd" id="6_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://uhvf14vx7dqq" path="res://Assets/game/Continue.png" id="7_6bp64"]
-[ext_resource type="AudioStream" uid="uid://dl8sxrydj1xtm" path="res://Assets/BGM/Airport-Lounge(chosic.com).mp3" id="7_wsu2k"]
-[ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="8_344ge"]
-[ext_resource type="AudioStream" uid="uid://b7ipjcgdsebph" path="res://Assets/BGM/Morning-Routine-Lofi-Study-Music(chosic.com).mp3" id="8_k12tt"]
-[ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George-Street-Shuffle(chosic.com).mp3" id="9_h1bgf"]
+[ext_resource type="AudioStream" uid="uid://dl8sxrydj1xtm" path="res://Assets/BGM/Airport Lounge - Kevin MacLeod.mp3" id="7_wsu2k"]
+[ext_resource type="PackedScene" path="res://Scenes/main_gui.tscn" id="8_344ge"]
+[ext_resource type="AudioStream" uid="uid://b7ipjcgdsebph" path="res://Assets/BGM/Morning Routine - Ghostrifter Official.mp3" id="8_k12tt"]
+[ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George Street Shuffle - Kevin Macleod.mp3" id="9_h1bgf"]
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="12_b3802"]
+[ext_resource type="Script" uid="uid://dflo07lks266m" path="res://Scenes/level_title.gd" id="13_fevyy"]
+[ext_resource type="Shader" uid="uid://dopmwf3iiekup" path="res://Assets/Shaders/screen_effects.gdshader" id="14_hibaj"]
 [ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="16_k12tt"]
 
 [sub_resource type="Animation" id="Animation_hptm8"]
@@ -71,6 +74,115 @@ _data = {
 &"RESET": SubResource("Animation_ynf5e")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_fevyy"]
+font = ExtResource("12_b3802")
+font_size = 20
+
+[sub_resource type="Animation" id="Animation_fevyy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hibaj"]
+resource_name = "Timer In"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.24148409, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pdsj5"]
+_data = {
+&"RESET": SubResource("Animation_fevyy"),
+&"Timer In": SubResource("Animation_hibaj")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_hibaj"]
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_pdsj5"]
+resource_name = "NowPlaying In"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 5.5, 7),
+"transitions": PackedFloat32Array(0.23325826, 2.8284266, 2.82, 0.233),
+"update": 0,
+"values": [Vector2(1, -30), Vector2(1, 46), Vector2(1, 46), Vector2(1, -30)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4666667, 5.5, 7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gt3je"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -30)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3pmx8"]
+_data = {
+&"NowPlaying In": SubResource("Animation_pdsj5"),
+&"RESET": SubResource("Animation_gt3je")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdsj5"]
+shader = ExtResource("14_hibaj")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_21xkr"]
 shader = ExtResource("5_21xkr")
 shader_parameter/blur_amount = 0.0
@@ -91,7 +203,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(0.30778635, 1),
 "update": 0,
-"values": [0.0, 1.50000007125]
+"values": [0.0, 2.000000095]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -197,11 +309,19 @@ tracks/2/keys = {
 "values": [0.27480555]
 }
 
+[sub_resource type="Animation" id="Animation_ee4r6"]
+resource_name = "Timer In"
+
+[sub_resource type="Animation" id="Animation_b3802"]
+resource_name = "Title In"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6bp64"]
 _data = {
 &"Print In": SubResource("Animation_kry3j"),
 &"Print Out": SubResource("Animation_6bp64"),
-&"RESET": SubResource("Animation_21xkr")
+&"RESET": SubResource("Animation_21xkr"),
+&"Timer In": SubResource("Animation_ee4r6"),
+&"Title In": SubResource("Animation_b3802")
 }
 
 [node name="Main" type="Node2D" unique_id=1872288472]
@@ -240,15 +360,55 @@ playlist = Array[AudioStream]([ExtResource("5_d1ilt"), ExtResource("7_wsu2k"), E
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1606522880]
 
+[node name="Timer" type="Label" parent="CanvasLayer" unique_id=406849922]
+modulate = Color(1, 1, 1, 0)
+offset_left = 934.0
+offset_top = 68.0
+offset_right = 1014.0
+offset_bottom = 102.0
+text = "0:00"
+label_settings = SubResource("LabelSettings_fevyy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Timer" unique_id=1417179996]
+libraries/ = SubResource("AnimationLibrary_pdsj5")
+
+[node name="Level Title" type="Label" parent="CanvasLayer" unique_id=447130284]
+offset_left = 817.0
+offset_top = 68.0
+offset_right = 1125.0
+offset_bottom = 102.0
+text = "The Basics"
+label_settings = SubResource("LabelSettings_fevyy")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("13_fevyy")
+
+[node name="NowPlaying Label" type="Label" parent="CanvasLayer" unique_id=1052440976]
+modulate = Color(1, 1, 1, 0)
+offset_left = 1.0
+offset_top = -30.0
+offset_right = 1276.0
+offset_bottom = -7.0
+size_flags_vertical = 1
+text = "♫ Airport Lounge - Kevin MacLeod"
+label_settings = SubResource("LabelSettings_hibaj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/NowPlaying Label" unique_id=1973273657]
+libraries/ = SubResource("AnimationLibrary_3pmx8")
+
 [node name="TargetGrid" type="Control" parent="CanvasLayer" unique_id=1142256806]
+modulate = Color(1, 1, 1, 0.78431374)
+material = SubResource("ShaderMaterial_pdsj5")
 layout_mode = 3
 anchors_preset = 0
-offset_left = 854.0
-offset_top = 163.0
-offset_right = 894.0
-offset_bottom = 203.0
+offset_left = 880.0
+offset_top = 204.0
+offset_right = 920.0
+offset_bottom = 244.0
 script = ExtResource("4_jjvhh")
-max_boundary_size = 250.0
+max_boundary_size = 175.0
 cell_gap = 3.0
 
 [node name="Palette" parent="CanvasLayer" unique_id=1883377568 instance=ExtResource("5_kry3j")]
@@ -316,5 +476,6 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 texture_normal = ExtResource("7_6bp64")
 
 [node name="MainGUI" parent="CanvasLayer" unique_id=1677267965 instance=ExtResource("8_344ge")]
+visible = false
 
 [connection signal="pressed" from="CanvasLayer/VictoryPanel/ContinueButton" to="." method="_on_continue_button_pressed"]

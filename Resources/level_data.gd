@@ -4,8 +4,8 @@ class_name LevelData
 
 @export_subgroup("Level Configuration")
 @export var grid_size: Vector2i = Vector2i(5, 5)
-# NOTE: (RYU) shouldve used ColorsManager.CHANNELS
 @export var available_channels: Array[String] = ["c", "y", "m", "k"]
+@export var level_name: String = "Lorem Ipsum"
 
 @export_subgroup("Solution Layout")
 @export var target_colors: Array[String] = []

@@ -6,6 +6,7 @@
 script = ExtResource("1_8eyyv")
 grid_size = Vector2i(4, 4)
 available_channels = Array[String](["c", "y", "m"])
+level_name = "Chestplate"
 target_colors = Array[String](["101", "001", "001", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101"])
 ink_limits = {
 "c": 5,

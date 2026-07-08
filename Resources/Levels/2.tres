@@ -6,4 +6,5 @@
 script = ExtResource("1_pj642")
 grid_size = Vector2i(3, 3)
 available_channels = Array[String](["c", "m"])
+level_name = "Magenta Cross"
 target_colors = Array[String](["000", "010", "000", "010", "010", "010", "000", "010", "000"])

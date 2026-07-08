@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="LevelData" format=3]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://bb7w3crrgejfe"]
 
-[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_ajopu"]
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_ajopu"]
 
 [resource]
 script = ExtResource("1_ajopu")
 grid_size = Vector2i(4, 4)
+level_name = "Halo"
 target_colors = Array[String](["001", "001", "001", "001", "001", "010", "010", "001", "001", "010", "010", "001", "001", "001", "001", "001"])

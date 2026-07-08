@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://tox2yujgphde" path="res://Objects/Printer/PrintingGrid/printing_grid.gd" id="1_whvfb"]
 [ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="2_whvfb"]
+[ext_resource type="AudioStream" uid="uid://rvn6fgd3pok0" path="res://Assets/Audio/Paint_Roll.wav" id="3_f5pb8"]
 
 [node name="PrintingGrid" type="Node2D" unique_id=1528432382]
 script = ExtResource("1_whvfb")
@@ -10,3 +11,7 @@ script = ExtResource("1_whvfb")
 position = Vector2(-20, 0)
 scale = Vector2(0.98, 0.98)
 texture = ExtResource("2_whvfb")
+
+[node name="Paint Roll SFX" type="AudioStreamPlayer" parent="." unique_id=923948313]
+stream = ExtResource("3_f5pb8")
+volume_db = -5.0

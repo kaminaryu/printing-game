@@ -13,6 +13,10 @@ var current_level: LevelData
 
 @onready var level_win = $LevelWin
 @onready var level_start = $LevelStart
+
+@onready var main_gui = $CanvasLayer/MainGUI
+@onready var timer_label = $CanvasLayer/Timer
+@onready var level_title = $"CanvasLayer/Level Title"
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
 
@@ -20,21 +24,27 @@ var target_grid_data: Array = []
 var remaining_ink: Dictionary = {}
 var _starting_ink: Dictionary = {} 
 
+var timer_running: bool
+var elapsed_time := 0.0
+
 signal ink_inventory_updated(channel: String, remaining_count: int)
 
 func _ready() -> void:
 	printing_grid.paint_cascade_finished.connect(_on_grid_updated)
-	
-	# Try loading the numeric level sequence first. 
-	# If no dynamic file is found, fallback to whatever is manually assigned in the inspector slot.
-	
 	var _load_level_by_number_successful: bool = _load_level_by_number(GameMaster.current_level_num)
 
-	# if not _load_level_by_number_successful and current_level:
-	# 	_load_level(current_level)
 
+func _process(delta):
+	if timer_running:
+		elapsed_time += delta
+		timer_label.text = format_time(elapsed_time)
 
 func _load_level(level_data: LevelData) -> void:
+	reset_timer()
+	level_title.text = level_data.level_name
+	level_title.play_animation()
+	timer_running = true
+	main_gui.visible = true
 	current_level = level_data
 	target_grid_data = level_data.get_target_grid_2d()
 	
@@ -115,11 +125,13 @@ func check_victory_condition() -> bool:
 
 func _handle_level_victory() -> void:
 	is_transitioning = true
+	timer_running = false
 	await get_tree().create_timer(0.5).timeout
 	grid_animator.play("Level End")
 	level_win.pitch_scale = randf_range(0.9, 1.1)
 	level_win.play()
 	await grid_animator.animation_finished
+	main_gui.visible = false
 	blur_panel.visible = true
 	
 	if victory_animation:
@@ -150,6 +162,13 @@ func _on_continue_button_pressed() -> void:
 	GameMaster.increase_level()
 	_load_level_by_number(GameMaster.current_level_num)
 
+func format_time(time: float) -> String:
+	var minutes = int(time) / 60
+	var seconds = int(time) % 60
+	return "%02d:%02d" % [minutes, seconds]
+
+func reset_timer():
+	elapsed_time = 0
 
 func _input(event: InputEvent) -> void :
 	if printing_grid.is_cascading:

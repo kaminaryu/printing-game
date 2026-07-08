@@ -3,6 +3,9 @@ extends AudioStreamPlayer
 # 🎵 1. Drag and drop your 5 audio files from the FileSystem into this array in the Inspector
 @export var playlist: Array[AudioStream] = []
 
+@onready var now_playing_label = $"../CanvasLayer/NowPlaying Label"
+@onready var now_playing_anim = $"../CanvasLayer/NowPlaying Label/AnimationPlayer"
+
 var shuffled_playlist: Array[AudioStream] = []
 var last_played_track: AudioStream = null
 
@@ -37,8 +40,8 @@ func play_next_random_track() -> void:
 	stream = next_track
 	last_played_track = next_track
 	play()
-	
-	print("Now playing track: ", next_track.resource_path.get_file())
+	now_playing_label.text = str("♫ ", next_track.resource_path.get_file().get_basename())
+	now_playing_anim.play("NowPlaying In")
 
 func _on_song_finished() -> void:
 	# The moment a track stops playing naturally, this loops to fetch the next one

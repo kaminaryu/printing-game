@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="LevelData" format=3]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://crwferdds6x0d"]
 
-[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_g1buh"]
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_g1buh"]
 
 [resource]
 script = ExtResource("1_g1buh")
 grid_size = Vector2i(3, 3)
+level_name = "Cornflower"
 target_colors = Array[String](["100", "100", "100", "100", "001", "100", "100", "100", "100"])
 ink_limits = {
 "c": 4,

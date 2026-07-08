@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="LevelData" format=3]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://ctr0mbjst8pim"]
 
-[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_0yfut"]
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_0yfut"]
 
 [resource]
 script = ExtResource("1_0yfut")
+level_name = "Ball"
 target_colors = Array[String](["011", "011", "011", "011", "011", "011", "011", "011", "011", "011", "011", "011", "000", "011", "011", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000"])
 ink_limits = {
 "c": 0,

@@ -6,6 +6,8 @@ extends Node2D
 @onready var cell_scene = preload("res://Objects/Printer/PrintingGrid/grid_cell.tscn")
 @onready var painter_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
 
+@onready var paint_roll_sfx = $"Paint Roll SFX"
+
 const MAX_GRID_BOUNDS: float = 350.0
 const CELL_GAP: int = 2
 const BUTTON_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000"]
@@ -181,6 +183,8 @@ func _paint_column(col: int, channel: String) -> bool :
 
 	var locked: bool = (lock_cell_count == grid_size.y)
 	var total_delay: float = (grid_size.y - 1) * speed_modifier + CELL_FADE_DURATION
+	paint_roll_sfx.pitch_scale = randf_range(0.8, 1.1)
+	paint_roll_sfx.play()
 	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
 
@@ -211,6 +215,8 @@ func _paint_row(row: int, channel: String) -> bool :
 
 	var locked: bool = (lock_cell_count == grid_size.x)
 	var total_delay: float = (grid_size.x - 1) * speed_modifier + CELL_FADE_DURATION
+	paint_roll_sfx.pitch_scale = randf_range(0.8, 1.1)
+	paint_roll_sfx.play()
 	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
 	return locked
 
