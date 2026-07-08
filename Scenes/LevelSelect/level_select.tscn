@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="1_1fdgm"]
 [ext_resource type="Script" uid="uid://c4raou4qqgak3" path="res://Scenes/LevelSelect/level_select.gd" id="1_dglhw"]
 [ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="2_brah1"]
-[ext_resource type="Shader" uid="uid://dopmwf3iiekup" path="res://Assets/Shaders/screen_effects.gdshader" id="3_tnwcr"]
-[ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_dglhw"]
+[ext_resource type="Shader" path="res://Assets/Shaders/screen_effects.gdshader" id="3_tnwcr"]
+[ext_resource type="Script" path="res://Scenes/target_preview_grid.gd" id="4_dglhw"]
 [ext_resource type="Texture2D" uid="uid://dmniutjrj375r" path="res://Assets/game/Buttons/reset/reset.png" id="6_4fu6m"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="6_h4n71"]
 [ext_resource type="Texture2D" uid="uid://sc1asr54t02t" path="res://Assets/game/Buttons/reset/reset_pressed.png" id="7_ayrr0"]
@@ -64,6 +64,28 @@ offset_top = 67.0
 offset_right = 1119.0
 offset_bottom = 101.0
 text = "The Basics"
+label_settings = SubResource("LabelSettings_yof5r")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Completed Level" type="Label" parent="." unique_id=1404370711]
+layout_mode = 0
+offset_left = 811.0
+offset_top = 511.0
+offset_right = 1119.0
+offset_bottom = 545.0
+text = "Uncompleted"
+label_settings = SubResource("LabelSettings_yof5r")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time Elapsed" type="Label" parent="." unique_id=62745935]
+layout_mode = 0
+offset_left = 811.0
+offset_top = 553.0
+offset_right = 1119.0
+offset_bottom = 587.0
+text = "--:--"
 label_settings = SubResource("LabelSettings_yof5r")
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -42,6 +42,7 @@ func _process(delta):
 		elapsed_time += delta
 		timer_label.text = format_time(elapsed_time)
 
+
 func _load_level(level_data: LevelData) -> void:
 	reset_timer()
 	level_title.text = level_data.level_name
@@ -128,22 +129,25 @@ func check_victory_condition() -> bool:
 func _handle_level_victory() -> void:
 	is_transitioning = true
 	timer_running = false
+
 	time_elapsed_label.text = format_time_ms(elapsed_time) 
+
 	await get_tree().create_timer(0.5).timeout
 	grid_animator.play("Level End")
+
 	level_win.pitch_scale = randf_range(0.9, 1.1)
 	level_win.play()
 	await grid_animator.animation_finished
+
 	main_gui.visible = false
 	paper_guide.visible = false
 	blur_panel.visible = true
+
+	GameMaster.save_level_data(elapsed_time)
 	
 	if victory_animation:
 		victory_animation.play("Print In")
 
-	# GameMaster.increase_level()
-	#_load_level_by_number(GameMaster.current_level_num)
-	
 
 
 func reset_entire_level() -> void:
