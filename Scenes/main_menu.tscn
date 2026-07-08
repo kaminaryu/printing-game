@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c4iqjtgrs8e44"]
 
 [ext_resource type="Texture2D" uid="uid://gm3wmvgo4e2l" path="res://Assets/menu/printer_back.png" id="1_ce3w2"]
-[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_opfnp"]
+[ext_resource type="Script" uid="uid://dohiljln5sel3" path="res://Scenes/main_menu.gd" id="1_opfnp"]
 [ext_resource type="Texture2D" uid="uid://dpjfxr6cu3vso" path="res://Assets/menu/small_paper.png" id="2_n45e2"]
 [ext_resource type="Texture2D" uid="uid://c8sxt7sm3y5cu" path="res://Assets/menu/printer_front.png" id="3_opfnp"]
 [ext_resource type="Texture2D" uid="uid://bhisqp5qtwhqg" path="res://Assets/menu/the_riso.png" id="4_cp0ys"]

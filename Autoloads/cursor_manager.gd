@@ -26,7 +26,6 @@ func reset() -> void :
 
 
 func _ready() -> void:
-	# Sets the fallback system/default application cursor
 	reset()
 
 

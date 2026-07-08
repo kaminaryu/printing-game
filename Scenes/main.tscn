@@ -194,7 +194,18 @@ shader = ExtResource("5_21xkr")
 shader_parameter/blur_amount = 0.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_21xkr"]
-font_size = 37
+font = ExtResource("12_b3802")
+font_size = 35
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_cbgmd"]
+font = ExtResource("12_b3802")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1w6v2"]
+font = ExtResource("12_b3802")
+font_size = 35
 font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_kry3j"]
@@ -446,7 +457,7 @@ anchor_bottom = 0.5
 offset_left = -265.0
 offset_top = -1055.0
 offset_right = 265.0
-offset_bottom = -385.52515
+offset_bottom = -385.52527
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.27480555
@@ -454,17 +465,49 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("6_21xkr")
 expand_mode = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/VictoryPanel" unique_id=1752344542]
+[node name="Level Cleared" type="Label" parent="CanvasLayer/VictoryPanel" unique_id=1752344542]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
+offset_left = 11.0
 offset_top = 64.0
+offset_right = 11.0
 offset_bottom = 115.0
 grow_horizontal = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
-text = "You Win Nigga"
+text = "Level Cleared!"
 label_settings = SubResource("LabelSettings_21xkr")
 horizontal_alignment = 1
+
+[node name="Time Elapsed" type="Label" parent="CanvasLayer/VictoryPanel" unique_id=119748727]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 7.0
+offset_top = 354.0
+offset_right = 7.0
+offset_bottom = 405.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "Time Elapsed"
+label_settings = SubResource("LabelSettings_cbgmd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="CanvasLayer/VictoryPanel" unique_id=995815257]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 7.0
+offset_top = 400.0
+offset_right = 7.0
+offset_bottom = 451.0
+grow_horizontal = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+text = "Time"
+label_settings = SubResource("LabelSettings_1w6v2")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VictoryTarget" type="Control" parent="CanvasLayer/VictoryPanel" unique_id=164865766]
 z_index = 1
@@ -484,9 +527,10 @@ libraries/ = SubResource("AnimationLibrary_6bp64")
 [node name="ContinueButton" type="TextureButton" parent="CanvasLayer/VictoryPanel" unique_id=1305930097]
 layout_mode = 0
 offset_left = 195.0
-offset_top = 427.0
+offset_top = 481.0
 offset_right = 333.0
-offset_bottom = 565.0
+offset_bottom = 619.0
+scale = Vector2(0.67862535, 0.67862535)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture_normal = ExtResource("7_6bp64")
 

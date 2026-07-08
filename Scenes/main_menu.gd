@@ -8,6 +8,7 @@ extends Control
 
 func _ready() -> void:
 	fadeOutTransition();
+	CursorManager.reset()
 	
 func fadeOutTransition() -> void:
 	fadeOutScreen.modulate.a = 1.0;

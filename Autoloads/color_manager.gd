@@ -44,3 +44,4 @@ func get_color_channel() -> String :
 
 func is_selecting_color() -> bool :
 	return selected_color != -1
+	

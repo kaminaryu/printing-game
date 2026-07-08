@@ -17,6 +17,7 @@ var current_level: LevelData
 @onready var main_gui = $CanvasLayer/MainGUI
 @onready var timer_label = $CanvasLayer/Timer
 @onready var level_title = $"CanvasLayer/Level Title"
+@onready var time_elapsed_label = $CanvasLayer/VictoryPanel/Time
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
 
@@ -125,6 +126,7 @@ func check_victory_condition() -> bool:
 func _handle_level_victory() -> void:
 	is_transitioning = true
 	timer_running = false
+	time_elapsed_label.text = format_time_ms(elapsed_time) 
 	await get_tree().create_timer(0.5).timeout
 	grid_animator.play("Level End")
 	level_win.pitch_scale = randf_range(0.9, 1.1)
@@ -166,6 +168,12 @@ func format_time(time: float) -> String:
 	var seconds = int(time) % 60
 	return "%02d:%02d" % [minutes, seconds]
 
+func format_time_ms(time: float) -> String:
+	var minutes = int(time) / 60
+	var seconds = int(time) % 60
+	var milliseconds = int((time - int(time)) * 100)
+	return "%02d:%02d.%02d" % [minutes, seconds, milliseconds]
+
 func reset_timer():
 	elapsed_time = 0
 
@@ -184,3 +192,13 @@ func _input(event: InputEvent) -> void :
 
 	#elif event.is_action_pressed("escape") :
 	#	pass
+
+	#if event.is_action_pressed("select_cyan"):
+		#ColorManager.selected_color = 0
+	#elif event.is_action_pressed("select_magenta"):
+		#ColorManager.selected_color = 1
+	#elif event.is_action_pressed("select_yellow"):
+		#ColorManager.selected_color = 2
+	#elif event.is_action_pressed("select_key"):
+		#ColorManager.selected_color = 3
+	#CursorManager.set_cursor()
