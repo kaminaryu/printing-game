@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="printer (Copy)"
-run/main_scene="uid://ciadiarvvyck3"
+run/main_scene="uid://c4iqjtgrs8e44"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 run/defaults/default_clear_color=Color(0.3, 0.3, 0.3, 1)
