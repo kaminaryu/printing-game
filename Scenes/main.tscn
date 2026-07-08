@@ -2,7 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_grid.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/main.gd" id="1_ynf5e"]
-[ext_resource type="Script" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
+[ext_resource type="AudioStream" uid="uid://65xy81ra2plr" path="res://Assets/Audio/Level_Win.wav" id="3_ynf5e"]
+[ext_resource type="AudioStream" uid="uid://bop14mispwu0n" path="res://Assets/Audio/Level_Start.wav" id="4_hptm8"]
+[ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="5_21xkr"]
 [ext_resource type="PackedScene" uid="uid://dqu6xara3up6f" path="res://UI/Widgets/palette.tscn" id="5_kry3j"]
 [ext_resource type="Texture2D" uid="uid://48w2knhwqkkv" path="res://Assets/game/paper.png" id="6_21xkr"]
@@ -19,7 +21,7 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(2.1435478, 1),
+"transitions": PackedFloat32Array(0.31863996, 1.8660662),
 "update": 0,
 "values": [Vector2(327, 360), Vector2(327, 1104)]
 }
@@ -203,6 +205,15 @@ position = Vector2(327, -380)
 
 [node name="GridAnimator" type="AnimationPlayer" parent="." unique_id=1837593053]
 libraries/ = SubResource("AnimationLibrary_hptm8")
+
+[node name="LevelWin" type="AudioStreamPlayer" parent="." unique_id=411612476]
+stream = ExtResource("3_ynf5e")
+pitch_scale = 1.2
+bus = &"SFX"
+
+[node name="LevelStart" type="AudioStreamPlayer" parent="." unique_id=694367348]
+stream = ExtResource("4_hptm8")
+bus = &"SFX"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1606522880]
 

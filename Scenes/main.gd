@@ -11,6 +11,8 @@ var current_level: LevelData
 @onready var victory_animation = $CanvasLayer/VictoryPanel/AnimationPlayer
 @onready var blur_panel = $"CanvasLayer/Blur Panel"
 
+@onready var level_win = $LevelWin
+@onready var level_start = $LevelStart
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
 
@@ -43,6 +45,8 @@ func _load_level(level_data: LevelData) -> void:
 	victory_grid.update_preview(level_data)
 	printing_grid.setup_and_build(level_data.grid_size)
 	
+	level_start.pitch_scale = randf_range(0.9, 1.1)
+	level_start.play()
 	grid_animator.play("Level Start")
 
 	palette.update_visible_channels(level_data)
@@ -111,7 +115,10 @@ func check_victory_condition() -> bool:
 
 func _handle_level_victory() -> void:
 	is_transitioning = true
+	await get_tree().create_timer(0.5).timeout
 	grid_animator.play("Level End")
+	level_win.pitch_scale = randf_range(0.9, 1.1)
+	level_win.play()
 	await grid_animator.animation_finished
 	blur_panel.visible = true
 	
@@ -157,5 +164,5 @@ func _input(event: InputEvent) -> void :
 	elif event.is_action_pressed("reset_grid") :
 		reset_entire_level()
 
-	elif event.is_action_pressed("escape") :
-		pass
+	#elif event.is_action_pressed("escape") :
+	#	pass

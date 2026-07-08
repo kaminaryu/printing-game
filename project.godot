@@ -10,13 +10,13 @@ config_version=5
 
 [application]
 
-config/name="printer"
-run/main_scene="uid://ciadiarvvyck3"
+config/name="printer (Copy)"
+run/main_scene="uid://b51cck50u8a2w"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+run/defaults/default_clear_color=Color(0.3, 0.3, 0.3, 1)
 run/size/viewport_height=360
 run/size/viewport_width=1280
-run/defaults/default_clear_color=Color(0.3, 0.3, 0.3, 1)
 
 [audio]
 
@@ -26,8 +26,8 @@ buses/default_bus_layout="uid://doyxlrav6762t"
 
 ColorManager="*uid://d3q1sgy2f5use"
 SaveStatesManager="*uid://cgjcf26sutm23"
-CursorManager="*uid://bib3mqgg4b6yi"
 GameMaster="*uid://dksb0eccot54l"
+CursorManager="*uid://bib3mqgg4b6yi"
 
 [display]
 
