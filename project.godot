@@ -26,8 +26,8 @@ buses/default_bus_layout="uid://doyxlrav6762t"
 
 ColorManager="*uid://d3q1sgy2f5use"
 SaveStatesManager="*uid://cgjcf26sutm23"
-CursorManager="*uid://bib3mqgg4b6yi"
 GameMaster="*uid://dksb0eccot54l"
+CursorManager="*uid://bib3mqgg4b6yi"
 
 [display]
 
@@ -89,5 +89,5 @@ select_key={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.17641911, 0.17641908, 0.17641908, 1)
+environment/defaults/default_clear_color=Color(0.91764706, 0.9137255, 0.9019608, 1)
 viewport/size/viewport_height=720

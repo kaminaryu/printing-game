@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://gvddv4gloabi" path="res://Scenes/bgm.gd" id="6_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://uhvf14vx7dqq" path="res://Assets/game/Continue.png" id="7_6bp64"]
 [ext_resource type="AudioStream" uid="uid://dl8sxrydj1xtm" path="res://Assets/BGM/Airport Lounge - Kevin MacLeod.mp3" id="7_wsu2k"]
-[ext_resource type="PackedScene" path="res://Scenes/main_gui.tscn" id="8_344ge"]
+[ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="8_344ge"]
 [ext_resource type="AudioStream" uid="uid://b7ipjcgdsebph" path="res://Assets/BGM/Morning Routine - Ghostrifter Official.mp3" id="8_k12tt"]
 [ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George Street Shuffle - Kevin Macleod.mp3" id="9_h1bgf"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="12_b3802"]
