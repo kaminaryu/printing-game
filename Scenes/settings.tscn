@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1f1kykdhkpbb"]
 
-[ext_resource type="Script" uid="uid://dfykxg8j8j1vd" path="res://Scenes/settings.gd" id="1_4geyq"]
+[ext_resource type="Script" path="res://Scenes/settings.gd" id="1_4geyq"]
 [ext_resource type="Texture2D" uid="uid://ccyrcxvy1ooba" path="res://Assets/LockIndicator.png" id="2_i44u3"]
 
 [node name="Settings" type="Control" unique_id=1684481824]
@@ -75,7 +75,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "Volume"
+text = "Music"
 
 [node name="MusicSlider" type="HSlider" parent="VBoxContainer/MusicVol" unique_id=1352623195]
 custom_minimum_size = Vector2(500, 0)
