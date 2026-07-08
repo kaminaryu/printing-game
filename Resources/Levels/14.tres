@@ -6,5 +6,4 @@
 script = ExtResource("1_tsfje")
 grid_size = Vector2i(3, 3)
 available_channels = Array[String](["c", "y", "m"])
-level_name = "Baguette"
 target_colors = Array[String](["110", "000", "011", "110", "000", "011", "110", "000", "011"])

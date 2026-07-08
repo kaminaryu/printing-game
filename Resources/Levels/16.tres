@@ -6,7 +6,6 @@
 script = ExtResource("1_0dcih")
 grid_size = Vector2i(3, 3)
 available_channels = Array[String](["c", "y", "m"])
-level_name = "Green Present"
 target_colors = Array[String](["100", "101", "100", "101", "101", "101", "100", "101", "100"])
 ink_limits = {
 "c": 3,

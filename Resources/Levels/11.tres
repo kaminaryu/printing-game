@@ -6,5 +6,4 @@
 script = ExtResource("1_gyksq")
 grid_size = Vector2i(4, 4)
 available_channels = Array[String](["c", "m"])
-level_name = "Bars"
 target_colors = Array[String](["110", "010", "110", "010", "110", "110", "110", "110", "110", "010", "110", "010", "110", "010", "110", "010"])
