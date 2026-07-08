@@ -7,6 +7,7 @@ extends Control
 
 @onready var game_start = $GameStart
 
+
 func _ready() -> void:
 	fadeOutTransition();
 	CursorManager.reset()
@@ -40,3 +41,11 @@ func _on_level_select_pressed() -> void:
 
 func _on_options_pressed() -> void:
 	$Settings.open();
+
+
+func _on_credits_pressed() -> void:
+	animationPlayer.play("show_credits");
+
+
+func _on_back_pressed() -> void:
+	animationPlayer.play("show_credits_2")
