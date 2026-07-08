@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://cc58jqxty35fy" path="res://Assets/game/Buttons/start/start.png" id="22_ueoa1"]
 [ext_resource type="Texture2D" uid="uid://tradybmvlqef" path="res://Assets/game/Buttons/start/start_pressed.png" id="23_6vcvc"]
 [ext_resource type="AudioStream" uid="uid://dk65n0rjxk5q" path="res://Assets/Audio/printer_noise_1.wav" id="23_cbgmd"]
+[ext_resource type="Script" uid="uid://ubr0v3ocqq0e" path="res://Scenes/paper_guide.gd" id="23_ueoa1"]
 [ext_resource type="AudioStream" uid="uid://clyxjd0d36iib" path="res://Assets/Audio/printer_noise_2.wav" id="24_1w6v2"]
 [ext_resource type="AudioStream" uid="uid://d32ith8mmjq81" path="res://Assets/Audio/printer_noise_3.wav" id="25_ueoa1"]
 [ext_resource type="AudioStream" uid="uid://kefonkcuwp6" path="res://Assets/Audio/printer_noise_4.wav" id="26_6vcvc"]
@@ -122,6 +123,96 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_fevyy"),
 &"Timer In": SubResource("Animation_hibaj")
+}
+
+[sub_resource type="Animation" id="Animation_6vcvc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1164, -2.0000305)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.35430184]
+}
+
+[sub_resource type="Animation" id="Animation_7k868"]
+resource_name = "new_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.37892917, 1),
+"update": 0,
+"values": [Vector2(1164, -2.0000305), Vector2(631.965, 15.045)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.37892917, 1),
+"update": 0,
+"values": [-0.35430184, 0.08726646259971647]
+}
+
+[sub_resource type="Animation" id="Animation_hpc6h"]
+resource_name = "slide_out"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(2.1435478, 0.37892917),
+"update": 0,
+"values": [Vector2(631.965, 15.045), Vector2(1164, -2.0000305)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(2.1435478, 0.37892917),
+"update": 0,
+"values": [0.08726646259971647, -0.35430184]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kltya"]
+_data = {
+&"RESET": SubResource("Animation_6vcvc"),
+&"slide_in": SubResource("Animation_7k868"),
+&"slide_out": SubResource("Animation_hpc6h")
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_hibaj"]
@@ -344,6 +435,46 @@ _data = {
 &"Title In": SubResource("Animation_b3802")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cbgmd"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_1w6v2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ueoa1"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6vcvc"]
+_data = {
+&"RESET": SubResource("Animation_1w6v2"),
+&"fade_in": SubResource("Animation_ueoa1")
+}
+
 [node name="Main" type="Node2D" unique_id=1872288472]
 script = ExtResource("1_ynf5e")
 
@@ -420,6 +551,27 @@ label_settings = SubResource("LabelSettings_fevyy")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("13_fevyy")
+
+[node name="PaperGuide" type="TextureRect" parent="CanvasLayer" unique_id=123657309]
+z_index = 1
+offset_left = 1164.0
+offset_top = -2.0000305
+offset_right = 1806.0048
+offset_bottom = 648.0
+rotation = -0.35430184
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("22_1w6v2")
+script = ExtResource("23_ueoa1")
+
+[node name="ArrowButton" type="TextureButton" parent="CanvasLayer/PaperGuide" unique_id=1054574741]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 98.0
+offset_right = 167.0
+offset_bottom = 149.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/PaperGuide" unique_id=1416924504]
+libraries/ = SubResource("AnimationLibrary_kltya")
 
 [node name="NowPlaying Label" type="Label" parent="CanvasLayer" unique_id=1052440976]
 modulate = Color(1, 1, 1, 0)
@@ -546,6 +698,21 @@ texture_normal = ExtResource("7_6bp64")
 
 [node name="MainGUI" parent="CanvasLayer" unique_id=1677267965 instance=ExtResource("8_344ge")]
 visible = false
+z_index = 2
+
+[node name="FadeOut" type="Panel" parent="CanvasLayer" unique_id=1166514051]
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cbgmd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/FadeOut" unique_id=427958351]
+libraries/ = SubResource("AnimationLibrary_6vcvc")
+autoplay = &"fade_in"
 
 [node name="PrinterNoises" type="AudioStreamPlayer" parent="." unique_id=630669394]
 volume_db = -15.0
@@ -553,4 +720,7 @@ bus = &"SFX"
 script = ExtResource("22_ee4r6")
 sounds = Array[AudioStream]([ExtResource("23_cbgmd"), ExtResource("24_1w6v2"), ExtResource("25_ueoa1"), ExtResource("26_6vcvc")])
 
+[connection signal="mouse_entered" from="CanvasLayer/PaperGuide/ArrowButton" to="CanvasLayer/PaperGuide" method="_on_arrow_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/PaperGuide/ArrowButton" to="CanvasLayer/PaperGuide" method="_on_arrow_button_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/PaperGuide/ArrowButton" to="CanvasLayer/PaperGuide" method="_on_arrow_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VictoryPanel/ContinueButton" to="." method="_on_continue_button_pressed"]

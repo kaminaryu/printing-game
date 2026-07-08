@@ -1,12 +1,13 @@
 extends Control
 
-@onready var master_slider := $VBoxContainer/MasterVol/MasterSlider
-@onready var music_slider  := $VBoxContainer/MusicVol/MusicSlider
-@onready var sfx_slider    := $VBoxContainer/SFXVol/SFXSlider
+@onready var master_slider := $VBoxContainer2/MasterVol/MasterSlider
+@onready var music_slider  := $VBoxContainer2/MusicVol/MusicSlider
+@onready var sfx_slider    := $VBoxContainer2/SFXVol/SFXSlider
 
 func open() -> void :
 	_set_sliders_to_bus_values()
 	show()
+	create_tween().tween_property(self, "position:x", 0, .3).from(655).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART);
 
 func _set_sliders_to_bus_values() -> void :
 	# &"Master" makes it a StringName instead of normal string
@@ -49,4 +50,6 @@ func _on_audio_slider_value_changed(value: float) -> void:
 
 
 func _on_texture_button_button_down() -> void:
+	
+	await create_tween().tween_property(self, "position:x", 655, .3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).finished;
 	hide()

@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bhisqp5qtwhqg" path="res://Assets/menu/the_riso.png" id="4_cp0ys"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="5_n45e2"]
 [ext_resource type="AudioStream" uid="uid://cdtkikwrgks4u" path="res://Assets/Audio/Game_Start.wav" id="7_cp0ys"]
+[ext_resource type="PackedScene" uid="uid://1f1kykdhkpbb" path="res://Scenes/settings.tscn" id="7_trj04"]
 [ext_resource type="AudioStream" uid="uid://dvthgkuq42xui" path="res://Assets/BGM/Menu-BGM.mp3" id="8_yhxw7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opfnp"]
@@ -346,6 +347,10 @@ theme = SubResource("Theme_ce3w2")
 text = "credits"
 alignment = 2
 
+[node name="Settings" parent="." unique_id=1684481824 instance=ExtResource("7_trj04")]
+visible = false
+layout_mode = 1
+
 [node name="FadeOut" type="Panel" parent="." unique_id=411551330]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -375,3 +380,4 @@ bus = &"Music"
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/LevelSelect" to="." method="_on_level_select_pressed"]
+[connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]

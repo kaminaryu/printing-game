@@ -3,6 +3,7 @@ extends Control
 @export var fadeOutScreen: Panel;
 @export var animationPlayer: AnimationPlayer;
 @export var camera2d: Camera2D;
+@onready var settings := $Settings;
 
 @onready var game_start = $GameStart
 
@@ -35,3 +36,7 @@ func _on_level_select_pressed() -> void:
 	game_start.play()
 	await animationPlayer.animation_finished
 	get_tree().change_scene_to_file("res://Scenes/LevelSelect/level_select.tscn")
+
+
+func _on_options_pressed() -> void:
+	$Settings.open();
