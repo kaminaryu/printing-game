@@ -54,7 +54,7 @@ func _load_level_data() -> void :
 	var time_elapsed_ms = level_data["time_elapsed"]
 
 	if (time_elapsed_ms == -1) :
-		$"Time Elapsed".text = "00:00.00"
+		$"Time Elapsed".text = "--:--.--"
 	else :
 		$"Time Elapsed".text = str(_format_time_ms(time_elapsed_ms))
 
