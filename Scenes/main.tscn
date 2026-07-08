@@ -17,12 +17,13 @@
 [ext_resource type="AudioStream" uid="uid://b7ipjcgdsebph" path="res://Assets/BGM/Morning Routine - Ghostrifter Official.mp3" id="8_k12tt"]
 [ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George Street Shuffle - Kevin Macleod.mp3" id="9_h1bgf"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="12_b3802"]
-[ext_resource type="Script" path="res://Scenes/level_title.gd" id="13_fevyy"]
-[ext_resource type="Shader" path="res://Assets/Shaders/screen_effects.gdshader" id="14_hibaj"]
+[ext_resource type="Script" uid="uid://dflo07lks266m" path="res://Scenes/level_title.gd" id="13_fevyy"]
+[ext_resource type="Shader" uid="uid://dopmwf3iiekup" path="res://Assets/Shaders/screen_effects.gdshader" id="14_hibaj"]
 [ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="16_k12tt"]
+[ext_resource type="Texture2D" uid="uid://dw2bxbfrm37r2" path="res://Assets/game/paper_guide.png" id="18_hpc6h"]
 [ext_resource type="PackedScene" uid="uid://dur7se0w0i3oa" path="res://UI/UtilityButtons/UtilityButtons.tscn" id="21_pdsj5"]
 [ext_resource type="Script" uid="uid://8pf2doejll8b" path="res://Scenes/victory_target.gd" id="22_6vcvc"]
-[ext_resource type="Script" path="res://Assets/Audio/printer_noises.gd" id="22_ee4r6"]
+[ext_resource type="Script" uid="uid://dg5mprsta4fsr" path="res://Assets/Audio/printer_noises.gd" id="22_ee4r6"]
 [ext_resource type="Texture2D" uid="uid://cc58jqxty35fy" path="res://Assets/game/Buttons/start/start.png" id="22_ueoa1"]
 [ext_resource type="Texture2D" uid="uid://tradybmvlqef" path="res://Assets/game/Buttons/start/start_pressed.png" id="23_6vcvc"]
 [ext_resource type="AudioStream" uid="uid://dk65n0rjxk5q" path="res://Assets/Audio/printer_noise_1.wav" id="23_cbgmd"]
@@ -560,7 +561,7 @@ offset_right = 1806.0048
 offset_bottom = 648.0
 rotation = -0.35430184
 pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = ExtResource("22_1w6v2")
+texture = ExtResource("18_hpc6h")
 script = ExtResource("23_ueoa1")
 
 [node name="ArrowButton" type="TextureButton" parent="CanvasLayer/PaperGuide" unique_id=1054574741]

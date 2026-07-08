@@ -15,6 +15,7 @@ var current_level: LevelData
 @onready var level_start = $LevelStart
 
 @onready var main_gui = $CanvasLayer/MainGUI
+@onready var paper_guide = $CanvasLayer/PaperGuide
 @onready var timer_label = $CanvasLayer/Timer
 @onready var level_title = $"CanvasLayer/Level Title"
 @onready var time_elapsed_label = $CanvasLayer/VictoryPanel/Time
@@ -47,6 +48,7 @@ func _load_level(level_data: LevelData) -> void:
 	level_title.play_animation()
 	timer_running = true
 	main_gui.visible = true
+	paper_guide.visible = true
 	current_level = level_data
 	target_grid_data = level_data.get_target_grid_2d()
 	
@@ -133,6 +135,7 @@ func _handle_level_victory() -> void:
 	level_win.play()
 	await grid_animator.animation_finished
 	main_gui.visible = false
+	paper_guide.visible = false
 	blur_panel.visible = true
 	
 	if victory_animation:
