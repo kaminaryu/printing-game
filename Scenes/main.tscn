@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b51cck50u8a2w"]
 
 [ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_grid.tscn" id="1_jjgbg"]
-[ext_resource type="Script" path="res://Scenes/main.gd" id="1_ynf5e"]
+[ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/main.gd" id="1_ynf5e"]
 [ext_resource type="AudioStream" uid="uid://65xy81ra2plr" path="res://Assets/Audio/Level_Win.wav" id="3_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="4_h1bgf"]
 [ext_resource type="AudioStream" uid="uid://bop14mispwu0n" path="res://Assets/Audio/Level_Start.wav" id="4_hptm8"]
@@ -10,7 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://djbrc0cr1yo7u" path="res://Assets/BGM/Lobby-Time(chosic.com).mp3" id="5_d1ilt"]
 [ext_resource type="PackedScene" uid="uid://dqu6xara3up6f" path="res://UI/Widgets/palette.tscn" id="5_kry3j"]
 [ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="6_21xkr"]
-[ext_resource type="Script" path="res://Scenes/bgm.gd" id="6_fdnlq"]
+[ext_resource type="Script" uid="uid://gvddv4gloabi" path="res://Scenes/bgm.gd" id="6_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://uhvf14vx7dqq" path="res://Assets/game/Continue.png" id="7_6bp64"]
 [ext_resource type="AudioStream" uid="uid://dl8sxrydj1xtm" path="res://Assets/BGM/Airport-Lounge(chosic.com).mp3" id="7_wsu2k"]
 [ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="8_344ge"]
@@ -271,7 +271,7 @@ anchor_bottom = 0.5
 offset_left = -265.0
 offset_top = -1055.0
 offset_right = 265.0
-offset_bottom = -385.52515
+offset_bottom = -385.52502
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 0.27480555
