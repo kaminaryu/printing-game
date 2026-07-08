@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://iivroqoa8ayc"]
 
 [ext_resource type="Script" uid="uid://tox2yujgphde" path="res://Objects/Printer/PrintingGrid/printing_grid.gd" id="1_whvfb"]
-[ext_resource type="Texture2D" uid="uid://48w2knhwqkkv" path="res://Assets/game/paper.png" id="2_whvfb"]
+[ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="2_whvfb"]
 
 [node name="PrintingGrid" type="Node2D" unique_id=1528432382]
 script = ExtResource("1_whvfb")
 
 [node name="Paper" type="Sprite2D" parent="." unique_id=119201437]
-scale = Vector2(1.1599996, 1)
+position = Vector2(-20, 0)
+scale = Vector2(0.98, 0.98)
 texture = ExtResource("2_whvfb")
