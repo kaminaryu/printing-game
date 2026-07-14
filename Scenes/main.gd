@@ -1,6 +1,5 @@
 extends Node2D
 
-# @export var current_level: LevelData
 var current_level: LevelData
 
 @onready var printing_grid = $PrintingGrid
@@ -68,19 +67,16 @@ func _load_level(level_data: LevelData) -> void:
 		ink_inventory_updated.emit(channel, remaining_ink[channel])
 
 
-## Helper to safely format paths, check if the resource file exists, and run setup
 func _load_level_by_number(level_num: int) -> bool:
 	var path: String = "res://Resources/Levels/%d.tres" % level_num
 	
 	if ResourceLoader.exists(path):
 		var loaded_resource = load(path) as LevelData
 		if loaded_resource:
-			# Safely reset global undo/redo states before building the new map
 			SaveStatesManager.reset() 
 			ink_cartridges.update_visible_channels(loaded_resource)
 			_load_level(loaded_resource)
 			
-			# Reset our gate state since a fresh new map is ready for inputs
 			is_transitioning = false
 			
 			print("🎮 Successfully loaded Level ", level_num)
@@ -103,12 +99,10 @@ func use_ink_channel(channel: String) -> bool:
 
 
 func _on_grid_updated() -> void:
-	# Slam the door shut if a level update signal comes in mid-transition
 	if is_transitioning:
 		return
 
 	if check_victory_condition():
-		# Lock the gate instantly so no more checks can sneak past
 		is_transitioning = true
 		_handle_level_victory()
 		

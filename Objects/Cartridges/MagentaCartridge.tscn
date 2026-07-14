@@ -1,11 +1,20 @@
 [gd_scene format=3 uid="uid://cvlbj6xglkwi1"]
 
+[ext_resource type="Script" uid="uid://ugwirocqjen1" path="res://Objects/Cartridges/Cartridge.gd" id="1_1gm7i"]
 [ext_resource type="Texture2D" uid="uid://bspcddqxapf53" path="res://Assets/Catridges/M.png" id="1_iuuoc"]
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_kj043"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2e48p"]
 size = Vector2(67, 351)
 
+[sub_resource type="LabelSettings" id="LabelSettings_8kpoc"]
+font = ExtResource("3_kj043")
+font_size = 14
+font_color = Color(0, 0, 0, 1)
+
 [node name="MagentaCartridge" type="Node2D" unique_id=189875727]
+script = ExtResource("1_1gm7i")
+selected_color_index = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=390178628]
 texture = ExtResource("1_iuuoc")
@@ -15,3 +24,13 @@ texture = ExtResource("1_iuuoc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1564681666]
 position = Vector2(1.5, 5.5)
 shape = SubResource("RectangleShape2D_2e48p")
+
+[node name="Label" type="Label" parent="." unique_id=1151391956]
+offset_left = -17.0
+offset_top = -104.0
+offset_right = 23.0
+offset_bottom = -81.0
+text = "INF"
+label_settings = SubResource("LabelSettings_8kpoc")
+horizontal_alignment = 1
+vertical_alignment = 1

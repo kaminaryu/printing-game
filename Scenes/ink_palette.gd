@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-@onready var button = $Cyan/CyanButton
+@onready var button = $Cyan
 
 func _ready() -> void:
 	# get the first child's (cyan) button group
@@ -12,13 +12,13 @@ func _ready() -> void:
 
 func _on_bottle_selected(button: BaseButton) -> void:
 	match button.name:
-		"CyanButton":
+		"Cyan":
 			ColorManager.selected_color = 0
-		"MagentaButton":
+		"Magenta":
 			ColorManager.selected_color = 1
-		"YellowButton":
+		"Yellow":
 			ColorManager.selected_color = 2
-		"KeyButton":
+		"Key":
 			ColorManager.selected_color = 3
 
 	CursorManager.set_cursor()
