@@ -25,14 +25,14 @@ func _ready() -> void:
 
 
 func _on_forward_pressed() -> void:
-	GameMaster.current_level_num = ((GameMaster.current_level_num) % 30) + 1
+	GameMaster.current_level_num = ((GameMaster.current_level_num) % 31) + 1
 	_load_level_by_number(GameMaster.current_level_num)
 
 	_load_level_data()
 
 
 func _on_backward_pressed() -> void:
-	GameMaster.current_level_num = ((GameMaster.current_level_num + 28) % 30) + 1
+	GameMaster.current_level_num = ((GameMaster.current_level_num + 29) % 31) + 1
 	_load_level_by_number(GameMaster.current_level_num)
 
 	_load_level_data()

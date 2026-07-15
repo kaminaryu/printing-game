@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://dvon7rf51wtlf"]
+
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_ygsf6"]
+
+[resource]
+script = ExtResource("1_ygsf6")
+grid_size = Vector2i(7, 7)
+level_name = "Gains"
+target_colors = Array[String](["110", "000", "000", "111", "110", "000", "000", "110", "000", "000", "111", "110", "000", "010", "110", "000", "000", "111", "110", "000", "010", "111", "111", "111", "111", "111", "111", "111", "110", "000", "210", "111", "110", "000", "000", "110", "000", "210", "111", "110", "000", "000", "110", "000", "210", "111", "110", "100", "100"])
