@@ -8,6 +8,7 @@ extends Control
 func _on_pause_button_button_down() -> void:
 	#$PauseMenu.show()
 	slide_menu()
+	print("Pausing")
 	#get_tree().paused = true
 
 
@@ -17,7 +18,6 @@ func slide_menu() -> void:
 	if get_tree().paused:
 		slide.tween_property(pause_menu, "position:x", 1126, .3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART);
 		slide.tween_property(blur_panel.material, "shader_parameter/blur_amount", 0, .3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART);
-		print('the')
 		await slide.finished;
 		#pause_button.visible = true;
 		get_tree().paused = false;
