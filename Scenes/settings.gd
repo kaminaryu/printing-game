@@ -59,7 +59,7 @@ func _on_discord_pressed() -> void:
 	OS.shell_open("https://discord.gg/gSKz8u7G8m")
 
 func _on_itchio_pressed() -> void:
-	OS.shell_open("https://novarchitects.itch.io/riso")
+	OS.shell_open("https://novarchitects.itch.io")
 
 func _on_x_pressed() -> void:
 	OS.shell_open("https://x.com/novaarchitects")

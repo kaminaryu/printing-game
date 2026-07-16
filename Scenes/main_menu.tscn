@@ -538,10 +538,10 @@ ignore_rotation = false
 limit_enabled = false
 
 [node name="Version Number" type="Label" parent="Camera2D" unique_id=316800472]
-offset_left = 10.0
-offset_top = 676.0
-offset_right = 86.0
-offset_bottom = 745.0
+offset_left = 9.0
+offset_top = 678.0
+offset_right = 85.0
+offset_bottom = 747.0
 theme = ExtResource("6_t1dhk")
 text = "v0.1
 "
