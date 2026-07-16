@@ -159,7 +159,7 @@ func _on_paint_request(request: Dictionary) -> void:
 
 func _paint_column(col: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
-	var tween: Tween = create_tween()
+	var tween: Tween = create_tween().set_parallel(true)
 	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
 	for row in range(grid_size.y):
@@ -174,29 +174,29 @@ func _paint_column(col: int, channel: String) -> bool :
 			continue
 
 		var delay: float = row * speed_modifier
-		
-		tween.tween_callback(func():
+		tween.tween_interval(delay).finished.connect(func():
 			var changed_color: bool = cell.apply_ink(channel)
 			if (changed_color):
 				_update_cell_color(cell)
-		).set_delay(delay)
+		)
 
 	var locked: bool = (lock_cell_count == grid_size.y)
 	var total_delay: float = (grid_size.y - 1) * speed_modifier + CELL_FADE_DURATION
 	paint_roll_sfx.pitch_scale = randf_range(0.8, 1.1)
 	paint_roll_sfx.play()
-	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
+	
+	tween.tween_interval(total_delay).finished.connect(func(): paint_cascade_finished.emit())
 	return locked
 
 
 func _paint_row(row: int, channel: String) -> bool :
 	var lock_cell_count: int = 0
-	var tween: Tween = create_tween()
+	var tween: Tween = create_tween().set_parallel(true)
 	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
 	for col in range(grid_size.x):
 		var cell: Node = grid[col][row]
-		
+
 		if (channel == ColorManager.CHANNELS[3]) :
 			cell.toggle_ink_lock()
 			continue
@@ -207,17 +207,19 @@ func _paint_row(row: int, channel: String) -> bool :
 
 		var delay: float = col * speed_modifier
 		
-		tween.tween_callback(func():
+		tween.tween_interval(delay).finished.connect(func():
 			var changed_color: bool = cell.apply_ink(channel)
 			if (changed_color):
 				_update_cell_color(cell)
-		).set_delay(delay)
+		)
 
 	var locked: bool = (lock_cell_count == grid_size.x)
 	var total_delay: float = (grid_size.x - 1) * speed_modifier + CELL_FADE_DURATION
+	
 	paint_roll_sfx.pitch_scale = randf_range(0.8, 1.1)
 	paint_roll_sfx.play()
-	tween.tween_callback(func(): paint_cascade_finished.emit()).set_delay(total_delay)
+	
+	tween.tween_interval(total_delay).finished.connect(func(): paint_cascade_finished.emit())
 	return locked
 
 

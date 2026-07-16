@@ -78,8 +78,6 @@ func _load_level_by_number(level_num: int) -> bool:
 			_load_level(loaded_resource)
 			
 			is_transitioning = false
-			
-			print("🎮 Successfully loaded Level ", level_num)
 			return true
 			
 	return false

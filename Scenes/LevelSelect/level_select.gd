@@ -5,6 +5,8 @@ const LEVEL_FOLDER = "res://Resources/Levels/"
 @onready var target_grid = $TargetGrid
 @onready var level_label = $"Level Title"
 
+var level_count: int = 0
+
 func _load_level(level_data: LevelData) -> void:
 	target_grid.update_preview(level_data)
 	level_label.text = level_data.level_name
@@ -21,20 +23,21 @@ func _load_level_by_number(level_num: int) -> bool:
 
 func _ready() -> void:
 	_load_level_by_number(GameMaster.current_level_num)
+	level_count = get_file_count("res://Resources/Levels/")
+	print("A total of ", level_count, " levels are loaded")
 	_load_level_data()
 
 
 func _on_forward_pressed() -> void:
-	GameMaster.current_level_num = ((GameMaster.current_level_num) % 31) + 1
+	GameMaster.current_level_num = ((GameMaster.current_level_num) % level_count) + 1
 	_load_level_by_number(GameMaster.current_level_num)
 
 	_load_level_data()
 
 
 func _on_backward_pressed() -> void:
-	GameMaster.current_level_num = ((GameMaster.current_level_num + 29) % 31) + 1
+	GameMaster.current_level_num = ((GameMaster.current_level_num + (level_count - 2)) % level_count) + 1
 	_load_level_by_number(GameMaster.current_level_num)
-
 	_load_level_data()
 
 
@@ -59,6 +62,24 @@ func _load_level_data() -> void :
 		$"Time Elapsed".text = str(_format_time_ms(time_elapsed_ms))
 
 
+func get_file_count(dir_path: String) -> int:
+	var file_count: int = 0
+	var dir = DirAccess.open(dir_path)
+	
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		
+		while file_name != "":
+			if not dir.current_is_dir():
+				file_count += 1
+			file_name = dir.get_next()
+			
+		dir.list_dir_end()
+	else:
+		print("Failed to open directory path")
+		
+	return file_count
 
 func _format_time_ms(time: float) -> String:
 	var minutes = int(time) / 60
