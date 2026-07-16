@@ -18,6 +18,9 @@ var current_level: LevelData
 @onready var timer_label = $CanvasLayer/Timer
 @onready var level_title = $"CanvasLayer/Level Title"
 @onready var time_elapsed_label = $CanvasLayer/VictoryPanel/Time
+@onready var congrats_panel = $CanvasLayer/CongratsPanel
+@onready var congrats_panel_animation = $CanvasLayer/CongratsPanel/AnimationPlayer
+
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
 
@@ -156,11 +159,14 @@ func reset_entire_level() -> void:
 func _on_continue_button_pressed() -> void:
 	victory_animation.play("Print Out")
 	await victory_animation.animation_finished
-	blur_panel.visible = false
 	
-	
-	GameMaster.increase_level()
-	_load_level_by_number(GameMaster.current_level_num)
+	if(GameMaster.current_level_num >= GameMaster.get_level_count()):
+		level_win.play()
+		congrats_panel_animation.play("Complete_In")
+	else:
+		blur_panel.visible = false
+		GameMaster.increase_level()
+		_load_level_by_number(GameMaster.current_level_num)
 
 func format_time(time: float) -> String:
 	var minutes = int(time) / 60

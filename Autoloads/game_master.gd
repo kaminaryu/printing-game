@@ -6,6 +6,7 @@ signal level_decreased
 var current_level_num: int = 1
 
 const SAVE_PATH := "user://level_data.json"
+const LEVELS_DIR : = "res://Resources/Levels/"
 
 
 func increase_level() -> void :
@@ -85,3 +86,22 @@ func load_level_data() -> Dictionary:
 				return save_data[level_key]
 				
 	return default_data
+	
+func get_level_count() -> int:
+	var file_count: int = 0
+	var dir = DirAccess.open(LEVELS_DIR)
+	
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		
+		while file_name != "":
+			if not dir.current_is_dir():
+				file_count += 1
+			file_name = dir.get_next()
+			
+		dir.list_dir_end()
+	else:
+		print("Failed to open directory path")
+		
+	return file_count

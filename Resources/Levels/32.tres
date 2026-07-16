@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://d2hoj8qu3vrwr"]
+
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_ngmy0"]
+
+[resource]
+script = ExtResource("1_ngmy0")
+grid_size = Vector2i(3, 3)
+available_channels = Array[String](["c", "m"])
+level_name = "Magenta Cross"
+target_colors = Array[String](["000", "010", "000", "010", "010", "010", "000", "010", "000"])

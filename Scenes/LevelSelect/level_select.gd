@@ -23,7 +23,7 @@ func _load_level_by_number(level_num: int) -> bool:
 
 func _ready() -> void:
 	_load_level_by_number(GameMaster.current_level_num)
-	level_count = get_file_count("res://Resources/Levels/")
+	level_count = GameMaster.get_level_count()
 	print("A total of ", level_count, " levels are loaded")
 	_load_level_data()
 
@@ -61,25 +61,6 @@ func _load_level_data() -> void :
 	else :
 		$"Time Elapsed".text = str(_format_time_ms(time_elapsed_ms))
 
-
-func get_file_count(dir_path: String) -> int:
-	var file_count: int = 0
-	var dir = DirAccess.open(dir_path)
-	
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		
-		while file_name != "":
-			if not dir.current_is_dir():
-				file_count += 1
-			file_name = dir.get_next()
-			
-		dir.list_dir_end()
-	else:
-		print("Failed to open directory path")
-		
-	return file_count
 
 func _format_time_ms(time: float) -> String:
 	var minutes = int(time) / 60
