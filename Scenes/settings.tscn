@@ -4,6 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://bdsnkcgwndqec" path="res://Assets/GUI/settings_menu.png" id="2_j2dne"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_6kysc"]
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="4_6vr2p"]
+[ext_resource type="Texture2D" uid="uid://dyw7wm7q4syw8" path="res://Assets/menu/Options/discord.svg" id="5_f60ng"]
+[ext_resource type="Texture2D" uid="uid://drsu64u7f6jw8" path="res://Assets/menu/Options/discord_hover.svg" id="6_f60ng"]
+[ext_resource type="Texture2D" uid="uid://be51lbs5t4n1g" path="res://Assets/menu/Options/itchio.svg" id="7_bismi"]
+[ext_resource type="Texture2D" uid="uid://bkubqgfvu4gio" path="res://Assets/menu/Options/itchio_hover.svg" id="8_bismi"]
 
 [node name="Settings" type="Control" unique_id=1684481824]
 z_index = 2
@@ -44,10 +48,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -900.0
+offset_left = -497.0
 offset_top = 77.0
 offset_right = -46.0
-offset_bottom = 449.0
+offset_bottom = 593.0
 grow_horizontal = 0
 theme_override_constants/separation = 38
 metadata/_edit_group_ = true
@@ -147,10 +151,39 @@ theme = ExtResource("4_6vr2p")
 text = "exit"
 alignment = 2
 
-[node name="TextureButton" type="Button" parent="." unique_id=432054600]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2" unique_id=1957646346]
+layout_mode = 2
+theme_override_constants/margin_top = 16
+
+[node name="Socials" type="Label" parent="VBoxContainer2/MarginContainer" unique_id=999905888]
+layout_mode = 2
+theme = ExtResource("4_6vr2p")
+theme_override_font_sizes/font_size = 24
+text = "Follow our Socials :"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2" unique_id=1558228968]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Discord" type="TextureButton" parent="VBoxContainer2/HBoxContainer" unique_id=1625947551]
+layout_mode = 2
+texture_normal = ExtResource("5_f60ng")
+texture_pressed = ExtResource("6_f60ng")
+texture_hover = ExtResource("6_f60ng")
+
+[node name="Itchio" type="TextureButton" parent="VBoxContainer2/HBoxContainer" unique_id=335921316]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.0
+texture_normal = ExtResource("7_bismi")
+texture_pressed = ExtResource("8_bismi")
+texture_hover = ExtResource("8_bismi")
+
+[node name="Back" type="Button" parent="." unique_id=432054600]
 texture_filter = 1
 layout_mode = 0
-offset_left = 1065.0
+offset_left = 1153.0
 offset_top = 17.0
 offset_right = 1239.0
 offset_bottom = 100.0
@@ -158,7 +191,18 @@ theme = ExtResource("4_6vr2p")
 text = "back"
 alignment = 2
 
+[node name="Back2" type="Button" parent="." unique_id=604973172]
+texture_filter = 1
+layout_mode = 0
+offset_left = 635.0
+offset_top = 145.0
+offset_right = 734.0
+offset_bottom = 220.0
+theme = ExtResource("4_6vr2p")
+alignment = 2
+
 [connection signal="value_changed" from="VBoxContainer2/MasterVol/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/MusicVol/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/SFXVol/SFXSlider" to="." method="_on_audio_slider_value_changed"]
-[connection signal="button_down" from="TextureButton" to="." method="_on_texture_button_button_down"]
+[connection signal="button_down" from="Back" to="." method="_on_texture_button_button_down"]
+[connection signal="button_down" from="Back2" to="." method="_on_texture_button_button_down"]

@@ -27,7 +27,7 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [resource]
-Button/colors/font_color = Color(0.47568142, 0.66876364, 0.6595776, 1)
+Button/colors/font_color = Color(0.4745098, 0.67058825, 0.65882355, 1)
 Button/font_sizes/font_size = 26
 Button/fonts/font = ExtResource("1_bg20o")
 Button/styles/disabled = SubResource("StyleBoxEmpty_x3kqb")
@@ -41,3 +41,6 @@ HSlider/styles/slider = SubResource("StyleBoxFlat_g4hwt")
 Label/colors/font_color = Color(0.46666667, 0.67058825, 0.5803922, 1)
 Label/font_sizes/font_size = 16
 Label/fonts/font = ExtResource("1_bg20o")
+LinkButton/colors/font_color = Color(0.46666667, 0.67058825, 0.5803922, 1)
+LinkButton/font_sizes/font_size = 20
+LinkButton/fonts/font = ExtResource("1_bg20o")
