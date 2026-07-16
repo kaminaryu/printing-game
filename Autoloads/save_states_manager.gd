@@ -21,7 +21,7 @@ func save_snapshot(grid_matrix: Array, ink_limits: Dictionary) -> void:
 			_history.erase(i)
 			
 	_history[_current_step] = {
-		"grid": grid_matrix.duplicate(true),
+		"grid": grid_matrix.duplicate(true), 
 		"ink": ink_limits.duplicate()
 	}
 	
@@ -33,7 +33,6 @@ func undo_action() -> void:
 		return
 
 	_current_step -= 1
-	print("Reverting to step: ", _current_step)
 	state_restored.emit(_history[_current_step])
 
 func redo_action() -> void:

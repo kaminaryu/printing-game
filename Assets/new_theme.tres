@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://b4dftiyeawlp0"]
+
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="1_sdao3"]
+
+[resource]
+default_font = ExtResource("1_sdao3")
+OptionButton/fonts/font = ExtResource("1_sdao3")

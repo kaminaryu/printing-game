@@ -53,3 +53,29 @@ func _on_texture_button_button_down() -> void:
 	
 	await create_tween().tween_property(self, "position:x", 655, .3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).finished;
 	hide()
+
+
+func _on_discord_pressed() -> void:
+	OS.shell_open("https://discord.gg/gSKz8u7G8m")
+
+func _on_itchio_pressed() -> void:
+	OS.shell_open("https://novarchitects.itch.io/riso")
+
+func _on_x_pressed() -> void:
+	OS.shell_open("https://x.com/novaarchitects")
+
+func _on_threads_pressed() -> void:
+	OS.shell_open("https://www.threads.com/@supernovarchitects")
+
+
+func _on_option_button_item_selected(index: int) -> void:
+	match index:
+		0: # Windowed
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+			
+		1: # Fullscreen
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
+			
+		2: # Borderless Fullscreen
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)

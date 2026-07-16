@@ -135,15 +135,13 @@ func _on_paint_request(request: Dictionary) -> void:
 
 	var is_lock_action: bool = (channel == ColorManager.CHANNELS[3])
 
-	if not is_lock_action:
-		is_cascading = true
-		SaveStatesManager.save_snapshot(get_grid_color_matrix(), owner.remaining_ink)
+	is_cascading = true
+	SaveStatesManager.save_snapshot(get_grid_color_matrix(), owner.remaining_ink)
 
 	if owner and owner.has_method("use_ink_channel"):
 		if not owner.use_ink_channel(channel):
-			if not is_lock_action:
-				is_cascading = false 
-				SaveStatesManager.undo_action() 
+			is_cascading = false 
+			SaveStatesManager.undo_action() 
 			return
 
 	var _locked_line: bool = false
@@ -228,7 +226,12 @@ func get_grid_color_matrix() -> Array:
 	for col in range(grid_size.x):
 		var column_data: Array = []
 		for row in range(grid_size.y):
-			column_data.append(grid[col][row].color_key())
+			var cell = grid[col][row]
+			# Store a dictionary containing both color and the lock state
+			column_data.append({
+				"color": cell.color_key(),
+				"locked": cell.is_ink_locked()
+			})
 		matrix.append(column_data)
 	return matrix
 
@@ -237,13 +240,22 @@ func _on_state_restored(snapshot: Dictionary) -> void:
 	if not snapshot.has("grid") or not snapshot.has("ink"):
 		return
 		
-	var color_matrix: Array = snapshot["grid"]
+	var grid_matrix: Array = snapshot["grid"]
 	
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
-			var target_color_key: String = color_matrix[col][row]
-			grid[col][row].set_color_key(target_color_key) 
-			_update_cell_color(grid[col][row]) 
+			var cell_data = grid_matrix[col][row]
+			var cell = grid[col][row]
+			
+			if cell_data is Dictionary:
+				cell.set_color_key(cell_data["color"])
+				
+				if cell.is_ink_locked() != cell_data["locked"]:
+					cell.toggle_ink_lock()
+			else:
+				cell.set_color_key(cell_data) 
+				
+			_update_cell_color(cell) 
 			
 	var level_manager = get_parent()
 	if level_manager and "remaining_ink" in level_manager:
@@ -252,7 +264,6 @@ func _on_state_restored(snapshot: Dictionary) -> void:
 		if level_manager.has_signal("ink_inventory_updated"):
 			for channel in level_manager.remaining_ink.keys():
 				level_manager.ink_inventory_updated.emit(channel, level_manager.remaining_ink[channel])
-
 
 func _update_cell_color(cell: Node) -> void :
 	var key: String = cell.color_key()

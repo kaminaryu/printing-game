@@ -6,8 +6,12 @@
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="4_6vr2p"]
 [ext_resource type="Texture2D" uid="uid://dyw7wm7q4syw8" path="res://Assets/menu/Options/discord.svg" id="5_f60ng"]
 [ext_resource type="Texture2D" uid="uid://drsu64u7f6jw8" path="res://Assets/menu/Options/discord_hover.svg" id="6_f60ng"]
+[ext_resource type="Texture2D" uid="uid://ua7t605ofscu" path="res://Assets/menu/Options/x.png" id="7_35cvv"]
 [ext_resource type="Texture2D" uid="uid://be51lbs5t4n1g" path="res://Assets/menu/Options/itchio.svg" id="7_bismi"]
 [ext_resource type="Texture2D" uid="uid://bkubqgfvu4gio" path="res://Assets/menu/Options/itchio_hover.svg" id="8_bismi"]
+[ext_resource type="Texture2D" uid="uid://cax5fcd538e17" path="res://Assets/menu/Options/x_hover.png" id="8_ieo4m"]
+[ext_resource type="Texture2D" uid="uid://bk40ybuqr88dl" path="res://Assets/menu/Options/threads.png" id="9_1c72s"]
+[ext_resource type="Texture2D" uid="uid://carrfufhno4tt" path="res://Assets/menu/Options/threads_hover.png" id="10_vmqi3"]
 
 [node name="Settings" type="Control" unique_id=1684481824]
 z_index = 2
@@ -127,6 +131,33 @@ max_value = 1.0
 step = 0.05
 value = 1.0
 
+[node name="Window Setting" type="HBoxContainer" parent="VBoxContainer2" unique_id=28899406]
+layout_mode = 2
+theme = ExtResource("4_6vr2p")
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="VBoxContainer2/Window Setting" unique_id=1461374394]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 8
+text = "Window Setting"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer2/Window Setting" unique_id=2078013579]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 16
+selected = 0
+allow_reselect = true
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Fullscreen"
+popup/item_2/id = 2
+
 [node name="Resume" type="Button" parent="VBoxContainer2" unique_id=1899197006]
 visible = false
 layout_mode = 2
@@ -163,7 +194,7 @@ text = "Follow our Socials :"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2" unique_id=1558228968]
 layout_mode = 2
-theme_override_constants/separation = 64
+theme_override_constants/separation = 30
 alignment = 1
 
 [node name="Discord" type="TextureButton" parent="VBoxContainer2/HBoxContainer" unique_id=1625947551]
@@ -171,6 +202,18 @@ layout_mode = 2
 texture_normal = ExtResource("5_f60ng")
 texture_pressed = ExtResource("6_f60ng")
 texture_hover = ExtResource("6_f60ng")
+
+[node name="X" type="TextureButton" parent="VBoxContainer2/HBoxContainer" unique_id=514971594]
+layout_mode = 2
+texture_normal = ExtResource("7_35cvv")
+texture_pressed = ExtResource("8_ieo4m")
+texture_hover = ExtResource("8_ieo4m")
+
+[node name="Threads" type="TextureButton" parent="VBoxContainer2/HBoxContainer" unique_id=1937041971]
+layout_mode = 2
+texture_normal = ExtResource("9_1c72s")
+texture_pressed = ExtResource("10_vmqi3")
+texture_hover = ExtResource("10_vmqi3")
 
 [node name="Itchio" type="TextureButton" parent="VBoxContainer2/HBoxContainer" unique_id=335921316]
 layout_mode = 2
@@ -204,5 +247,10 @@ alignment = 2
 [connection signal="value_changed" from="VBoxContainer2/MasterVol/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/MusicVol/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/SFXVol/SFXSlider" to="." method="_on_audio_slider_value_changed"]
+[connection signal="item_selected" from="VBoxContainer2/Window Setting/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="VBoxContainer2/HBoxContainer/Discord" to="." method="_on_discord_pressed"]
+[connection signal="pressed" from="VBoxContainer2/HBoxContainer/X" to="." method="_on_x_pressed"]
+[connection signal="pressed" from="VBoxContainer2/HBoxContainer/Threads" to="." method="_on_threads_pressed"]
+[connection signal="pressed" from="VBoxContainer2/HBoxContainer/Itchio" to="." method="_on_itchio_pressed"]
 [connection signal="button_down" from="Back" to="." method="_on_texture_button_button_down"]
 [connection signal="button_down" from="Back2" to="." method="_on_texture_button_button_down"]
