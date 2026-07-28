@@ -23,31 +23,15 @@ func fadeOutTransition() -> void:
 	fadeOutScreen.visible = false;
 
 func _on_play_pressed() -> void:
-	
-	animationPlayer.play("papermasuk");
-	game_start.play()
-	await animationPlayer.animation_finished
-	#
-	#var camerazoom = create_tween().set_parallel(true);
-	 #
-	#camerazoom.tween_property(camera2d, "global_position", Vector2(250, 190), 1).set_trans(Tween.TRANS_SINE).set_trans(Tween.TRANS_LINEAR);
-	#camerazoom.tween_property(camera2d, "zoom", Vector2(5,5), 1).set_trans(Tween.TRANS_SINE).set_trans(Tween.TRANS_LINEAR);
-	get_tree().change_scene_to_file("res://Scenes/main.tscn")
-
-
-func _on_level_select_pressed() -> void:
-	animationPlayer.play("papermasuk");
-	game_start.play()
-	await animationPlayer.animation_finished
-	get_tree().change_scene_to_file("res://Scenes/LevelSelect/level_select.tscn")
+	$PlayMenu.open()
 
 
 func _on_options_pressed() -> void:
-	$Settings.open();
+	$Settings.open()
 
 
 func _on_credits_pressed() -> void:
-	animationPlayer.play("show_credits");
+	animationPlayer.play("show_credits")
 
 
 func _on_back_pressed() -> void:

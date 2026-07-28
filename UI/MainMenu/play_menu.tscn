@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://i8y1o1fpyx4g"]
+
+[ext_resource type="Texture2D" uid="uid://d23miep4t2qod" path="res://Assets/GUI/playmenu.png" id="1_1f4s2"]
+[ext_resource type="Script" uid="uid://bb01b8kyqj0uq" path="res://UI/MainMenu/play_menu.gd" id="1_jcw7y"]
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="2_52eiw"]
+[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="3_vxkmt"]
+
+[node name="PlayMenu" type="Control" unique_id=1684481824]
+z_index = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jcw7y")
+
+[node name="BG" type="TextureRect" parent="." unique_id=1875340073]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -701.0
+offset_bottom = 720.0
+grow_horizontal = 0
+texture = ExtResource("1_1f4s2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=860219221]
+layout_mode = 0
+offset_left = 790.0
+offset_top = 88.0
+offset_right = 1241.0
+offset_bottom = 421.0
+theme_override_constants/separation = 38
+metadata/_edit_group_ = true
+
+[node name="Title" type="Label" parent="VBoxContainer" unique_id=1685939499]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.46616632, 0.6698243, 0.58214927, 1)
+theme_override_fonts/font = ExtResource("2_52eiw")
+theme_override_font_sizes/font_size = 79
+text = "play"
+
+[node name="Continue" type="Button" parent="VBoxContainer" unique_id=459205272]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("3_vxkmt")
+text = "Continue (level X)"
+alignment = 2
+
+[node name="LevelSelection" type="Button" parent="VBoxContainer" unique_id=972593437]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("3_vxkmt")
+text = "Level Selection"
+alignment = 2
+
+[node name="Level Editor" type="Button" parent="VBoxContainer" unique_id=804566002]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("3_vxkmt")
+text = "Level Editor"
+alignment = 2
+
+[node name="Back" type="Button" parent="." unique_id=432054600]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1153.0
+offset_top = 17.0
+offset_right = 1239.0
+offset_bottom = 100.0
+theme = ExtResource("3_vxkmt")
+text = "back"
+alignment = 2
+
+[node name="Back2" type="Button" parent="." unique_id=604973172]
+texture_filter = 1
+layout_mode = 0
+offset_left = 638.0
+offset_top = 40.0
+offset_right = 737.0
+offset_bottom = 115.0
+theme = ExtResource("3_vxkmt")
+alignment = 2
+
+[connection signal="button_down" from="VBoxContainer/Continue" to="." method="_on_continue_button_down"]
+[connection signal="button_down" from="VBoxContainer/LevelSelection" to="." method="_on_level_selection_button_down"]
+[connection signal="button_down" from="VBoxContainer/Level Editor" to="." method="_on_level_editor_button_down"]
+[connection signal="button_down" from="Back" to="." method="_on_texture_button_button_down"]
+[connection signal="button_down" from="Back" to="." method="_on_back_button_down"]
+[connection signal="button_down" from="Back2" to="." method="_on_texture_button_button_down"]
+[connection signal="button_down" from="Back2" to="." method="_on_back_button_down"]

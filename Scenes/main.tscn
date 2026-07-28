@@ -32,7 +32,7 @@
 [ext_resource type="AudioStream" uid="uid://clyxjd0d36iib" path="res://Assets/Audio/printer_noise_2.wav" id="24_1w6v2"]
 [ext_resource type="AudioStream" uid="uid://d32ith8mmjq81" path="res://Assets/Audio/printer_noise_3.wav" id="25_ueoa1"]
 [ext_resource type="AudioStream" uid="uid://kefonkcuwp6" path="res://Assets/Audio/printer_noise_4.wav" id="26_6vcvc"]
-[ext_resource type="Script" uid="uid://bh8utd260rok2" path="res://Scenes/congrats_panel.gd" id="27_jwpg7"]
+[ext_resource type="Script" path="res://Scenes/congrats_panel.gd" id="27_jwpg7"]
 [ext_resource type="Texture2D" uid="uid://hb8emu7epfv7" path="res://Assets/GUI/discord-def.png" id="27_r33sp"]
 [ext_resource type="Texture2D" uid="uid://dby6cu43gvfmw" path="res://Assets/GUI/itch-def.png" id="28_hdf80"]
 [ext_resource type="Texture2D" uid="uid://dcyxl3p6n14g6" path="res://Assets/GUI/discord-hov.png" id="28_jwpg7"]
@@ -858,7 +858,6 @@ texture_normal = ExtResource("7_6bp64")
 libraries/ = SubResource("AnimationLibrary_8cuat")
 
 [node name="MainGUI" parent="CanvasLayer" unique_id=1677267965 instance=ExtResource("8_344ge")]
-visible = false
 z_index = 2
 
 [node name="FadeOut" type="Panel" parent="CanvasLayer" unique_id=1166514051]
