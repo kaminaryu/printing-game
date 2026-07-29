@@ -1,5 +1,11 @@
 extends Control
 
+@export var continue_button: Button
+
+func _ready() -> void :
+	continue_button.text = "Continue (level %d)" % GameMaster.current_level_num
+
+
 func open() -> void :
 	show()
 	create_tween().tween_property(self, "position:x", 0, .3).from(655).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART);
