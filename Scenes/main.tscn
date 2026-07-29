@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="4_h1bgf"]
 [ext_resource type="PackedScene" uid="uid://cdypfd1fot60v" path="res://Objects/Cartridges/Cartridges.tscn" id="4_hibaj"]
 [ext_resource type="AudioStream" uid="uid://bop14mispwu0n" path="res://Assets/Audio/Level_Start.wav" id="4_hptm8"]
-[ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_jjvhh"]
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="5_21xkr"]
 [ext_resource type="AudioStream" uid="uid://djbrc0cr1yo7u" path="res://Assets/BGM/Lobby Time - Kevin MacLeod.mp3" id="5_d1ilt"]
 [ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="6_21xkr"]
@@ -18,12 +17,12 @@
 [ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George Street Shuffle - Kevin Macleod.mp3" id="9_h1bgf"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="12_b3802"]
 [ext_resource type="Script" uid="uid://dflo07lks266m" path="res://Scenes/level_title.gd" id="13_fevyy"]
-[ext_resource type="Shader" uid="uid://dopmwf3iiekup" path="res://Assets/Shaders/screen_effects.gdshader" id="14_hibaj"]
 [ext_resource type="Texture2D" uid="uid://b7xh4mqfvi638" path="res://Assets/game/Buttons/hint/hint.png" id="14_kltya"]
 [ext_resource type="Texture2D" uid="uid://dxklmsvpwrsln" path="res://Assets/game/Buttons/hint/hint_pressed.png" id="15_e08e2"]
 [ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="16_k12tt"]
 [ext_resource type="Script" uid="uid://dksq666p5nv78" path="res://Scenes/hint.gd" id="16_neg2b"]
 [ext_resource type="Texture2D" uid="uid://dw2bxbfrm37r2" path="res://Assets/game/paper_guide.png" id="18_hpc6h"]
+[ext_resource type="PackedScene" uid="uid://djxx6m4jftwbu" path="res://UI/preview_grid.tscn" id="21_hdf80"]
 [ext_resource type="PackedScene" uid="uid://dur7se0w0i3oa" path="res://UI/UtilityButtons/UtilityButtons.tscn" id="21_pdsj5"]
 [ext_resource type="Script" uid="uid://8pf2doejll8b" path="res://Scenes/victory_target.gd" id="22_6vcvc"]
 [ext_resource type="Script" uid="uid://dg5mprsta4fsr" path="res://Assets/Audio/printer_noises.gd" id="22_ee4r6"]
@@ -286,9 +285,6 @@ _data = {
 &"NowPlaying In": SubResource("Animation_pdsj5"),
 &"RESET": SubResource("Animation_gt3je")
 }
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pdsj5"]
-shader = ExtResource("14_hibaj")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_21xkr"]
 shader = ExtResource("5_21xkr")
@@ -638,18 +634,11 @@ vertical_alignment = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/NowPlaying Label" unique_id=1973273657]
 libraries/ = SubResource("AnimationLibrary_3pmx8")
 
-[node name="TargetGrid" type="Control" parent="CanvasLayer" unique_id=1142256806]
-modulate = Color(1, 1, 1, 0.78431374)
-material = SubResource("ShaderMaterial_pdsj5")
-layout_mode = 3
-anchors_preset = 0
-offset_left = 880.0
-offset_top = 204.0
-offset_right = 920.0
-offset_bottom = 244.0
-script = ExtResource("4_jjvhh")
-max_boundary_size = 175.0
-cell_gap = 3.0
+[node name="PreviewGrid" parent="CanvasLayer" unique_id=2091719018 instance=ExtResource("21_hdf80")]
+offset_left = 965.0
+offset_top = 290.0
+offset_right = 965.0
+offset_bottom = 290.0
 
 [node name="Blur Panel" type="Panel" parent="CanvasLayer" unique_id=369835859]
 visible = false

@@ -39,4 +39,4 @@ func _on_level_selection_button_down() -> void:
 
 
 func _on_level_editor_button_down() -> void:
-	pass # Replace with function body.
+	get_tree().change_scene_to_file("res://Scenes/level_editor.tscn")

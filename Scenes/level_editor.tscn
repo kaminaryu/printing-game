@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dbsoa2lx04yjb" path="res://Assets/Magenta_Button.png" id="4_fhsmn"]
 [ext_resource type="Texture2D" uid="uid://c70pva0x3x44h" path="res://Assets/Yellow_Button.png" id="5_5ogug"]
 [ext_resource type="Texture2D" uid="uid://dmv1wnq5j1dge" path="res://Assets/Key_Button.png" id="6_kerlq"]
+[ext_resource type="PackedScene" uid="uid://csli42ddd8utf" path="res://UI/LevelEditor/level_editor_menu.tscn" id="8_i8l5y"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_5o76e"]
 font_size = 30
@@ -37,6 +38,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer" unique_id=174183609]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="HBoxContainer/CenterContainer" unique_id=1357732271]
+layout_mode = 2
+
+[node name="PrintingGrid" parent="HBoxContainer/CenterContainer/Control" unique_id=1528432382 instance=ExtResource("1_5o76e")]
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=258558441]
 layout_mode = 2
@@ -201,11 +211,5 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_2r1hx")
 texture_normal = ExtResource("6_kerlq")
 
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer" unique_id=174183609]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Control" type="Control" parent="HBoxContainer/CenterContainer" unique_id=1357732271]
-layout_mode = 2
-
-[node name="PrintingGrid" parent="HBoxContainer/CenterContainer/Control" unique_id=1528432382 instance=ExtResource("1_5o76e")]
+[node name="LevelEditorMenu" parent="." unique_id=1684481824 instance=ExtResource("8_i8l5y")]
+layout_mode = 1

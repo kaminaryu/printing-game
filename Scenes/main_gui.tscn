@@ -11,7 +11,7 @@
 shader = ExtResource("3_qtvxg")
 shader_parameter/blur_amount = 1.51200007182
 
-[node name="MainGUI" type="Control" unique_id=1677267965 node_paths=PackedStringArray("pause_menu", "pause_button", "settings", "blur_panel")]
+[node name="MainGUI" type="Control" unique_id=1677267965 node_paths=PackedStringArray("pause_menu", "settings", "blur_panel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,6 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_nw5w4")
 pause_menu = NodePath("Pause/PauseMenu2")
-pause_button = NodePath("Pause/PauseMenu2/PauseButton")
 settings = NodePath("Pause/Settings")
 blur_panel = NodePath("Pause/BlurEffect")
 

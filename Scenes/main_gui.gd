@@ -1,7 +1,6 @@
 extends Control
 
 @export var pause_menu: Control;
-@export var pause_button: TextureButton;
 @export var settings: Control;
 @export var blur_panel: Panel;
 
@@ -19,11 +18,9 @@ func slide_menu() -> void:
 		slide.tween_property(pause_menu, "position:x", 1126, .3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART);
 		slide.tween_property(blur_panel.material, "shader_parameter/blur_amount", 0, .3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART);
 		await slide.finished;
-		#pause_button.visible = true;
 		get_tree().paused = false;
 		blur_panel.visible = false;
 	else:
-		#pause_button.visible = false;
 		get_tree().paused = true;
 		blur_panel.visible = true;
 		slide.tween_property(pause_menu, "position:x", 580, .3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART);
@@ -37,7 +34,6 @@ func _on_continue_button_down() -> void:
 
 func _on_settings_button_down() -> void:
 	settings.open()
-	pass # Replace with function body.
 
 
 func _on_main_menu_button_down() -> void:

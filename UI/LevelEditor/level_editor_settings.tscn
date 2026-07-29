@@ -1,0 +1,204 @@
+[gd_scene format=3 uid="uid://bbu70xtd2psud"]
+
+[ext_resource type="Script" uid="uid://cqxambkwo6rbh" path="res://UI/LevelEditor/level_editor_settings.gd" id="1_dd02n"]
+[ext_resource type="Texture2D" uid="uid://bdsnkcgwndqec" path="res://Assets/GUI/settings_menu.png" id="2_p78wg"]
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_66ljn"]
+[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="4_pbu4j"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_dd02n"]
+color = Color(0.5882353, 0.74509805, 0.6784314, 1)
+thickness = 2
+
+[node name="Level Editor Settings" type="Control" unique_id=1684481824]
+z_index = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dd02n")
+
+[node name="BG" type="TextureRect" parent="." unique_id=1875340073]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -701.0
+offset_bottom = 720.0
+grow_horizontal = 0
+texture = ExtResource("2_p78wg")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=272977910]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -497.0
+offset_top = 77.0
+offset_right = -46.0
+offset_bottom = 593.0
+grow_horizontal = 0
+theme_override_constants/separation = 18
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="VBoxContainer2" unique_id=772200060]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.46616632, 0.6698243, 0.58214927, 1)
+theme_override_fonts/font = ExtResource("3_66ljn")
+theme_override_font_sizes/font_size = 79
+text = "options"
+horizontal_alignment = 2
+
+[node name="GridSettings" type="Label" parent="VBoxContainer2" unique_id=990056327]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("4_pbu4j")
+theme_override_font_sizes/font_size = 24
+text = "Grid Settings"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer2" unique_id=746424863]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_dd02n")
+
+[node name="GridSetting" type="HBoxContainer" parent="VBoxContainer2" unique_id=320174319]
+layout_mode = 2
+theme_override_constants/separation = 149
+
+[node name="Width" type="HBoxContainer" parent="VBoxContainer2/GridSetting" unique_id=589623853]
+layout_mode = 2
+
+[node name="GridWidth" type="Label" parent="VBoxContainer2/GridSetting/Width" unique_id=25283440]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("4_pbu4j")
+theme_override_font_sizes/font_size = 24
+text = "W: "
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer2/GridSetting/Width" unique_id=71322564]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="Height" type="HBoxContainer" parent="VBoxContainer2/GridSetting" unique_id=1481238647]
+layout_mode = 2
+
+[node name="GridHeight" type="Label" parent="VBoxContainer2/GridSetting/Height" unique_id=825141087]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("4_pbu4j")
+theme_override_font_sizes/font_size = 24
+text = "H:"
+horizontal_alignment = 2
+
+[node name="SpinBox2" type="SpinBox" parent="VBoxContainer2/GridSetting/Height" unique_id=1017994525]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer2" unique_id=822522952]
+layout_mode = 2
+theme_override_constants/margin_top = 24
+
+[node name="Catridge" type="Label" parent="VBoxContainer2/MarginContainer" unique_id=1310913271]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("4_pbu4j")
+theme_override_font_sizes/font_size = 24
+text = "Catridge Settings"
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer2" unique_id=113171736]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_dd02n")
+
+[node name="Cyan" type="HBoxContainer" parent="VBoxContainer2" unique_id=2024142231]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2/Cyan" unique_id=369961143]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("4_pbu4j")
+theme_override_font_sizes/font_size = 24
+text = "Cyan"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer2/Cyan" unique_id=1255668398]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="Magenta" type="HBoxContainer" parent="VBoxContainer2" unique_id=1065068026]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2/Magenta" unique_id=1782684790]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("4_pbu4j")
+theme_override_font_sizes/font_size = 24
+text = "Magenta"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer2/Magenta" unique_id=1083933248]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="Yellow" type="HBoxContainer" parent="VBoxContainer2" unique_id=410272554]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2/Yellow" unique_id=1248527412]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("4_pbu4j")
+theme_override_font_sizes/font_size = 24
+text = "Yellow"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer2/Yellow" unique_id=1756082250]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="Key" type="HBoxContainer" parent="VBoxContainer2" unique_id=1574195571]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer2/Key" unique_id=1210261545]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("4_pbu4j")
+theme_override_font_sizes/font_size = 24
+text = "Key"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer2/Key" unique_id=1984917094]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="Back" type="Button" parent="." unique_id=432054600]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1153.0
+offset_top = 17.0
+offset_right = 1239.0
+offset_bottom = 100.0
+theme = ExtResource("4_pbu4j")
+text = "back"
+alignment = 2
+
+[node name="Back2" type="Button" parent="." unique_id=604973172]
+texture_filter = 1
+layout_mode = 0
+offset_left = 635.0
+offset_top = 145.0
+offset_right = 734.0
+offset_bottom = 220.0
+theme = ExtResource("4_pbu4j")
+alignment = 2
+
+[connection signal="button_down" from="Back" to="." method="_on_back_button_down"]
+[connection signal="button_down" from="Back2" to="." method="_on_back_button_down"]

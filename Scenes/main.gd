@@ -4,7 +4,7 @@ var current_level: LevelData
 
 @onready var printing_grid = $PrintingGrid
 @onready var grid_animator = $GridAnimator
-@onready var target_preview_grid = $CanvasLayer/TargetGrid
+@onready var target_preview_grid = $CanvasLayer/PreviewGrid
 @onready var victory_grid = $CanvasLayer/VictoryPanel/VictoryTarget
 @onready var victory_animation = $CanvasLayer/VictoryPanel/AnimationPlayer
 @onready var blur_panel = $"CanvasLayer/Blur Panel"
@@ -160,7 +160,7 @@ func _on_continue_button_pressed() -> void:
 	victory_animation.play("Print Out")
 	await victory_animation.animation_finished
 	
-	if(GameMaster.current_level_num >= GameMaster.get_level_count()):
+	if(GameMaster.current_level_num >= GameMaster.level_count):
 		level_win.play()
 		congrats_panel_animation.play("Complete_In")
 	else:

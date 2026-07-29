@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://djxx6m4jftwbu"]
+
+[ext_resource type="Shader" uid="uid://dopmwf3iiekup" path="res://Assets/Shaders/screen_effects.gdshader" id="1_jl8kb"]
+[ext_resource type="Script" uid="uid://dpubgx7fsatdm" path="res://UI/preview_grid.gd" id="2_whhqf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rfj7w"]
+shader = ExtResource("1_jl8kb")
+
+[node name="PreviewGrid" type="Control" unique_id=2091719018]
+modulate = Color(1, 1, 1, 0.78431374)
+material = SubResource("ShaderMaterial_rfj7w")
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_whhqf")
+max_boundary_size = 175.0
+cell_gap = 3.0

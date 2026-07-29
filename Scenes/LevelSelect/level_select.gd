@@ -5,38 +5,36 @@ const LEVEL_FOLDER = "res://Resources/Levels/"
 @onready var target_grid = $TargetGrid
 @onready var level_label = $"Level Title"
 
-var level_count: int = 0
 
-func _load_level(level_data: LevelData) -> void:
-	target_grid.update_preview(level_data)
-	level_label.text = level_data.level_name
-	
-func _load_level_by_number(level_num: int) -> bool:
+func _load_level_by_number(level_num: int) -> void:
 	var path: String = "res://Resources/Levels/%d.tres" % level_num
 	
 	if ResourceLoader.exists(path):
-		var loaded_resource = load(path) as LevelData
-		_load_level(loaded_resource)
-	
-	return true
-	
+		var level_data = load(path) as LevelData
+		target_grid.update_preview(level_data)
+		level_label.text = level_data.level_name
+
 
 func _ready() -> void:
 	_load_level_by_number(GameMaster.current_level_num)
-	level_count = GameMaster.get_level_count()
-	print("A total of ", level_count, " levels are loaded")
+	print("A total of ", GameMaster.level_count, " levels are loaded")
 	_load_level_data()
 
 
 func _on_forward_pressed() -> void:
-	GameMaster.current_level_num = ((GameMaster.current_level_num) % level_count) + 1
-	_load_level_by_number(GameMaster.current_level_num)
+	GameMaster.current_level_num += 1
+	#                                             1-based indexing
+	GameMaster.current_level_num = posmod((GameMaster.current_level_num - 1), GameMaster.level_count) + 1
 
+	_load_level_by_number(GameMaster.current_level_num)
 	_load_level_data()
 
 
 func _on_backward_pressed() -> void:
-	GameMaster.current_level_num = ((GameMaster.current_level_num + (level_count - 2)) % level_count) + 1
+	GameMaster.current_level_num += -1
+	#                                             1-based indexing
+	GameMaster.current_level_num = posmod((GameMaster.current_level_num - 1), GameMaster.level_count) + 1
+
 	_load_level_by_number(GameMaster.current_level_num)
 	_load_level_data()
 

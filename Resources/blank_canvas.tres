@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://bdkg0fcboobqo"]
+
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_jb2uh"]
+
+[resource]
+script = ExtResource("1_jb2uh")
+grid_size = Vector2i(3, 3)
+level_name = "Blank Canvas"
+metadata/_custom_type_script = "uid://cioivj6k56epn"

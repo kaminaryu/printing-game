@@ -3,8 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="1_1fdgm"]
 [ext_resource type="Script" uid="uid://c4raou4qqgak3" path="res://Scenes/LevelSelect/level_select.gd" id="1_dglhw"]
 [ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="2_brah1"]
-[ext_resource type="Shader" uid="uid://dopmwf3iiekup" path="res://Assets/Shaders/screen_effects.gdshader" id="3_tnwcr"]
-[ext_resource type="Script" uid="uid://db0ayoaavo3xb" path="res://Scenes/target_preview_grid.gd" id="4_dglhw"]
+[ext_resource type="PackedScene" uid="uid://djxx6m4jftwbu" path="res://UI/preview_grid.tscn" id="4_h4n71"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="6_h4n71"]
 [ext_resource type="Texture2D" uid="uid://ca1sdns3xf5jt" path="res://Assets/game/Buttons/redo/redo.png" id="8_h4n71"]
 [ext_resource type="Texture2D" uid="uid://y41eruxfebjv" path="res://Assets/game/Buttons/redo/redo_pressed.png" id="9_1jr32"]
@@ -14,9 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="13_t45ri"]
 [ext_resource type="Texture2D" uid="uid://tradybmvlqef" path="res://Assets/game/Buttons/start/start_pressed.png" id="14_yof5r"]
 [ext_resource type="AudioStream" uid="uid://dvthgkuq42xui" path="res://Assets/BGM/Menu-BGM.mp3" id="15_yof5r"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rfj7w"]
-shader = ExtResource("3_tnwcr")
 
 [sub_resource type="LabelSettings" id="LabelSettings_yof5r"]
 font = ExtResource("6_h4n71")
@@ -44,17 +40,12 @@ offset_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource("2_brah1")
 
-[node name="TargetGrid" type="Control" parent="." unique_id=2092430733]
-modulate = Color(1, 1, 1, 0.78431374)
-material = SubResource("ShaderMaterial_rfj7w")
-anchors_preset = 0
-offset_left = 880.0
-offset_top = 204.0
-offset_right = 920.0
-offset_bottom = 244.0
-script = ExtResource("4_dglhw")
-max_boundary_size = 175.0
-cell_gap = 3.0
+[node name="TargetGrid" parent="." unique_id=2091719018 instance=ExtResource("4_h4n71")]
+layout_mode = 0
+offset_left = 965.0
+offset_top = 290.0
+offset_right = 965.0
+offset_bottom = 290.0
 
 [node name="Level Title" type="Label" parent="." unique_id=302422963]
 layout_mode = 0
