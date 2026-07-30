@@ -1,11 +1,14 @@
 extends Control
 
-@export var pause_menu: Control
 @export var blur_panel: Panel
+
+@export var pause_menu: Control
 @export var preview_grid: Control
 @export var current_level_label: Label
+
 @export var prev_button: TextureButton
 @export var double_prev_button: TextureButton
+
 @export var settings_menu: Control
 
 const double_arrow_value: int = 5

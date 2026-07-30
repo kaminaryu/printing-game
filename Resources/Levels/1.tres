@@ -1,10 +1,15 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://chytl4it5s3b6"]
+[gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_envha"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_envha"]
 
 [resource]
 script = ExtResource("1_envha")
 grid_size = Vector2i(3, 3)
-available_channels = Array[String](["c", "m"])
-level_name = "Cyan Rows"
-target_colors = Array[String](["100", "100", "100", "000", "000", "000", "100", "100", "100"])
+level_name = "HI"
+target_colors = Array[String](["110", "110", "110", "111", "111", "111", "101", "101", "101"])
+ink_limits = {
+"c": 0,
+"k": 0,
+"m": 0,
+"y": 0
+}

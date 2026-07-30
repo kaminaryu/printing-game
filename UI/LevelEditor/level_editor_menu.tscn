@@ -10,13 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://b2svdcaaki61g" path="res://Assets/menu/LevelEditor/Double Arrow.svg" id="7_5rtyc"]
 [ext_resource type="Texture2D" uid="uid://cj3yo5yjjmpso" path="res://Assets/menu/LevelEditor/arror.svg" id="7_kg6vw"]
 [ext_resource type="Script" uid="uid://bd72y2fjeehiw" path="res://UI/LevelEditor/level_buttons.gd" id="8_sebas"]
-[ext_resource type="PackedScene" uid="uid://bbu70xtd2psud" path="res://UI/LevelEditor/level_editor_settings.tscn" id="11_nbykm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c3wv2"]
 shader = ExtResource("2_k6sis")
 shader_parameter/blur_amount = 1.51200007182
 
-[node name="LevelEditorMenu" type="Control" unique_id=1677267965 node_paths=PackedStringArray("pause_menu", "blur_panel", "preview_grid", "current_level_label", "prev_button", "double_prev_button", "settings_menu")]
+[node name="LevelEditorMenu" type="Control" unique_id=1677267965 node_paths=PackedStringArray("blur_panel", "pause_menu", "preview_grid", "current_level_label", "prev_button", "double_prev_button", "settings_menu")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -26,13 +25,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_cf1dl")
-pause_menu = NodePath("Menu/THEmenu")
 blur_panel = NodePath("Menu/BlurEffect")
+pause_menu = NodePath("Menu/THEmenu")
 preview_grid = NodePath("Menu/THEmenu/VBoxContainer/PreviewGridContainer/PreviewGrid")
 current_level_label = NodePath("Menu/THEmenu/VBoxContainer/HBoxContainer/CurrentLevel")
 prev_button = NodePath("Menu/THEmenu/VBoxContainer/HBoxContainer/PrevLevel")
 double_prev_button = NodePath("Menu/THEmenu/VBoxContainer/HBoxContainer/DoublePrevLevel")
-settings_menu = NodePath("Level Editor Settings")
+settings_menu = NodePath("")
 
 [node name="Menu" type="Control" parent="." unique_id=1116284873]
 anchors_preset = 0
@@ -164,10 +163,6 @@ text = "exit"
 alignment = 2
 
 [node name="Settings" parent="Menu" unique_id=1684481824 instance=ExtResource("6_kg6vw")]
-visible = false
-layout_mode = 1
-
-[node name="Level Editor Settings" parent="." unique_id=702539764 instance=ExtResource("11_nbykm")]
 visible = false
 layout_mode = 1
 

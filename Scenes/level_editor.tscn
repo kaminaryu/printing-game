@@ -8,17 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c70pva0x3x44h" path="res://Assets/Yellow_Button.png" id="5_5ogug"]
 [ext_resource type="Texture2D" uid="uid://dmv1wnq5j1dge" path="res://Assets/Key_Button.png" id="6_kerlq"]
 [ext_resource type="PackedScene" uid="uid://csli42ddd8utf" path="res://UI/LevelEditor/level_editor_menu.tscn" id="8_i8l5y"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_5o76e"]
-font_size = 30
-outline_size = 6
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_s1b0e"]
-font_size = 30
-outline_size = 6
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 0
+[ext_resource type="PackedScene" uid="uid://bbu70xtd2psud" path="res://UI/LevelEditor/level_editor_settings.tscn" id="9_fhsmn"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_2r1hx"]
 
@@ -56,122 +46,6 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 15
-
-[node name="Level" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=181920589]
-layout_mode = 2
-
-[node name="Level" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/Level" unique_id=589085422]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Level"
-label_settings = SubResource("LabelSettings_5o76e")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LevelBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/Level" unique_id=1781289435]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Grid Size" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=624872569]
-layout_mode = 2
-text = "Grid Sizes"
-label_settings = SubResource("LabelSettings_5o76e")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="GridWidth" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=862206988]
-layout_mode = 2
-theme_override_constants/separation = 24
-
-[node name="Width" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/GridWidth" unique_id=439842454]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Width"
-horizontal_alignment = 2
-
-[node name="GridWidthBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/GridWidth" unique_id=758926929]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="GridhHeight" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=699442033]
-layout_mode = 2
-theme_override_constants/separation = 26
-
-[node name="Height" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/GridhHeight" unique_id=451468498]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Height"
-horizontal_alignment = 2
-
-[node name="GridHeightBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/GridhHeight" unique_id=139348275]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Ink Ammos" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1402499073]
-layout_mode = 2
-text = "Ink Ammos"
-label_settings = SubResource("LabelSettings_s1b0e")
-horizontal_alignment = 1
-
-[node name="CyanAmmo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1136435540]
-layout_mode = 2
-theme_override_constants/separation = 26
-
-[node name="Cyan" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/CyanAmmo" unique_id=1257702151]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Cyan"
-horizontal_alignment = 2
-
-[node name="InkCBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/CyanAmmo" unique_id=445026838]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1.0
-
-[node name="MagentaAmmo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=91674885]
-layout_mode = 2
-theme_override_constants/separation = 26
-
-[node name="Magenta" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/MagentaAmmo" unique_id=1427609246]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Magenta"
-horizontal_alignment = 2
-
-[node name="InkMBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/MagentaAmmo" unique_id=444863150]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1.0
-
-[node name="YellowAmmo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=316025833]
-layout_mode = 2
-theme_override_constants/separation = 26
-
-[node name="Yellow" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/YellowAmmo" unique_id=1749821874]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Yellow"
-horizontal_alignment = 2
-
-[node name="InkYBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/YellowAmmo" unique_id=550380592]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1.0
-
-[node name="KeyAmmo" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=1504792290]
-layout_mode = 2
-theme_override_constants/separation = 26
-
-[node name="Key" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/KeyAmmo" unique_id=68613755]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Key"
-horizontal_alignment = 2
-
-[node name="InkKBox" type="SpinBox" parent="HBoxContainer/PanelContainer/VBoxContainer/KeyAmmo" unique_id=2076635435]
-layout_mode = 2
-size_flags_horizontal = 3
-min_value = -1.0
 
 [node name="SaveButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=949342787]
 layout_mode = 2
@@ -211,5 +85,14 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_2r1hx")
 texture_normal = ExtResource("6_kerlq")
 
-[node name="LevelEditorMenu" parent="." unique_id=1684481824 instance=ExtResource("8_i8l5y")]
+[node name="LevelEditorMenu" parent="." unique_id=1684481824 node_paths=PackedStringArray("settings_menu") instance=ExtResource("8_i8l5y")]
 layout_mode = 1
+settings_menu = NodePath("../Level Editor Settings")
+
+[node name="Level Editor Settings" parent="." unique_id=107502264 node_paths=PackedStringArray("level_editor_menu", "save_level_button", "printing_grid") instance=ExtResource("9_fhsmn")]
+process_mode = 3
+visible = false
+layout_mode = 1
+level_editor_menu = NodePath("../LevelEditorMenu")
+save_level_button = NodePath("../HBoxContainer/PanelContainer/VBoxContainer/SaveButton")
+printing_grid = NodePath("../HBoxContainer/CenterContainer/Control/PrintingGrid")

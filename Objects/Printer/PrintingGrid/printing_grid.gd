@@ -221,12 +221,16 @@ func _paint_row(row: int, channel: String) -> bool :
 	return locked
 
 
+# returns a 2D array that have the cell data (color and lock_state)
 func get_grid_color_matrix() -> Array:
 	var matrix: Array = []
+
 	for col in range(grid_size.x):
 		var column_data: Array = []
+
 		for row in range(grid_size.y):
 			var cell = grid[col][row]
+
 			# Store a dictionary containing both color and the lock state
 			column_data.append({
 				"color": cell.color_key(),
