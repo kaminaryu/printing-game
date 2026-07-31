@@ -42,7 +42,14 @@ theme_override_fonts/font = ExtResource("2_52eiw")
 theme_override_font_sizes/font_size = 79
 text = "play"
 
-[node name="Continue" type="Button" parent="VBoxContainer" unique_id=459205272]
+[node name="NewGame" type="Button" parent="VBoxContainer" unique_id=459205272]
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("3_vxkmt")
+text = "New Game"
+alignment = 2
+
+[node name="Continue" type="Button" parent="VBoxContainer" unique_id=1155611300]
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("3_vxkmt")
@@ -84,10 +91,11 @@ offset_bottom = 115.0
 theme = ExtResource("3_vxkmt")
 alignment = 2
 
+[connection signal="button_down" from="VBoxContainer/NewGame" to="." method="_on_new_game_button_down"]
 [connection signal="button_down" from="VBoxContainer/Continue" to="." method="_on_continue_button_down"]
 [connection signal="button_down" from="VBoxContainer/LevelSelection" to="." method="_on_level_selection_button_down"]
 [connection signal="button_down" from="VBoxContainer/Level Editor" to="." method="_on_level_editor_button_down"]
-[connection signal="button_down" from="Back" to="." method="_on_back_button_down"]
 [connection signal="button_down" from="Back" to="." method="_on_texture_button_button_down"]
-[connection signal="button_down" from="Back2" to="." method="_on_back_button_down"]
+[connection signal="button_down" from="Back" to="." method="_on_back_button_down"]
 [connection signal="button_down" from="Back2" to="." method="_on_texture_button_button_down"]
+[connection signal="button_down" from="Back2" to="." method="_on_back_button_down"]
