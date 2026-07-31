@@ -194,7 +194,7 @@ tracks/8/keys = {
 
 [sub_resource type="Animation" id="Animation_yhxw7"]
 resource_name = "papermasuk"
-length = 3.0
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -531,6 +531,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_cp0ys")
 libraries/ = SubResource("AnimationLibrary_trj04")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=452141374]
+visible = false
 anchor_mode = 0
 ignore_rotation = false
 limit_enabled = false

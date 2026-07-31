@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dmv1wnq5j1dge" path="res://Assets/Key_Button.png" id="6_kerlq"]
 [ext_resource type="PackedScene" uid="uid://csli42ddd8utf" path="res://UI/LevelEditor/level_editor_menu.tscn" id="8_i8l5y"]
 [ext_resource type="PackedScene" uid="uid://bbu70xtd2psud" path="res://UI/LevelEditor/level_editor_settings.tscn" id="9_fhsmn"]
+[ext_resource type="PackedScene" uid="uid://1njs5i6kxcd5" path="res://UI/Animation/fade_in_animation.tscn" id="10_5ogug"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_2r1hx"]
 
@@ -49,6 +50,7 @@ theme_override_constants/separation = 15
 
 [node name="SaveButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=949342787]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Save"
 
 [node name="Palette" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=159281310]
@@ -96,3 +98,6 @@ layout_mode = 1
 level_editor_menu = NodePath("../LevelEditorMenu")
 save_level_button = NodePath("../HBoxContainer/PanelContainer/VBoxContainer/SaveButton")
 printing_grid = NodePath("../HBoxContainer/CenterContainer/Control/PrintingGrid")
+
+[node name="FadeInAnimation" parent="." unique_id=2054330651 instance=ExtResource("10_5ogug")]
+layout_mode = 1

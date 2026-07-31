@@ -45,4 +45,12 @@ func _on_level_selection_button_down() -> void:
 
 
 func _on_level_editor_button_down() -> void:
+	var parent: Node = get_parent()
+
+	_hide_animation()
+
+	parent.animationPlayer.play("papermasuk")
+	parent.game_start.play()
+	await parent.animationPlayer.animation_finished
+
 	get_tree().change_scene_to_file("res://Scenes/level_editor.tscn")
