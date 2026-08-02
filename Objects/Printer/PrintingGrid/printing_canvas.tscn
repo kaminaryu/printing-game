@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://iivroqoa8ayc"]
 
-[ext_resource type="Script" uid="uid://tox2yujgphde" path="res://Objects/Printer/PrintingGrid/printing_grid.gd" id="1_whvfb"]
+[ext_resource type="Script" uid="uid://tox2yujgphde" path="res://Objects/Printer/PrintingGrid/printing_canvas.gd" id="1_whvfb"]
 [ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="2_whvfb"]
 [ext_resource type="AudioStream" uid="uid://rvn6fgd3pok0" path="res://Assets/Audio/Paint_Roll.wav" id="3_f5pb8"]
 
-[node name="PrintingGrid" type="Node2D" unique_id=1528432382]
+[node name="PrintingCanvas" type="Node2D" unique_id=1528432382]
 script = ExtResource("1_whvfb")
 
 [node name="Paper" type="Sprite2D" parent="." unique_id=119201437]

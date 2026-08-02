@@ -14,5 +14,3 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_whhqf")
-max_boundary_size = 175.0
-cell_gap = 3.0

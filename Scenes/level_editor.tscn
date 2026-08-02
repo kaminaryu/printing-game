@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://dq6dpa25dmlnx"]
 
-[ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_grid.tscn" id="1_5o76e"]
+[ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_canvas.tscn" id="1_5o76e"]
 [ext_resource type="Script" uid="uid://dign2o7rfnbnm" path="res://Scenes/level_editor.gd" id="1_s1b0e"]
+[ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="2_g51jt"]
 [ext_resource type="Script" uid="uid://c5wqouv11ks52" path="res://Scenes/ink_palette.gd" id="2_xi6ke"]
 [ext_resource type="Texture2D" uid="uid://c7t7hgvxmyvjp" path="res://Assets/Cyan_Button.png" id="3_i8l5y"]
 [ext_resource type="Texture2D" uid="uid://dbsoa2lx04yjb" path="res://Assets/Magenta_Button.png" id="4_fhsmn"]
@@ -13,7 +14,11 @@
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_2r1hx"]
 
-[node name="LevelEditor" type="Control" unique_id=971765700]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qoy40"]
+shader = ExtResource("2_g51jt")
+shader_parameter/blur_amount = 1.51200007182
+
+[node name="LevelEditor" type="Control" unique_id=971765700 node_paths=PackedStringArray("printing_canvas", "menu", "settings")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +26,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_s1b0e")
+printing_canvas = NodePath("HBoxContainer/CenterContainer/Control/PrintingCanvas")
+menu = NodePath("LevelEditorMenu")
+settings = NodePath("LevelEditorSettings")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=575797331]
 layout_mode = 1
@@ -37,28 +45,30 @@ size_flags_horizontal = 3
 [node name="Control" type="Control" parent="HBoxContainer/CenterContainer" unique_id=1357732271]
 layout_mode = 2
 
-[node name="PrintingGrid" parent="HBoxContainer/CenterContainer/Control" unique_id=1528432382 instance=ExtResource("1_5o76e")]
+[node name="PrintingCanvas" parent="HBoxContainer/CenterContainer/Control" unique_id=1528432382 instance=ExtResource("1_5o76e")]
+process_mode = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=258558441]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=1082997452]
+[node name="Editor" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=1082997452]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
-[node name="SaveButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=949342787]
+[node name="InkAmount" type="HBoxContainer" parent="HBoxContainer/PanelContainer/Editor" unique_id=1024389396]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Save"
 
-[node name="Palette" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer" unique_id=159281310]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/Editor/InkAmount" unique_id=1463348299]
+layout_mode = 2
+
+[node name="Palette" type="HBoxContainer" parent="HBoxContainer/PanelContainer/Editor" unique_id=159281310]
 layout_mode = 2
 size_flags_vertical = 8
 script = ExtResource("2_xi6ke")
 
-[node name="Cyan" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/Palette" unique_id=242505184]
+[node name="Cyan" type="TextureButton" parent="HBoxContainer/PanelContainer/Editor/Palette" unique_id=242505184]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
@@ -66,38 +76,52 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_2r1hx")
 texture_normal = ExtResource("3_i8l5y")
 
-[node name="Magenta" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/Palette" unique_id=1835046275]
+[node name="Magenta" type="TextureButton" parent="HBoxContainer/PanelContainer/Editor/Palette" unique_id=1835046275]
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 button_group = SubResource("ButtonGroup_2r1hx")
 texture_normal = ExtResource("4_fhsmn")
 
-[node name="Yellow" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/Palette" unique_id=182573293]
+[node name="Yellow" type="TextureButton" parent="HBoxContainer/PanelContainer/Editor/Palette" unique_id=182573293]
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 button_group = SubResource("ButtonGroup_2r1hx")
 texture_normal = ExtResource("5_5ogug")
 
-[node name="Key" type="TextureButton" parent="HBoxContainer/PanelContainer/VBoxContainer/Palette" unique_id=669049669]
+[node name="Key" type="TextureButton" parent="HBoxContainer/PanelContainer/Editor/Palette" unique_id=669049669]
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 button_group = SubResource("ButtonGroup_2r1hx")
 texture_normal = ExtResource("6_kerlq")
 
-[node name="LevelEditorMenu" parent="." unique_id=1684481824 node_paths=PackedStringArray("settings_menu") instance=ExtResource("8_i8l5y")]
-layout_mode = 1
-settings_menu = NodePath("../Level Editor Settings")
-
-[node name="Level Editor Settings" parent="." unique_id=107502264 node_paths=PackedStringArray("level_editor_menu", "save_level_button", "printing_grid") instance=ExtResource("9_fhsmn")]
-process_mode = 3
+[node name="BlurEffect" type="Panel" parent="." unique_id=1985819185]
 visible = false
+material = SubResource("ShaderMaterial_qoy40")
 layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelEditorMenu" parent="." unique_id=1684481824 node_paths=PackedStringArray("blur_panel", "level_editor_settings", "settings_menu") instance=ExtResource("8_i8l5y")]
+z_index = 10
+layout_mode = 1
+blur_panel = NodePath("../BlurEffect")
+level_editor_settings = NodePath("../LevelEditorSettings")
+settings_menu = NodePath("../LevelEditorSettings")
+
+[node name="LevelEditorSettings" parent="." unique_id=107502264 node_paths=PackedStringArray("level_editor_menu", "blur_panel", "printing_canvas") instance=ExtResource("9_fhsmn")]
+process_mode = 3
+layout_mode = 1
+offset_left = 1281.0
+offset_right = 1281.0
 level_editor_menu = NodePath("../LevelEditorMenu")
-save_level_button = NodePath("../HBoxContainer/PanelContainer/VBoxContainer/SaveButton")
-printing_grid = NodePath("../HBoxContainer/CenterContainer/Control/PrintingGrid")
+blur_panel = NodePath("../BlurEffect")
+printing_canvas = NodePath("../HBoxContainer/CenterContainer/Control/PrintingCanvas")
 
 [node name="FadeInAnimation" parent="." unique_id=2054330651 instance=ExtResource("10_5ogug")]
 layout_mode = 1

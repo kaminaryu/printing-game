@@ -19,28 +19,20 @@ var step_size: float = 130.0
 var center_offset: Vector2 = Vector2.ZERO
 var is_cascading: bool = false
 
-var grid: Array = []
+var canvas_grid: Array = []
 
 var default_screen_y: float = 360.0
 
 signal paint_cascade_finished
 
+
+##################
+# Initialization #
+##################
 func _ready() -> void :
 	SaveStatesManager.state_restored.connect(_on_state_restored)
 	paint_cascade_finished.connect(func(): is_cascading = false)
 
-func setup_and_build(size: Vector2i) -> void:
-	for child in get_children():
-		if child is Node2D and child.name != "Paper": 
-			child.queue_free()
-	
-	grid.clear() 
-	grid_size = size
-	
-	_init_grid()
-	_init_buttons()
-
-	
 
 func _init_grid() -> void :
 	var max_axis_count: float = max(grid_size.x, grid_size.y)
@@ -71,7 +63,7 @@ func _init_grid() -> void :
 			add_child(cell_node)
 			columns.append(cell_node)
 
-		grid.append(columns)
+		canvas_grid.append(columns)
 
 
 func _init_buttons() -> void :
@@ -119,6 +111,22 @@ func _init_buttons() -> void :
 		add_child(arrow)
 
 
+# Settiung up the grid for levels loading
+func setup_and_build(size: Vector2i) -> void:
+	for child in get_children():
+		if child is Node2D and child.name != "Paper": 
+			child.queue_free()
+	
+	canvas_grid.clear() 
+	grid_size = size
+	
+	_init_grid()
+	_init_buttons()
+
+
+############
+# Painting #
+############
 func _on_paint_request(request: Dictionary) -> void:
 	if is_cascading:
 		return
@@ -161,7 +169,7 @@ func _paint_column(col: int, channel: String) -> bool :
 	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
 	for row in range(grid_size.y):
-		var cell: Node = grid[col][row]
+		var cell: Node = canvas_grid[col][row]
 
 		if (channel == ColorManager.CHANNELS[3]) :
 			cell.toggle_ink_lock()
@@ -193,7 +201,7 @@ func _paint_row(row: int, channel: String) -> bool :
 	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
 	for col in range(grid_size.x):
-		var cell: Node = grid[col][row]
+		var cell: Node = canvas_grid[col][row]
 
 		if (channel == ColorManager.CHANNELS[3]) :
 			cell.toggle_ink_lock()
@@ -221,6 +229,57 @@ func _paint_row(row: int, channel: String) -> bool :
 	return locked
 
 
+func _paint_individual_cell(cell: Node, target_color: String) -> void :
+	cell.set_color_key(target_color)
+	_update_cell_color(cell)
+
+
+func _update_cell_color(cell: Node) -> void :
+	var key: String = cell.color_key()
+	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#676767")
+	var target_color: Color = Color.from_string(hex, Color.PURPLE)
+	
+	var color_tween: Tween = create_tween()
+	color_tween.set_trans(Tween.TRANS_LINEAR)
+	color_tween.set_ease(Tween.EASE_IN)
+	color_tween.tween_property(cell.get_node("GridTexture"), "modulate", target_color, 0.1)
+
+
+###########
+# Actions #
+###########
+func _clear_highlight() -> void:
+	for col in range(grid_size.x):
+		for row in range(grid_size.y):
+			var cell: Node = canvas_grid[col][row]
+			cell.get_node("HighlightOverlay").hide()
+
+
+func reset_grid_visuals() -> void:
+	for col in range(grid_size.x):
+		for row in range(grid_size.y):
+			var cell: Node = canvas_grid[col][row]
+			cell.reset()
+			_update_cell_color(cell)
+
+
+func paint_existing_level(level: LevelData) -> void :
+	var target_grid: Array = level.get_target_grid_2d()
+
+	for col in range(target_grid.size()) :
+		for row in range(target_grid[col].size()) :
+			_paint_individual_cell(canvas_grid[col][row], target_grid[col][row])
+			
+
+
+# for changing grid size in editor without deleting painted inks
+func resize_grid_without_reset() -> void :
+	pass
+
+
+###########
+# Getters #
+###########
 # returns a 2D array that have the cell data (color and lock_state)
 func get_grid_color_matrix() -> Array:
 	var matrix: Array = []
@@ -229,7 +288,7 @@ func get_grid_color_matrix() -> Array:
 		var column_data: Array = []
 
 		for row in range(grid_size.y):
-			var cell = grid[col][row]
+			var cell = canvas_grid[col][row]
 
 			# Store a dictionary containing both color and the lock state
 			column_data.append({
@@ -240,6 +299,10 @@ func get_grid_color_matrix() -> Array:
 	return matrix
 
 
+
+###########
+# Signals #
+###########
 func _on_state_restored(snapshot: Dictionary) -> void:
 	if not snapshot.has("grid") or not snapshot.has("ink"):
 		return
@@ -249,7 +312,7 @@ func _on_state_restored(snapshot: Dictionary) -> void:
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
 			var cell_data = grid_matrix[col][row]
-			var cell = grid[col][row]
+			var cell = canvas_grid[col][row]
 			
 			if cell_data is Dictionary:
 				cell.set_color_key(cell_data["color"])
@@ -269,39 +332,14 @@ func _on_state_restored(snapshot: Dictionary) -> void:
 			for channel in level_manager.remaining_ink.keys():
 				level_manager.ink_inventory_updated.emit(channel, level_manager.remaining_ink[channel])
 
-func _update_cell_color(cell: Node) -> void :
-	var key: String = cell.color_key()
-	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#676767")
-	var target_color: Color = Color.from_string(hex, Color.PURPLE)
-	
-	var color_tween: Tween = create_tween()
-	color_tween.set_trans(Tween.TRANS_LINEAR)
-	color_tween.set_ease(Tween.EASE_IN)
-	color_tween.tween_property(cell.get_node("GridTexture"), "modulate", target_color, 0.1)
-
 
 func _on_arrow_hovered(alignment: String, index: int) -> void :
 	if alignment == "col":
 		for row in range(grid_size.y):
-			var cell: Node = grid[index][row]
+			var cell: Node = canvas_grid[index][row]
 			cell.get_node("HighlightOverlay").show()
 	
 	elif alignment == "row":
 		for col in range(grid_size.x):
-			var cell: Node = grid[col][index]
+			var cell: Node = canvas_grid[col][index]
 			cell.get_node("HighlightOverlay").show()
-
-
-func _clear_highlight() -> void:
-	for col in range(grid_size.x):
-		for row in range(grid_size.y):
-			var cell: Node = grid[col][row]
-			cell.get_node("HighlightOverlay").hide()
-
-
-func reset_grid_visuals() -> void:
-	for col in range(grid_size.x):
-		for row in range(grid_size.y):
-			var cell: Node = grid[col][row]
-			cell.reset()
-			_update_cell_color(cell)

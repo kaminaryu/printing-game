@@ -1,0 +1,248 @@
+[gd_scene format=3 uid="uid://bj6f7cmq2c4e1"]
+
+[ext_resource type="Script" uid="uid://dff3kdav0msbp" path="res://UI/LevelEditor/level_editor_settings_new.gd" id="1_3gxwu"]
+[ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="1_61cea"]
+[ext_resource type="Texture2D" uid="uid://84j0kq4lbied" path="res://Assets/GUI/level_editor_menu.png" id="2_3gxwu"]
+[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="3_ug2pp"]
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="4_3cho6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3wv2"]
+shader = ExtResource("1_61cea")
+shader_parameter/blur_amount = 1.51200007182
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_amdy6"]
+color = Color(0.5882353, 0.74509805, 0.6784314, 1)
+thickness = 2
+
+[node name="LevelEditorSettings" type="Control" unique_id=1677267965]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_3gxwu")
+
+[node name="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither" type="Control" parent="." unique_id=1116284873]
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+mouse_behavior_recursive = 2
+
+[node name="BlurEffect" type="Panel" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither" unique_id=1933871930]
+visible = false
+material = SubResource("ShaderMaterial_c3wv2")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither" unique_id=23774462]
+layout_mode = 0
+offset_left = 1126.0
+offset_right = 1827.0
+offset_bottom = 720.0
+mouse_filter = 2
+mouse_behavior_recursive = 2
+texture = ExtResource("2_3gxwu")
+
+[node name="Menu" type="VBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background" unique_id=581448596]
+layout_mode = 1
+offset_left = 200.0
+offset_top = 50.0
+offset_right = 647.0
+offset_bottom = 678.0
+theme_override_constants/separation = 32
+metadata/_edit_group_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu" unique_id=170670967]
+layout_mode = 2
+theme_override_constants/margin_bottom = -38
+
+[node name="Back" type="Button" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/MarginContainer" unique_id=1377573523]
+texture_filter = 1
+layout_mode = 2
+theme = ExtResource("3_ug2pp")
+text = "back"
+alignment = 2
+
+[node name="Title" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu" unique_id=2054462601]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.46616632, 0.6698243, 0.58214927, 1)
+theme_override_fonts/font = ExtResource("4_3cho6")
+theme_override_font_sizes/font_size = 79
+text = "options"
+horizontal_alignment = 2
+
+[node name="GridSection" type="VBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu" unique_id=852234365]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="GridSettings" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection" unique_id=1549041028]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("3_ug2pp")
+theme_override_font_sizes/font_size = 24
+text = "Grid Settings"
+
+[node name="HSeparator" type="HSeparator" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection" unique_id=489170606]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_amdy6")
+
+[node name="LevelName" type="HBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection" unique_id=1507872264]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection/LevelName" unique_id=868969708]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("3_ug2pp")
+theme_override_font_sizes/font_size = 24
+text = "Level Name:"
+
+[node name="LineEdit" type="LineEdit" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection/LevelName" unique_id=2002952003]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("4_3cho6")
+placeholder_text = "Lorem Ipsum"
+alignment = 2
+max_length = 20
+
+[node name="GridSetting" type="HBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection" unique_id=1506187894]
+layout_mode = 2
+theme_override_constants/separation = 149
+
+[node name="Width" type="HBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection/GridSetting" unique_id=733176576]
+layout_mode = 2
+
+[node name="GridWidth" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection/GridSetting/Width" unique_id=680761051]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("3_ug2pp")
+theme_override_font_sizes/font_size = 24
+text = "W: "
+
+[node name="SpinBox" type="SpinBox" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection/GridSetting/Width" unique_id=144351808]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+max_value = 67.0
+alignment = 2
+
+[node name="Height" type="HBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection/GridSetting" unique_id=881543954]
+layout_mode = 2
+
+[node name="GridHeight" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection/GridSetting/Height" unique_id=129426754]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("3_ug2pp")
+theme_override_font_sizes/font_size = 24
+text = "H:"
+horizontal_alignment = 2
+
+[node name="SpinBox2" type="SpinBox" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/GridSection/GridSetting/Height" unique_id=335129835]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+max_value = 67.0
+alignment = 2
+
+[node name="CatrigeSection" type="VBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu" unique_id=536819235]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Catridge" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection" unique_id=1217812233]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("3_ug2pp")
+theme_override_font_sizes/font_size = 24
+text = "Catridge Settings"
+
+[node name="HSeparator" type="HSeparator" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection" unique_id=969256630]
+layout_mode = 2
+theme_override_constants/separation = 0
+theme_override_styles/separator = SubResource("StyleBoxLine_amdy6")
+
+[node name="Cyan" type="HBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection" unique_id=1042464359]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection/Cyan" unique_id=1401556916]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("3_ug2pp")
+theme_override_font_sizes/font_size = 24
+text = "Cyan"
+
+[node name="SpinBox" type="SpinBox" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection/Cyan" unique_id=659386798]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+min_value = -1.0
+alignment = 2
+
+[node name="Magenta" type="HBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection" unique_id=1163053952]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection/Magenta" unique_id=681447591]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("3_ug2pp")
+theme_override_font_sizes/font_size = 24
+text = "Magenta"
+
+[node name="SpinBox" type="SpinBox" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection/Magenta" unique_id=1699516238]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+min_value = -1.0
+alignment = 2
+
+[node name="Yellow" type="HBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection" unique_id=2031325918]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection/Yellow" unique_id=2056594961]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("3_ug2pp")
+theme_override_font_sizes/font_size = 24
+text = "Yellow"
+
+[node name="SpinBox" type="SpinBox" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection/Yellow" unique_id=2070124179]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+min_value = -1.0
+alignment = 2
+
+[node name="Key" type="HBoxContainer" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection" unique_id=1109275545]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection/Key" unique_id=289657630]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("3_ug2pp")
+theme_override_font_sizes/font_size = 24
+text = "Key"
+
+[node name="SpinBox" type="SpinBox" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither/Background/Menu/CatrigeSection/Key" unique_id=1547615820]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+min_value = -1.0
+alignment = 2
+
+[node name="Back2" type="Button" parent="IdkWhyThisIsHereButIdkHowToProperlyRemoveItEither" unique_id=737187179]
+texture_filter = 1
+layout_mode = 0
+offset_left = 1181.0
+offset_top = 40.0
+offset_right = 1280.0
+offset_bottom = 115.0
+theme = ExtResource("3_ug2pp")
+alignment = 2

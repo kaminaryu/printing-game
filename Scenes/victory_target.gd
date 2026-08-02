@@ -7,7 +7,16 @@ extends Control
 @onready var DEFAULT_MAIN_TEXTURE = preload("res://Assets/game/Cell/cell_inside.png")
 @onready var DEFAULT_OVERLAY_TEXTURE = preload("res://Assets/game/Cell/cell_overlay.png")
 
-func update_preview(level_data: LevelData) -> void:
+
+func generate_preview(level_num: int) -> void :
+	var path: String = "res://Resources/Levels/%d.tres" % level_num
+	
+	if ResourceLoader.exists(path):
+		var level_data = load(path) as LevelData
+		_draw_grid(level_data)
+
+
+func _draw_grid(level_data: LevelData) -> void:
 	for child in get_children():
 		child.queue_free()
 		

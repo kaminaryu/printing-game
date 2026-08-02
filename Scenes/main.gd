@@ -2,9 +2,9 @@ extends Node2D
 
 var current_level: LevelData
 
-@onready var printing_grid = $PrintingGrid
+@onready var printing_canvas = $PrintingCanvas
 @onready var grid_animator = $GridAnimator
-@onready var target_preview_grid = $CanvasLayer/PreviewGrid
+@onready var preview_grid = $CanvasLayer/PreviewGrid
 @onready var victory_grid = $CanvasLayer/VictoryPanel/VictoryTarget
 @onready var victory_animation = $CanvasLayer/VictoryPanel/AnimationPlayer
 @onready var blur_panel = $"CanvasLayer/Blur Panel"
@@ -34,7 +34,7 @@ var elapsed_time := 0.0
 signal ink_inventory_updated(channel: String, remaining_count: int)
 
 func _ready() -> void:
-	printing_grid.paint_cascade_finished.connect(_on_grid_updated)
+	printing_canvas.paint_cascade_finished.connect(_on_grid_updated)
 	ink_inventory_updated.connect(ink_cartridges.update_ink_label)
 	var _load_level_by_number_successful: bool = _load_level_by_number(GameMaster.current_level_num)
 
@@ -58,9 +58,7 @@ func _load_level(level_data: LevelData) -> void:
 	remaining_ink = level_data.ink_limits.duplicate()
 	_starting_ink = level_data.ink_limits.duplicate()
 	
-	target_preview_grid.update_preview(level_data)
-	victory_grid.update_preview(level_data)
-	printing_grid.setup_and_build(level_data.grid_size)
+	printing_canvas.setup_and_build(level_data.grid_size)
 	
 	level_start.pitch_scale = randf_range(0.9, 1.1)
 	level_start.play()
@@ -74,15 +72,17 @@ func _load_level_by_number(level_num: int) -> bool:
 	var path: String = "res://Resources/Levels/%d.tres" % level_num
 	
 	if ResourceLoader.exists(path):
-		var loaded_resource = load(path) as LevelData
-		if loaded_resource:
+		var level_data = load(path) as LevelData
+		if level_data:
 			SaveStatesManager.reset() 
-			ink_cartridges.update_visible_channels(loaded_resource)
-			_load_level(loaded_resource)
+			ink_cartridges.update_visible_channels(level_data)
+
+			preview_grid.generate_preview(level_num)
+			victory_grid.generate_preview(level_num)
+			_load_level(level_data)
 			
 			is_transitioning = false
 			return true
-			
 	return false
 
 
@@ -109,12 +109,12 @@ func _on_grid_updated() -> void:
 		
 
 func check_victory_condition() -> bool:
-	if target_grid_data.is_empty() or printing_grid.grid.is_empty():
+	if target_grid_data.is_empty() or printing_canvas.grid.is_empty():
 		return false
 		
 	for col in range(current_level.grid_size.x):
 		for row in range(current_level.grid_size.y):
-			var cell: Node = printing_grid.grid[col][row]
+			var cell: Node = printing_canvas.grid[col][row]
 			if cell.color_key() != target_grid_data[col][row]:
 				return false
 				
@@ -152,8 +152,8 @@ func reset_entire_level() -> void:
 	for channel in remaining_ink.keys():
 		ink_inventory_updated.emit(channel, remaining_ink[channel])
 			
-	if printing_grid and printing_grid.has_method("reset_grid_visuals"):
-		printing_grid.reset_grid_visuals()
+	if printing_canvas and printing_canvas.has_method("reset_grid_visuals"):
+		printing_canvas.reset_grid_visuals()
 
 
 func _on_continue_button_pressed() -> void:
@@ -183,7 +183,7 @@ func reset_timer():
 	elapsed_time = 0
 
 func _input(event: InputEvent) -> void :
-	if printing_grid.is_cascading:
+	if printing_canvas.is_cascading:
 		return
 	
 	if event.is_action_pressed("undo") :

@@ -2,21 +2,12 @@ extends Control
 
 const LEVEL_FOLDER = "res://Resources/Levels/"
 
-@onready var target_grid = $TargetGrid
-@onready var level_label = $"Level Title"
-
-
-func _load_level_by_number(level_num: int) -> void:
-	var path: String = "res://Resources/Levels/%d.tres" % level_num
-	
-	if ResourceLoader.exists(path):
-		var level_data = load(path) as LevelData
-		target_grid.update_preview(level_data)
-		level_label.text = level_data.level_name
+@export var target_grid: Control
+@export var level_label: Label
 
 
 func _ready() -> void:
-	_load_level_by_number(GameMaster.current_level_num)
+	target_grid.generate_preview(GameMaster.current_level_num)
 	print("A total of ", GameMaster.level_count, " levels are loaded")
 	_load_level_data()
 
@@ -26,7 +17,7 @@ func _on_forward_pressed() -> void:
 	#                                             1-based indexing
 	GameMaster.current_level_num = posmod((GameMaster.current_level_num - 1), GameMaster.level_count) + 1
 
-	_load_level_by_number(GameMaster.current_level_num)
+	target_grid.generate_preview(GameMaster.current_level_num)
 	_load_level_data()
 
 
@@ -35,7 +26,7 @@ func _on_backward_pressed() -> void:
 	#                                             1-based indexing
 	GameMaster.current_level_num = posmod((GameMaster.current_level_num - 1), GameMaster.level_count) + 1
 
-	_load_level_by_number(GameMaster.current_level_num)
+	target_grid.generate_preview(GameMaster.current_level_num)
 	_load_level_data()
 
 

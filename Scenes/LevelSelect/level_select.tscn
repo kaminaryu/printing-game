@@ -19,7 +19,7 @@
 font = ExtResource("6_h4n71")
 font_size = 20
 
-[node name="LevelSelect" type="Control" unique_id=1337499084]
+[node name="LevelSelect" type="Control" unique_id=1337499084 node_paths=PackedStringArray("target_grid", "level_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +27,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dglhw")
+target_grid = NodePath("TargetGrid")
+level_label = NodePath("Level Title")
 
 [node name="BG" type="TextureRect" parent="." unique_id=1253640949]
 layout_mode = 0
@@ -54,7 +56,7 @@ offset_left = 811.0
 offset_top = 67.0
 offset_right = 1119.0
 offset_bottom = 101.0
-text = "The Basics"
+text = "Lorem Ipsum"
 label_settings = SubResource("LabelSettings_yof5r")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -76,7 +78,7 @@ offset_left = 811.0
 offset_top = 553.0
 offset_right = 1119.0
 offset_bottom = 587.0
-text = "--:--"
+text = "--:--.--"
 label_settings = SubResource("LabelSettings_yof5r")
 horizontal_alignment = 1
 vertical_alignment = 1

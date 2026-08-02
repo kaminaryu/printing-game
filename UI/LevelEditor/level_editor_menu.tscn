@@ -1,21 +1,16 @@
 [gd_scene format=3 uid="uid://csli42ddd8utf"]
 
 [ext_resource type="Script" uid="uid://vuhcde72tldl" path="res://UI/LevelEditor/level_editor_menu.gd" id="1_cf1dl"]
-[ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="2_k6sis"]
-[ext_resource type="Texture2D" uid="uid://84j0kq4lbied" path="res://Assets/GUI/level_editor_menu.png" id="2_qld02"]
+[ext_resource type="Texture2D" uid="uid://gwiugx4wx15c" path="res://Assets/GUI/background_shadow.png" id="2_5rtyc"]
+[ext_resource type="Texture2D" uid="uid://diqsu1slno6rd" path="res://Assets/GUI/level_editor_menu_no_shadow.png" id="2_kg6vw"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_kg6vw"]
 [ext_resource type="PackedScene" uid="uid://djxx6m4jftwbu" path="res://UI/preview_grid.tscn" id="4_k6sis"]
-[ext_resource type="PackedScene" uid="uid://1f1kykdhkpbb" path="res://Scenes/settings.tscn" id="6_kg6vw"]
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="6_nbykm"]
 [ext_resource type="Texture2D" uid="uid://b2svdcaaki61g" path="res://Assets/menu/LevelEditor/Double Arrow.svg" id="7_5rtyc"]
 [ext_resource type="Texture2D" uid="uid://cj3yo5yjjmpso" path="res://Assets/menu/LevelEditor/arror.svg" id="7_kg6vw"]
 [ext_resource type="Script" uid="uid://bd72y2fjeehiw" path="res://UI/LevelEditor/level_buttons.gd" id="8_sebas"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3wv2"]
-shader = ExtResource("2_k6sis")
-shader_parameter/blur_amount = 1.51200007182
-
-[node name="LevelEditorMenu" type="Control" unique_id=1677267965 node_paths=PackedStringArray("blur_panel", "pause_menu", "preview_grid", "current_level_label", "prev_button", "double_prev_button", "settings_menu")]
+[node name="LevelEditorMenu" type="Control" unique_id=1677267965 node_paths=PackedStringArray("blur_panel", "menu", "preview_grid", "current_level_label", "prev_button", "double_prev_button")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -25,89 +20,89 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_cf1dl")
-blur_panel = NodePath("Menu/BlurEffect")
-pause_menu = NodePath("Menu/THEmenu")
-preview_grid = NodePath("Menu/THEmenu/VBoxContainer/PreviewGridContainer/PreviewGrid")
-current_level_label = NodePath("Menu/THEmenu/VBoxContainer/HBoxContainer/CurrentLevel")
-prev_button = NodePath("Menu/THEmenu/VBoxContainer/HBoxContainer/PrevLevel")
-double_prev_button = NodePath("Menu/THEmenu/VBoxContainer/HBoxContainer/DoublePrevLevel")
-settings_menu = NodePath("")
+blur_panel = NodePath("")
+menu = NodePath("MenuBody")
+preview_grid = NodePath("MenuBody/Menu/PreviewGridContainer/PreviewGrid")
+current_level_label = NodePath("MenuBody/Menu/HBoxContainer/CurrentLevel")
+prev_button = NodePath("MenuBody/Menu/HBoxContainer/PrevLevel")
+double_prev_button = NodePath("MenuBody/Menu/HBoxContainer/DoublePrevLevel")
 
-[node name="Menu" type="Control" parent="." unique_id=1116284873]
-anchors_preset = 0
-offset_right = 1280.0
-offset_bottom = 720.0
-mouse_filter = 2
-mouse_behavior_recursive = 2
-
-[node name="BlurEffect" type="Panel" parent="Menu" unique_id=1933871930]
-visible = false
-material = SubResource("ShaderMaterial_c3wv2")
+[node name="MenuBody" type="Control" parent="." unique_id=1116284873]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 1283.0
+offset_right = 1283.0
+mouse_filter = 2
+mouse_behavior_recursive = 2
 
-[node name="THEmenu" type="TextureRect" parent="Menu" unique_id=23774462]
+[node name="Shadow" type="TextureRect" parent="MenuBody" unique_id=2019095836]
+visible = false
 layout_mode = 0
-offset_left = 1126.0
-offset_right = 1827.0
+offset_left = -141.0
+offset_top = -1.0
+offset_right = 560.0
+offset_bottom = 719.0
+mouse_filter = 2
+mouse_behavior_recursive = 2
+texture = ExtResource("2_5rtyc")
+
+[node name="Background" type="TextureRect" parent="MenuBody" unique_id=23774462]
+layout_mode = 1
+offset_left = -158.0
+offset_right = 543.0
 offset_bottom = 720.0
 mouse_filter = 2
 mouse_behavior_recursive = 2
-texture = ExtResource("2_qld02")
+texture = ExtResource("2_kg6vw")
 metadata/_edit_group_ = true
 
-[node name="PencilButton" type="TextureButton" parent="Menu/THEmenu" unique_id=334223556]
+[node name="PencilButton" type="TextureButton" parent="MenuBody" unique_id=334223556]
 layout_mode = 0
-offset_left = 59.0
-offset_top = 40.0
-offset_right = 155.0
-offset_bottom = 113.0
+offset_left = -102.0
+offset_top = 41.0
+offset_right = -6.0
+offset_bottom = 114.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/THEmenu" unique_id=2029241381]
+[node name="Menu" type="VBoxContainer" parent="MenuBody" unique_id=2029241381]
 layout_mode = 0
-offset_left = 202.0
-offset_top = 47.0
-offset_right = 672.0
-offset_bottom = 419.0
+offset_left = 43.0
+offset_top = 40.0
+offset_right = 513.0
+offset_bottom = 660.0
 theme_override_constants/separation = 38
 metadata/_edit_group_ = true
 
-[node name="BackButton" type="Button" parent="Menu/THEmenu/VBoxContainer" unique_id=1266129962]
-visible = false
+[node name="Exit" type="Button" parent="MenuBody/Menu" unique_id=1766296260]
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("6_nbykm")
-text = "back"
+text = "exit editor"
 alignment = 2
 
-[node name="Label" type="Label" parent="Menu/THEmenu/VBoxContainer" unique_id=332784085]
+[node name="Label" type="Label" parent="MenuBody/Menu" unique_id=332784085]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.46616632, 0.6698243, 0.58214927, 1)
 theme_override_fonts/font = ExtResource("3_kg6vw")
 theme_override_font_sizes/font_size = 58
 text = "configure"
 
-[node name="PreviewGridContainer" type="MarginContainer" parent="Menu/THEmenu/VBoxContainer" unique_id=2035922336]
+[node name="PreviewGridContainer" type="MarginContainer" parent="MenuBody/Menu" unique_id=2035922336]
 layout_mode = 2
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="PreviewGrid" parent="Menu/THEmenu/VBoxContainer/PreviewGridContainer" unique_id=2091719018 instance=ExtResource("4_k6sis")]
+[node name="PreviewGrid" parent="MenuBody/Menu/PreviewGridContainer" unique_id=2091719018 instance=ExtResource("4_k6sis")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Menu/THEmenu/VBoxContainer" unique_id=604414167]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuBody/Menu" unique_id=604414167]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 28
 alignment = 2
 
-[node name="DoublePrevLevel" type="TextureButton" parent="Menu/THEmenu/VBoxContainer/HBoxContainer" unique_id=1702918681]
+[node name="DoublePrevLevel" type="TextureButton" parent="MenuBody/Menu/HBoxContainer" unique_id=1702918681]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -115,14 +110,14 @@ theme = ExtResource("6_nbykm")
 texture_normal = ExtResource("7_5rtyc")
 script = ExtResource("8_sebas")
 
-[node name="PrevLevel" type="TextureButton" parent="Menu/THEmenu/VBoxContainer/HBoxContainer" unique_id=402473735]
+[node name="PrevLevel" type="TextureButton" parent="MenuBody/Menu/HBoxContainer" unique_id=402473735]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("6_nbykm")
 texture_normal = ExtResource("7_kg6vw")
 script = ExtResource("8_sebas")
 
-[node name="CurrentLevel" type="Label" parent="Menu/THEmenu/VBoxContainer/HBoxContainer" unique_id=1768019490]
+[node name="CurrentLevel" type="Label" parent="MenuBody/Menu/HBoxContainer" unique_id=1768019490]
 custom_minimum_size = Vector2(167, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -131,7 +126,7 @@ theme_override_font_sizes/font_size = 24
 text = "level X"
 horizontal_alignment = 1
 
-[node name="NextLevel" type="TextureButton" parent="Menu/THEmenu/VBoxContainer/HBoxContainer" unique_id=744883776]
+[node name="NextLevel" type="TextureButton" parent="MenuBody/Menu/HBoxContainer" unique_id=744883776]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("6_nbykm")
@@ -139,7 +134,7 @@ texture_normal = ExtResource("7_kg6vw")
 flip_h = true
 script = ExtResource("8_sebas")
 
-[node name="DoubleNextLevel" type="TextureButton" parent="Menu/THEmenu/VBoxContainer/HBoxContainer" unique_id=1579440745]
+[node name="DoubleNextLevel" type="TextureButton" parent="MenuBody/Menu/HBoxContainer" unique_id=1579440745]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -148,39 +143,45 @@ texture_normal = ExtResource("7_5rtyc")
 flip_h = true
 script = ExtResource("8_sebas")
 
-[node name="LevelSettings" type="Button" parent="Menu/THEmenu/VBoxContainer" unique_id=1827445668]
+[node name="LoadSaveContainer" type="HBoxContainer" parent="MenuBody/Menu" unique_id=960742683]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Load" type="Button" parent="MenuBody/Menu/LoadSaveContainer" unique_id=413304736]
+layout_mode = 2
+theme = ExtResource("6_nbykm")
+text = "Load"
+
+[node name="Save" type="Button" parent="MenuBody/Menu/LoadSaveContainer" unique_id=1270360944]
+layout_mode = 2
+theme = ExtResource("6_nbykm")
+text = "Save"
+
+[node name="LevelSettings" type="Button" parent="MenuBody/Menu" unique_id=1827445668]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("6_nbykm")
 text = "level settings"
 alignment = 2
 
-[node name="Exit" type="Button" parent="Menu/THEmenu/VBoxContainer" unique_id=1766296260]
-layout_mode = 2
-size_flags_horizontal = 8
-theme = ExtResource("6_nbykm")
-text = "exit"
-alignment = 2
-
-[node name="Settings" parent="Menu" unique_id=1684481824 instance=ExtResource("6_kg6vw")]
-visible = false
-layout_mode = 1
-
-[connection signal="button_down" from="Menu/THEmenu/PencilButton" to="." method="_on_pencil_button_button_down"]
-[connection signal="mouse_entered" from="Menu/THEmenu/PencilButton" to="." method="_on_pencil_button_mouse_entered"]
-[connection signal="mouse_exited" from="Menu/THEmenu/PencilButton" to="." method="_on_pencil_button_mouse_exited"]
-[connection signal="button_down" from="Menu/THEmenu/VBoxContainer/BackButton" to="." method="_on_back_button_button_down"]
-[connection signal="button_down" from="Menu/THEmenu/VBoxContainer/HBoxContainer/DoublePrevLevel" to="." method="_on_double_prev_level_button_down"]
-[connection signal="mouse_entered" from="Menu/THEmenu/VBoxContainer/HBoxContainer/DoublePrevLevel" to="Menu/THEmenu/VBoxContainer/HBoxContainer/DoublePrevLevel" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Menu/THEmenu/VBoxContainer/HBoxContainer/DoublePrevLevel" to="Menu/THEmenu/VBoxContainer/HBoxContainer/DoublePrevLevel" method="_on_mouse_exited"]
-[connection signal="button_down" from="Menu/THEmenu/VBoxContainer/HBoxContainer/PrevLevel" to="." method="_on_prev_level_button_down"]
-[connection signal="mouse_entered" from="Menu/THEmenu/VBoxContainer/HBoxContainer/PrevLevel" to="Menu/THEmenu/VBoxContainer/HBoxContainer/PrevLevel" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Menu/THEmenu/VBoxContainer/HBoxContainer/PrevLevel" to="Menu/THEmenu/VBoxContainer/HBoxContainer/PrevLevel" method="_on_mouse_exited"]
-[connection signal="button_down" from="Menu/THEmenu/VBoxContainer/HBoxContainer/NextLevel" to="." method="_on_next_level_button_down"]
-[connection signal="mouse_entered" from="Menu/THEmenu/VBoxContainer/HBoxContainer/NextLevel" to="Menu/THEmenu/VBoxContainer/HBoxContainer/NextLevel" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Menu/THEmenu/VBoxContainer/HBoxContainer/NextLevel" to="Menu/THEmenu/VBoxContainer/HBoxContainer/NextLevel" method="_on_mouse_exited"]
-[connection signal="button_down" from="Menu/THEmenu/VBoxContainer/HBoxContainer/DoubleNextLevel" to="." method="_on_double_next_level_button_down"]
-[connection signal="mouse_entered" from="Menu/THEmenu/VBoxContainer/HBoxContainer/DoubleNextLevel" to="Menu/THEmenu/VBoxContainer/HBoxContainer/DoubleNextLevel" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Menu/THEmenu/VBoxContainer/HBoxContainer/DoubleNextLevel" to="Menu/THEmenu/VBoxContainer/HBoxContainer/DoubleNextLevel" method="_on_mouse_exited"]
-[connection signal="button_down" from="Menu/THEmenu/VBoxContainer/LevelSettings" to="." method="_on_level_settings_button_down"]
-[connection signal="button_down" from="Menu/THEmenu/VBoxContainer/Exit" to="." method="_on_exit_button_down"]
+[connection signal="button_down" from="MenuBody/PencilButton" to="." method="_on_pencil_button_button_down"]
+[connection signal="mouse_entered" from="MenuBody/PencilButton" to="." method="_on_pencil_button_mouse_entered"]
+[connection signal="mouse_exited" from="MenuBody/PencilButton" to="." method="_on_pencil_button_mouse_exited"]
+[connection signal="button_down" from="MenuBody/Menu/Exit" to="." method="_on_exit_button_down"]
+[connection signal="button_down" from="MenuBody/Menu/HBoxContainer/DoublePrevLevel" to="." method="_on_double_prev_level_button_down"]
+[connection signal="mouse_entered" from="MenuBody/Menu/HBoxContainer/DoublePrevLevel" to="MenuBody/Menu/HBoxContainer/DoublePrevLevel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MenuBody/Menu/HBoxContainer/DoublePrevLevel" to="MenuBody/Menu/HBoxContainer/DoublePrevLevel" method="_on_mouse_exited"]
+[connection signal="button_down" from="MenuBody/Menu/HBoxContainer/PrevLevel" to="." method="_on_prev_level_button_down"]
+[connection signal="mouse_entered" from="MenuBody/Menu/HBoxContainer/PrevLevel" to="MenuBody/Menu/HBoxContainer/PrevLevel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MenuBody/Menu/HBoxContainer/PrevLevel" to="MenuBody/Menu/HBoxContainer/PrevLevel" method="_on_mouse_exited"]
+[connection signal="button_down" from="MenuBody/Menu/HBoxContainer/NextLevel" to="." method="_on_next_level_button_down"]
+[connection signal="mouse_entered" from="MenuBody/Menu/HBoxContainer/NextLevel" to="MenuBody/Menu/HBoxContainer/NextLevel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MenuBody/Menu/HBoxContainer/NextLevel" to="MenuBody/Menu/HBoxContainer/NextLevel" method="_on_mouse_exited"]
+[connection signal="button_down" from="MenuBody/Menu/HBoxContainer/DoubleNextLevel" to="." method="_on_double_next_level_button_down"]
+[connection signal="mouse_entered" from="MenuBody/Menu/HBoxContainer/DoubleNextLevel" to="MenuBody/Menu/HBoxContainer/DoubleNextLevel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MenuBody/Menu/HBoxContainer/DoubleNextLevel" to="MenuBody/Menu/HBoxContainer/DoubleNextLevel" method="_on_mouse_exited"]
+[connection signal="button_up" from="MenuBody/Menu/LoadSaveContainer/Load" to="." method="_on_load_button_up"]
+[connection signal="button_up" from="MenuBody/Menu/LoadSaveContainer/Save" to="." method="_on_save_button_up"]
+[connection signal="button_down" from="MenuBody/Menu/LevelSettings" to="." method="_on_level_settings_button_down"]

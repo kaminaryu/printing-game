@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b51cck50u8a2w"]
 
-[ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_grid.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_canvas.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/main.gd" id="1_ynf5e"]
 [ext_resource type="AudioStream" uid="uid://65xy81ra2plr" path="res://Assets/Audio/Level_Win.wav" id="3_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="4_h1bgf"]
@@ -43,7 +43,7 @@ resource_name = "Level End"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PrintingGrid:position")
+tracks/0/path = NodePath("PrintingCanvas:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -59,7 +59,7 @@ length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PrintingGrid:position")
+tracks/0/path = NodePath("PrintingCanvas:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -74,7 +74,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PrintingGrid:position")
+tracks/0/path = NodePath("PrintingCanvas:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -488,7 +488,7 @@ offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("16_k12tt")
 
-[node name="PrintingGrid" parent="." unique_id=1528432382 instance=ExtResource("1_jjgbg")]
+[node name="PrintingCanvas" parent="." unique_id=1528432382 instance=ExtResource("1_jjgbg")]
 position = Vector2(327, -380)
 
 [node name="Cartridges" parent="." unique_id=1094193855 instance=ExtResource("4_hibaj")]

@@ -4,7 +4,28 @@ extends Control
 
 @export var cell_gap: float = 3.0
 
-func update_preview(level_data: LevelData) -> void:
+func generate_preview(level_num: int) -> void :
+	var path: String = "res://Resources/Levels/%d.tres" % level_num
+	
+	if ResourceLoader.exists(path):
+		var level_data = load(path) as LevelData
+		_draw_grid(level_data)
+		return
+
+	# if level doesnt exist, open up the blank canvas
+	path = "res://Resources/blank_canvas.tres"
+	
+	if ResourceLoader.exists(path) :
+		var level_data = load(path) as LevelData
+		_draw_grid(level_data)
+
+
+func generate_prevew(level_data: LevelData) -> void :
+	_draw_grid(level_data)
+
+
+
+func _draw_grid(level_data: LevelData) -> void:
 	for child in get_children():
 		child.queue_free()
 		
@@ -21,8 +42,8 @@ func update_preview(level_data: LevelData) -> void:
 	var total_grid_width: float = (grid_x * calculated_block_size) + ((grid_x - 1) * cell_gap)
 	var total_grid_height: float = (grid_y * calculated_block_size) + ((grid_y - 1) * cell_gap)
 	var offset: Vector2 = Vector2(
-	-total_grid_width / 2.0,
-	-total_grid_height / 2.0
+		-total_grid_width / 2.0,
+		-total_grid_height / 2.0
 	)
 
 	var grid_2d: Array = level_data.get_target_grid_2d()

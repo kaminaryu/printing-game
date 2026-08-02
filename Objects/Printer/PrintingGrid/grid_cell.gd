@@ -5,12 +5,11 @@ var c: int = 0
 var m: int = 0
 var y: int = 0
 
-# CLEANED: Removed the old saved_color and saved_lock dictionaries entirely
-
 func _ready() -> void :
 	pass
 
-## NEW FUNCTION: Decodes the central snapshot string back into live cell integers
+
+# NEW FUNCTION: Decodes the central snapshot string back into live cell integers
 func set_color_key(new_key: String) -> void:
 	if new_key.length() == 3:
 		c = int(new_key[0])
@@ -18,6 +17,7 @@ func set_color_key(new_key: String) -> void:
 		y = int(new_key[2])
 	else:
 		printerr("Invalid color key format received: ", new_key)
+
 
 func _same_color_safeguard(channel: String) -> bool :
 	match channel :

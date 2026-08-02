@@ -4,6 +4,4 @@
 
 [resource]
 script = ExtResource("1_jb2uh")
-grid_size = Vector2i(3, 3)
-level_name = "Blank Canvas"
 metadata/_custom_type_script = "uid://cioivj6k56epn"
