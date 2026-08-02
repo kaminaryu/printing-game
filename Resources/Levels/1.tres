@@ -5,11 +5,11 @@
 [resource]
 script = ExtResource("1_envha")
 grid_size = Vector2i(3, 3)
-level_name = "HI"
-target_colors = Array[String](["110", "110", "110", "111", "111", "111", "101", "101", "101"])
+level_name = "Cyan Rows"
+target_colors = Array[String](["100", "100", "100", "000", "000", "000", "100", "100", "100"])
 ink_limits = {
-"c": 0,
+"c": -1,
 "k": 0,
-"m": 0,
+"m": -1,
 "y": 0
 }
