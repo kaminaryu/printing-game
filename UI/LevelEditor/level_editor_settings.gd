@@ -9,10 +9,10 @@ extends Control
 @export var grid_width_input_box: SpinBox
 @export var grid_height_input_box: SpinBox
 
-@export var ink_c_input_box: SpinBox
-@export var ink_m_input_box: SpinBox
-@export var ink_y_input_box: SpinBox
-@export var ink_k_input_box: SpinBox
+@export var ink_c: HBoxContainer
+@export var ink_m: HBoxContainer
+@export var ink_y: HBoxContainer
+@export var ink_k: HBoxContainer
 
 @export var printing_canvas: Node2D
 
@@ -92,22 +92,39 @@ func load_level_metadata(level_data: LevelData) -> void :
 	grid_width_input_box.value  = level_data.grid_size.x
 	grid_height_input_box.value = level_data.grid_size.y
 
-	ink_c_input_box.value = level_data.ink_limits["c"]
-	ink_m_input_box.value = level_data.ink_limits["m"]
-	ink_y_input_box.value = level_data.ink_limits["y"]
-	ink_k_input_box.value = level_data.ink_limits["k"]
+	ink_c.get_node("SpinBox").value = level_data.ink_limits["c"]
+	ink_m.get_node("SpinBox").value = level_data.ink_limits["m"]
+	ink_y.get_node("SpinBox").value = level_data.ink_limits["y"]
+	ink_k.get_node("SpinBox").value = level_data.ink_limits["k"]
+
+	ink_c.get_node("ToggleVisibility").button_pressed = level_data.available_channels.has("c")
+	ink_m.get_node("ToggleVisibility").button_pressed = level_data.available_channels.has("m")
+	ink_y.get_node("ToggleVisibility").button_pressed = level_data.available_channels.has("y")
+	ink_k.get_node("ToggleVisibility").button_pressed = level_data.available_channels.has("k")
 
 
 func save_level_metadata(level_num: int) -> void :
 	var new_level = LevelData.new()
 	new_level.grid_size = current_grid_size
 	
+	# set ink limits
 	new_level.ink_limits = {
-		"c": int(ink_c_input_box.value),
-		"m": int(ink_m_input_box.value),
-		"y": int(ink_y_input_box.value),
-		"k": int(ink_k_input_box.value)
+		"c": int(ink_c.get_node("SpinBox").value),
+		"m": int(ink_m.get_node("SpinBox").value),
+		"y": int(ink_y.get_node("SpinBox").value),
+		"k": int(ink_k.get_node("SpinBox").value)
 	}
+
+
+	# set avaiable color channel
+	# toggle by checking if the button is pressed (shown)
+	new_level.set_available_channels(
+		ink_c.get_node("ToggleVisibility").button_pressed,
+		ink_m.get_node("ToggleVisibility").button_pressed,
+		ink_y.get_node("ToggleVisibility").button_pressed,
+		ink_k.get_node("ToggleVisibility").button_pressed,
+	)
+	print(new_level.available_channels)
 
 	new_level.level_name = level_name_input_box.text
 	

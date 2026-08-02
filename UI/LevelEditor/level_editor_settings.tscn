@@ -5,12 +5,14 @@
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_66ljn"]
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="4_pbu4j"]
 [ext_resource type="Texture2D" uid="uid://gwiugx4wx15c" path="res://Assets/GUI/background_shadow.png" id="5_p78wg"]
+[ext_resource type="Texture2D" uid="uid://pi8bvy0a0xy7" path="res://Assets/menu/LevelEditor/Shown.svg" id="6_pbu4j"]
+[ext_resource type="Texture2D" uid="uid://b338675lwldtt" path="res://Assets/menu/LevelEditor/Hidden.svg" id="7_sg72d"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_dd02n"]
 color = Color(0.5882353, 0.74509805, 0.6784314, 1)
 thickness = 2
 
-[node name="LevelEditorSettings" type="Control" unique_id=1684481824 node_paths=PackedStringArray("blur_panel", "menu_body", "level_name_input_box", "grid_width_input_box", "grid_height_input_box", "ink_c_input_box", "ink_m_input_box", "ink_y_input_box", "ink_k_input_box")]
+[node name="LevelEditorSettings" type="Control" unique_id=1684481824 node_paths=PackedStringArray("menu_body", "level_name_input_box", "grid_width_input_box", "grid_height_input_box", "ink_c", "ink_m", "ink_y", "ink_k")]
 z_index = 2
 layout_mode = 3
 anchors_preset = 15
@@ -19,15 +21,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_dd02n")
-blur_panel = NodePath("")
 menu_body = NodePath(".")
 level_name_input_box = NodePath("Menu/GridSection/LevelName/LineEdit")
 grid_width_input_box = NodePath("Menu/GridSection/GridSetting/Width/SpinBox")
 grid_height_input_box = NodePath("Menu/GridSection/GridSetting/Height/SpinBox2")
-ink_c_input_box = NodePath("Menu/CatrigeSection/Cyan/SpinBox")
-ink_m_input_box = NodePath("Menu/CatrigeSection/Magenta/SpinBox")
-ink_y_input_box = NodePath("Menu/CatrigeSection/Yellow/SpinBox")
-ink_k_input_box = NodePath("Menu/CatrigeSection/Key/SpinBox")
+ink_c = NodePath("Menu/CatrigeSection/Cyan")
+ink_m = NodePath("Menu/CatrigeSection/Magenta")
+ink_y = NodePath("Menu/CatrigeSection/Yellow")
+ink_k = NodePath("Menu/CatrigeSection/Key")
 
 [node name="Shadow" type="TextureRect" parent="." unique_id=1900664480]
 layout_mode = 0
@@ -164,6 +165,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_dd02n")
 
 [node name="Cyan" type="HBoxContainer" parent="Menu/CatrigeSection" unique_id=2024142231]
 layout_mode = 2
+theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="Menu/CatrigeSection/Cyan" unique_id=369961143]
 layout_mode = 2
@@ -171,6 +173,14 @@ size_flags_horizontal = 2
 theme = ExtResource("4_pbu4j")
 theme_override_font_sizes/font_size = 24
 text = "Cyan"
+
+[node name="ToggleVisibility" type="TextureButton" parent="Menu/CatrigeSection/Cyan" unique_id=1514720055]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Toggle availability of the ink in the level"
+toggle_mode = true
+texture_normal = ExtResource("7_sg72d")
+texture_pressed = ExtResource("6_pbu4j")
 
 [node name="SpinBox" type="SpinBox" parent="Menu/CatrigeSection/Cyan" unique_id=1255668398]
 custom_minimum_size = Vector2(100, 0)
@@ -181,6 +191,7 @@ alignment = 2
 
 [node name="Magenta" type="HBoxContainer" parent="Menu/CatrigeSection" unique_id=1065068026]
 layout_mode = 2
+theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="Menu/CatrigeSection/Magenta" unique_id=1782684790]
 layout_mode = 2
@@ -188,6 +199,14 @@ size_flags_horizontal = 2
 theme = ExtResource("4_pbu4j")
 theme_override_font_sizes/font_size = 24
 text = "Magenta"
+
+[node name="ToggleVisibility" type="TextureButton" parent="Menu/CatrigeSection/Magenta" unique_id=868912548]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Toggle availability of the ink in the level"
+toggle_mode = true
+texture_normal = ExtResource("7_sg72d")
+texture_pressed = ExtResource("6_pbu4j")
 
 [node name="SpinBox" type="SpinBox" parent="Menu/CatrigeSection/Magenta" unique_id=1083933248]
 custom_minimum_size = Vector2(100, 0)
@@ -198,6 +217,7 @@ alignment = 2
 
 [node name="Yellow" type="HBoxContainer" parent="Menu/CatrigeSection" unique_id=410272554]
 layout_mode = 2
+theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="Menu/CatrigeSection/Yellow" unique_id=1248527412]
 layout_mode = 2
@@ -205,6 +225,14 @@ size_flags_horizontal = 2
 theme = ExtResource("4_pbu4j")
 theme_override_font_sizes/font_size = 24
 text = "Yellow"
+
+[node name="ToggleVisibility" type="TextureButton" parent="Menu/CatrigeSection/Yellow" unique_id=1898013053]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Toggle availability of the ink in the level"
+toggle_mode = true
+texture_normal = ExtResource("7_sg72d")
+texture_pressed = ExtResource("6_pbu4j")
 
 [node name="SpinBox" type="SpinBox" parent="Menu/CatrigeSection/Yellow" unique_id=1756082250]
 custom_minimum_size = Vector2(100, 0)
@@ -215,6 +243,7 @@ alignment = 2
 
 [node name="Key" type="HBoxContainer" parent="Menu/CatrigeSection" unique_id=1574195571]
 layout_mode = 2
+theme_override_constants/separation = 24
 
 [node name="Label" type="Label" parent="Menu/CatrigeSection/Key" unique_id=1210261545]
 layout_mode = 2
@@ -222,6 +251,14 @@ size_flags_horizontal = 2
 theme = ExtResource("4_pbu4j")
 theme_override_font_sizes/font_size = 24
 text = "Key"
+
+[node name="ToggleVisibility" type="TextureButton" parent="Menu/CatrigeSection/Key" unique_id=333685160]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Toggle availability of the ink in the level"
+toggle_mode = true
+texture_normal = ExtResource("7_sg72d")
+texture_pressed = ExtResource("6_pbu4j")
 
 [node name="SpinBox" type="SpinBox" parent="Menu/CatrigeSection/Key" unique_id=1984917094]
 custom_minimum_size = Vector2(100, 0)

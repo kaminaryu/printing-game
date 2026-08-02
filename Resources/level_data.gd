@@ -10,6 +10,21 @@ class_name LevelData
 @export_subgroup("Solution Layout")
 @export var target_colors: Array[String] = []
 
+func set_available_channels(cyan: bool, magenta: bool, yellow: bool, key: bool) -> void :
+	var selected_channels: Array[String] = []
+
+	if (cyan) :
+		selected_channels.append("c")
+	if (magenta) :
+		selected_channels.append("m")
+	if (yellow) :
+		selected_channels.append("y")
+	if (key) :
+		selected_channels.append("k")
+
+	available_channels = selected_channels
+
+
 # return the end result in a 2D Array of x by y
 func get_target_grid_2d() -> Array:
 	var grid_2d: Array = []

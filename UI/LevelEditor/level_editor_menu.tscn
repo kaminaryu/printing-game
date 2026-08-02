@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cj3yo5yjjmpso" path="res://Assets/menu/LevelEditor/arror.svg" id="7_kg6vw"]
 [ext_resource type="Script" uid="uid://bd72y2fjeehiw" path="res://UI/LevelEditor/level_buttons.gd" id="8_sebas"]
 
-[node name="LevelEditorMenu" type="Control" unique_id=1677267965 node_paths=PackedStringArray("blur_panel", "menu", "preview_grid", "current_level_label", "prev_button", "double_prev_button")]
+[node name="LevelEditorMenu" type="Control" unique_id=1677267965 node_paths=PackedStringArray("menu", "preview_grid", "current_level_label", "prev_button", "double_prev_button")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -20,7 +20,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_cf1dl")
-blur_panel = NodePath("")
 menu = NodePath("MenuBody")
 preview_grid = NodePath("MenuBody/Menu/PreviewGridContainer/PreviewGrid")
 current_level_label = NodePath("MenuBody/Menu/HBoxContainer/CurrentLevel")
