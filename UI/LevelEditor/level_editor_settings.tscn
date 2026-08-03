@@ -126,7 +126,9 @@ text = "W: "
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 8
+min_value = 1.0
 max_value = 67.0
+value = 1.0
 alignment = 2
 
 [node name="Height" type="HBoxContainer" parent="Menu/GridSection/GridSetting" unique_id=1481238647]
@@ -144,7 +146,9 @@ horizontal_alignment = 2
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 8
+min_value = 1.0
 max_value = 67.0
+value = 1.0
 alignment = 2
 
 [node name="CatrigeSection" type="VBoxContainer" parent="Menu" unique_id=1302554925]

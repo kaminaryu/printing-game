@@ -162,7 +162,7 @@ func _on_dimensions_changed(_new_value: float) -> void:
 		"ERROR: LEVEL EDITOR MENU MUST BE THE CHILD OF LEVEL EDITOR (Expected Parent Name: %s | Current Parent Name: %s)" % [parent_name, level_editor.name]
 	)
 
-	level_editor.redraw_grid_canvas()
+	level_editor.redraw_grid_canvas(current_grid_size)
 
 
 func _on_level_num_change() -> void :

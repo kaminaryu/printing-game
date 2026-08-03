@@ -252,7 +252,7 @@ func _paint_individual_cell(cell: Node, target_color: String) -> void :
 	cell.set_color_key(target_color)
 	_update_cell_color(cell)
 
-func _lock_individual_cell(cell: GridCell, lock_state: int) -> void :
+func _lock_individual_cell(cell: GridCell, lock_state: bool) -> void :
 	cell.toggle_ink_lock(lock_state)
 	
 
@@ -292,13 +292,33 @@ func reset_grid_visuals() -> void:
 func paint_canvas(color_keys: Array[Array]) -> void :
 	for col in range(canvas_grid.size()) :
 		for row in range(canvas_grid[col].size()) :
-			_paint_individual_cell(canvas_grid[col][row], color_keys[col][row])
+			var color_key: String
+
+			# so that out of bounds cell get filled with white
+			if (col >= color_keys.size()) :
+				color_key = "000"
+			elif (row >= color_keys[col].size()) :
+				color_key = "000"
+			else :
+				color_key = color_keys[col][row]
+
+			_paint_individual_cell(canvas_grid[col][row], color_key)
 
 
 func lock_canvas(lock_states: Array[Array]) -> void :
 	for col in range(canvas_grid.size()) :
 		for row in range(canvas_grid[col].size()) :
-			_lock_individual_cell(canvas_grid[col][row], lock_states[col][row])
+			var lock_state: bool
+
+			# so that out of bounds cell get filled with white
+			if (col >= lock_states.size()) :
+				lock_state = false
+			elif (row >= lock_states[col].size()) :
+				lock_state = false
+			else :
+				lock_state = lock_states[col][row]
+
+			_lock_individual_cell(canvas_grid[col][row], lock_state)
 
 
 

@@ -22,8 +22,8 @@ func load_level_data(level_num: int) -> void :
 			SaveStatesManager.reset()
 			LevelHistoryManager.init_level_history(level_data)
 
+			_set_level_metadata_to_editor(level_data) # MUST set metadata first or else resize_grid signal will be emitted
 			_draw_level_to_canvas(level_data)
-			_set_level_metadata_to_editor(level_data)
 			return
 
 	# if level doesnt exist, open up the blank canvas
@@ -36,8 +36,8 @@ func load_level_data(level_num: int) -> void :
 			SaveStatesManager.reset()
 			LevelHistoryManager.init_level_history(level_data)
 
-			_draw_level_to_canvas(level_data)
 			_set_level_metadata_to_editor(level_data)
+			_draw_level_to_canvas(level_data)
 
 
 
@@ -52,11 +52,10 @@ func _set_level_metadata_to_editor(level_data: LevelData) -> void :
 	settings.load_level_metadata(level_data)
 
 
-func redraw_grid_canvas() -> void:
-	# Clear paint history
-	if has_node("/root/SaveStatesManager"):
-		SaveStatesManager.reset()
-	
+func redraw_grid_canvas(new_grid_size: Vector2i) -> void:
+	printing_canvas.setup_and_build(new_grid_size)
+
+	# LevelHistoryManager.
 
 
 #######################
@@ -67,15 +66,19 @@ func put_panel_on_top(priority_panel: Control) -> void :
 	if (priority_panel == menu) :
 		menu.z_index = 1
 		settings.z_index = 0
+
 		menu.get_node("MenuBody/Shadow").visible = true
 		settings.get_node("Shadow").visible = false
+
 		print("putting menu on top of settings")
 
 	elif (priority_panel == settings) :
 		settings.z_index = 1
 		menu.z_index = 0
+
 		settings.get_node("Shadow").visible = true
 		menu.get_node("MenuBody/Shadow").visible = false
+
 		print("putting settings on top of menu")
 
 
@@ -96,7 +99,7 @@ func _on_undo_button_up() -> void:
 
 	if (prev_snapshot == null) : return
 
-	printing_canvas.paint_canvas(prev_snapshot.color_keys)	
+	printing_canvas.paint_canvas(prev_snapshot.color_keys)
 	printing_canvas.lock_canvas(prev_snapshot.lock_states)
 
 
