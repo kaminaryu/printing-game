@@ -24,7 +24,7 @@ var current_level: LevelData
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
 
-var target_grid_data: Array = []
+var target_grid_data: Array[Array] = []
 var remaining_ink: Dictionary = {}
 var _starting_ink: Dictionary = {} 
 

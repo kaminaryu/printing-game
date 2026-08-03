@@ -10,10 +10,12 @@ var _history: Dictionary = {}
 func _ready() -> void:
 	reset()
 
+
 func reset() -> void:
 	_current_step = 0
 	_max_step = 0
 	_history.clear()
+
 
 func save_snapshot(grid_matrix: Array, ink_limits: Dictionary) -> void:
 	if _current_step < _max_step:

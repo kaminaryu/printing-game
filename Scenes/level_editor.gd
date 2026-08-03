@@ -20,6 +20,8 @@ func load_level_data(level_num: int) -> void :
 
 		if level_data :
 			SaveStatesManager.reset()
+			LevelHistoryManager.init_level_history(level_data)
+
 			_draw_level_to_canvas(level_data)
 			_set_level_metadata_to_editor(level_data)
 			return
@@ -32,19 +34,22 @@ func load_level_data(level_num: int) -> void :
 
 		if level_data :
 			SaveStatesManager.reset()
+			LevelHistoryManager.init_level_history(level_data)
+
 			_draw_level_to_canvas(level_data)
 			_set_level_metadata_to_editor(level_data)
 
 
+
 func _draw_level_to_canvas(level_data: LevelData) -> void :
 	printing_canvas.setup_and_build(level_data.grid_size)
-	printing_canvas.paint_existing_level(level_data)
+
+	var color_keys: Array[Array] = level_data.get_target_grid_2d()
+	printing_canvas.paint_canvas(color_keys)
 
 
 func _set_level_metadata_to_editor(level_data: LevelData) -> void :
 	settings.load_level_metadata(level_data)
-
-
 
 
 func redraw_grid_canvas() -> void:
@@ -78,8 +83,22 @@ func put_panel_on_top(priority_panel: Control) -> void :
 # --- History controls ---
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("undo"):
-		SaveStatesManager.undo_action()
-	elif event.is_action_pressed("redo"):
-		SaveStatesManager.redo_action()
+		_on_undo_button_up()
 	elif event.is_action_pressed("reset_grid"):
-		redraw_grid_canvas()
+		_on_delete_button_up()
+
+
+###########
+# Signals #
+###########
+func _on_undo_button_up() -> void:
+	var prev_snapshot := LevelHistoryManager.undo_level_edit()
+
+	if (prev_snapshot == null) : return
+
+	printing_canvas.paint_canvas(prev_snapshot.color_keys)	
+	printing_canvas.lock_canvas(prev_snapshot.lock_states)
+
+
+func _on_delete_button_up() -> void:
+	printing_canvas.reset_grid_visuals()

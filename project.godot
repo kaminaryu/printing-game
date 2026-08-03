@@ -30,6 +30,7 @@ ColorManager="*uid://d3q1sgy2f5use"
 SaveStatesManager="*uid://cgjcf26sutm23"
 GameMaster="*uid://dksb0eccot54l"
 CursorManager="*uid://bib3mqgg4b6yi"
+LevelHistoryManager="*uid://bhx3jyv6qvkfl"
 
 [display]
 

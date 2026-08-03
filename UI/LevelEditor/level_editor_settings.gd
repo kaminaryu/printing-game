@@ -146,6 +146,8 @@ func save_level_metadata(level_num: int) -> void :
 # --- Signals ---
 func _on_back_button_down() -> void:
 	slide_menu()
+	var level_editor: Control = _get_parent()
+	level_editor.put_panel_on_top(self)
 
 
 func _on_dimensions_changed(_new_value: float) -> void:

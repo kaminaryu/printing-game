@@ -5,8 +5,11 @@
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="2_g51jt"]
 [ext_resource type="Script" uid="uid://c5wqouv11ks52" path="res://Scenes/ink_palette.gd" id="2_xi6ke"]
 [ext_resource type="Texture2D" uid="uid://c7t7hgvxmyvjp" path="res://Assets/Cyan_Button.png" id="3_i8l5y"]
+[ext_resource type="Texture2D" uid="uid://b2bml4lnvmfyt" path="res://Assets/menu/LevelEditor/Undo.svg" id="3_qoy40"]
 [ext_resource type="Texture2D" uid="uid://dbsoa2lx04yjb" path="res://Assets/Magenta_Button.png" id="4_fhsmn"]
+[ext_resource type="Texture2D" uid="uid://c84rwrf058f5i" path="res://Assets/menu/LevelEditor/Trash.svg" id="4_vtvrq"]
 [ext_resource type="Texture2D" uid="uid://c70pva0x3x44h" path="res://Assets/Yellow_Button.png" id="5_5ogug"]
+[ext_resource type="Texture2D" uid="uid://ihmqdejbeqx1" path="res://Assets/menu/LevelEditor/Close.svg" id="5_dpbxe"]
 [ext_resource type="Texture2D" uid="uid://dmv1wnq5j1dge" path="res://Assets/Key_Button.png" id="6_kerlq"]
 [ext_resource type="PackedScene" uid="uid://csli42ddd8utf" path="res://UI/LevelEditor/level_editor_menu.tscn" id="8_i8l5y"]
 [ext_resource type="PackedScene" uid="uid://bbu70xtd2psud" path="res://UI/LevelEditor/level_editor_settings.tscn" id="9_fhsmn"]
@@ -52,23 +55,51 @@ process_mode = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Editor" type="VBoxContainer" parent="HBoxContainer/PanelContainer" unique_id=1082997452]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer" unique_id=1312202991]
 layout_mode = 2
-size_flags_vertical = 4
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Editor" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer" unique_id=1082997452]
+layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="InkAmount" type="HBoxContainer" parent="HBoxContainer/PanelContainer/Editor" unique_id=1024389396]
+[node name="ControlButtons" type="HBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/Editor" unique_id=399509097]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/Editor/InkAmount" unique_id=1463348299]
+[node name="UndoDelete" type="HBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/Editor/ControlButtons" unique_id=234223229]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 24
+
+[node name="Undo" type="TextureButton" parent="HBoxContainer/PanelContainer/MarginContainer/Editor/ControlButtons/UndoDelete" unique_id=1184894265]
+layout_mode = 2
+tooltip_text = "Undo last move"
+texture_normal = ExtResource("3_qoy40")
+
+[node name="Delete" type="TextureButton" parent="HBoxContainer/PanelContainer/MarginContainer/Editor/ControlButtons/UndoDelete" unique_id=2011162376]
+layout_mode = 2
+tooltip_text = "Clear all ink on grid"
+texture_normal = ExtResource("4_vtvrq")
+
+[node name="Exit" type="TextureButton" parent="HBoxContainer/PanelContainer/MarginContainer/Editor/ControlButtons" unique_id=1390983967]
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("5_dpbxe")
+
+[node name="InkAmount" type="HBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/Editor" unique_id=1024389396]
 layout_mode = 2
 
-[node name="Palette" type="HBoxContainer" parent="HBoxContainer/PanelContainer/Editor" unique_id=159281310]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/Editor/InkAmount" unique_id=1463348299]
 layout_mode = 2
-size_flags_vertical = 8
+
+[node name="Palette" type="HBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/Editor" unique_id=159281310]
+layout_mode = 2
 script = ExtResource("2_xi6ke")
 
-[node name="Cyan" type="TextureButton" parent="HBoxContainer/PanelContainer/Editor/Palette" unique_id=242505184]
+[node name="Cyan" type="TextureButton" parent="HBoxContainer/PanelContainer/MarginContainer/Editor/Palette" unique_id=242505184]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
@@ -76,21 +107,21 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_2r1hx")
 texture_normal = ExtResource("3_i8l5y")
 
-[node name="Magenta" type="TextureButton" parent="HBoxContainer/PanelContainer/Editor/Palette" unique_id=1835046275]
+[node name="Magenta" type="TextureButton" parent="HBoxContainer/PanelContainer/MarginContainer/Editor/Palette" unique_id=1835046275]
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 button_group = SubResource("ButtonGroup_2r1hx")
 texture_normal = ExtResource("4_fhsmn")
 
-[node name="Yellow" type="TextureButton" parent="HBoxContainer/PanelContainer/Editor/Palette" unique_id=182573293]
+[node name="Yellow" type="TextureButton" parent="HBoxContainer/PanelContainer/MarginContainer/Editor/Palette" unique_id=182573293]
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
 button_group = SubResource("ButtonGroup_2r1hx")
 texture_normal = ExtResource("5_5ogug")
 
-[node name="Key" type="TextureButton" parent="HBoxContainer/PanelContainer/Editor/Palette" unique_id=669049669]
+[node name="Key" type="TextureButton" parent="HBoxContainer/PanelContainer/MarginContainer/Editor/Palette" unique_id=669049669]
 layout_mode = 2
 size_flags_horizontal = 6
 toggle_mode = true
@@ -125,3 +156,6 @@ printing_canvas = NodePath("../HBoxContainer/CenterContainer/Control/PrintingCan
 
 [node name="FadeInAnimation" parent="." unique_id=2054330651 instance=ExtResource("10_5ogug")]
 layout_mode = 1
+
+[connection signal="button_up" from="HBoxContainer/PanelContainer/MarginContainer/Editor/ControlButtons/UndoDelete/Undo" to="." method="_on_undo_button_up"]
+[connection signal="button_up" from="HBoxContainer/PanelContainer/MarginContainer/Editor/ControlButtons/UndoDelete/Delete" to="." method="_on_delete_button_up"]

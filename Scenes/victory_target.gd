@@ -36,7 +36,7 @@ func _draw_grid(level_data: LevelData) -> void:
 		(max_boundary_size - total_grid_height) / 2.0
 	)
 
-	var grid_2d: Array = level_data.get_target_grid_2d()
+	var grid_2d: Array[Array] = level_data.get_target_grid_2d()
 	
 	for row in range(grid_y):
 		for col in range(grid_x):

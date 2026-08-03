@@ -116,6 +116,8 @@ func _on_pencil_button_mouse_exited() -> void:
 
 
 func _on_pencil_button_button_down() -> void:
+	var level_editor: Control = _get_parent()
+	level_editor.put_panel_on_top(self)
 	slide_menu()
 
 

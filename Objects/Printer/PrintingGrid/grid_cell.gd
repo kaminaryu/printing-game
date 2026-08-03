@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name GridCell
+
 var ink_locked: bool = false
 var c: int = 0
 var m: int = 0

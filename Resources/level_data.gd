@@ -6,6 +6,7 @@ class_name LevelData
 @export var grid_size: Vector2i = Vector2i(5, 5)
 @export var available_channels: Array[String] = ["c", "m", "y", "k"]
 @export var level_name: String = "Lorem Ipsum"
+@export var history: Array[Array] = []
 
 @export_subgroup("Solution Layout")
 @export var target_colors: Array[String] = []
@@ -26,8 +27,8 @@ func set_available_channels(cyan: bool, magenta: bool, yellow: bool, key: bool) 
 
 
 # return the end result in a 2D Array of x by y
-func get_target_grid_2d() -> Array:
-	var grid_2d: Array = []
+func get_target_grid_2d() -> Array[Array]:
+	var grid_2d: Array[Array] = []
 	
 	for col in range(grid_size.x):
 		grid_2d.append([])

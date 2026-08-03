@@ -19,7 +19,7 @@ var step_size: float = 130.0
 var center_offset: Vector2 = Vector2.ZERO
 var is_cascading: bool = false
 
-var canvas_grid: Array = []
+var canvas_grid: Array[Array] = []
 
 var default_screen_y: float = 360.0
 
@@ -135,6 +135,7 @@ func _on_paint_request(request: Dictionary) -> void:
 	var index: int          = request.get("grid_index")
 	var channel: String     = ColorManager.get_color_channel()
 	
+	# do not use the ordinary save states and ink counts if in editor mode
 	if is_editor_mode:
 		match alignment:
 			"col": _paint_column(index, channel)
@@ -168,8 +169,16 @@ func _paint_column(col: int, channel: String) -> bool :
 	var tween: Tween = create_tween().set_parallel(true)
 	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
+	# save to level editor history
+	if (is_editor_mode) :
+		LevelHistoryManager.save_level_snapshot(
+			canvas_grid,
+			LevelHistoryManager.Actions.PAINT_COLUMN,
+			col
+		)
+
 	for row in range(grid_size.y):
-		var cell: Node = canvas_grid[col][row]
+		var cell: GridCell = canvas_grid[col][row]
 
 		if (channel == ColorManager.CHANNELS[3]) :
 			cell.toggle_ink_lock()
@@ -192,6 +201,7 @@ func _paint_column(col: int, channel: String) -> bool :
 	paint_roll_sfx.play()
 	
 	tween.tween_interval(total_delay).finished.connect(func(): paint_cascade_finished.emit())
+
 	return locked
 
 
@@ -200,6 +210,14 @@ func _paint_row(row: int, channel: String) -> bool :
 	var tween: Tween = create_tween().set_parallel(true)
 	var speed_modifier: float = 0.0 if is_editor_mode else PAINT_CASCADE_SPEED
 	
+	# save to level editor history
+	if (is_editor_mode) :
+		LevelHistoryManager.save_level_snapshot(
+			canvas_grid,
+			LevelHistoryManager.Actions.PAINT_ROW,
+			row
+		)
+
 	for col in range(grid_size.x):
 		var cell: Node = canvas_grid[col][row]
 
@@ -226,12 +244,17 @@ func _paint_row(row: int, channel: String) -> bool :
 	paint_roll_sfx.play()
 	
 	tween.tween_interval(total_delay).finished.connect(func(): paint_cascade_finished.emit())
+
 	return locked
 
 
 func _paint_individual_cell(cell: Node, target_color: String) -> void :
 	cell.set_color_key(target_color)
 	_update_cell_color(cell)
+
+func _lock_individual_cell(cell: GridCell, lock_state: int) -> void :
+	cell.toggle_ink_lock(lock_state)
+	
 
 
 func _update_cell_color(cell: Node) -> void :
@@ -256,6 +279,9 @@ func _clear_highlight() -> void:
 
 
 func reset_grid_visuals() -> void:
+	if is_editor_mode:
+		LevelHistoryManager.save_level_snapshot(canvas_grid, LevelHistoryManager.Actions.CLEAR_CANVAS)
+
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
 			var cell: Node = canvas_grid[col][row]
@@ -263,13 +289,18 @@ func reset_grid_visuals() -> void:
 			_update_cell_color(cell)
 
 
-func paint_existing_level(level: LevelData) -> void :
-	var target_grid: Array = level.get_target_grid_2d()
+func paint_canvas(color_keys: Array[Array]) -> void :
+	for col in range(canvas_grid.size()) :
+		for row in range(canvas_grid[col].size()) :
+			_paint_individual_cell(canvas_grid[col][row], color_keys[col][row])
 
-	for col in range(target_grid.size()) :
-		for row in range(target_grid[col].size()) :
-			_paint_individual_cell(canvas_grid[col][row], target_grid[col][row])
-			
+
+func lock_canvas(lock_states: Array[Array]) -> void :
+	for col in range(canvas_grid.size()) :
+		for row in range(canvas_grid[col].size()) :
+			_lock_individual_cell(canvas_grid[col][row], lock_states[col][row])
+
+
 
 
 # for changing grid size in editor without deleting painted inks
