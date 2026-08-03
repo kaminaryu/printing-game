@@ -109,12 +109,12 @@ func _on_grid_updated() -> void:
 		
 
 func check_victory_condition() -> bool:
-	if target_grid_data.is_empty() or printing_canvas.grid.is_empty():
+	if target_grid_data.is_empty() or printing_canvas.canvas_grid.is_empty():
 		return false
 		
 	for col in range(current_level.grid_size.x):
 		for row in range(current_level.grid_size.y):
-			var cell: Node = printing_canvas.grid[col][row]
+			var cell: Node = printing_canvas.canvas_grid[col][row]
 			if cell.color_key() != target_grid_data[col][row]:
 				return false
 				
