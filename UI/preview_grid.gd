@@ -20,10 +20,6 @@ func generate_preview(level_num: int) -> void :
 		_draw_grid(level_data)
 
 
-func generate_prevew(level_data: LevelData) -> void :
-	_draw_grid(level_data)
-
-
 
 func _draw_grid(level_data: LevelData) -> void:
 	for child in get_children():
