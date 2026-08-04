@@ -4,11 +4,20 @@ extends Control
 @export var menu: Control
 @export var settings: Control
 @export var ink_counter: HBoxContainer
+@export var history_list: VBoxContainer
+
+
+const HISTORY_CARD_SCENE: PackedScene = preload("res://UI/LevelEditor/history_card.tscn")
 
 
 func _ready() -> void :
-	load_level_data(1)
 	printing_canvas.ink_used_in_editor.connect(_increase_amount_of_ink_used)
+
+	LevelHistoryManager.history_added.connect(_on_history_added)
+	LevelHistoryManager.history_removed.connect(_on_history_removed)
+	LevelHistoryManager.history_cleaned.connect(_on_history_cleaned)
+
+	load_level_data(1)
 
 
 ###########
@@ -42,7 +51,6 @@ func load_level_data(level_num: int) -> void :
 			_set_level_metadata_to_editor(level_data)
 			_load_ink_counter(level_data)
 			_draw_level_to_canvas(level_data)
-
 
 
 func _draw_level_to_canvas(level_data: LevelData) -> void :
@@ -113,8 +121,6 @@ func _set_ink_counter(new_ink_counter: Array[int]) -> void :
 		index += 1
 
 
-
-
 #######################
 # Z-Fighting... kinda #
 #######################
@@ -137,7 +143,6 @@ func put_panel_on_top(priority_panel: Control) -> void :
 		menu.get_node("MenuBody/Shadow").visible = false
 
 		print("putting settings on top of menu")
-
 
 
 # --- History controls ---
@@ -164,3 +169,23 @@ func _on_undo_button_up() -> void:
 func _on_delete_button_up() -> void:
 	printing_canvas.reset_grid_visuals()
 	_set_ink_counter([0, 0, 0, 0])
+
+
+func _on_history_added(num: int, msg: String) -> void :
+	var history_card: PanelContainer = HISTORY_CARD_SCENE.instantiate()
+
+	history_card.set_values(num, msg)
+	history_list.add_child(history_card)
+	history_list.move_child(history_card, 0)
+
+
+func _on_history_removed() -> void :
+	var latest_history_card = history_list.get_child(0)
+
+	if latest_history_card :
+		latest_history_card.queue_free()
+
+
+func _on_history_cleaned() -> void :
+	for history_card in history_list.get_children() :
+		history_card.queue_free()

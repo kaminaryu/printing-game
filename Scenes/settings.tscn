@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dfykxg8j8j1vd" path="res://Scenes/settings.gd" id="1_4geyq"]
 [ext_resource type="Texture2D" uid="uid://bdsnkcgwndqec" path="res://Assets/GUI/settings_menu.png" id="2_j2dne"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_6kysc"]
-[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="4_6vr2p"]
+[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="4_6vr2p"]
 [ext_resource type="Texture2D" uid="uid://dyw7wm7q4syw8" path="res://Assets/menu/Options/discord.svg" id="5_f60ng"]
 [ext_resource type="Texture2D" uid="uid://drsu64u7f6jw8" path="res://Assets/menu/Options/discord_hover.svg" id="6_f60ng"]
 [ext_resource type="Texture2D" uid="uid://ua7t605ofscu" path="res://Assets/menu/Options/x.png" id="7_35cvv"]

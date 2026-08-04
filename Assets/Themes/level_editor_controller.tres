@@ -1,0 +1,23 @@
+[gd_resource type="Theme" format=3 uid="uid://c74pal6uj7ogy"]
+
+[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="1_m0xno"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0xno"]
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[resource]
+default_font = ExtResource("1_m0xno")
+default_font_size = 28
+HistoryText/base_type = &"Label"
+HistoryText/font_sizes/font_size = 16
+InkCounterBase/base_type = &"Label"
+InkCounterBase/colors/font_color = Color(1, 1, 1, 1)
+InkCounterBase/font_sizes/font_size = 24
+InkCounterDark/base_type = &"InkCounterBase"
+InkCounterDark/colors/font_color = Color(0, 0, 0, 1)
+InkCounterLight/base_type = &"InkCounterBase"
+InkCounterLight/colors/font_color = Color(1, 1, 1, 1)
+ScrollContainer/styles/panel = SubResource("StyleBoxFlat_m0xno")

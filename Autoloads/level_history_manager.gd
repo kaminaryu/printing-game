@@ -1,5 +1,9 @@
 extends Node
 
+signal history_added
+signal history_removed
+signal history_cleaned
+
 enum Actions {
 	INIT,
 	PAINT_COLUMN,
@@ -13,19 +17,25 @@ var _history: Array[LevelSnapshot] = []
 
 # to save / keeptrack which line (row/col) is being painted and saved
 class LineData :
+	var ink_channel: String = "Undefined"
 	var line_num: int
 	var ink_counter: Array[int]
 
 	# p_var is a convention that avoid shadowing class attr, its dumb because i like self.var = var ffs
-	func _init(p_line_num: int, p_ink_counter: Array[int]) -> void :
+	func _init(p_ink_channel: String, p_line_num: int, p_ink_counter: Array[int]) -> void :
 		line_num = p_line_num
 		ink_counter = p_ink_counter
+
+		match p_ink_channel :
+			"c": ink_channel = "Cyan"
+			"m": ink_channel = "Magenta"
+			"y": ink_channel = "Yellow"
+			"k": ink_channel = "Key"
 
 
 class LevelSnapshot :
 	var color_keys: Array[Array] # 2D Array of "cmy" String
 	var lock_states: Array[Array]
-	var message: String
 	var step_num: int
 	var ink_counter: Array[int] = [0, 0, 0, 0]
 
@@ -33,6 +43,7 @@ class LevelSnapshot :
 # -- methods -- 
 func init_level_history(level_data: LevelData) -> void :
 	var color_keys: Array[Array] = level_data.get_target_grid_2d()
+	clean_history()
 	save_level_snapshot(color_keys, Actions.INIT, level_data.amount_of_ink_used_cmyk)
 
 
@@ -40,6 +51,7 @@ func save_level_snapshot(canvas_grid: Array[Array], action: Actions, data=null) 
 	var snapshot := LevelSnapshot.new()
 	var color_keys: Array[Array] = []
 	var lock_states: Array[Array] = []
+	var snapshot_msg: String = "Message isn't defined"
 
 	# if already receive color_keys as canvas_grid, no need to rebuild color_keys
 	if action == Actions.INIT:
@@ -73,7 +85,17 @@ func save_level_snapshot(canvas_grid: Array[Array], action: Actions, data=null) 
 
 	match action :
 		Actions.PAINT_COLUMN :
-			snapshot.message = "Printed a line of ink at column %d" % data.line_num
+			var color_hex_code: String = ColorManager.get_channel_hexcode(data.ink_channel)
+			snapshot_msg = "Printed a line of [color=%s]%s[/color] ink at col %d." % [color_hex_code, data.ink_channel, data.line_num + 1]
+		Actions.PAINT_ROW :
+			var color_hex_code: String = ColorManager.get_channel_hexcode(data.ink_channel)
+			snapshot_msg = "Printed a line of [color=%s]%s[/color] ink at row %d." % [color_hex_code, data.ink_channel, data.line_num + 1]
+		Actions.PAINT_CELL :
+			snapshot_msg = "Printed %s ink at cell (%d, %d)" % []
+		Actions.CLEAR_CANVAS :
+			snapshot_msg = "Cleared the canvas."
+		Actions.INIT :
+			snapshot_msg = "First initialization of the canvas."
 
 
 	snapshot.color_keys = color_keys
@@ -91,17 +113,23 @@ func save_level_snapshot(canvas_grid: Array[Array], action: Actions, data=null) 
 
 	_history.append(snapshot)
 
+	# create history card
+	history_added.emit(_history.size(), snapshot_msg)
+
 	print("Saving state #%d: " %_history.size())
 	print(_history)
+
 
 
 func undo_level_edit() -> LevelSnapshot :
 	if (_history.size() <= 1) :
 		return null
 
+	history_removed.emit()
 	# remove the latest snapshot
 	return _history.pop_back()
 
 
 func clean_history() -> void :
 	_history = []
+	history_cleaned.emit()

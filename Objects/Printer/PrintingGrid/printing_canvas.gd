@@ -180,7 +180,7 @@ func _paint_column(col: int, channel: String) -> bool :
 		LevelHistoryManager.save_level_snapshot(
 			canvas_grid,
 			LevelHistoryManager.Actions.PAINT_COLUMN,
-			LevelHistoryManager.LineData.new(col, level_editor.get_ink_counter())
+			LevelHistoryManager.LineData.new(channel, col, level_editor.get_ink_counter())
 		)
 
 	for row in range(grid_size.y):
@@ -222,7 +222,7 @@ func _paint_row(row: int, channel: String) -> bool :
 		LevelHistoryManager.save_level_snapshot(
 			canvas_grid,
 			LevelHistoryManager.Actions.PAINT_ROW,
-			LevelHistoryManager.LineData.new(row, level_editor.get_ink_counter())
+			LevelHistoryManager.LineData.new(channel, row, level_editor.get_ink_counter())
 		)
 
 	for col in range(grid_size.x):

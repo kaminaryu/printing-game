@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cqxambkwo6rbh" path="res://UI/LevelEditor/level_editor_settings.gd" id="1_dd02n"]
 [ext_resource type="Texture2D" uid="uid://bxw8rrv8an6wb" path="res://Assets/GUI/settings_menu_no_shadow.png" id="2_dd02n"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_66ljn"]
-[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="4_pbu4j"]
+[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="4_pbu4j"]
 [ext_resource type="Texture2D" uid="uid://gwiugx4wx15c" path="res://Assets/GUI/background_shadow.png" id="5_p78wg"]
 [ext_resource type="Texture2D" uid="uid://pi8bvy0a0xy7" path="res://Assets/menu/LevelEditor/Shown.svg" id="6_pbu4j"]
 [ext_resource type="Texture2D" uid="uid://b338675lwldtt" path="res://Assets/menu/LevelEditor/Hidden.svg" id="7_sg72d"]

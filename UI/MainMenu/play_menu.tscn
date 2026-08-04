@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d23miep4t2qod" path="res://Assets/GUI/playmenu.png" id="1_1f4s2"]
 [ext_resource type="Script" uid="uid://bb01b8kyqj0uq" path="res://UI/MainMenu/play_menu.gd" id="1_jcw7y"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="2_52eiw"]
-[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="3_vxkmt"]
+[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="3_vxkmt"]
 
 [node name="PlayMenu" type="Control" unique_id=1684481824 node_paths=PackedStringArray("continue_button")]
 z_index = 2

@@ -6,12 +6,12 @@
 [ext_resource type="Script" uid="uid://c5wqouv11ks52" path="res://Scenes/ink_palette.gd" id="2_xi6ke"]
 [ext_resource type="Texture2D" uid="uid://c7t7hgvxmyvjp" path="res://Assets/Cyan_Button.png" id="3_i8l5y"]
 [ext_resource type="Texture2D" uid="uid://b2bml4lnvmfyt" path="res://Assets/menu/LevelEditor/Undo.svg" id="3_qoy40"]
+[ext_resource type="Theme" uid="uid://c74pal6uj7ogy" path="res://Assets/Themes/level_editor_controller.tres" id="3_vtvrq"]
 [ext_resource type="Texture2D" uid="uid://dbsoa2lx04yjb" path="res://Assets/Magenta_Button.png" id="4_fhsmn"]
 [ext_resource type="Texture2D" uid="uid://c84rwrf058f5i" path="res://Assets/menu/LevelEditor/Trash.svg" id="4_vtvrq"]
 [ext_resource type="Texture2D" uid="uid://c70pva0x3x44h" path="res://Assets/Yellow_Button.png" id="5_5ogug"]
 [ext_resource type="Texture2D" uid="uid://ihmqdejbeqx1" path="res://Assets/menu/LevelEditor/Close.svg" id="5_dpbxe"]
 [ext_resource type="Texture2D" uid="uid://dmv1wnq5j1dge" path="res://Assets/Key_Button.png" id="6_kerlq"]
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="6_vtvrq"]
 [ext_resource type="PackedScene" uid="uid://csli42ddd8utf" path="res://UI/LevelEditor/level_editor_menu.tscn" id="8_i8l5y"]
 [ext_resource type="PackedScene" uid="uid://bbu70xtd2psud" path="res://UI/LevelEditor/level_editor_settings.tscn" id="9_fhsmn"]
 [ext_resource type="PackedScene" uid="uid://1njs5i6kxcd5" path="res://UI/Animation/fade_in_animation.tscn" id="10_5ogug"]
@@ -34,7 +34,7 @@ texture = ExtResource("6_kerlq")
 shader = ExtResource("2_g51jt")
 shader_parameter/blur_amount = 1.51200007182
 
-[node name="LevelEditor" type="Control" unique_id=971765700 node_paths=PackedStringArray("printing_canvas", "menu", "settings", "ink_counter")]
+[node name="LevelEditor" type="Control" unique_id=971765700 node_paths=PackedStringArray("printing_canvas", "menu", "settings", "ink_counter", "history_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,6 +46,7 @@ printing_canvas = NodePath("MainScreen/Paper/Control/PrintingCanvas")
 menu = NodePath("LevelEditorMenu")
 settings = NodePath("LevelEditorSettings")
 ink_counter = NodePath("MainScreen/Controller/MarginContainer/Editor/InkAmountCounter")
+history_list = NodePath("MainScreen/Controller/MarginContainer/Editor/HistoryScrollableContainer/MarginContainer/History")
 
 [node name="MainScreen" type="HBoxContainer" parent="." unique_id=575797331]
 layout_mode = 1
@@ -69,6 +70,7 @@ level_editor = NodePath("../../../..")
 [node name="Controller" type="PanelContainer" parent="MainScreen" unique_id=258558441]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("3_vtvrq")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainScreen/Controller" unique_id=1312202991]
 layout_mode = 2
@@ -106,8 +108,6 @@ texture_normal = ExtResource("5_dpbxe")
 
 [node name="InkAmountTitle" type="Label" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=887921839]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6_vtvrq")
-theme_override_font_sizes/font_size = 28
 text = "Amount of Inks Used:"
 
 [node name="InkAmountCounter" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=1024389396]
@@ -122,9 +122,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_dpbxe")
 [node name="Label" type="Label" parent="MainScreen/Controller/MarginContainer/Editor/InkAmountCounter/Cyan" unique_id=927925841]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("6_vtvrq")
-theme_override_font_sizes/font_size = 24
+theme_type_variation = &"InkCounterDark"
 text = "0"
 horizontal_alignment = 1
 
@@ -137,8 +135,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_a65j8")
 [node name="Label" type="Label" parent="MainScreen/Controller/MarginContainer/Editor/InkAmountCounter/Magenta" unique_id=278184067]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("6_vtvrq")
-theme_override_font_sizes/font_size = 24
+theme_type_variation = &"InkCounterLight"
 text = "0"
 horizontal_alignment = 1
 
@@ -151,9 +148,7 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_01kwb")
 [node name="Label" type="Label" parent="MainScreen/Controller/MarginContainer/Editor/InkAmountCounter/Yellow" unique_id=1501061024]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("6_vtvrq")
-theme_override_font_sizes/font_size = 24
+theme_type_variation = &"InkCounterDark"
 text = "0"
 horizontal_alignment = 1
 
@@ -166,10 +161,31 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_peman")
 [node name="Label" type="Label" parent="MainScreen/Controller/MarginContainer/Editor/InkAmountCounter/Key" unique_id=1783971888]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("6_vtvrq")
-theme_override_font_sizes/font_size = 24
+theme_type_variation = &"InkCounterLight"
 text = "0"
 horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=823976913]
+layout_mode = 2
+text = "History:"
+
+[node name="HistoryScrollableContainer" type="ScrollContainer" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=684296184]
+custom_minimum_size = Vector2(0, 21.46)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainScreen/Controller/MarginContainer/Editor/HistoryScrollableContainer" unique_id=116230545]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="History" type="VBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor/HistoryScrollableContainer/MarginContainer" unique_id=1907642237]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Palette" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=159281310]
 layout_mode = 2

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://diqsu1slno6rd" path="res://Assets/GUI/level_editor_menu_no_shadow.png" id="2_kg6vw"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_kg6vw"]
 [ext_resource type="PackedScene" uid="uid://djxx6m4jftwbu" path="res://UI/preview_grid.tscn" id="4_k6sis"]
-[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="6_nbykm"]
+[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="6_nbykm"]
 [ext_resource type="Texture2D" uid="uid://b2svdcaaki61g" path="res://Assets/menu/LevelEditor/Double Arrow.svg" id="7_5rtyc"]
 [ext_resource type="Texture2D" uid="uid://cj3yo5yjjmpso" path="res://Assets/menu/LevelEditor/arror.svg" id="7_kg6vw"]
 [ext_resource type="Script" uid="uid://bd72y2fjeehiw" path="res://UI/LevelEditor/level_buttons.gd" id="8_sebas"]

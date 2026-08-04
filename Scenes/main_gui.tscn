@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="3_qtvxg"]
 [ext_resource type="Texture2D" uid="uid://cc0uj8pea82ro" path="res://Assets/GUI/pausemenu.png" id="4_13gl4"]
 [ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="4_gjtyi"]
-[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/GUI/pause_menu_buttons.tres" id="5_gjtyi"]
+[ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="5_gjtyi"]
 [ext_resource type="PackedScene" uid="uid://1f1kykdhkpbb" path="res://Scenes/settings.tscn" id="7_qtvxg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c3wv2"]

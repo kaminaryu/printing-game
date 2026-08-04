@@ -43,8 +43,17 @@ func get_selected_color() -> String :
 		return "#fff"
 	return CHANNEL_COLORS[selected_color]
 
+func get_channel_hexcode(channel: String) -> String :
+	match channel :
+		"Cyan": return CHANNEL_COLORS[0]
+		"Magenta": return CHANNEL_COLORS[1]
+		"Yellow": return CHANNEL_COLORS[2]
+		"Key": return CHANNEL_COLORS[3]
+		_  : return "#670067"
+
 func get_color_channel() -> String :
 	return CHANNELS[selected_color]
+
 
 func is_selecting_color() -> bool :
 	return selected_color != -1
