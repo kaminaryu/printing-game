@@ -4,12 +4,16 @@ class_name LevelData
 
 @export_subgroup("Level Configuration")
 @export var grid_size: Vector2i = Vector2i(5, 5)
-@export var available_channels: Array[String] = ["c", "m", "y", "k"]
+@export var available_channels: Array[String] = ColorManager.CHANNELS.duplicate()
 @export var level_name: String = "Lorem Ipsum"
-@export var history: Array[Array] = []
 
 @export_subgroup("Solution Layout")
 @export var target_colors: Array[String] = []
+
+@export_subgroup("Level Editor Metadata")
+@export var history: Array[Array] = []
+@export var amount_of_ink_used_cmyk: Array[int] = [0, 0, 0, 0]
+
 
 func set_available_channels(cyan: bool, magenta: bool, yellow: bool, key: bool) -> void :
 	var selected_channels: Array[String] = []

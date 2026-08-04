@@ -3,10 +3,12 @@ extends Control
 @export var printing_canvas: Node2D
 @export var menu: Control
 @export var settings: Control
+@export var ink_counter: HBoxContainer
 
 
 func _ready() -> void :
 	load_level_data(1)
+	printing_canvas.ink_used_in_editor.connect(_increase_amount_of_ink_used)
 
 
 ###########
@@ -23,6 +25,7 @@ func load_level_data(level_num: int) -> void :
 			LevelHistoryManager.init_level_history(level_data)
 
 			_set_level_metadata_to_editor(level_data) # MUST set metadata first or else resize_grid signal will be emitted
+			_load_ink_counter(level_data)
 			_draw_level_to_canvas(level_data)
 			return
 
@@ -37,6 +40,7 @@ func load_level_data(level_num: int) -> void :
 			LevelHistoryManager.init_level_history(level_data)
 
 			_set_level_metadata_to_editor(level_data)
+			_load_ink_counter(level_data)
 			_draw_level_to_canvas(level_data)
 
 
@@ -54,8 +58,50 @@ func _set_level_metadata_to_editor(level_data: LevelData) -> void :
 
 func redraw_grid_canvas(new_grid_size: Vector2i) -> void:
 	printing_canvas.setup_and_build(new_grid_size)
-
 	# LevelHistoryManager.
+
+
+# -- Ink Counter Related Issues --
+func _increase_amount_of_ink_used(color_channel: String) -> void :
+	var counter: Label
+
+	match color_channel :
+		"c": 
+			counter = ink_counter.get_node("Cyan/Label")
+		"m": 
+			counter = ink_counter.get_node("Magenta/Label")
+		"y": 
+			counter = ink_counter.get_node("Yellow/Label")
+		"k": 
+			counter = ink_counter.get_node("Key/Label")
+
+	counter.text = str(int(counter.text) + 1)
+
+
+func get_ink_counter() -> Array[int] :
+	var ink_used: Array[int] = []
+
+	for counter in ink_counter.get_children() :
+		if not (counter is PanelContainer) : continue
+
+		# WARNING: Make sure the Labels are named 'Label' and are in CMYK order
+		var amount: int = int(counter.get_node("Label").text)
+		ink_used.append(amount)
+
+	return ink_used
+
+
+func _load_ink_counter(level_data: LevelData) -> void :
+	var index: int = 0
+
+	for counter in ink_counter.get_children() :
+		if not (counter is PanelContainer) : continue
+
+		# WARNING: Make sure the Labels are named 'Label' and are in CMYK order
+		counter.get_node("Label").text = str(level_data.amount_of_ink_used_cmyk[index])
+		index += 1
+
+
 
 
 #######################

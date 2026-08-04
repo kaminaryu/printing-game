@@ -115,7 +115,6 @@ func save_level_metadata(level_num: int) -> void :
 		"k": int(ink_k.get_node("SpinBox").value)
 	}
 
-
 	# set avaiable color channel
 	# toggle by checking if the button is pressed (shown)
 	new_level.set_available_channels(
@@ -124,8 +123,12 @@ func save_level_metadata(level_num: int) -> void :
 		ink_y.get_node("ToggleVisibility").button_pressed,
 		ink_k.get_node("ToggleVisibility").button_pressed,
 	)
-	print(new_level.available_channels)
 
+	# get the amount of ink used 
+	var level_editor: Control = _get_parent()
+	new_level.amount_of_ink_used_cmyk = level_editor.get_ink_counter()
+
+	# other metadatas
 	new_level.level_name = level_name_input_box.text
 	
 	var matrix_2d = printing_canvas.get_grid_color_matrix()

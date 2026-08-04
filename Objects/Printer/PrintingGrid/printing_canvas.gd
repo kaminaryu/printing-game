@@ -24,6 +24,7 @@ var canvas_grid: Array[Array] = []
 var default_screen_y: float = 360.0
 
 signal paint_cascade_finished
+signal ink_used_in_editor
 
 
 ##################
@@ -140,6 +141,9 @@ func _on_paint_request(request: Dictionary) -> void:
 		match alignment:
 			"col": _paint_column(index, channel)
 			"row": _paint_row(index, channel)
+
+		# for tracking amount of ink used
+		ink_used_in_editor.emit(channel)
 		return
 
 	var is_lock_action: bool = (channel == ColorManager.CHANNELS[3])
