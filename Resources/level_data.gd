@@ -11,7 +11,6 @@ class_name LevelData
 @export var target_colors: Array[String] = []
 
 @export_subgroup("Level Editor Metadata")
-@export var history: Array[Array] = []
 @export var amount_of_ink_used_cmyk: Array[int] = [0, 0, 0, 0]
 
 

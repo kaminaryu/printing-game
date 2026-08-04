@@ -1,7 +1,5 @@
 extends Node
 
-# NOTE: this is to save each grid edits inside the level editor (WIP)
-
 enum Actions {
 	INIT,
 	PAINT_COLUMN,
@@ -13,19 +11,29 @@ enum Actions {
 var _history: Array[LevelSnapshot] = []
 # var num_of_actions: int = 0  # for redo
 
+# to save / keeptrack which line (row/col) is being painted and saved
+class LineData :
+	var line_num: int
+	var ink_counter: Array[int]
+
+	# p_var is a convention that avoid shadowing class attr, its dumb because i like self.var = var ffs
+	func _init(p_line_num: int, p_ink_counter: Array[int]) -> void :
+		line_num = p_line_num
+		ink_counter = p_ink_counter
+
 
 class LevelSnapshot :
-	# 2D Array of "cmy" String
-	var color_keys: Array[Array]
+	var color_keys: Array[Array] # 2D Array of "cmy" String
 	var lock_states: Array[Array]
 	var message: String
 	var step_num: int
+	var ink_counter: Array[int] = [0, 0, 0, 0]
 
 
 # -- methods -- 
 func init_level_history(level_data: LevelData) -> void :
 	var color_keys: Array[Array] = level_data.get_target_grid_2d()
-	save_level_snapshot(color_keys, Actions.INIT)
+	save_level_snapshot(color_keys, Actions.INIT, level_data.amount_of_ink_used_cmyk)
 
 
 func save_level_snapshot(canvas_grid: Array[Array], action: Actions, data=null) -> void :
@@ -65,12 +73,22 @@ func save_level_snapshot(canvas_grid: Array[Array], action: Actions, data=null) 
 
 	match action :
 		Actions.PAINT_COLUMN :
-			snapshot.message = "Printed a line of ink at column %d" % data
+			snapshot.message = "Printed a line of ink at column %d" % data.line_num
 
 
 	snapshot.color_keys = color_keys
 	snapshot.lock_states = lock_states
 	snapshot.step_num = _history.size()
+
+	# set ink counter
+	if (action in [Actions.PAINT_COLUMN, Actions.PAINT_ROW]) :
+		snapshot.ink_counter = data.ink_counter
+	elif (action == Actions.CLEAR_CANVAS) :
+		snapshot.ink_counter = data # (level_editor.get_ink_counter())
+
+	elif (action == Actions.INIT) :
+		snapshot.ink_counter = data # (LevelData.amount_of_ink_used_cmyk)
+
 	_history.append(snapshot)
 
 	print("Saving state #%d: " %_history.size())

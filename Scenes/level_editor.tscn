@@ -62,8 +62,9 @@ size_flags_horizontal = 3
 [node name="Control" type="Control" parent="MainScreen/Paper" unique_id=1357732271]
 layout_mode = 2
 
-[node name="PrintingCanvas" parent="MainScreen/Paper/Control" unique_id=1528432382 instance=ExtResource("1_5o76e")]
+[node name="PrintingCanvas" parent="MainScreen/Paper/Control" unique_id=1528432382 node_paths=PackedStringArray("level_editor") instance=ExtResource("1_5o76e")]
 process_mode = 3
+level_editor = NodePath("../../../..")
 
 [node name="Controller" type="PanelContainer" parent="MainScreen" unique_id=258558441]
 layout_mode = 2

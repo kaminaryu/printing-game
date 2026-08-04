@@ -2,6 +2,7 @@ extends Node2D
 
 @export var grid_size: Vector2 = Vector2(5, 5)
 @export var is_editor_mode: bool = false 
+@export var level_editor: Control
 
 @onready var cell_scene = preload("res://Objects/Printer/PrintingGrid/grid_cell.tscn")
 @onready var painter_scene = preload("res://Objects/Printer/PrintingGrid/painter.tscn")
@@ -175,10 +176,11 @@ func _paint_column(col: int, channel: String) -> bool :
 	
 	# save to level editor history
 	if (is_editor_mode) :
+		assert(level_editor, "CONNECT LEVEL EDITOR TO PRINTING CANVAS IN THE LEVEL EDITOR SCENE")
 		LevelHistoryManager.save_level_snapshot(
 			canvas_grid,
 			LevelHistoryManager.Actions.PAINT_COLUMN,
-			col
+			LevelHistoryManager.LineData.new(col, level_editor.get_ink_counter())
 		)
 
 	for row in range(grid_size.y):
@@ -216,10 +218,11 @@ func _paint_row(row: int, channel: String) -> bool :
 	
 	# save to level editor history
 	if (is_editor_mode) :
+		assert(level_editor, "CONNECT LEVEL EDITOR TO PRINTING CANVAS IN THE LEVEL EDITOR SCENE")
 		LevelHistoryManager.save_level_snapshot(
 			canvas_grid,
 			LevelHistoryManager.Actions.PAINT_ROW,
-			row
+			LevelHistoryManager.LineData.new(row, level_editor.get_ink_counter())
 		)
 
 	for col in range(grid_size.x):
@@ -284,7 +287,12 @@ func _clear_highlight() -> void:
 
 func reset_grid_visuals() -> void:
 	if is_editor_mode:
-		LevelHistoryManager.save_level_snapshot(canvas_grid, LevelHistoryManager.Actions.CLEAR_CANVAS)
+		assert(level_editor, "CONNECT LEVEL EDITOR TO PRINTING CANVAS IN THE LEVEL EDITOR SCENE")
+		LevelHistoryManager.save_level_snapshot(
+			canvas_grid,
+			LevelHistoryManager.Actions.CLEAR_CANVAS,
+			level_editor.get_ink_counter(),
+		)
 
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):

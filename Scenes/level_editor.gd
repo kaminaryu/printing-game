@@ -102,6 +102,17 @@ func _load_ink_counter(level_data: LevelData) -> void :
 		index += 1
 
 
+func _set_ink_counter(new_ink_counter: Array[int]) -> void :
+	var index: int = 0
+
+	for counter in ink_counter.get_children() :
+		if not (counter is PanelContainer) : continue
+
+		# WARNING: Make sure the Labels are named 'Label' and are in CMYK order
+		counter.get_node("Label").text = str(new_ink_counter[index])
+		index += 1
+
+
 
 
 #######################
@@ -147,7 +158,9 @@ func _on_undo_button_up() -> void:
 
 	printing_canvas.paint_canvas(prev_snapshot.color_keys)
 	printing_canvas.lock_canvas(prev_snapshot.lock_states)
+	_set_ink_counter(prev_snapshot.ink_counter)
 
 
 func _on_delete_button_up() -> void:
 	printing_canvas.reset_grid_visuals()
+	_set_ink_counter([0, 0, 0, 0])
