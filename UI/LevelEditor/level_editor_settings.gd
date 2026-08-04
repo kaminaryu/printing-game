@@ -142,6 +142,7 @@ func save_level_metadata(level_num: int) -> void :
 	
 	if response == OK:
 		print("Level successfully created and written to disk at: ", save_path)
+		GameMaster.init_level_count()
 	else:
 		print("Save failed. Godot error code: ", response)
 
