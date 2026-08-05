@@ -6,6 +6,8 @@ extends Control
 @export var ink_counter: HBoxContainer
 @export var history_list: VBoxContainer
 
+var level_num: int = 1
+
 
 const HISTORY_CARD_SCENE: PackedScene = preload("res://UI/LevelEditor/history_card.tscn")
 
@@ -17,13 +19,13 @@ func _ready() -> void :
 	LevelHistoryManager.history_removed.connect(_on_history_removed)
 	LevelHistoryManager.history_cleaned.connect(_on_history_cleaned)
 
-	load_level_data(1)
+	load_level_data()
 
 
 ###########
 # Actions #
 ###########
-func load_level_data(level_num: int) -> void :
+func load_level_data() -> void :
 	var level_data: LevelData = GameMaster.fetch_level_data(level_num)
 
 	if level_data :

@@ -52,3 +52,8 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "0, 0, 0, 0"
 horizontal_alignment = 1
+
+[node name="InputDetector" type="TextureButton" parent="." unique_id=1762786319]
+layout_mode = 2
+
+[connection signal="button_up" from="InputDetector" to="." method="_on_input_detector_button_up"]

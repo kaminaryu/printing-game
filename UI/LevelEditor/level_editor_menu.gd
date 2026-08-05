@@ -14,10 +14,11 @@ extends Control
 
 const double_arrow_value: int = 5
 
-var selected_level = 1
+var selected_level: int
 
 
 func _ready() -> void :
+	selected_level = _get_parent().level_num
 	update_level_label()
 	preview_grid.generate_preview(selected_level)
 
