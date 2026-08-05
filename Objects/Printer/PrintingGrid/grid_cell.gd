@@ -6,6 +6,7 @@ const GRID_CELL_SIZE := Vector2i(128, 128)
 
 @export var highlight_sprite: Sprite2D
 
+var is_paper_editor_mode: bool = false
 var ink_locked: bool = false
 var c: int = 0
 var m: int = 0
@@ -18,14 +19,15 @@ func set_color_key(new_key: String) -> void:
 		c = int(new_key[0])
 		m = int(new_key[1])
 		y = int(new_key[2])
+		_update_color()
 	else:
 		printerr("Invalid color key format received: ", new_key)
 
 
-func apply_ink(channel: String) -> bool :
+func apply_ink(channel: String) -> void :
 	var is_allowed: bool = _same_color_safeguard(channel)
 	if (!is_allowed) :
-		return false
+		return
 
 	match channel :
 		"c": c += 1
@@ -34,8 +36,7 @@ func apply_ink(channel: String) -> bool :
 		_: printerr("Unknown ink channel: %s" % channel)
 
 	_check_for_valid_color()
-	return true
-
+	_update_color()
 
 func color_key() -> String :
 	return "%d%d%d" % [c, m, y]
@@ -73,7 +74,33 @@ func is_ink_locked() -> bool :
 func reset() -> void :
 	c = 0; m = 0; y = 0
 	toggle_ink_lock(false)
+	_update_color()
 
 
 func highlight(on: bool) -> void : 
 	highlight_sprite.visible = on
+
+
+func _on_mouse_detector_mouse_entered() -> void:
+	if (not is_paper_editor_mode): return
+
+	highlight(true)
+	CursorManager.set_roller()
+
+
+func _on_mouse_detector_mouse_exited() -> void:
+	if (not is_paper_editor_mode): return
+
+	highlight(false)
+	CursorManager.set_cursor()
+
+
+func _update_color() -> void :
+	var key: String = color_key()
+	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#676767")
+	var target_color: Color = Color.from_string(hex, Color.PURPLE)
+	
+	var color_tween: Tween = create_tween()
+	color_tween.set_trans(Tween.TRANS_LINEAR)
+	color_tween.set_ease(Tween.EASE_IN)
+	color_tween.tween_property(get_node("GridTexture"), "modulate", target_color, 0.1)
