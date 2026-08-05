@@ -2,13 +2,14 @@ extends Node2D
 
 class_name GridCell
 
+const GRID_CELL_SIZE := Vector2i(128, 128)
+
+@export var highlight_sprite: Sprite2D
+
 var ink_locked: bool = false
 var c: int = 0
 var m: int = 0
 var y: int = 0
-
-func _ready() -> void :
-	pass
 
 
 # NEW FUNCTION: Decodes the central snapshot string back into live cell integers
@@ -20,13 +21,6 @@ func set_color_key(new_key: String) -> void:
 	else:
 		printerr("Invalid color key format received: ", new_key)
 
-
-func _same_color_safeguard(channel: String) -> bool :
-	match channel :
-		"c": return color_key() != "100"
-		"m": return color_key() != "010"
-		"y": return color_key() != "001"
-	return true
 
 func apply_ink(channel: String) -> bool :
 	var is_allowed: bool = _same_color_safeguard(channel)
@@ -43,16 +37,24 @@ func apply_ink(channel: String) -> bool :
 	return true
 
 
+func color_key() -> String :
+	return "%d%d%d" % [c, m, y]
+
+
+func _same_color_safeguard(channel: String) -> bool :
+	match channel :
+		"c": return color_key() != "100"
+		"m": return color_key() != "010"
+		"y": return color_key() != "001"
+	return true
+
+
 func _check_for_valid_color() -> void :
 	if (ColorManager.COLOR_GLOSSARY.has(color_key())) :
 		return
 
 	# set to black
 	c=1; m=1; y=1
-
-
-func color_key() -> String :
-	return "%d%d%d" % [c, m, y]
 
 
 func toggle_ink_lock(toggle = null) -> void :
@@ -71,3 +73,7 @@ func is_ink_locked() -> bool :
 func reset() -> void :
 	c = 0; m = 0; y = 0
 	toggle_ink_lock(false)
+
+
+func highlight(on: bool) -> void : 
+	highlight_sprite.visible = on

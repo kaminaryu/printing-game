@@ -22,8 +22,6 @@ var is_cascading: bool = false
 
 var canvas_grid: Array[Array] = []
 
-var default_screen_y: float = 360.0
-
 signal paint_cascade_finished
 signal ink_used_in_editor
 
@@ -70,7 +68,9 @@ func _init_grid() -> void :
 
 func _init_buttons() -> void :
 	const MARGIN: float = 48.0
-	
+	const BASE_BUTTON_WIDTH: float = 80.0
+	var scale_factor: float = dynamic_square_size / BASE_BUTTON_WIDTH
+
 	for col in range(grid_size.x):
 		var arrow: Node2D = painter_scene.instantiate() as Node2D
 		
@@ -78,16 +78,12 @@ func _init_buttons() -> void :
 		var arrow_y: float = center_offset.y - (dynamic_square_size / 2.0) - MARGIN
 		
 		arrow.position = Vector2(arrow_x, arrow_y).floor()
+		arrow.scale = Vector2.ONE * scale_factor
 		arrow.grid_alignment = "col"
 		arrow.grid_index = col
 		arrow.paint_requested.connect(_on_paint_request)
 		arrow.hovered.connect(_on_arrow_hovered)
 		arrow.unhovered.connect(_clear_highlight)
-		
-		var btn: Button = arrow.get_node("Button") as Button
-		if btn:
-			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
-			btn.position = -btn.size / 2.0
 		
 		add_child(arrow)
 
@@ -98,6 +94,7 @@ func _init_buttons() -> void :
 		var arrow_y: float = (row * step_size) + center_offset.y
 		
 		arrow.position = Vector2(arrow_x, arrow_y).floor()
+		arrow.scale = Vector2.ONE * scale_factor
 		arrow.grid_alignment = "row"
 		arrow.grid_index = row
 		arrow.rotation = -PI/2
@@ -105,11 +102,6 @@ func _init_buttons() -> void :
 		arrow.hovered.connect(_on_arrow_hovered)
 		arrow.unhovered.connect(_clear_highlight)
 		
-		var btn: Button = arrow.get_node("Button") as Button
-		if btn:
-			btn.size = Vector2(dynamic_square_size, dynamic_square_size)
-			btn.position = -btn.size / 2.0
-
 		add_child(arrow)
 
 
@@ -282,7 +274,7 @@ func _clear_highlight() -> void:
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
 			var cell: Node = canvas_grid[col][row]
-			cell.get_node("HighlightOverlay").hide()
+			cell.highlight(false)
 
 
 func reset_grid_visuals() -> void:
@@ -400,9 +392,9 @@ func _on_arrow_hovered(alignment: String, index: int) -> void :
 	if alignment == "col":
 		for row in range(grid_size.y):
 			var cell: Node = canvas_grid[index][row]
-			cell.get_node("HighlightOverlay").show()
+			cell.highlight(true)
 	
 	elif alignment == "row":
 		for col in range(grid_size.x):
 			var cell: Node = canvas_grid[col][index]
-			cell.get_node("HighlightOverlay").show()
+			cell.highlight(true)

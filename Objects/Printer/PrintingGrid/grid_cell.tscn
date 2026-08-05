@@ -5,9 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://c0qbx4cwk8aue" path="res://Assets/game/Cell/cell_inside.png" id="2_uk413"]
 [ext_resource type="Texture2D" uid="uid://dl632r222fwgt" path="res://Assets/game/Cell/flag.png" id="4_ndp01"]
 
-[node name="GridCell" type="Node2D" unique_id=1659444708]
+[node name="GridCell" type="Node2D" unique_id=1659444708 node_paths=PackedStringArray("highlight_sprite")]
 texture_filter = 1
 script = ExtResource("1_ndp01")
+highlight_sprite = NodePath("HighlightOverlay")
 
 [node name="TextureOverlay" type="Sprite2D" parent="." unique_id=380316704]
 texture = ExtResource("2_ndp01")
