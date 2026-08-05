@@ -1,17 +1,18 @@
 [gd_scene format=3 uid="uid://boapomrwdh8fy"]
 
-[ext_resource type="PackedScene" uid="uid://bpdm0xgyvm23y" path="res://UI/LevelEditor/level_editor_level_selector_card.tscn" id="1_k7e8h"]
-[ext_resource type="Script" uid="uid://ovlib18oshlr" path="res://Scenes/LevelEditor/level_editor_level_selector.gd" id="1_yh7vx"]
+[ext_resource type="Script" uid="uid://ovlib18oshlr" path="res://Scenes/LevelEditor/level_editor_level_loader.gd" id="1_85mop"]
+[ext_resource type="PackedScene" uid="uid://bpdm0xgyvm23y" path="res://UI/LevelEditor/level_editor_level_loader_card.tscn" id="2_kpr5e"]
 
-[node name="LevelEditorLevelSelector" type="PanelContainer" unique_id=258944018 node_paths=PackedStringArray("level_cards_list")]
+[node name="LevelEditorLevelLoader" type="PanelContainer" unique_id=258944018 node_paths=PackedStringArray("level_cards_list")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
-script = ExtResource("1_yh7vx")
+script = ExtResource("1_85mop")
 level_cards_list = NodePath("HBoxContainer2/LevelCards")
+metadata/_edit_group_ = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=630293474]
 layout_mode = 2
@@ -31,19 +32,19 @@ size_flags_horizontal = 4
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="LevelEditorLevelSelectorCard" parent="HBoxContainer2/LevelCards" unique_id=54281055 instance=ExtResource("1_k7e8h")]
+[node name="LevelEditorLevelLoaderCard" parent="HBoxContainer2/LevelCards" unique_id=54281055 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
-[node name="LevelEditorLevelSelectorCard2" parent="HBoxContainer2/LevelCards" unique_id=1139967616 instance=ExtResource("1_k7e8h")]
+[node name="LevelEditorLevelLoaderCard2" parent="HBoxContainer2/LevelCards" unique_id=1747560519 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
-[node name="LevelEditorLevelSelectorCard3" parent="HBoxContainer2/LevelCards" unique_id=11256844 instance=ExtResource("1_k7e8h")]
+[node name="LevelEditorLevelLoaderCard3" parent="HBoxContainer2/LevelCards" unique_id=1590473264 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
-[node name="LevelEditorLevelSelectorCard4" parent="HBoxContainer2/LevelCards" unique_id=706589767 instance=ExtResource("1_k7e8h")]
+[node name="LevelEditorLevelLoaderCard4" parent="HBoxContainer2/LevelCards" unique_id=1029002564 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
-[node name="LevelEditorLevelSelectorCard5" parent="HBoxContainer2/LevelCards" unique_id=1082602480 instance=ExtResource("1_k7e8h")]
+[node name="LevelEditorLevelLoaderCard5" parent="HBoxContainer2/LevelCards" unique_id=1495287830 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
 [node name="Right" type="Button" parent="HBoxContainer2" unique_id=91459163]

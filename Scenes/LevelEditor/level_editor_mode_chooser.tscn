@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bd3jkt5nci66o"]
+
+[ext_resource type="Script" uid="uid://bupndqjjynohr" path="res://Scenes/LevelEditor/level_editor_mode_chooser.gd" id="1_ywl80"]
+
+[node name="LevelEditorModeChooser" type="PanelContainer" unique_id=9522452]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ywl80")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=830477924]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 145
+
+[node name="FromScratch" type="Button" parent="HBoxContainer" unique_id=236796732]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "From Scratch"
+
+[node name="LoadLevel" type="Button" parent="HBoxContainer" unique_id=1357575828]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "Load Existing Level"
+
+[connection signal="button_up" from="HBoxContainer/FromScratch" to="." method="_on_from_scratch_button_up"]
+[connection signal="button_up" from="HBoxContainer/LoadLevel" to="." method="_on_load_level_button_up"]

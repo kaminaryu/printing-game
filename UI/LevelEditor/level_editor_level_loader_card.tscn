@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bpdm0xgyvm23y"]
 
 [ext_resource type="PackedScene" uid="uid://djxx6m4jftwbu" path="res://UI/preview_grid.tscn" id="1_ese67"]
-[ext_resource type="Script" uid="uid://b417byw28ver6" path="res://UI/LevelEditor/level_editor_level_selector_card.gd" id="1_qxlqm"]
+[ext_resource type="Script" uid="uid://b417byw28ver6" path="res://UI/LevelEditor/level_editor_level_loader_card.gd" id="1_qxlqm"]
 
-[node name="LevelEditorLevelSelectorCard" type="PanelContainer" unique_id=54281055 node_paths=PackedStringArray("preview_grid", "level_num_label", "level_name_label", "ink_used_values")]
+[node name="LevelEditorLevelLoaderCard" type="PanelContainer" unique_id=54281055 node_paths=PackedStringArray("preview_grid", "level_num_label", "level_name_label", "ink_used_values")]
 offset_right = 165.0
 offset_bottom = 281.0
 size_flags_horizontal = 3
