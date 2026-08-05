@@ -10,6 +10,14 @@ class_name LevelData
 @export_subgroup("Solution Layout")
 @export var target_colors: Array[String] = []
 
+@export_subgroup("Ink Limitations")
+@export var ink_limits: Dictionary = {
+	"c": -1,
+	"m": -1,
+	"y": -1,
+	"k": -1
+}
+
 @export_subgroup("Level Editor Metadata")
 @export var amount_of_ink_used_cmyk: Array[int] = [0, 0, 0, 0]
 
@@ -47,10 +55,3 @@ func get_target_grid_2d() -> Array[Array]:
 			
 	return grid_2d
 	
-@export_subgroup("Ink Limitations")
-@export var ink_limits: Dictionary = {
-	"c": -1,
-	"m": -1,
-	"y": -1,
-	"k": -1
-}

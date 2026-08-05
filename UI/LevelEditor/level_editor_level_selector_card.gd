@@ -21,7 +21,12 @@ func generate_card(level_num: int) -> void :
 		level_num_label.text = "(%d)" % level_num
 		level_name_label.text = level_data.level_name
 
-		ink_used_values.text = "%d, %d, %d, %d" % level_data.amount_of_ink_used_cmyk
+		ink_used_values.text = "%s, %s, %s, %s" % [
+			"INF" if level_data.ink_limits["c"] == -1 else str(level_data.ink_limits["c"]),
+			"INF" if level_data.ink_limits["m"] == -1 else str(level_data.ink_limits["m"]),
+			"INF" if level_data.ink_limits["y"] == -1 else str(level_data.ink_limits["y"]),
+			"INF" if level_data.ink_limits["k"] == -1 else str(level_data.ink_limits["k"]),
+		]
 
 
 func _on_input_detector_button_up() -> void:
