@@ -31,6 +31,7 @@ SaveStatesManager="*uid://cgjcf26sutm23"
 GameMaster="*uid://dksb0eccot54l"
 CursorManager="*uid://bib3mqgg4b6yi"
 LevelHistoryManager="*uid://bhx3jyv6qvkfl"
+LevelEditorManager="*uid://c1qn14dxiepe7"
 
 [display]
 

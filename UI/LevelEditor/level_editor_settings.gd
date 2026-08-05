@@ -17,8 +17,6 @@ extends Control
 @export var printing_canvas: Node2D
 
 
-var current_grid_size: Vector2i = Vector2i(5, 5)
-
 
 func slide_menu() -> void:
 	var slide = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).set_parallel(true);
@@ -49,12 +47,8 @@ func _ready() -> void:
 
 	# Set the grid size fields to the default value
 	# (MUST BE before connecting the signals to avoid zeroing current_grid_size on setting width)
-	grid_width_input_box.value  = current_grid_size.x
-	grid_height_input_box.value = current_grid_size.y
-
-	# Connect UI via code because the UI is defined by exported vars (this is to make that they are modular)
-	grid_width_input_box.value_changed.connect(_on_dimensions_changed)
-	grid_height_input_box.value_changed.connect(_on_dimensions_changed)
+	grid_width_input_box.value  = LevelEditorManager.grid_size.x
+	grid_height_input_box.value = LevelEditorManager.grid_size.y
 
 
 # Converts 2D grid matrix back into a flat 1D Array[String] for the resource
@@ -62,8 +56,8 @@ func _flatten_grid_to_1d(matrix_2d: Array) -> Array[String]:
 	var flattened: Array[String] = []
 	
 	# Row-first iteration matches LevelData row-first unpacking loop
-	for row in range(current_grid_size.y):
-		for col in range(current_grid_size.x):
+	for row in range(LevelEditorManager.grid_size.x):
+		for col in range(LevelEditorManager.grid_size.y):
 			var cell_color_key: String = matrix_2d[col][row]["color"]
 			
 			if cell_color_key.is_empty():
@@ -86,26 +80,23 @@ func _get_parent() -> Control :
 	return parent
 
 
-func load_level_metadata(level_data: LevelData) -> void :
-	level_name_input_box.text = level_data.level_name
+func load_level_metadata() -> void :
+	level_name_input_box.text = LevelEditorManager.level_name
 	
-	grid_width_input_box.value  = level_data.grid_size.x
-	grid_height_input_box.value = level_data.grid_size.y
+	ink_c.get_node("SpinBox").value = LevelEditorManager.ink_limits["c"]
+	ink_m.get_node("SpinBox").value = LevelEditorManager.ink_limits["m"]
+	ink_y.get_node("SpinBox").value = LevelEditorManager.ink_limits["y"]
+	ink_k.get_node("SpinBox").value = LevelEditorManager.ink_limits["k"]
 
-	ink_c.get_node("SpinBox").value = level_data.ink_limits["c"]
-	ink_m.get_node("SpinBox").value = level_data.ink_limits["m"]
-	ink_y.get_node("SpinBox").value = level_data.ink_limits["y"]
-	ink_k.get_node("SpinBox").value = level_data.ink_limits["k"]
-
-	ink_c.get_node("ToggleVisibility").button_pressed = level_data.available_channels.has("c")
-	ink_m.get_node("ToggleVisibility").button_pressed = level_data.available_channels.has("m")
-	ink_y.get_node("ToggleVisibility").button_pressed = level_data.available_channels.has("y")
-	ink_k.get_node("ToggleVisibility").button_pressed = level_data.available_channels.has("k")
+	ink_c.get_node("ToggleVisibility").button_pressed = LevelEditorManager.available_channels.has("c")
+	ink_m.get_node("ToggleVisibility").button_pressed = LevelEditorManager.available_channels.has("m")
+	ink_y.get_node("ToggleVisibility").button_pressed = LevelEditorManager.available_channels.has("y")
+	ink_k.get_node("ToggleVisibility").button_pressed = LevelEditorManager.available_channels.has("k")
 
 
 func save_level_metadata(level_num: int) -> void :
 	var new_level = LevelData.new()
-	new_level.grid_size = current_grid_size
+	new_level.grid_size = LevelEditorManager.grid_size
 	
 	# set ink limits
 	new_level.ink_limits = {
@@ -153,20 +144,6 @@ func _on_back_button_down() -> void:
 	var level_editor: Control = _get_parent()
 	level_editor.put_panel_on_top(self)
 
-
-func _on_dimensions_changed(_new_value: float) -> void:
-	# change the grid size
-	current_grid_size = Vector2i(int(grid_width_input_box.value), int(grid_height_input_box.value))
-
-	var parent_name: String = "LevelEditor"
-	var level_editor: Control = get_parent()
-
-	assert(
-		level_editor.name == parent_name,
-		"ERROR: LEVEL EDITOR MENU MUST BE THE CHILD OF LEVEL EDITOR (Expected Parent Name: %s | Current Parent Name: %s)" % [parent_name, level_editor.name]
-	)
-
-	level_editor.redraw_grid_canvas(current_grid_size)
 
 
 func _on_level_num_change() -> void :

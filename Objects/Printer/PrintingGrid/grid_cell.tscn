@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://c0qbx4cwk8aue" path="res://Assets/game/Cell/cell_inside.png" id="2_uk413"]
 [ext_resource type="Texture2D" uid="uid://dl632r222fwgt" path="res://Assets/game/Cell/flag.png" id="4_ndp01"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndp01"]
+size = Vector2(120, 120)
+
 [node name="GridCell" type="Node2D" unique_id=1659444708 node_paths=PackedStringArray("highlight_sprite")]
 texture_filter = 1
 script = ExtResource("1_ndp01")
@@ -27,3 +30,11 @@ visible = false
 [node name="Main" type="Sprite2D" parent="LockIndicator" unique_id=1262207505]
 position = Vector2(10.5, 10.5)
 texture = ExtResource("4_ndp01")
+
+[node name="MouseDetector" type="Area2D" parent="." unique_id=436357682]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDetector" unique_id=1060550212]
+shape = SubResource("RectangleShape2D_ndp01")
+
+[connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
+[connection signal="mouse_exited" from="MouseDetector" to="." method="_on_mouse_detector_mouse_exited"]

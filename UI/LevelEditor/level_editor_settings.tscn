@@ -109,6 +109,7 @@ alignment = 2
 max_length = 20
 
 [node name="GridSetting" type="HBoxContainer" parent="Menu/GridSection" unique_id=320174319]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 149
 

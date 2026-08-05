@@ -6,6 +6,6 @@
 script = ExtResource("1_3hx8e")
 grid_size = Vector2i(3, 3)
 available_channels = Array[String](["c", "m"])
-level_name = "Donut"
+level_name = "Bagel"
 target_colors = Array[String](["010", "010", "010", "010", "000", "010", "010", "010", "010"])
 amount_of_ink_used_cmyk = Array[int]([0, 4, 0, 0])

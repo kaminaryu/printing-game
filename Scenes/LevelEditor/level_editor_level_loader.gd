@@ -25,3 +25,7 @@ func _on_left_button_up() -> void:
 func _on_right_button_up() -> void:
 	page += 1
 	_change_level_cards()
+
+
+func _on_back_button_up() -> void:
+	get_tree().change_scene_to_file("res://Scenes/LevelEditor/level_editor_mode_chooser.tscn")

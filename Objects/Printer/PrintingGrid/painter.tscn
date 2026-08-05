@@ -21,10 +21,10 @@ scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_yx653")
 
 [node name="Button" type="Button" parent="." unique_id=215788171]
-offset_left = -8.0
-offset_top = -12.0
-offset_right = 8.0
-offset_bottom = 12.0
+offset_left = -19.0
+offset_top = -30.0
+offset_right = 19.0
+offset_bottom = 30.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tdnlv")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_yx653")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_sp5co")

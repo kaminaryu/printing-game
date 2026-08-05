@@ -18,7 +18,7 @@ var selected_level: int
 
 
 func _ready() -> void :
-	selected_level = _get_parent().level_num
+	selected_level = 1#_get_parent().level_num
 	update_level_label()
 	preview_grid.generate_preview(selected_level)
 
@@ -89,7 +89,7 @@ func _display_preview() -> void :
 
 func _load_level_data_to_editor() -> void :
 	var level_editor: Control = _get_parent()
-	level_editor.load_level_data(selected_level)
+	level_editor.load_canvas_from_level_data()
 
 
 

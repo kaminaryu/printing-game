@@ -11,48 +11,64 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 0
 script = ExtResource("1_85mop")
-level_cards_list = NodePath("HBoxContainer2/LevelCards")
+level_cards_list = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/LevelCards")
 metadata/_edit_group_ = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=630293474]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1125716273]
+layout_mode = 2
+theme_override_constants/margin_top = 210
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=937405171]
+layout_mode = 2
+theme_override_constants/separation = 95
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=630293474]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 70
 
-[node name="Left" type="Button" parent="HBoxContainer2" unique_id=2079906895]
+[node name="Left" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=2079906895]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 67
 text = "<"
 
-[node name="LevelCards" type="HBoxContainer" parent="HBoxContainer2" unique_id=817943219]
+[node name="LevelCards" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=817943219]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="LevelEditorLevelLoaderCard" parent="HBoxContainer2/LevelCards" unique_id=54281055 instance=ExtResource("2_kpr5e")]
+[node name="LevelEditorLevelLoaderCard" parent="MarginContainer/VBoxContainer/HBoxContainer2/LevelCards" unique_id=54281055 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
-[node name="LevelEditorLevelLoaderCard2" parent="HBoxContainer2/LevelCards" unique_id=1747560519 instance=ExtResource("2_kpr5e")]
+[node name="LevelEditorLevelLoaderCard2" parent="MarginContainer/VBoxContainer/HBoxContainer2/LevelCards" unique_id=1747560519 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
-[node name="LevelEditorLevelLoaderCard3" parent="HBoxContainer2/LevelCards" unique_id=1590473264 instance=ExtResource("2_kpr5e")]
+[node name="LevelEditorLevelLoaderCard3" parent="MarginContainer/VBoxContainer/HBoxContainer2/LevelCards" unique_id=1590473264 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
-[node name="LevelEditorLevelLoaderCard4" parent="HBoxContainer2/LevelCards" unique_id=1029002564 instance=ExtResource("2_kpr5e")]
+[node name="LevelEditorLevelLoaderCard4" parent="MarginContainer/VBoxContainer/HBoxContainer2/LevelCards" unique_id=1029002564 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
-[node name="LevelEditorLevelLoaderCard5" parent="HBoxContainer2/LevelCards" unique_id=1495287830 instance=ExtResource("2_kpr5e")]
+[node name="LevelEditorLevelLoaderCard5" parent="MarginContainer/VBoxContainer/HBoxContainer2/LevelCards" unique_id=1495287830 instance=ExtResource("2_kpr5e")]
 layout_mode = 2
 
-[node name="Right" type="Button" parent="HBoxContainer2" unique_id=91459163]
+[node name="Right" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=91459163]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 67
 text = ">"
 
-[connection signal="button_up" from="HBoxContainer2/Left" to="." method="_on_left_button_up"]
-[connection signal="button_up" from="HBoxContainer2/Right" to="." method="_on_right_button_up"]
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer" unique_id=500640093]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 28
+text = "Back"
+
+[connection signal="button_up" from="MarginContainer/VBoxContainer/HBoxContainer2/Left" to="." method="_on_left_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/HBoxContainer2/Right" to="." method="_on_right_button_up"]
+[connection signal="button_up" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_button_up"]

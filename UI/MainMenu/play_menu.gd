@@ -53,7 +53,7 @@ func _on_level_editor_button_down() -> void:
 	parent.game_start.play()
 	await parent.animationPlayer.animation_finished
 
-	get_tree().change_scene_to_file("res://Scenes/LevelEditor/level_editor.tscn")
+	get_tree().change_scene_to_file("res://Scenes/LevelEditor/level_editor_mode_chooser.tscn")
 
 
 func _on_new_game_button_down() -> void:

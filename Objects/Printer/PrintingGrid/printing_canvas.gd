@@ -35,6 +35,7 @@ func _ready() -> void :
 
 
 func _init_grid() -> void :
+	# better version of this code at paper_editor.gd
 	var max_axis_count: float = max(grid_size.x, grid_size.y)
 	var available_space: float = MAX_GRID_BOUNDS - ((max_axis_count - 1.0) * CELL_GAP)
 	
@@ -188,9 +189,7 @@ func _paint_column(col: int, channel: String) -> bool :
 
 		var delay: float = row * speed_modifier
 		tween.tween_interval(delay).finished.connect(func():
-			var changed_color: bool = cell.apply_ink(channel)
-			if (changed_color):
-				_update_cell_color(cell)
+			cell.apply_ink(channel)
 		)
 
 	var locked: bool = (lock_cell_count == grid_size.y)
@@ -231,9 +230,7 @@ func _paint_row(row: int, channel: String) -> bool :
 		var delay: float = col * speed_modifier
 		
 		tween.tween_interval(delay).finished.connect(func():
-			var changed_color: bool = cell.apply_ink(channel)
-			if (changed_color):
-				_update_cell_color(cell)
+			cell.apply_ink(channel)
 		)
 
 	var locked: bool = (lock_cell_count == grid_size.x)
@@ -249,22 +246,12 @@ func _paint_row(row: int, channel: String) -> bool :
 
 func _paint_individual_cell(cell: Node, target_color: String) -> void :
 	cell.set_color_key(target_color)
-	_update_cell_color(cell)
 
 func _lock_individual_cell(cell: GridCell, lock_state: bool) -> void :
 	cell.toggle_ink_lock(lock_state)
-	
 
 
-func _update_cell_color(cell: Node) -> void :
-	var key: String = cell.color_key()
-	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#676767")
-	var target_color: Color = Color.from_string(hex, Color.PURPLE)
-	
-	var color_tween: Tween = create_tween()
-	color_tween.set_trans(Tween.TRANS_LINEAR)
-	color_tween.set_ease(Tween.EASE_IN)
-	color_tween.tween_property(cell.get_node("GridTexture"), "modulate", target_color, 0.1)
+# NOTE: bruh why doesnt GridCell handles ts
 
 
 ###########
@@ -290,7 +277,6 @@ func reset_grid_visuals() -> void:
 		for row in range(grid_size.y):
 			var cell: Node = canvas_grid[col][row]
 			cell.reset()
-			_update_cell_color(cell)
 
 
 func paint_canvas(color_keys: Array[Array]) -> void :
@@ -376,8 +362,6 @@ func _on_state_restored(snapshot: Dictionary) -> void:
 					cell.toggle_ink_lock()
 			else:
 				cell.set_color_key(cell_data) 
-				
-			_update_cell_color(cell) 
 			
 	var level_manager = get_parent()
 	if level_manager and "remaining_ink" in level_manager:

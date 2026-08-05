@@ -41,10 +41,9 @@ class LevelSnapshot :
 
 
 # -- methods -- 
-func init_level_history(level_data: LevelData) -> void :
-	var color_keys: Array[Array] = level_data.get_target_grid_2d()
+func init_level_history(color_keys: Array[Array], amount_of_ink_used_cmyk: Array[int]) -> void :
 	clean_history()
-	save_level_snapshot(color_keys, Actions.INIT, level_data.amount_of_ink_used_cmyk)
+	save_level_snapshot(color_keys, Actions.INIT, amount_of_ink_used_cmyk)
 
 
 func save_level_snapshot(canvas_grid: Array[Array], action: Actions, data=null) -> void :

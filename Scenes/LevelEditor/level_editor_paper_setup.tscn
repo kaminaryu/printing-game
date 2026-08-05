@@ -1,8 +1,203 @@
 [gd_scene format=3 uid="uid://eem0egqwfp7e"]
 
-[node name="LevelEditorPaperSetup" type="PanelContainer" unique_id=259686368]
+[ext_resource type="PackedScene" uid="uid://r2o0b1wrbfjy" path="res://UI/LevelEditor/paper_editor.tscn" id="1_bxld4"]
+[ext_resource type="Script" uid="uid://cwuri2do7ggpv" path="res://Scenes/LevelEditor/level_editor_paper_setup.gd" id="1_ycu63"]
+[ext_resource type="Theme" uid="uid://c74pal6uj7ogy" path="res://Assets/Themes/level_editor_controller.tres" id="2_ycu63"]
+[ext_resource type="Texture2D" uid="uid://b2bml4lnvmfyt" path="res://Assets/menu/LevelEditor/Undo.svg" id="3_eyko8"]
+[ext_resource type="Texture2D" uid="uid://c84rwrf058f5i" path="res://Assets/menu/LevelEditor/Trash.svg" id="4_ir2u5"]
+[ext_resource type="Texture2D" uid="uid://c7t7hgvxmyvjp" path="res://Assets/Cyan_Button.png" id="6_36ao0"]
+[ext_resource type="Texture2D" uid="uid://dbsoa2lx04yjb" path="res://Assets/Magenta_Button.png" id="7_v8yh4"]
+[ext_resource type="Texture2D" uid="uid://c70pva0x3x44h" path="res://Assets/Yellow_Button.png" id="8_bl0eb"]
+[ext_resource type="Texture2D" uid="uid://dmv1wnq5j1dge" path="res://Assets/Key_Button.png" id="9_rpaah"]
+[ext_resource type="Script" uid="uid://c5wqouv11ks52" path="res://Scenes/ink_palette.gd" id="10_th4h3"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_k6jky"]
+
+[node name="LevelEditorPaperSetup" type="Control" unique_id=790831208 node_paths=PackedStringArray("paper_editor")]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_ycu63")
+paper_editor = NodePath("MainScreen/Paper/Control/PaperEditor")
+
+[node name="MainScreen" type="HBoxContainer" parent="." unique_id=1805990808]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Paper" type="CenterContainer" parent="MainScreen" unique_id=1880714509]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="MainScreen/Paper" unique_id=367338944]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="PaperEditor" parent="MainScreen/Paper/Control" unique_id=1059241239 instance=ExtResource("1_bxld4")]
+
+[node name="Controller" type="PanelContainer" parent="MainScreen" unique_id=773717691]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_ycu63")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainScreen/Controller" unique_id=1930623917]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="Editor" type="VBoxContainer" parent="MainScreen/Controller/MarginContainer" unique_id=1097113588]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ControlButtons" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=823869675]
+layout_mode = 2
+
+[node name="UndoDelete" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor/ControlButtons" unique_id=195566034]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 24
+
+[node name="Undo" type="TextureButton" parent="MainScreen/Controller/MarginContainer/Editor/ControlButtons/UndoDelete" unique_id=49623363]
+layout_mode = 2
+tooltip_text = "Undo last move"
+texture_normal = ExtResource("3_eyko8")
+
+[node name="Delete" type="TextureButton" parent="MainScreen/Controller/MarginContainer/Editor/ControlButtons/UndoDelete" unique_id=1783579065]
+layout_mode = 2
+tooltip_text = "Clear all ink on grid"
+texture_normal = ExtResource("4_ir2u5")
+
+[node name="Apply" type="Button" parent="MainScreen/Controller/MarginContainer/Editor/ControlButtons" unique_id=1398045208]
+layout_mode = 2
+text = "Apply"
+
+[node name="PaperColor" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=1192492772]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainScreen/Controller/MarginContainer/Editor/PaperColor" unique_id=313400425]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Paper Color: "
+
+[node name="PaperColorOption" type="OptionButton" parent="MainScreen/Controller/MarginContainer/Editor/PaperColor" unique_id=1274703588]
+custom_minimum_size = Vector2(225, 0)
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "White"
+popup/item_0/id = 0
+popup/item_1/text = "Cyan"
+popup/item_1/id = 1
+popup/item_2/text = "Magenta"
+popup/item_2/id = 2
+popup/item_3/text = "Yellow"
+popup/item_3/id = 3
+
+[node name="GridSetting" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=1266727841]
+layout_mode = 2
+theme_override_constants/separation = 149
+
+[node name="Width" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor/GridSetting" unique_id=216366619]
+layout_mode = 2
+
+[node name="GridWidth" type="Label" parent="MainScreen/Controller/MarginContainer/Editor/GridSetting/Width" unique_id=1080399450]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 24
+text = "W: "
+
+[node name="WidthInput" type="SpinBox" parent="MainScreen/Controller/MarginContainer/Editor/GridSetting/Width" unique_id=1841229569]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+min_value = 1.0
+max_value = 67.0
+value = 5.0
+alignment = 2
+
+[node name="Height" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor/GridSetting" unique_id=156498079]
+layout_mode = 2
+
+[node name="GridHeight" type="Label" parent="MainScreen/Controller/MarginContainer/Editor/GridSetting/Height" unique_id=1836162128]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_font_sizes/font_size = 24
+text = "H:"
+horizontal_alignment = 2
+
+[node name="HeightInput" type="SpinBox" parent="MainScreen/Controller/MarginContainer/Editor/GridSetting/Height" unique_id=1093538094]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+min_value = 1.0
+max_value = 67.0
+value = 5.0
+alignment = 2
+
+[node name="Label" type="Label" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=2040178306]
+layout_mode = 2
+text = "History:"
+
+[node name="HistoryScrollableContainer" type="ScrollContainer" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=970760080]
+custom_minimum_size = Vector2(0, 21.46)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainScreen/Controller/MarginContainer/Editor/HistoryScrollableContainer" unique_id=542961300]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="History" type="VBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor/HistoryScrollableContainer/MarginContainer" unique_id=1276665710]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Palette" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=1173104782]
+layout_mode = 2
+script = ExtResource("10_th4h3")
+
+[node name="Cyan" type="TextureButton" parent="MainScreen/Controller/MarginContainer/Editor/Palette" unique_id=1757271986]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+toggle_mode = true
+button_group = SubResource("ButtonGroup_k6jky")
+texture_normal = ExtResource("6_36ao0")
+
+[node name="Magenta" type="TextureButton" parent="MainScreen/Controller/MarginContainer/Editor/Palette" unique_id=1489382696]
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+button_group = SubResource("ButtonGroup_k6jky")
+texture_normal = ExtResource("7_v8yh4")
+
+[node name="Yellow" type="TextureButton" parent="MainScreen/Controller/MarginContainer/Editor/Palette" unique_id=1232937746]
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+button_group = SubResource("ButtonGroup_k6jky")
+texture_normal = ExtResource("8_bl0eb")
+
+[node name="Key" type="TextureButton" parent="MainScreen/Controller/MarginContainer/Editor/Palette" unique_id=937972275]
+layout_mode = 2
+size_flags_horizontal = 6
+toggle_mode = true
+button_group = SubResource("ButtonGroup_k6jky")
+texture_normal = ExtResource("9_rpaah")
+
+[connection signal="button_up" from="MainScreen/Controller/MarginContainer/Editor/ControlButtons/Apply" to="." method="_on_apply_button_up"]
+[connection signal="item_selected" from="MainScreen/Controller/MarginContainer/Editor/PaperColor/PaperColorOption" to="." method="_on_paper_color_option_item_selected"]
+[connection signal="value_changed" from="MainScreen/Controller/MarginContainer/Editor/GridSetting/Width/WidthInput" to="." method="_on_width_input_value_changed"]
+[connection signal="value_changed" from="MainScreen/Controller/MarginContainer/Editor/GridSetting/Height/HeightInput" to="." method="_on_height_input_value_changed"]
