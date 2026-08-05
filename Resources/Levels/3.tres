@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://cbf44hx7ash80"]
+[gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_52oml"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_52oml"]
 
 [resource]
 script = ExtResource("1_52oml")
@@ -8,3 +8,4 @@ grid_size = Vector2i(3, 3)
 available_channels = Array[String](["c", "m"])
 level_name = "Sandwich"
 target_colors = Array[String](["100", "100", "100", "010", "010", "010", "100", "100", "100"])
+amount_of_ink_used_cmyk = Array[int]([2, 1, 0, 0])

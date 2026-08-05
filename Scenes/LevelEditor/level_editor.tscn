@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dq6dpa25dmlnx"]
 
 [ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_canvas.tscn" id="1_5o76e"]
-[ext_resource type="Script" uid="uid://dign2o7rfnbnm" path="res://Scenes/level_editor.gd" id="1_s1b0e"]
+[ext_resource type="Script" uid="uid://dign2o7rfnbnm" path="res://Scenes/LevelEditor/level_editor.gd" id="1_s1b0e"]
 [ext_resource type="Shader" uid="uid://djicmiur3evb6" path="res://Assets/Shaders/blur.gdshader" id="2_g51jt"]
 [ext_resource type="Script" uid="uid://c5wqouv11ks52" path="res://Scenes/ink_palette.gd" id="2_xi6ke"]
 [ext_resource type="Texture2D" uid="uid://c7t7hgvxmyvjp" path="res://Assets/Cyan_Button.png" id="3_i8l5y"]

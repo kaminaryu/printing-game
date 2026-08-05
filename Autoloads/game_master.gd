@@ -110,3 +110,24 @@ func init_level_count() -> void:
 		print("Failed to open directory path")
 		
 	level_count =  file_count
+
+
+func fetch_level_data(level_num: int) -> LevelData :
+	var path: String = "%s%d.tres" % [LEVELS_DIR, level_num]
+	
+	if ResourceLoader.exists(path):
+		var level_data = load(path) as LevelData
+
+		if level_data :
+			return level_data
+
+	# if level doesnt exist, open up the blank canvas
+	path = "res://Resources/blank_canvas.tres"
+	
+	if ResourceLoader.exists(path) :
+		var level_data = load(path) as LevelData
+
+		if level_data :
+			return level_data
+
+	return null

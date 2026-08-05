@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://besx8d47vfjru"]
+[gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_3hx8e"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_3hx8e"]
 
 [resource]
 script = ExtResource("1_3hx8e")
@@ -8,3 +8,4 @@ grid_size = Vector2i(3, 3)
 available_channels = Array[String](["c", "m"])
 level_name = "Donut"
 target_colors = Array[String](["010", "010", "010", "010", "000", "010", "010", "010", "010"])
+amount_of_ink_used_cmyk = Array[int]([0, 4, 0, 0])

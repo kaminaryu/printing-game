@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://boapomrwdh8fy"]
+
+[ext_resource type="PackedScene" uid="uid://bpdm0xgyvm23y" path="res://UI/LevelEditor/level_editor_level_selector_card.tscn" id="1_k7e8h"]
+[ext_resource type="Script" uid="uid://ovlib18oshlr" path="res://Scenes/LevelEditor/level_editor_level_selector.gd" id="1_yh7vx"]
+
+[node name="LevelEditorLevelSelector" type="PanelContainer" unique_id=258944018 node_paths=PackedStringArray("level_cards_list")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("1_yh7vx")
+level_cards_list = NodePath("HBoxContainer2/LevelCards")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="." unique_id=630293474]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 70
+
+[node name="Left" type="Button" parent="HBoxContainer2" unique_id=2079906895]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 67
+text = "<"
+
+[node name="LevelCards" type="HBoxContainer" parent="HBoxContainer2" unique_id=817943219]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="LevelEditorLevelSelectorCard" parent="HBoxContainer2/LevelCards" unique_id=54281055 instance=ExtResource("1_k7e8h")]
+layout_mode = 2
+
+[node name="LevelEditorLevelSelectorCard2" parent="HBoxContainer2/LevelCards" unique_id=1139967616 instance=ExtResource("1_k7e8h")]
+layout_mode = 2
+
+[node name="LevelEditorLevelSelectorCard3" parent="HBoxContainer2/LevelCards" unique_id=11256844 instance=ExtResource("1_k7e8h")]
+layout_mode = 2
+
+[node name="LevelEditorLevelSelectorCard4" parent="HBoxContainer2/LevelCards" unique_id=706589767 instance=ExtResource("1_k7e8h")]
+layout_mode = 2
+
+[node name="LevelEditorLevelSelectorCard5" parent="HBoxContainer2/LevelCards" unique_id=1082602480 instance=ExtResource("1_k7e8h")]
+layout_mode = 2
+
+[node name="Right" type="Button" parent="HBoxContainer2" unique_id=91459163]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 67
+text = ">"
+
+[connection signal="button_up" from="HBoxContainer2/Left" to="." method="_on_left_button_up"]
+[connection signal="button_up" from="HBoxContainer2/Right" to="." method="_on_right_button_up"]

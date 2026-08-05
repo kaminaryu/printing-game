@@ -5,20 +5,10 @@ extends Control
 @export var cell_gap: float = 3.0
 
 func generate_preview(level_num: int) -> void :
-	var path: String = "res://Resources/Levels/%d.tres" % level_num
-	
-	if ResourceLoader.exists(path):
-		var level_data = load(path) as LevelData
-		_draw_grid(level_data)
-		return
+	var level_data: LevelData = GameMaster.fetch_level_data(level_num)
 
-	# if level doesnt exist, open up the blank canvas
-	path = "res://Resources/blank_canvas.tres"
-	
-	if ResourceLoader.exists(path) :
-		var level_data = load(path) as LevelData
+	if level_data :
 		_draw_grid(level_data)
-
 
 
 func _draw_grid(level_data: LevelData) -> void:

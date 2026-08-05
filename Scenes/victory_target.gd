@@ -9,10 +9,9 @@ extends Control
 
 
 func generate_preview(level_num: int) -> void :
-	var path: String = "res://Resources/Levels/%d.tres" % level_num
-	
-	if ResourceLoader.exists(path):
-		var level_data = load(path) as LevelData
+	var level_data: LevelData = GameMaster.fetch_level_data(level_num)
+
+	if level_data :
 		_draw_grid(level_data)
 
 

@@ -24,33 +24,15 @@ func _ready() -> void :
 # Actions #
 ###########
 func load_level_data(level_num: int) -> void :
-	var path: String = "res://Resources/Levels/%d.tres" % level_num
-	
-	if ResourceLoader.exists(path):
-		var level_data = load(path) as LevelData
+	var level_data: LevelData = GameMaster.fetch_level_data(level_num)
 
-		if level_data :
-			SaveStatesManager.reset()
-			LevelHistoryManager.init_level_history(level_data)
+	if level_data :
+		SaveStatesManager.reset()
+		LevelHistoryManager.init_level_history(level_data)
 
-			_set_level_metadata_to_editor(level_data) # MUST set metadata first or else resize_grid signal will be emitted
-			_load_ink_counter(level_data)
-			_draw_level_to_canvas(level_data)
-			return
-
-	# if level doesnt exist, open up the blank canvas
-	path = "res://Resources/blank_canvas.tres"
-	
-	if ResourceLoader.exists(path) :
-		var level_data = load(path) as LevelData
-
-		if level_data :
-			SaveStatesManager.reset()
-			LevelHistoryManager.init_level_history(level_data)
-
-			_set_level_metadata_to_editor(level_data)
-			_load_ink_counter(level_data)
-			_draw_level_to_canvas(level_data)
+		_set_level_metadata_to_editor(level_data) # MUST set metadata first or else resize_grid signal will be emitted
+		_load_ink_counter(level_data)
+		_draw_level_to_canvas(level_data)
 
 
 func _draw_level_to_canvas(level_data: LevelData) -> void :

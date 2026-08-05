@@ -69,20 +69,18 @@ func _load_level(level_data: LevelData) -> void:
 
 
 func _load_level_by_number(level_num: int) -> bool:
-	var path: String = "res://Resources/Levels/%d.tres" % level_num
-	
-	if ResourceLoader.exists(path):
-		var level_data = load(path) as LevelData
-		if level_data:
-			SaveStatesManager.reset() 
-			ink_cartridges.update_visible_channels(level_data)
+	var level_data: LevelData = GameMaster.fetch_level_data(level_num)
 
-			preview_grid.generate_preview(level_num)
-			victory_grid.generate_preview(level_num)
-			_load_level(level_data)
-			
-			is_transitioning = false
-			return true
+	if level_data :
+		SaveStatesManager.reset() 
+		ink_cartridges.update_visible_channels(level_data)
+
+		preview_grid.generate_preview(level_num)
+		victory_grid.generate_preview(level_num)
+		_load_level(level_data)
+
+		is_transitioning = false
+		return true
 	return false
 
 
