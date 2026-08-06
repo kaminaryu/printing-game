@@ -48,21 +48,24 @@ func set_initial_grid(p_color_keys: Array[String], p_lock_states: Array[bool]) -
 
 
 func get_initial_color_key_by_coords(x: int, y: int) -> String :
-	var color_key_cmyk: Variant = initial_grid.get(x * grid_size.x + y)
+	var index: int = x * grid_size.x + y
+	var color_key_cmyk: String
 
-	if (color_key_cmyk == null) :
+	if (index >= initial_grid.size()) :
 		color_key_cmyk = "0000"
+	else :
+		color_key_cmyk = initial_grid[index]
 
 	return color_key_cmyk.substr(0, 3)
 
 
 func get_initial_lock_states_by_coords(x: int, y: int) -> bool :
-	var lock_state: Variant = initial_grid.get(x * grid_size.x + y)
+	var index: int = x * grid_size.x + y
 
-	if (lock_state == null) :
+	if (index >= initial_grid.size()) :
 		return false
 
-	return true if lock_state[-1] == "1" else false
+	return true if initial_grid[index] == "1" else false
 
 
 # return the end result in a 2D Array of x by y
