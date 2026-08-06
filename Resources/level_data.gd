@@ -7,6 +7,7 @@ class_name LevelData
 @export var available_channels: Array[String] = ColorManager.CHANNELS.duplicate()
 @export var level_name: String = "Lorem Ipsum"
 @export var paper_color: String = "#FFF"
+@export var initial_grid: Array[String]
 
 @export_subgroup("Solution Layout")
 @export var target_colors: Array[String] = []
@@ -37,6 +38,31 @@ func set_available_channels(cyan: bool, magenta: bool, yellow: bool, key: bool) 
 		selected_channels.append("k")
 
 	available_channels = selected_channels
+
+
+func set_initial_grid(p_color_keys: Array[String], p_lock_states: Array[bool]) -> void :
+	initial_grid = []
+
+	for i in range(p_color_keys.size()) :
+		initial_grid.append("%s%s" % [p_color_keys[i], "1" if p_lock_states[i] else "0"])
+
+
+func get_initial_color_key_by_coords(x: int, y: int) -> String :
+	var color_key_cmyk: Variant = initial_grid.get(x * grid_size.x + y)
+
+	if (color_key_cmyk == null) :
+		color_key_cmyk = "0000"
+
+	return color_key_cmyk.substr(0, 3)
+
+
+func get_initial_lock_states_by_coords(x: int, y: int) -> bool :
+	var lock_state: Variant = initial_grid.get(x * grid_size.x + y)
+
+	if (lock_state == null) :
+		return false
+
+	return true if lock_state[-1] == "1" else false
 
 
 # return the end result in a 2D Array of x by y

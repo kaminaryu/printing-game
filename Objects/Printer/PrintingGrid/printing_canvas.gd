@@ -249,6 +249,7 @@ func _paint_row(row: int, channel: String) -> bool :
 func _paint_individual_cell(cell: Node, target_color: String) -> void :
 	cell.set_color_key(target_color)
 
+
 func _lock_individual_cell(cell: GridCell, lock_state: bool) -> void :
 	cell.toggle_ink_lock(lock_state)
 
@@ -263,7 +264,7 @@ func _clear_highlight() -> void:
 			cell.highlight(false)
 
 
-func reset_grid_visuals() -> void:
+func reset_grid_visuals(level_data: LevelData) -> void:
 	if is_editor_mode:
 		assert(level_editor, "CONNECT LEVEL EDITOR TO PRINTING CANVAS IN THE LEVEL EDITOR SCENE")
 		LevelHistoryManager.save_level_snapshot(
@@ -274,8 +275,9 @@ func reset_grid_visuals() -> void:
 
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
-			var cell: Node = canvas_grid[col][row]
-			cell.reset()
+			var cell: GridCell = canvas_grid[col][row]
+			cell.set_color_key(level_data.get_initial_color_key_by_coords(col, row))
+			cell.toggle_ink_lock(level_data.get_initial_lock_states_by_coords(col, row))
 
 
 func paint_canvas(color_keys: Array[Array]) -> void :

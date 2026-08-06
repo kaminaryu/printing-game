@@ -89,11 +89,11 @@ func load_level_metadata(level_name: String, ink_limits: Dictionary, available_c
 
 
 func save_level_metadata(level_num: int) -> void :
-	var new_level = LevelData.new()
-	new_level.grid_size = GRID_SIZE
+	var level_data: LevelData = _get_parent().level_data
+	level_data.grid_size = GRID_SIZE
 	
 	# set ink limits
-	new_level.ink_limits = {
+	level_data.ink_limits = {
 		"c": int(ink_c.get_node("SpinBox").value),
 		"m": int(ink_m.get_node("SpinBox").value),
 		"y": int(ink_y.get_node("SpinBox").value),
@@ -102,7 +102,7 @@ func save_level_metadata(level_num: int) -> void :
 
 	# set avaiable color channel
 	# toggle by checking if the button is pressed (shown)
-	new_level.set_available_channels(
+	level_data.set_available_channels(
 		ink_c.get_node("ToggleVisibility").button_pressed,
 		ink_m.get_node("ToggleVisibility").button_pressed,
 		ink_y.get_node("ToggleVisibility").button_pressed,
@@ -111,19 +111,19 @@ func save_level_metadata(level_num: int) -> void :
 
 	# get the amount of ink used 
 	var level_editor: Control = _get_parent()
-	new_level.amount_of_ink_used_cmyk = level_editor.get_ink_counter()
+	level_data.amount_of_ink_used_cmyk = level_editor.get_ink_counter()
 
 	# other metadatas
-	new_level.level_name = level_name_input_box.text
+	level_data.level_name = level_name_input_box.text
 	
 	var matrix_2d = printing_canvas.get_grid_color_matrix()
 	
 	# Transform 2D matrix to 1D Array
-	new_level.target_colors = _flatten_grid_to_1d(matrix_2d)
+	level_data.target_colors = _flatten_grid_to_1d(matrix_2d)
 	
 	# Attempt to save the level data
 	var save_path = "res://Resources/Levels/%d.tres" % level_num
-	var response = ResourceSaver.save(new_level, save_path)
+	var response = ResourceSaver.save(level_data, save_path)
 	
 	if response == OK:
 		print("Level successfully created and written to disk at: ", save_path)

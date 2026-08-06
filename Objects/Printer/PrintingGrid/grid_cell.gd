@@ -12,8 +12,10 @@ var c: int = 0
 var m: int = 0
 var y: int = 0
 
-
-# NEW FUNCTION: Decodes the central snapshot string back into live cell integers
+############
+# Coloring #
+############
+# Set colors via key
 func set_color_key(new_key: String) -> void:
 	if new_key.length() == 3:
 		c = int(new_key[0])
@@ -38,24 +40,16 @@ func apply_ink(channel: String) -> void :
 	_check_for_valid_color()
 	_update_color()
 
-func color_key() -> String :
-	return "%d%d%d" % [c, m, y]
 
-
-func _same_color_safeguard(channel: String) -> bool :
-	match channel :
-		"c": return color_key() != "100"
-		"m": return color_key() != "010"
-		"y": return color_key() != "001"
-	return true
-
-
-func _check_for_valid_color() -> void :
-	if (ColorManager.COLOR_GLOSSARY.has(color_key())) :
-		return
-
-	# set to black
-	c=1; m=1; y=1
+func _update_color() -> void :
+	var key: String = color_key()
+	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#676767")
+	var target_color: Color = Color.from_string(hex, Color.PURPLE)
+	
+	var color_tween: Tween = create_tween()
+	color_tween.set_trans(Tween.TRANS_LINEAR)
+	color_tween.set_ease(Tween.EASE_IN)
+	color_tween.tween_property(get_node("GridTexture"), "modulate", target_color, 0.1)
 
 
 func toggle_ink_lock(toggle = null) -> void :
@@ -67,20 +61,48 @@ func toggle_ink_lock(toggle = null) -> void :
 	get_node("LockIndicator").visible = ink_locked
 
 
-func is_ink_locked() -> bool :
-	return ink_locked
+##############
+# SafeGuards #
+##############
+# to check if the user is painting the same color (cyan + cyan, etc)
+func _same_color_safeguard(channel: String) -> bool :
+	match channel :
+		"c": return color_key() != "100"
+		"m": return color_key() != "010"
+		"y": return color_key() != "001"
+	return true
 
 
-func reset() -> void :
-	c = 0; m = 0; y = 0
-	toggle_ink_lock(false)
-	_update_color()
+# check if the cell is a have a valed color in the dictionary
+func _check_for_valid_color() -> void :
+	if (ColorManager.COLOR_GLOSSARY.has(color_key())) :
+		return
+
+	# set to black
+	c=1; m=1; y=1
 
 
+###########
+# Visuals #
+###########
 func highlight(on: bool) -> void : 
 	highlight_sprite.visible = on
 
 
+###########
+# Getters #
+###########
+func color_key() -> String :
+	return "%d%d%d" % [c, m, y]
+
+
+func is_ink_locked() -> bool :
+	return ink_locked
+
+
+###########
+# Signals #
+###########
 func _on_mouse_detector_mouse_entered() -> void:
 	if (not is_paper_editor_mode): return
 
@@ -93,14 +115,3 @@ func _on_mouse_detector_mouse_exited() -> void:
 
 	highlight(false)
 	CursorManager.set_cursor()
-
-
-func _update_color() -> void :
-	var key: String = color_key()
-	var hex: String = ColorManager.COLOR_GLOSSARY.get(key, "#676767")
-	var target_color: Color = Color.from_string(hex, Color.PURPLE)
-	
-	var color_tween: Tween = create_tween()
-	color_tween.set_trans(Tween.TRANS_LINEAR)
-	color_tween.set_ease(Tween.EASE_IN)
-	color_tween.tween_property(get_node("GridTexture"), "modulate", target_color, 0.1)

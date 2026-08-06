@@ -154,7 +154,7 @@ func _on_undo_button_up() -> void:
 
 
 func _on_delete_button_up() -> void:
-	printing_canvas.reset_grid_visuals()
+	printing_canvas.reset_grid_visuals(level_data)
 	_set_ink_counter([0, 0, 0, 0])
 
 

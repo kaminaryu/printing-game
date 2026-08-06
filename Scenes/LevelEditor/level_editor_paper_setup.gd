@@ -50,9 +50,12 @@ func _on_apply_button_up() -> void:
 	var level_data: LevelData = LevelData.new()
 	var level_editor: Control = LEVEL_EDITOR_SCENE.instantiate()
 
+	level_data.set_initial_grid(color_keys, lock_states)
+
 	level_data.grid_size     = canvas_grid_size
 	level_data.paper_color   = paper_editor.get_paper_color()
-	level_data.target_colors = color_keys
+
+	level_data.target_colors = color_keys # for init history, basically the base grid
 	level_data.lock_states   = lock_states
 
 	# submit LevelData to level_editor

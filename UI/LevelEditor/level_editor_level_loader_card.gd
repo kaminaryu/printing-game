@@ -37,15 +37,3 @@ func _on_input_detector_button_up() -> void:
 	# submit LevelData to level_editor
 	level_editor.level_data = level_data
 	get_tree().change_scene_to_node(level_editor)
-
-	# set datas
-	# LevelEditorManager.level_name = level_data.level_name
-	# LevelEditorManager.grid_size = level_data.grid_size
-	# LevelEditorManager.color_keys = level_data.get_target_grid_2d()
-	# LevelEditorManager.lock_states = []
-	# LevelEditorManager.level_num = _level_num
-	# LevelEditorManager.amount_of_ink_used_cmyk = level_data.amount_of_ink_used_cmyk
-	# LevelEditorManager.ink_limits = level_data.ink_limits
-	# LevelEditorManager.available_channels = level_data.available_channels
-	#
-	# get_tree().change_scene_to_file("res://Scenes/LevelEditor/level_editor.tscn")

@@ -1,6 +1,6 @@
 extends Node2D
 
-var current_level: LevelData
+var current_level_data: LevelData
 
 @onready var printing_canvas = $PrintingCanvas
 @onready var grid_animator = $GridAnimator
@@ -52,7 +52,7 @@ func _load_level(level_data: LevelData) -> void:
 	timer_running = true
 	main_gui.visible = true
 	paper_guide.visible = true
-	current_level = level_data
+	current_level_data = level_data
 	target_grid_data = level_data.get_target_grid_2d()
 	
 	remaining_ink = level_data.ink_limits.duplicate()
@@ -110,8 +110,8 @@ func check_victory_condition() -> bool:
 	if target_grid_data.is_empty() or printing_canvas.canvas_grid.is_empty():
 		return false
 		
-	for col in range(current_level.grid_size.x):
-		for row in range(current_level.grid_size.y):
+	for col in range(current_level_data.grid_size.x):
+		for row in range(current_level_data.grid_size.y):
 			var cell: Node = printing_canvas.canvas_grid[col][row]
 			if cell.color_key() != target_grid_data[col][row]:
 				return false
@@ -150,8 +150,7 @@ func reset_entire_level() -> void:
 	for channel in remaining_ink.keys():
 		ink_inventory_updated.emit(channel, remaining_ink[channel])
 			
-	if printing_canvas and printing_canvas.has_method("reset_grid_visuals"):
-		printing_canvas.reset_grid_visuals()
+	printing_canvas.reset_grid_visuals(current_level_data)
 
 
 func _on_continue_button_pressed() -> void:
