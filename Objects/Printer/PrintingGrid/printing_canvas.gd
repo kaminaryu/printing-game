@@ -275,7 +275,7 @@ func reset_grid_visuals(level_data: LevelData) -> void:
 
 	for col in range(grid_size.x):
 		for row in range(grid_size.y):
-			var cell: GridCell = canvas_grid[col][row]
+			var cell: GridCell = canvas_grid[row][col]
 			cell.set_color_key(level_data.get_initial_color_key_by_coords(col, row))
 			cell.toggle_ink_lock(level_data.get_initial_lock_states_by_coords(col, row))
 

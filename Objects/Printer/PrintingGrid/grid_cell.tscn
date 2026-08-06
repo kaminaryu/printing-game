@@ -36,5 +36,6 @@ texture = ExtResource("4_ndp01")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseDetector" unique_id=1060550212]
 shape = SubResource("RectangleShape2D_ndp01")
 
+[connection signal="input_event" from="MouseDetector" to="." method="_on_mouse_detector_input_event"]
 [connection signal="mouse_entered" from="MouseDetector" to="." method="_on_mouse_detector_mouse_entered"]
 [connection signal="mouse_exited" from="MouseDetector" to="." method="_on_mouse_detector_mouse_exited"]

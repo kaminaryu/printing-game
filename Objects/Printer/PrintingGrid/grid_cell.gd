@@ -115,3 +115,15 @@ func _on_mouse_detector_mouse_exited() -> void:
 
 	highlight(false)
 	CursorManager.set_cursor()
+
+
+func _on_mouse_detector_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if (event is InputEventMouseButton and event.pressed and is_paper_editor_mode) :
+		if (event.button_index == MOUSE_BUTTON_LEFT) :
+			var selected_ink: String = ColorManager.get_color_channel()
+
+			if (selected_ink == "k") :
+				toggle_ink_lock()
+			else :
+				if (is_ink_locked()) : return
+				apply_ink(selected_ink)

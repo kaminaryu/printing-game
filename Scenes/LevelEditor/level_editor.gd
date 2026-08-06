@@ -42,6 +42,7 @@ func load_canvas() -> void :
 func _init_canvas_inks() -> void :
 	printing_canvas.setup_and_build(level_data.grid_size)
 	printing_canvas.paint_canvas(level_data.get_target_grid_2d())
+	printing_canvas.lock_canvas(level_data.get_lock_states_2d())
 
 
 	

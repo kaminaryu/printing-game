@@ -34,6 +34,15 @@ var selected_color: int = -1:
 		color_changed.emit()
 
 
+
+func get_selected_color_key() -> String :
+	match selected_color :
+		0: return "100"
+		1: return "010"
+		2: return "001"
+		3: return "111"
+		_: return ""
+
 func reset() -> void :
 	selected_color = -1
 

@@ -38,19 +38,20 @@ func _on_apply_button_up() -> void:
 	var lock_states: Array[bool] = []
 
 	# get the grid colors and lock state
-	for col in range(canvas_grid_size.x) :
-		for row in range(canvas_grid_size.y) :
+	for row in range(canvas_grid_size.y) :
+		for col in range(canvas_grid_size.x) :
 			var cell: GridCell = canvas_grid[col][row]
 
 			color_keys.append(cell.color_key())
 			lock_states.append(cell.is_ink_locked())
-
 
 	# create a new LevelData and send it to level editor
 	var level_data: LevelData = LevelData.new()
 	var level_editor: Control = LEVEL_EDITOR_SCENE.instantiate()
 
 	level_data.set_initial_grid(color_keys, lock_states)
+
+	print(canvas_grid_size)
 
 	level_data.grid_size     = canvas_grid_size
 	level_data.paper_color   = paper_editor.get_paper_color()

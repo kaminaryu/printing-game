@@ -90,18 +90,17 @@ func get_target_grid_2d() -> Array[Array]:
 # return 1d array of lock states into 2d
 func get_lock_states_2d() -> Array[Array] :
 	var lock_states_2d: Array[Array]
-
-	for col in (grid_size.x) :
-		var lock_states_2d_column := []
-
-		for row in range(grid_size.y) :
-			var index := col * grid_size.y + row
-
-			if (index < lock_states.size()) :
-				lock_states_2d_column.append(lock_states[index])
-			else :
-				lock_states_2d_column.append(false)
-
-		lock_states_2d.append(lock_states_2d_column)
-
+	
+	for col in range(grid_size.x):
+		lock_states_2d.append([])
+	
+	var index: int = 0
+	for row in range(grid_size.y):
+		for col in range(grid_size.x):
+			if index < lock_states.size():
+				lock_states_2d[col].append(lock_states[index])
+			else:
+				lock_states_2d[col].append(false)
+			index += 1
+			
 	return lock_states_2d

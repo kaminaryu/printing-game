@@ -48,8 +48,8 @@ func _flatten_grid_to_1d(matrix_2d: Array) -> Array[String]:
 	var level_data: LevelData = _get_parent().level_data
 	
 	# Row-first iteration matches LevelData row-first unpacking loop
-	for row in range(level_data.grid_size.x):
-		for col in range(level_data.grid_size.y):
+	for row in range(level_data.grid_size.y):
+		for col in range(level_data.grid_size.x):
 			var cell_color_key: String = matrix_2d[col][row]["color"]
 			
 			if cell_color_key.is_empty():
