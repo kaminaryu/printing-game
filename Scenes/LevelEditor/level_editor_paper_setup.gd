@@ -1,6 +1,6 @@
 extends Control
 
-const LEVEL_EDITOR_SCRIPT = preload("res://Scenes/LevelEditor/level_editor.gd")
+const LEVEL_EDITOR_SCENE = preload("res://Scenes/LevelEditor/level_editor.tscn")
 
 var canvas_grid_size := Vector2i(5, 5)
 
@@ -34,31 +34,26 @@ func _on_paper_color_option_item_selected(index: int) -> void:
 
 func _on_apply_button_up() -> void:
 	var canvas_grid: Array[Array] = paper_editor.canvas_grid
-	var color_keys: Array[Array] = []
-	var lock_states: Array[Array] = []
+	var color_keys: Array[String] = []
+	var lock_states: Array[bool] = []
 
 	# get the grid colors and lock state
 	for col in range(canvas_grid_size.x) :
-		var color_keys_column: Array = []
-		var lock_states_column: Array = []
-
 		for row in range(canvas_grid_size.y) :
 			var cell: GridCell = canvas_grid[col][row]
 
-			color_keys_column.append(cell.color_key())
-			lock_states_column.append(cell.is_ink_locked())
-
-		color_keys.append(color_keys_column)
-		lock_states.append(lock_states_column)
+			color_keys.append(cell.color_key())
+			lock_states.append(cell.is_ink_locked())
 
 
-	LevelEditorManager.level_name = "Lorem Ipsum"
-	LevelEditorManager.grid_size = canvas_grid_size
-	LevelEditorManager.color_keys = color_keys
-	LevelEditorManager.lock_states = lock_states
-	LevelEditorManager.level_num = 0
-	LevelEditorManager.amount_of_ink_used_cmyk = [0, 0, 0, 0]
-	LevelEditorManager.ink_limits = {"c": -1, "m": -1, "y": -1, "k": -1}
-	LevelEditorManager.available_channels = ["c", "m", "y", "k"]
+	# create a new LevelData and send it to level editor
+	var level_data: LevelData = LevelData.new()
+	var level_editor: Control = LEVEL_EDITOR_SCENE.instantiate()
 
-	get_tree().change_scene_to_file("res://Scenes/LevelEditor/level_editor.tscn")
+	level_data.grid_size     = canvas_grid_size
+	level_data.target_colors = color_keys
+	level_data.lock_states   = lock_states
+
+	# submit LevelData to level_editor
+	level_editor.level_data = level_data
+	get_tree().change_scene_to_node(level_editor)

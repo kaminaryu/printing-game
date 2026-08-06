@@ -9,6 +9,7 @@ class_name LevelData
 
 @export_subgroup("Solution Layout")
 @export var target_colors: Array[String] = []
+@export var lock_states: Array[bool] = []
 
 @export_subgroup("Ink Limitations")
 @export var ink_limits: Dictionary = {
@@ -55,3 +56,22 @@ func get_target_grid_2d() -> Array[Array]:
 			
 	return grid_2d
 	
+
+# return 1d array of lock states into 2d
+func get_lock_states_2d() -> Array[Array] :
+	var lock_states_2d: Array[Array]
+
+	for col in (grid_size.x) :
+		var lock_states_2d_column := []
+
+		for row in range(grid_size.y) :
+			var index := col * grid_size.y + row
+
+			if (index < lock_states.size()) :
+				lock_states_2d_column.append(lock_states[index])
+			else :
+				lock_states_2d_column.append(false)
+
+		lock_states_2d.append(lock_states_2d_column)
+
+	return lock_states_2d

@@ -8,6 +8,7 @@ extends Control
 
 const HISTORY_CARD_SCENE: PackedScene = preload("res://UI/LevelEditor/history_card.tscn")
 
+var level_data: LevelData
 
 func _ready() -> void :
 	printing_canvas.ink_used_in_editor.connect(_increase_amount_of_ink_used)
@@ -15,6 +16,8 @@ func _ready() -> void :
 	LevelHistoryManager.history_added.connect(_on_history_added)
 	LevelHistoryManager.history_removed.connect(_on_history_removed)
 	LevelHistoryManager.history_cleaned.connect(_on_history_cleaned)
+
+	assert(level_data != null, "LEVEL DATA IS NOT SET BEFORE ENTERING THE LEVEL EDITOR")
 
 	load_canvas()
 
@@ -24,16 +27,20 @@ func _ready() -> void :
 #########################
 func load_canvas() -> void :
 	SaveStatesManager.reset()
-	LevelHistoryManager.init_level_history(LevelEditorManager.color_keys, LevelEditorManager.amount_of_ink_used_cmyk)
+	LevelHistoryManager.init_level_history(level_data.get_target_grid_2d(), level_data.amount_of_ink_used_cmyk)
 
 	_load_ink_counter()
-	_draw_level_to_canvas()
-	settings.load_level_metadata()
+	_init_canvas_inks()
+	settings.load_level_metadata(
+		level_data.level_name,
+		level_data.ink_limits,
+		level_data.available_channels
+	)
 
 
-func _draw_level_to_canvas() -> void :
-	printing_canvas.setup_and_build(LevelEditorManager.grid_size)
-	printing_canvas.paint_canvas(LevelEditorManager.color_keys)
+func _init_canvas_inks() -> void :
+	printing_canvas.setup_and_build(level_data.grid_size)
+	printing_canvas.paint_canvas(level_data.get_target_grid_2d())
 
 
 
@@ -85,7 +92,7 @@ func _load_ink_counter() -> void :
 		if not (counter is PanelContainer) : continue
 
 		# WARNING: Make sure the Labels are named 'Label' and are in CMYK order
-		counter.get_node("Label").text = str(LevelEditorManager.amount_of_ink_used_cmyk[index])
+		counter.get_node("Label").text = str(level_data.amount_of_ink_used_cmyk[index])
 		index += 1
 
 

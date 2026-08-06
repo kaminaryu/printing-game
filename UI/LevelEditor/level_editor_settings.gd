@@ -6,9 +6,6 @@ extends Control
 
 @export var level_name_input_box: LineEdit
 
-@export var grid_width_input_box: SpinBox
-@export var grid_height_input_box: SpinBox
-
 @export var ink_c: HBoxContainer
 @export var ink_m: HBoxContainer
 @export var ink_y: HBoxContainer
@@ -16,6 +13,8 @@ extends Control
 
 @export var printing_canvas: Node2D
 
+# there no 'final' so imma be using this abomination
+var GRID_SIZE: Vector2i
 
 
 func slide_menu() -> void:
@@ -45,19 +44,14 @@ func _ready() -> void:
 	if "is_editor_mode" in printing_canvas:
 		printing_canvas.is_editor_mode = true
 
-	# Set the grid size fields to the default value
-	# (MUST BE before connecting the signals to avoid zeroing current_grid_size on setting width)
-	grid_width_input_box.value  = LevelEditorManager.grid_size.x
-	grid_height_input_box.value = LevelEditorManager.grid_size.y
-
 
 # Converts 2D grid matrix back into a flat 1D Array[String] for the resource
 func _flatten_grid_to_1d(matrix_2d: Array) -> Array[String]:
 	var flattened: Array[String] = []
 	
 	# Row-first iteration matches LevelData row-first unpacking loop
-	for row in range(LevelEditorManager.grid_size.x):
-		for col in range(LevelEditorManager.grid_size.y):
+	for row in range(GRID_SIZE.x):
+		for col in range(GRID_SIZE.y):
 			var cell_color_key: String = matrix_2d[col][row]["color"]
 			
 			if cell_color_key.is_empty():
@@ -80,23 +74,23 @@ func _get_parent() -> Control :
 	return parent
 
 
-func load_level_metadata() -> void :
-	level_name_input_box.text = LevelEditorManager.level_name
+func load_level_metadata(level_name: String, ink_limits: Dictionary, available_channels: Array[String]) -> void :
+	level_name_input_box.text = level_name
 	
-	ink_c.get_node("SpinBox").value = LevelEditorManager.ink_limits["c"]
-	ink_m.get_node("SpinBox").value = LevelEditorManager.ink_limits["m"]
-	ink_y.get_node("SpinBox").value = LevelEditorManager.ink_limits["y"]
-	ink_k.get_node("SpinBox").value = LevelEditorManager.ink_limits["k"]
+	ink_c.get_node("SpinBox").value = ink_limits["c"]
+	ink_m.get_node("SpinBox").value = ink_limits["m"]
+	ink_y.get_node("SpinBox").value = ink_limits["y"]
+	ink_k.get_node("SpinBox").value = ink_limits["k"]
 
-	ink_c.get_node("ToggleVisibility").button_pressed = LevelEditorManager.available_channels.has("c")
-	ink_m.get_node("ToggleVisibility").button_pressed = LevelEditorManager.available_channels.has("m")
-	ink_y.get_node("ToggleVisibility").button_pressed = LevelEditorManager.available_channels.has("y")
-	ink_k.get_node("ToggleVisibility").button_pressed = LevelEditorManager.available_channels.has("k")
+	ink_c.get_node("ToggleVisibility").button_pressed = available_channels.has("c")
+	ink_m.get_node("ToggleVisibility").button_pressed = available_channels.has("m")
+	ink_y.get_node("ToggleVisibility").button_pressed = available_channels.has("y")
+	ink_k.get_node("ToggleVisibility").button_pressed = available_channels.has("k")
 
 
 func save_level_metadata(level_num: int) -> void :
 	var new_level = LevelData.new()
-	new_level.grid_size = LevelEditorManager.grid_size
+	new_level.grid_size = GRID_SIZE
 	
 	# set ink limits
 	new_level.ink_limits = {
