@@ -40,6 +40,8 @@ func _init_grid() -> void :
 	# better version of this code at paper_editor.gd
 	var max_axis_count: float = max(grid_size.x, grid_size.y)
 	var available_space: float = MAX_GRID_BOUNDS - ((max_axis_count - 1.0) * CELL_GAP)
+
+	var current_level_data: LevelData = GameMaster.fetch_level_data(GameMaster.current_level_num)
 	
 	dynamic_square_size = floor(available_space / max_axis_count)
 	step_size = dynamic_square_size + CELL_GAP
@@ -63,6 +65,8 @@ func _init_grid() -> void :
 				target_scale = Vector2(dynamic_square_size, dynamic_square_size) / original_size
 			
 			cell_node.scale = target_scale
+			cell_node.set_color_key(current_level_data.get_initial_color_key_by_coords(row, col))
+			cell_node.toggle_ink_lock(current_level_data.get_initial_lock_states_by_coords(row, col))
 			add_child(cell_node)
 			columns.append(cell_node)
 
@@ -314,6 +318,7 @@ func lock_canvas(lock_states: Array[Array]) -> void :
 
 func change_paper_color(hex_code: String) -> void :
 	paper_sprite.modulate = Color(hex_code)
+
 
 
 ###########

@@ -59,6 +59,7 @@ func _load_level(level_data: LevelData) -> void:
 	_starting_ink = level_data.ink_limits.duplicate()
 	
 	printing_canvas.setup_and_build(level_data.grid_size)
+	printing_canvas.change_paper_color(level_data.paper_color)
 	
 	level_start.pitch_scale = randf_range(0.9, 1.1)
 	level_start.play()
