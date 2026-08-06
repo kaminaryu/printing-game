@@ -13,9 +13,6 @@ extends Control
 
 @export var printing_canvas: Node2D
 
-# there no 'final' so imma be using this abomination
-var GRID_SIZE: Vector2i
-
 
 func slide_menu() -> void:
 	var slide = create_tween().set_pause_mode(Tween.TWEEN_PAUSE_PROCESS).set_parallel(true);
@@ -48,10 +45,11 @@ func _ready() -> void:
 # Converts 2D grid matrix back into a flat 1D Array[String] for the resource
 func _flatten_grid_to_1d(matrix_2d: Array) -> Array[String]:
 	var flattened: Array[String] = []
+	var level_data: LevelData = _get_parent().level_data
 	
 	# Row-first iteration matches LevelData row-first unpacking loop
-	for row in range(GRID_SIZE.x):
-		for col in range(GRID_SIZE.y):
+	for row in range(level_data.grid_size.x):
+		for col in range(level_data.grid_size.y):
 			var cell_color_key: String = matrix_2d[col][row]["color"]
 			
 			if cell_color_key.is_empty():
@@ -90,8 +88,7 @@ func load_level_metadata(level_name: String, ink_limits: Dictionary, available_c
 
 func save_level_metadata(level_num: int) -> void :
 	var level_data: LevelData = _get_parent().level_data
-	level_data.grid_size = GRID_SIZE
-	
+
 	# set ink limits
 	level_data.ink_limits = {
 		"c": int(ink_c.get_node("SpinBox").value),
