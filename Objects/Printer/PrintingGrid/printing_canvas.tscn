@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="2_whvfb"]
 [ext_resource type="AudioStream" uid="uid://rvn6fgd3pok0" path="res://Assets/Audio/Paint_Roll.wav" id="3_f5pb8"]
 
-[node name="PrintingCanvas" type="Node2D" unique_id=1528432382]
+[node name="PrintingCanvas" type="Node2D" unique_id=1528432382 node_paths=PackedStringArray("paper_sprite")]
 script = ExtResource("1_whvfb")
+paper_sprite = NodePath("Paper")
 
 [node name="Paper" type="Sprite2D" parent="." unique_id=119201437]
 position = Vector2(-20, 0)

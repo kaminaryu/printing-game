@@ -3,8 +3,9 @@
 [ext_resource type="Script" uid="uid://6i10wrx4j4ds" path="res://UI/LevelEditor/paper_editor.gd" id="1_hxd2j"]
 [ext_resource type="Texture2D" uid="uid://tp2s1ajw6avb" path="res://Assets/game/paper.png" id="1_wytps"]
 
-[node name="PaperEditor" type="Node2D" unique_id=1059241239 node_paths=PackedStringArray("grid")]
+[node name="PaperEditor" type="Node2D" unique_id=1059241239 node_paths=PackedStringArray("paper_sprite", "grid")]
 script = ExtResource("1_hxd2j")
+paper_sprite = NodePath("Paper")
 grid = NodePath("Grid")
 
 [node name="Paper" type="Sprite2D" parent="." unique_id=1118722486]

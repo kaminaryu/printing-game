@@ -4,6 +4,7 @@ const GRID_CELL_SCENE: PackedScene = preload("res://Objects/Printer/PrintingGrid
 const MAX_GRID_BOUNDS: float = 350.0
 const CELL_GAP: int = 2
 
+@export var paper_sprite: Sprite2D
 @export var grid: Node2D
 @export var max_canvas_size := Vector2i()
 
@@ -48,7 +49,7 @@ func draw_grid(canvas_grid_size: Vector2i) -> void :
 			
 			cell_node.scale = target_scale
 			cell_node.is_paper_editor_mode = true
-			cell_node.set_color_key(_selected_color_key)
+			cell_node.set_color_key(_selected_color_key) # NOTE: For resizing
 			grid.add_child(cell_node)
 			columns.append(cell_node)
 
@@ -56,6 +57,15 @@ func draw_grid(canvas_grid_size: Vector2i) -> void :
 
 
 func change_paper_color(color_key: String) -> void :
+	# save the selected color_key for resizing to refresh the grid
 	_selected_color_key = color_key
+
+	# repaint the whole grid with this color
 	for cell in grid.get_children() :
 		cell.set_color_key(color_key)
+
+	paper_sprite.modulate = Color(ColorManager.COLOR_GLOSSARY[color_key])
+
+
+func get_paper_color() -> String :
+	return "#%s" % paper_sprite.modulate.to_html(false)

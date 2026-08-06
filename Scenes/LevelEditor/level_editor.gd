@@ -31,6 +31,7 @@ func load_canvas() -> void :
 
 	_load_ink_counter()
 	_init_canvas_inks()
+	printing_canvas.change_paper_color(level_data.paper_color)
 	settings.load_level_metadata(
 		level_data.level_name,
 		level_data.ink_limits,
@@ -43,7 +44,7 @@ func _init_canvas_inks() -> void :
 	printing_canvas.paint_canvas(level_data.get_target_grid_2d())
 
 
-
+	
 
 ###########
 # Actions #

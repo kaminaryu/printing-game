@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var paper_sprite: Sprite2D
+
 @export var grid_size: Vector2 = Vector2(5, 5)
 @export var is_editor_mode: bool = false 
 @export var level_editor: Control
@@ -251,9 +253,6 @@ func _lock_individual_cell(cell: GridCell, lock_state: bool) -> void :
 	cell.toggle_ink_lock(lock_state)
 
 
-# NOTE: bruh why doesnt GridCell handles ts
-
-
 ###########
 # Actions #
 ###########
@@ -311,11 +310,8 @@ func lock_canvas(lock_states: Array[Array]) -> void :
 			_lock_individual_cell(canvas_grid[col][row], lock_state)
 
 
-
-
-# for changing grid size in editor without deleting painted inks
-func resize_grid_without_reset() -> void :
-	pass
+func change_paper_color(hex_code: String) -> void :
+	paper_sprite.modulate = Color(hex_code)
 
 
 ###########

@@ -6,6 +6,7 @@ class_name LevelData
 @export var grid_size: Vector2i = Vector2i(5, 5)
 @export var available_channels: Array[String] = ColorManager.CHANNELS.duplicate()
 @export var level_name: String = "Lorem Ipsum"
+@export var paper_color: String = "#FFF"
 
 @export_subgroup("Solution Layout")
 @export var target_colors: Array[String] = []
