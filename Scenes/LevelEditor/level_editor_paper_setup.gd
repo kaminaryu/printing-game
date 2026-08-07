@@ -12,12 +12,12 @@ func _ready() -> void :
 
 func _on_width_input_value_changed(value: float) -> void:
 	canvas_grid_size.x = int(value)
-	paper_editor.draw_grid(canvas_grid_size)
+	paper_editor.draw_grid(canvas_grid_size, true)
 
 
 func _on_height_input_value_changed(value: float) -> void:
 	canvas_grid_size.y = int(value)
-	paper_editor.draw_grid(canvas_grid_size)
+	paper_editor.draw_grid(canvas_grid_size, true)
 
 
 func _on_paper_color_option_item_selected(index: int) -> void:
