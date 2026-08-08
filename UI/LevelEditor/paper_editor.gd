@@ -64,7 +64,9 @@ func draw_grid(canvas_grid_size: Vector2i, is_cloning_grid := false) -> void :
 					cell_node.toggle_ink_lock(previous_cell_node.is_ink_locked())
 				else :
 					cell_node.set_color_key(_selected_paper_color_key)
-
+			# else, just clear the grid to the paper color
+			else :
+				cell_node.set_color_key(_selected_paper_color_key)
 
 			cell_node.scale = target_scale
 			cell_node.is_paper_editor_mode = true

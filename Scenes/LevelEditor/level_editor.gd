@@ -159,10 +159,10 @@ func _on_delete_button_up() -> void:
 	_set_ink_counter([0, 0, 0, 0])
 
 
-func _on_history_added(num: int, msg: String) -> void :
+func _on_history_added(index: int, msg: String) -> void :
 	var history_card: PanelContainer = HISTORY_CARD_SCENE.instantiate()
 
-	history_card.set_values(num, msg)
+	history_card.set_values(index, msg)
 	history_list.add_child(history_card)
 	history_list.move_child(history_card, 0)
 

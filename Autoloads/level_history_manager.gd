@@ -16,20 +16,15 @@ var _history: Array[LevelSnapshot] = []
 
 # to save / keeptrack which line (row/col) is being painted and saved
 class LineData :
-	var ink_channel: String = "Undefined"
+	var ink_channel: String = "U"
 	var line_num: int
 	var ink_counter: Array[int]
 
 	# p_var is a convention that avoid shadowing class attr, its dumb because i like self.var = var ffs
 	func _init(p_ink_channel: String, p_line_num: int, p_ink_counter: Array[int]) -> void :
+		ink_channel = p_ink_channel
 		line_num = p_line_num
 		ink_counter = p_ink_counter
-
-		match p_ink_channel :
-			"c": ink_channel = "Cyan"
-			"m": ink_channel = "Magenta"
-			"y": ink_channel = "Yellow"
-			"k": ink_channel = "Key"
 
 
 class LevelSnapshot :
@@ -83,11 +78,13 @@ func save_level_snapshot(canvas_grid: Array[Array], action: Actions, data=null) 
 
 	match action :
 		Actions.PAINT_COLUMN :
-			var color_hex_code: String = ColorManager.get_channel_hexcode(data.ink_channel)
-			snapshot_msg = "Printed a line of [color=%s]%s[/color] ink at col %d." % [color_hex_code, data.ink_channel, data.line_num + 1]
+			var channel_hex_code: String = ColorManager.get_channel_hexcode(data.ink_channel)
+			var channel_name: String = ColorManager.get_channel_name(data.ink_channel)
+			snapshot_msg = "Printed a line of [color=%s]%s[/color] ink at col %d." % [channel_hex_code, channel_name, data.line_num + 1]
 		Actions.PAINT_ROW :
-			var color_hex_code: String = ColorManager.get_channel_hexcode(data.ink_channel)
-			snapshot_msg = "Printed a line of [color=%s]%s[/color] ink at row %d." % [color_hex_code, data.ink_channel, data.line_num + 1]
+			var channel_hex_code: String = ColorManager.get_channel_hexcode(data.ink_channel)
+			var channel_name: String = ColorManager.get_channel_name(data.ink_channel)
+			snapshot_msg = "Printed a line of [color=%s]%s[/color] ink at row %d." % [channel_hex_code, channel_name, data.line_num + 1]
 		Actions.CLEAR_CANVAS :
 			snapshot_msg = "Cleared the canvas."
 		Actions.INIT :

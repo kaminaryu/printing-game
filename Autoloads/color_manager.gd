@@ -3,6 +3,7 @@ extends Node
 signal color_changed
 
 const CHANNELS: Array[String] = ["c", "m", "y", "k"]
+const CHANNEL_NAMES: Array[String] = ["Cyan", "Magenta", "Yellow", "Key"]
 const CHANNEL_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000"]
 
 const COLOR_GLOSSARY: Dictionary = {
@@ -52,13 +53,23 @@ func get_selected_color() -> String :
 		return "#fff"
 	return CHANNEL_COLORS[selected_color]
 
+
+func get_channel_name(channel: String) -> String :
+	var index: int = CHANNELS.find(channel)
+
+	if (index == -1) :
+		return "Undefined"
+
+	return CHANNEL_NAMES[index]
+
 func get_channel_hexcode(channel: String) -> String :
-	match channel :
-		"Cyan": return CHANNEL_COLORS[0]
-		"Magenta": return CHANNEL_COLORS[1]
-		"Yellow": return CHANNEL_COLORS[2]
-		"Key": return CHANNEL_COLORS[3]
-		_  : return "#670067"
+	var index: int = CHANNELS.find(channel)
+
+	if (index == -1) :
+		return "#670067"
+
+	return CHANNEL_COLORS[index]
+
 
 func get_color_channel() -> String :
 	return CHANNELS[selected_color]

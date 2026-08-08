@@ -131,7 +131,8 @@ func _on_mouse_detector_input_event(_viewport: Node, event: InputEvent, _shape_i
 			var action := PaperSetupHistoryManager.create_painting_cell_action(
 				coords,
 				color_key(),
-				is_ink_locked()
+				is_ink_locked(),
+				selected_ink,
 			)
 
 			# save current size as previous

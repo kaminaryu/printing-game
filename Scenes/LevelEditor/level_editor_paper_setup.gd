@@ -1,5 +1,6 @@
 extends Control
 
+const HISTORY_CARD_SCENE: PackedScene = preload("res://UI/LevelEditor/history_card.tscn")
 const LEVEL_EDITOR_SCENE = preload("res://Scenes/LevelEditor/level_editor.tscn")
 
 var canvas_grid_size := Vector2i(5, 5)
@@ -7,11 +8,15 @@ var canvas_grid_size := Vector2i(5, 5)
 @export var paper_editor: Node2D
 @export var width_input_box: SpinBox
 @export var height_input_box: SpinBox
+@export var history_list: VBoxContainer
 
 func _ready() -> void :
-	paper_editor.draw_grid(canvas_grid_size)
 	PaperSetupHistoryManager.revert_grid_size.connect(_on_revert_grid_size)
 	PaperSetupHistoryManager.revert_canvas_grid.connect(_on_revert_canvas_grid)
+	PaperSetupHistoryManager.history_recorded.connect(_on_history_recorded)
+	PaperSetupHistoryManager.history_undone.connect(_on_histoy_undone)
+
+	paper_editor.draw_grid(canvas_grid_size)
 
 
 func _on_width_input_value_changed(value: float) -> void:
@@ -77,6 +82,7 @@ func _on_undo_button_up() -> void:
 func _on_delete_button_up() -> void:
 	var canvas_grid_cmyk : Array[Array]
 
+	# copy the current grid cmyk to put into the history
 	for col in range(paper_editor.canvas_grid.size()) :
 		var canvas_grid_cmyk_column: Array
 
@@ -125,6 +131,21 @@ func _on_revert_grid_size(
 
 func _on_revert_canvas_grid(p_canvas_grid: Array[Array]) -> void :
 	paper_editor.paint_whole_grid(p_canvas_grid)
+
+
+func _on_history_recorded(index: int, msg: String) -> void :
+	var history_card: PanelContainer = HISTORY_CARD_SCENE.instantiate()
+
+	history_card.set_values(index, msg)
+	history_list.add_child(history_card)
+	history_list.move_child(history_card, 0)
+
+
+func _on_histoy_undone() -> void :
+	var latest_history_card = history_list.get_child(0)
+
+	if latest_history_card :
+		latest_history_card.queue_free()
 
 
 func _on_apply_button_up() -> void:
