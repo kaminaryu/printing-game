@@ -128,15 +128,14 @@ func _on_mouse_detector_input_event(_viewport: Node, event: InputEvent, _shape_i
 		if (event.button_index == MOUSE_BUTTON_LEFT) :
 			var selected_ink: String = ColorManager.get_color_channel()
 
-			# save current size as previous
-			PaperSetupHistoryManager.record_action(
-				PaperSetupHistoryManager.ActionType.PAINT_CELL,
-				{
-					"coords": coords,
-					"cell_color_key": color_key(),
-					"cell_lock_state": is_ink_locked()
-				}
+			var action := PaperSetupHistoryManager.create_painting_cell_action(
+				coords,
+				color_key(),
+				is_ink_locked()
 			)
+
+			# save current size as previous
+			PaperSetupHistoryManager.record_action(action)
 
 			if (selected_ink == "k") :
 				toggle_ink_lock()

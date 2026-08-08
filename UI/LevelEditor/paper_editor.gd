@@ -11,10 +11,14 @@ var canvas_grid: Array[Array]
 var _selected_paper_color_key: String = "000"
 
 
+# NOTE: For changing individual cell color is done by the cells themselves
+
+
 func draw_grid(canvas_grid_size: Vector2i, is_cloning_grid := false) -> void :
 	var previous_canvas_grid : Array[Array]
 
 	# for repainting the grid when it resizes during paper setup
+	## to preserve the previous canvas
 	if (is_cloning_grid) :
 		previous_canvas_grid = canvas_grid.duplicate()
 
@@ -79,13 +83,14 @@ func change_paper_color(color_key: String) -> void :
 	for cell in grid.get_children() :
 		cell.set_color_key(color_key)
 
-	paper_sprite.modulate = Color(ColorManager.COLO_GLOSSARY[color_key])
+	paper_sprite.modulate = Color(ColorManager.COLOR_GLOSSARY[color_key])
 
 
 func get_paper_color() -> String :
 	return "#%s" % paper_sprite.modulate.to_html(false)
 
 
+# -- for resizing grid history management --
 func get_row_line_cells(index: int) -> Array[String] :
 	var cells: Array[String]
 
@@ -123,3 +128,14 @@ func paint_col(index: int, line_cells_data: Array[String]) -> void :
 		var cell: GridCell = canvas_grid[index][i]
 		cell.set_color_key(line_cells_data[i].substr(0, 3))
 		cell.toggle_ink_lock(true if line_cells_data[i][-1] == "1" else false)
+
+
+# -- for clearing and redrawing cleared grid -- 
+func paint_whole_grid(p_canvas_grid_cmyk: Array[Array]) :
+	for col in range(p_canvas_grid_cmyk.size()) :
+		for row in range(p_canvas_grid_cmyk[col].size()) :
+			var cell: GridCell = canvas_grid[col][row]
+			var cell_cmyk: String = p_canvas_grid_cmyk[col][row]
+
+			cell.set_color_key(cell_cmyk.substr(0, 3))
+			cell.toggle_ink_lock(true if cell_cmyk[-1] == "1" else false)

@@ -11,26 +11,24 @@ var canvas_grid_size := Vector2i(5, 5)
 func _ready() -> void :
 	paper_editor.draw_grid(canvas_grid_size)
 	PaperSetupHistoryManager.revert_grid_size.connect(_on_revert_grid_size)
+	PaperSetupHistoryManager.revert_canvas_grid.connect(_on_revert_canvas_grid)
 
 
 func _on_width_input_value_changed(value: float) -> void:
-	var data = {
-		"grid_size": canvas_grid_size,
-		"line_axis": PaperSetupHistoryManager.LineAxis.COL,
-		"grid_line_cells_cmyk": [] as Array[String]
-	}
+	var grid_line_cells_cmyk: Array[String]
 
 	# save line info if the height decreases
-	print(value, canvas_grid_size.x)
 	if (value < canvas_grid_size.x) :
-		print("nigger")
-		data["grid_line_cells_cmyk"] = paper_editor.get_col_line_cells(canvas_grid_size.x - 1)
+		grid_line_cells_cmyk = paper_editor.get_col_line_cells(canvas_grid_size.x - 1)
+
+	var action := PaperSetupHistoryManager.create_resize_canvas_action(
+		canvas_grid_size,
+		grid_line_cells_cmyk,
+		PaperSetupHistoryManager.LineAxis.COL,
+	)
 
 	# save current size as previous
-	PaperSetupHistoryManager.record_action(
-		PaperSetupHistoryManager.ActionType.RESIZE_CANVAS,
-		data
-	)
+	PaperSetupHistoryManager.record_action(action)
 
 	var is_cloning_grid := true
 
@@ -38,24 +36,21 @@ func _on_width_input_value_changed(value: float) -> void:
 	paper_editor.draw_grid(canvas_grid_size, is_cloning_grid)
 
 
-
 func _on_height_input_value_changed(value: float) -> void:
-	var data = {
-		"grid_size": canvas_grid_size,
-		"line_axis": PaperSetupHistoryManager.LineAxis.ROW,
-		"grid_line_cells_cmyk": [] as Array[String]
-	}
+	var grid_line_cells_cmyk: Array[String]
 
 	# save line info if the height decreases
 	if (value < canvas_grid_size.y) :
-		data["grid_line_cells_cmyk"] = paper_editor.get_row_line_cells(canvas_grid_size.y - 1)
-		
+		grid_line_cells_cmyk = paper_editor.get_row_line_cells(canvas_grid_size.y - 1)
+
+	var action := PaperSetupHistoryManager.create_resize_canvas_action(
+		canvas_grid_size,
+		grid_line_cells_cmyk,
+		PaperSetupHistoryManager.LineAxis.ROW,
+	)
 
 	# save current size as previous
-	PaperSetupHistoryManager.record_action(
-		PaperSetupHistoryManager.ActionType.RESIZE_CANVAS,
-		data
-	)
+	PaperSetupHistoryManager.record_action(action)
 
 	var is_cloning_grid := true
 
@@ -80,7 +75,25 @@ func _on_undo_button_up() -> void:
 
 
 func _on_delete_button_up() -> void:
-	pass
+	var canvas_grid_cmyk : Array[Array]
+
+	for col in range(paper_editor.canvas_grid.size()) :
+		var canvas_grid_cmyk_column: Array
+
+		for row in range(paper_editor.canvas_grid[col].size()) :
+			var cell: GridCell = paper_editor.canvas_grid[col][row]
+			canvas_grid_cmyk_column.append(cell.get_cmyk())
+
+		canvas_grid_cmyk.append(canvas_grid_cmyk_column)
+
+
+	var action := PaperSetupHistoryManager.create_clear_canvas_action(
+		canvas_grid_cmyk
+	)
+	PaperSetupHistoryManager.record_action(action)
+
+	paper_editor.draw_grid(canvas_grid_size)
+
 
 
 func _on_revert_grid_size(
@@ -108,6 +121,10 @@ func _on_revert_grid_size(
 			paper_editor.paint_row(p_canvas_grid_size.y - 1, p_grid_line_cells_cmyk)
 		else :
 			paper_editor.paint_col(p_canvas_grid_size.x - 1, p_grid_line_cells_cmyk)
+
+
+func _on_revert_canvas_grid(p_canvas_grid: Array[Array]) -> void :
+	paper_editor.paint_whole_grid(p_canvas_grid)
 
 
 func _on_apply_button_up() -> void:
