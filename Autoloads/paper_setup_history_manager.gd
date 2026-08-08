@@ -2,6 +2,7 @@ extends Node
 
 signal revert_grid_size
 signal revert_canvas_grid
+signal revert_paper_color
 signal history_recorded
 signal history_undone
 
@@ -21,6 +22,9 @@ class ResizeCanvasAction extends Action :
 class ClearCanvasAction extends Action :
 	var canvas_grid_cmyk: Array[Array]
 
+class ChangePaperColorAction extends Action :
+	var canvas_grid_cmyk: Array[Array]
+	var paper_color_key: String
 
 
 enum LineAxis {
@@ -31,7 +35,9 @@ enum LineAxis {
 
 var recorded_actions: Array[Action] = []
 
-
+#########################
+# Action Creator Helper #
+#########################
 func create_painting_cell_action(coords: Vector2i, cell_color_key: String, cell_lock_state: bool, channel: String) -> Action :
 	var action := PaintingCellAction.new()
 	var channel_hex_code := ColorManager.get_channel_hexcode(channel)
@@ -63,8 +69,23 @@ func create_clear_canvas_action(canvas_grid_cmyk: Array[Array]) -> Action :
 	action.canvas_grid_cmyk = canvas_grid_cmyk
 
 	return action
+
+
+func create_change_paper_color_action(canvas_grid_cmyk: Array[Array], prev_paper_color_key: String, new_paper_color_key: String) -> Action :
+	var action := ChangePaperColorAction.new()
+	var paper_color_hexcode: String = ColorManager.COLOR_GLOSSARY[new_paper_color_key]
+	var paper_color_name: String = ColorManager.get_color_name(new_paper_color_key)
+
+	action.message = "Changed paper color to [color=%s]%s[/color]" % [paper_color_hexcode, paper_color_name]
+	action.canvas_grid_cmyk = canvas_grid_cmyk
+	action.paper_color_key = prev_paper_color_key
+
+	return action
 	
 
+##################
+# Action Handler #
+##################
 func record_action(action: Action) -> void :
 	recorded_actions.append(action)
 
@@ -91,4 +112,7 @@ func undo_action(canvas_grid: Array[Array]) -> void :
 	elif (prev_action is ClearCanvasAction) :
 		revert_canvas_grid.emit(prev_action.canvas_grid_cmyk)
 
+	elif (prev_action is ChangePaperColorAction) :
+		revert_paper_color.emit(prev_action.canvas_grid_cmyk, prev_action.paper_color_key)
+	
 	history_undone.emit()

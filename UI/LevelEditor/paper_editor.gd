@@ -77,7 +77,29 @@ func draw_grid(canvas_grid_size: Vector2i, is_cloning_grid := false) -> void :
 		canvas_grid.append(columns)
 
 
-func change_paper_color(color_key: String) -> void :
+func change_paper_color(color_key: String, is_recording_action: bool) -> void :
+	# -- history purposes --
+	if (is_recording_action) :
+		var canvas_grid_cmyk : Array[Array]
+		var prev_paper_color_key := _selected_paper_color_key
+
+		# copy the current grid cmyk to put into the history
+		for col in range(canvas_grid.size()) :
+			var canvas_grid_cmyk_column: Array
+
+			for row in range(canvas_grid[col].size()) :
+				var cell: GridCell = canvas_grid[col][row]
+				canvas_grid_cmyk_column.append(cell.get_cmyk())
+
+			canvas_grid_cmyk.append(canvas_grid_cmyk_column)
+
+		var action := PaperSetupHistoryManager.create_change_paper_color_action(
+			canvas_grid_cmyk,
+			prev_paper_color_key,
+			color_key
+		)
+		PaperSetupHistoryManager.record_action(action)
+
 	# save the selected color_key for resizing to refresh the grid
 	_selected_paper_color_key = color_key
 

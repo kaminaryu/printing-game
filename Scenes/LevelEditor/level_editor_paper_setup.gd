@@ -13,6 +13,7 @@ var canvas_grid_size := Vector2i(5, 5)
 func _ready() -> void :
 	PaperSetupHistoryManager.revert_grid_size.connect(_on_revert_grid_size)
 	PaperSetupHistoryManager.revert_canvas_grid.connect(_on_revert_canvas_grid)
+	PaperSetupHistoryManager.revert_paper_color.connect(_on_revert_paper_color)
 	PaperSetupHistoryManager.history_recorded.connect(_on_history_recorded)
 	PaperSetupHistoryManager.history_undone.connect(_on_histoy_undone)
 
@@ -72,7 +73,8 @@ func _on_paper_color_option_item_selected(index: int) -> void:
 		2: color_key = "010"
 		3: color_key = "001"
 
-	paper_editor.change_paper_color(color_key)
+	var is_recording_history := true
+	paper_editor.change_paper_color(color_key, is_recording_history)
 
 
 func _on_undo_button_up() -> void:
@@ -130,6 +132,12 @@ func _on_revert_grid_size(
 
 
 func _on_revert_canvas_grid(p_canvas_grid: Array[Array]) -> void :
+	paper_editor.paint_whole_grid(p_canvas_grid)
+
+
+func _on_revert_paper_color(p_canvas_grid: Array[Array], paper_color_key: String) -> void :
+	var is_recording_history := false
+	paper_editor.change_paper_color(paper_color_key, is_recording_history)
 	paper_editor.paint_whole_grid(p_canvas_grid)
 
 

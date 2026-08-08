@@ -70,6 +70,14 @@ func get_channel_hexcode(channel: String) -> String :
 
 	return CHANNEL_COLORS[index]
 
+func get_color_name(color_key: String) -> String :
+	match color_key :
+		"000": return "White"
+		"100": return "Cyan"
+		"010": return "Magenta"
+		"001": return "Yellow"
+		_: return "Undefined"
+
 
 func get_color_channel() -> String :
 	return CHANNELS[selected_color]
