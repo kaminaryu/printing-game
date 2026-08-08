@@ -148,6 +148,7 @@ theme_override_constants/separation = 100
 alignment = 1
 
 [node name="Load" type="Button" parent="MenuBody/Menu/LoadSaveContainer" unique_id=413304736]
+visible = false
 layout_mode = 2
 theme = ExtResource("6_nbykm")
 text = "Load"
