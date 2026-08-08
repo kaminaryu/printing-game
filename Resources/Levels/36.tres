@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="LevelData" format=3]
+
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_x4hqx"]
+
+[resource]
+script = ExtResource("1_x4hqx")
+available_channels = Array[String](["c", "m", "y", "k"])
+level_name = "Racing Point"
+paper_color = "#ff00ff"
+initial_grid = Array[String](["0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100"])
+target_colors = Array[String](["120", "010", "011", "010", "120", "010", "010", "011", "010", "010", "011", "011", "012", "011", "011", "010", "010", "011", "010", "010", "120", "010", "011", "010", "120"])
+lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+ink_limits = {
+"c": 2,
+"k": 4,
+"m": 2,
+"y": 2
+}
+amount_of_ink_used_cmyk = Array[int]([2, 2, 2, 4])
