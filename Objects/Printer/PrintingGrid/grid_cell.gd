@@ -12,6 +12,9 @@ var c: int = 0
 var m: int = 0
 var y: int = 0
 
+# this is dumb but idk better way yet
+var coords := Vector2i.ZERO
+
 ############
 # Coloring #
 ############
@@ -99,6 +102,9 @@ func color_key() -> String :
 func is_ink_locked() -> bool :
 	return ink_locked
 
+func get_cmyk() -> String :
+	return "%s%s" % [color_key(), "1" if is_ink_locked() else "0"]
+
 
 ###########
 # Signals #
@@ -121,6 +127,16 @@ func _on_mouse_detector_input_event(_viewport: Node, event: InputEvent, _shape_i
 	if (event is InputEventMouseButton and event.pressed and is_paper_editor_mode) :
 		if (event.button_index == MOUSE_BUTTON_LEFT) :
 			var selected_ink: String = ColorManager.get_color_channel()
+
+			# save current size as previous
+			PaperSetupHistoryManager.record_action(
+				PaperSetupHistoryManager.ActionType.PAINT_CELL,
+				{
+					"coords": coords,
+					"cell_color_key": color_key(),
+					"cell_lock_state": is_ink_locked()
+				}
+			)
 
 			if (selected_ink == "k") :
 				toggle_ink_lock()

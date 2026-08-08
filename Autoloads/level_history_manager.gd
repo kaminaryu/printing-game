@@ -8,7 +8,6 @@ enum Actions {
 	INIT,
 	PAINT_COLUMN,
 	PAINT_ROW,
-	PAINT_CELL,
 	CLEAR_CANVAS
 }
 
@@ -89,8 +88,6 @@ func save_level_snapshot(canvas_grid: Array[Array], action: Actions, data=null) 
 		Actions.PAINT_ROW :
 			var color_hex_code: String = ColorManager.get_channel_hexcode(data.ink_channel)
 			snapshot_msg = "Printed a line of [color=%s]%s[/color] ink at row %d." % [color_hex_code, data.ink_channel, data.line_num + 1]
-		Actions.PAINT_CELL :
-			snapshot_msg = "Printed %s ink at cell (%d, %d)" % []
 		Actions.CLEAR_CANVAS :
 			snapshot_msg = "Cleared the canvas."
 		Actions.INIT :

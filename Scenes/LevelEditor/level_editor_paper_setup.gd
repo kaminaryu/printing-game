@@ -5,19 +5,62 @@ const LEVEL_EDITOR_SCENE = preload("res://Scenes/LevelEditor/level_editor.tscn")
 var canvas_grid_size := Vector2i(5, 5)
 
 @export var paper_editor: Node2D
+@export var width_input_box: SpinBox
+@export var height_input_box: SpinBox
 
 func _ready() -> void :
 	paper_editor.draw_grid(canvas_grid_size)
+	PaperSetupHistoryManager.revert_grid_size.connect(_on_revert_grid_size)
 
 
 func _on_width_input_value_changed(value: float) -> void:
+	var data = {
+		"grid_size": canvas_grid_size,
+		"line_axis": PaperSetupHistoryManager.LineAxis.COL,
+		"grid_line_cells_cmyk": [] as Array[String]
+	}
+
+	# save line info if the height decreases
+	print(value, canvas_grid_size.x)
+	if (value < canvas_grid_size.x) :
+		print("nigger")
+		data["grid_line_cells_cmyk"] = paper_editor.get_col_line_cells(canvas_grid_size.x - 1)
+
+	# save current size as previous
+	PaperSetupHistoryManager.record_action(
+		PaperSetupHistoryManager.ActionType.RESIZE_CANVAS,
+		data
+	)
+
+	var is_cloning_grid := true
+
 	canvas_grid_size.x = int(value)
-	paper_editor.draw_grid(canvas_grid_size, true)
+	paper_editor.draw_grid(canvas_grid_size, is_cloning_grid)
+
 
 
 func _on_height_input_value_changed(value: float) -> void:
+	var data = {
+		"grid_size": canvas_grid_size,
+		"line_axis": PaperSetupHistoryManager.LineAxis.ROW,
+		"grid_line_cells_cmyk": [] as Array[String]
+	}
+
+	# save line info if the height decreases
+	if (value < canvas_grid_size.y) :
+		data["grid_line_cells_cmyk"] = paper_editor.get_row_line_cells(canvas_grid_size.y - 1)
+		
+
+	# save current size as previous
+	PaperSetupHistoryManager.record_action(
+		PaperSetupHistoryManager.ActionType.RESIZE_CANVAS,
+		data
+	)
+
+	var is_cloning_grid := true
+
 	canvas_grid_size.y = int(value)
-	paper_editor.draw_grid(canvas_grid_size, true)
+	paper_editor.draw_grid(canvas_grid_size, is_cloning_grid)
 
 
 func _on_paper_color_option_item_selected(index: int) -> void:
@@ -30,6 +73,41 @@ func _on_paper_color_option_item_selected(index: int) -> void:
 		3: color_key = "001"
 
 	paper_editor.change_paper_color(color_key)
+
+
+func _on_undo_button_up() -> void:
+	PaperSetupHistoryManager.undo_action(paper_editor.canvas_grid)
+
+
+func _on_delete_button_up() -> void:
+	pass
+
+
+func _on_revert_grid_size(
+	p_canvas_grid_size: Vector2i, 
+	p_line_axis: PaperSetupHistoryManager.LineAxis,
+	p_grid_line_cells_cmyk: Array[String]
+) -> void :
+	var is_cloning_grid := true
+	paper_editor.draw_grid(p_canvas_grid_size, is_cloning_grid)
+	canvas_grid_size = p_canvas_grid_size
+
+	# block signal so that it doesnt trigger when we manually change the input boxes input
+	width_input_box.set_block_signals(true)
+	height_input_box.set_block_signals(true)
+
+	width_input_box.value = p_canvas_grid_size.x
+	height_input_box.value = p_canvas_grid_size.y
+
+	width_input_box.set_block_signals(false)
+	height_input_box.set_block_signals(false)
+
+	# repainting back the deleted line of cells
+	for i in range(p_grid_line_cells_cmyk.size()) :
+		if (p_line_axis == PaperSetupHistoryManager.LineAxis.ROW) :
+			paper_editor.paint_row(p_canvas_grid_size.y - 1, p_grid_line_cells_cmyk)
+		else :
+			paper_editor.paint_col(p_canvas_grid_size.x - 1, p_grid_line_cells_cmyk)
 
 
 func _on_apply_button_up() -> void:

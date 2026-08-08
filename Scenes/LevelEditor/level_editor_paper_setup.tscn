@@ -13,7 +13,7 @@
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_k6jky"]
 
-[node name="LevelEditorPaperSetup" type="Control" unique_id=790831208 node_paths=PackedStringArray("paper_editor")]
+[node name="LevelEditorPaperSetup" type="Control" unique_id=790831208 node_paths=PackedStringArray("paper_editor", "width_input_box", "height_input_box")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +23,8 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_ycu63")
 paper_editor = NodePath("MainScreen/Paper/Control/PaperEditor")
+width_input_box = NodePath("MainScreen/Controller/MarginContainer/Editor/GridSetting/Width/WidthInput")
+height_input_box = NodePath("MainScreen/Controller/MarginContainer/Editor/GridSetting/Height/HeightInput")
 
 [node name="MainScreen" type="HBoxContainer" parent="." unique_id=1805990808]
 layout_mode = 0
@@ -197,6 +199,8 @@ toggle_mode = true
 button_group = SubResource("ButtonGroup_k6jky")
 texture_normal = ExtResource("9_rpaah")
 
+[connection signal="button_up" from="MainScreen/Controller/MarginContainer/Editor/ControlButtons/UndoDelete/Undo" to="." method="_on_undo_button_up"]
+[connection signal="button_up" from="MainScreen/Controller/MarginContainer/Editor/ControlButtons/UndoDelete/Delete" to="." method="_on_delete_button_up"]
 [connection signal="button_up" from="MainScreen/Controller/MarginContainer/Editor/ControlButtons/Apply" to="." method="_on_apply_button_up"]
 [connection signal="item_selected" from="MainScreen/Controller/MarginContainer/Editor/PaperColor/PaperColorOption" to="." method="_on_paper_color_option_item_selected"]
 [connection signal="value_changed" from="MainScreen/Controller/MarginContainer/Editor/GridSetting/Width/WidthInput" to="." method="_on_width_input_value_changed"]

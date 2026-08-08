@@ -6,7 +6,6 @@ const CELL_GAP: int = 2
 
 @export var paper_sprite: Sprite2D
 @export var grid: Node2D
-@export var max_canvas_size := Vector2i()
 
 var canvas_grid: Array[Array]
 var _selected_paper_color_key: String = "000"
@@ -58,12 +57,14 @@ func draw_grid(canvas_grid_size: Vector2i, is_cloning_grid := false) -> void :
 				if (col < previous_canvas_grid.size() and row < previous_canvas_grid[0].size()) :
 					var previous_cell_node: GridCell = previous_canvas_grid[col][row]
 					cell_node.set_color_key(previous_cell_node.color_key())
+					cell_node.toggle_ink_lock(previous_cell_node.is_ink_locked())
 				else :
 					cell_node.set_color_key(_selected_paper_color_key)
 
 
 			cell_node.scale = target_scale
 			cell_node.is_paper_editor_mode = true
+			cell_node.coords = Vector2i(col, row)
 			grid.add_child(cell_node)
 			columns.append(cell_node)
 
@@ -78,8 +79,47 @@ func change_paper_color(color_key: String) -> void :
 	for cell in grid.get_children() :
 		cell.set_color_key(color_key)
 
-	paper_sprite.modulate = Color(ColorManager.COLOR_GLOSSARY[color_key])
+	paper_sprite.modulate = Color(ColorManager.COLO_GLOSSARY[color_key])
 
 
 func get_paper_color() -> String :
 	return "#%s" % paper_sprite.modulate.to_html(false)
+
+
+func get_row_line_cells(index: int) -> Array[String] :
+	var cells: Array[String]
+
+	for i in canvas_grid :
+		for j in i :
+			print(j.get_cmyk())
+
+	for i in range(canvas_grid.size()) :
+		cells.append(canvas_grid[i][index].get_cmyk())
+
+	return cells
+
+
+func get_col_line_cells(index: int) -> Array[String] :
+	var cells: Array[String]
+
+	for i in range(canvas_grid[index].size()) :
+		cells.append(canvas_grid[index][i].get_cmyk())
+
+	return cells
+
+
+func paint_row(index: int, line_cells_data: Array[String]) -> void :
+	print("Printing Row ", line_cells_data)
+	for i in range(canvas_grid.size()) :
+		var cell: GridCell = canvas_grid[i][index]
+		cell.set_color_key(line_cells_data[i].substr(0, 3))
+		cell.toggle_ink_lock(true if line_cells_data[i][-1] == "1" else false)
+
+
+
+func paint_col(index: int, line_cells_data: Array[String]) -> void :
+	print("Printing Not Row ", line_cells_data)
+	for i in range(canvas_grid[index].size()) :
+		var cell: GridCell = canvas_grid[index][i]
+		cell.set_color_key(line_cells_data[i].substr(0, 3))
+		cell.toggle_ink_lock(true if line_cells_data[i][-1] == "1" else false)
