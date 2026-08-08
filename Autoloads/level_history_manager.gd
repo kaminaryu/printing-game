@@ -109,10 +109,6 @@ func save_level_snapshot(canvas_grid: Array[Array], action: Actions, data=null) 
 	# create history card
 	history_added.emit(_history.size(), snapshot_msg)
 
-	print("Saving state #%d: " %_history.size())
-	print(_history)
-
-
 
 func undo_level_edit() -> LevelSnapshot :
 	if (_history.size() <= 1) :

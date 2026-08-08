@@ -121,7 +121,6 @@ func put_panel_on_top(priority_panel: Control) -> void :
 		menu.get_node("MenuBody/Shadow").visible = true
 		settings.get_node("Shadow").visible = false
 
-		print("putting menu on top of settings")
 
 	elif (priority_panel == settings) :
 		settings.z_index = 1
@@ -130,7 +129,6 @@ func put_panel_on_top(priority_panel: Control) -> void :
 		settings.get_node("Shadow").visible = true
 		menu.get_node("MenuBody/Shadow").visible = false
 
-		print("putting settings on top of menu")
 
 
 # --- History controls ---

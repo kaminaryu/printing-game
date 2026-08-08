@@ -175,8 +175,6 @@ func _on_apply_button_up() -> void:
 
 	level_data.set_initial_grid(color_keys, lock_states)
 
-	print(canvas_grid_size)
-
 	level_data.grid_size     = canvas_grid_size
 	level_data.paper_color   = paper_editor.get_paper_color()
 

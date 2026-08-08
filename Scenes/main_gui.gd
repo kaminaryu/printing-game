@@ -45,7 +45,6 @@ func _on_main_menu_button_down() -> void:
 func _on_pause_button_focus_entered() -> void:
 	var tween = create_tween();
 	tween.tween_property(pause_menu, "position:x", 1126-10, .2).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART);;
-	print('thez');
 
 
 func _on_pause_button_focus_exited() -> void:

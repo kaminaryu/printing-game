@@ -118,10 +118,6 @@ func get_paper_color() -> String :
 func get_row_line_cells(index: int) -> Array[String] :
 	var cells: Array[String]
 
-	for i in canvas_grid :
-		for j in i :
-			print(j.get_cmyk())
-
 	for i in range(canvas_grid.size()) :
 		cells.append(canvas_grid[i][index].get_cmyk())
 
@@ -138,7 +134,6 @@ func get_col_line_cells(index: int) -> Array[String] :
 
 
 func paint_row(index: int, line_cells_data: Array[String]) -> void :
-	print("Printing Row ", line_cells_data)
 	for i in range(canvas_grid.size()) :
 		var cell: GridCell = canvas_grid[i][index]
 		cell.set_color_key(line_cells_data[i].substr(0, 3))
@@ -147,7 +142,6 @@ func paint_row(index: int, line_cells_data: Array[String]) -> void :
 
 
 func paint_col(index: int, line_cells_data: Array[String]) -> void :
-	print("Printing Not Row ", line_cells_data)
 	for i in range(canvas_grid[index].size()) :
 		var cell: GridCell = canvas_grid[index][i]
 		cell.set_color_key(line_cells_data[i].substr(0, 3))
