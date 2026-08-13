@@ -137,7 +137,7 @@ func _handle_level_victory() -> void:
 	paper_guide.visible = false
 	blur_panel.visible = true
 
-	GameMaster.save_level_data(elapsed_time)
+	GameMaster.save_level_completion_data(elapsed_time)
 	
 	if victory_animation:
 		victory_animation.play("Print In")

@@ -6,7 +6,7 @@ signal level_decreased
 var current_level_num: int = 1
 var level_count: int = 0
 
-const SAVE_PATH := "user://level_data.json"
+const SAVE_PATH := "user://level_completion_data.json"
 const LEVELS_DIR : = "res://Resources/Levels/"
 
 
@@ -22,7 +22,7 @@ func decrease_level() -> void :
 	level_decreased.emit()
 
 
-func save_level_data(time_elapsed_ms: float) -> void:
+func save_level_completion_data(time_elapsed_ms: float) -> void:
 	var save_data: Dictionary = {}
 	
 	if FileAccess.file_exists(SAVE_PATH):
@@ -66,7 +66,7 @@ func save_level_data(time_elapsed_ms: float) -> void:
 		file_write.close()
 
 
-func load_level_data() -> Dictionary:
+func load_level_completion_data() -> Dictionary:
 	var default_data = {
 		"level_completed": false,
 		"time_elapsed": -1.0
@@ -76,6 +76,7 @@ func load_level_data() -> Dictionary:
 		return default_data
 		
 	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+
 	if file:
 		var json_string = file.get_as_text()
 		file.close()
