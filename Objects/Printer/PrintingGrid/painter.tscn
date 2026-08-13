@@ -13,11 +13,54 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rghq1"]
 
+[sub_resource type="Animation" id="Animation_yx653"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BruhsItself:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sp5co"]
+resource_name = "bobbling"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BruhsItself:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7an6j"]
+_data = {
+&"RESET": SubResource("Animation_yx653"),
+&"bobbling": SubResource("Animation_sp5co")
+}
+
 [node name="Painter" type="Node2D" unique_id=1056665526]
 script = ExtResource("1_yx653")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=510015034]
+[node name="BruhsItself" type="Sprite2D" parent="." unique_id=510015034]
 scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_yx653")
+
+[node name="Shadow" type="Sprite2D" parent="BruhsItself" unique_id=497345482]
+modulate = Color(0.64, 0.64, 0.64, 0.19607843)
+position = Vector2(-2.6666667, 8)
 texture = ExtResource("2_yx653")
 
 [node name="Button" type="Button" parent="." unique_id=215788171]
@@ -30,3 +73,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_yx653")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_sp5co")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_7an6j")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rghq1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=964315370]
+libraries/ = SubResource("AnimationLibrary_7an6j")
+autoplay = &"bobbling"
