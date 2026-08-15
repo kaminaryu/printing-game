@@ -7,9 +7,6 @@ extends Node
 	"k": $KeyCartridge
 }
 
-func _ready() -> void:
-	ColorManager.selected_color = -1
-
 func update_visible_channels(level_data: LevelData) -> void:
 	var allowed_channels: Array = level_data.available_channels
 	

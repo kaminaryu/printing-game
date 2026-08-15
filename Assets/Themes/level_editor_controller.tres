@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://c74pal6uj7ogy"]
 
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="1_m0xno"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="1_m0xno"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0xno"]
 corner_radius_top_left = 3

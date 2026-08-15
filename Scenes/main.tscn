@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="8_344ge"]
 [ext_resource type="AudioStream" uid="uid://b7ipjcgdsebph" path="res://Assets/BGM/Morning Routine - Ghostrifter Official.mp3" id="8_k12tt"]
 [ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George Street Shuffle - Kevin Macleod.mp3" id="9_h1bgf"]
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="12_b3802"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="12_b3802"]
 [ext_resource type="Script" uid="uid://dflo07lks266m" path="res://Scenes/level_title.gd" id="13_fevyy"]
 [ext_resource type="Texture2D" uid="uid://b7xh4mqfvi638" path="res://Assets/game/Buttons/hint/hint.png" id="14_kltya"]
 [ext_resource type="Texture2D" uid="uid://dxklmsvpwrsln" path="res://Assets/game/Buttons/hint/hint_pressed.png" id="15_e08e2"]
@@ -37,6 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://dcyxl3p6n14g6" path="res://Assets/GUI/discord-hov.png" id="28_jwpg7"]
 [ext_resource type="Texture2D" uid="uid://dusijred1c1qg" path="res://Assets/GUI/itch-hov.png" id="29_jwpg7"]
 [ext_resource type="PackedScene" uid="uid://1njs5i6kxcd5" path="res://UI/Animation/fade_in_animation.tscn" id="32_jwpg7"]
+[ext_resource type="FontFile" uid="uid://jtshn6j8mt7h" path="res://Assets/Fonts/Segment7Standard.otf" id="33_536cc"]
+[ext_resource type="Texture2D" uid="uid://c2ewg31ep5lhq" path="res://Assets/GUI/MainMenu/levelDisplay.png" id="33_k2e45"]
 
 [sub_resource type="Animation" id="Animation_hptm8"]
 resource_name = "Level End"
@@ -494,12 +496,6 @@ position = Vector2(327, -380)
 [node name="Cartridges" parent="." unique_id=1094193855 instance=ExtResource("4_hibaj")]
 position = Vector2(970, 685)
 
-[node name="Foreground" type="TextureRect" parent="." unique_id=1140767862]
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-texture = ExtResource("4_h1bgf")
-
 [node name="GridAnimator" type="AnimationPlayer" parent="." unique_id=1837593053]
 libraries/ = SubResource("AnimationLibrary_hptm8")
 
@@ -522,14 +518,14 @@ playlist = Array[AudioStream]([ExtResource("5_d1ilt"), ExtResource("7_wsu2k"), E
 
 [node name="UtilityButtons" parent="CanvasLayer" unique_id=939083526 instance=ExtResource("21_pdsj5")]
 offset_left = 22.0
-offset_top = -334.0
+offset_top = -199.0
 offset_right = 22.0
-offset_bottom = -334.0
+offset_bottom = -199.0
 
 [node name="Hint" type="TextureButton" parent="CanvasLayer" unique_id=1736257468]
-offset_left = 662.0
+offset_left = 1120.0
 offset_top = 300.0
-offset_right = 818.0
+offset_right = 1276.0
 offset_bottom = 435.0
 texture_normal = ExtResource("14_kltya")
 texture_pressed = ExtResource("15_e08e2")
@@ -541,6 +537,7 @@ offset_left = 934.0
 offset_top = 68.0
 offset_right = 1014.0
 offset_bottom = 102.0
+theme_override_fonts/font = ExtResource("33_536cc")
 text = "0:00"
 label_settings = SubResource("LabelSettings_fevyy")
 
@@ -601,8 +598,52 @@ offset_top = 290.0
 offset_right = 965.0
 offset_bottom = 290.0
 
+[node name="LevelCounterContainer" type="TextureRect" parent="CanvasLayer" unique_id=1915507802]
+offset_left = 654.0
+offset_top = -3.0
+offset_right = 806.0
+offset_bottom = 161.0
+texture = ExtResource("33_k2e45")
+
+[node name="CurrentLevel" type="Label" parent="CanvasLayer/LevelCounterContainer" unique_id=186815476]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 58.0
+offset_right = 86.0
+offset_bottom = 78.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("33_536cc")
+theme_override_font_sizes/font_size = 18
+text = "888"
+horizontal_alignment = 1
+
+[node name="TotalLevel" type="Label" parent="CanvasLayer/LevelCounterContainer" unique_id=722958866]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 93.0
+offset_right = 113.0
+offset_bottom = 113.0
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("33_536cc")
+theme_override_font_sizes/font_size = 18
+text = "888"
+horizontal_alignment = 1
+
+[node name="Border" type="Label" parent="CanvasLayer/LevelCounterContainer" unique_id=444619699]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 103.00001
+offset_right = 122.0
+offset_bottom = 123.00001
+rotation = -0.7853982
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("33_536cc")
+theme_override_font_sizes/font_size = 20
+text = "------"
+
 [node name="Blur Panel" type="Panel" parent="CanvasLayer" unique_id=369835859]
 visible = false
+z_index = 9
 material = SubResource("ShaderMaterial_21xkr")
 anchors_preset = 15
 anchor_right = 1.0
@@ -611,6 +652,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VictoryPanel" type="TextureRect" parent="CanvasLayer" unique_id=1888187949]
+z_index = 10
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -696,6 +738,7 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 texture_normal = ExtResource("7_6bp64")
 
 [node name="CongratsPanel" type="TextureRect" parent="CanvasLayer" unique_id=215437490]
+z_index = 10
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -811,6 +854,13 @@ libraries/ = SubResource("AnimationLibrary_8cuat")
 z_index = 2
 
 [node name="FadeInAnimation" parent="CanvasLayer" unique_id=2054330651 instance=ExtResource("32_jwpg7")]
+
+[node name="Foreground" type="TextureRect" parent="CanvasLayer" unique_id=1140767862]
+offset_left = -22.0
+offset_right = 1258.0
+offset_bottom = 720.0
+mouse_filter = 2
+texture = ExtResource("4_h1bgf")
 
 [node name="PrinterNoises" type="AudioStreamPlayer" parent="." unique_id=630669394]
 volume_db = -15.0

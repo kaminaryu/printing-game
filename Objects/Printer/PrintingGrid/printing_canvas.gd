@@ -88,6 +88,7 @@ func _init_buttons() -> void :
 		arrow.scale = Vector2.ONE * scale_factor
 		arrow.grid_alignment = "col"
 		arrow.grid_index = col
+		arrow.show_col_shadow()
 		arrow.paint_requested.connect(_on_paint_request)
 		arrow.hovered.connect(_on_arrow_hovered)
 		arrow.unhovered.connect(_clear_highlight)
@@ -105,6 +106,7 @@ func _init_buttons() -> void :
 		arrow.grid_alignment = "row"
 		arrow.grid_index = row
 		arrow.rotation = -PI/2
+		arrow.show_row_shadow()
 		arrow.paint_requested.connect(_on_paint_request)
 		arrow.hovered.connect(_on_arrow_hovered)
 		arrow.unhovered.connect(_clear_highlight)

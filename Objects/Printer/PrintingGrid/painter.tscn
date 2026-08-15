@@ -18,7 +18,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BruhsItself:position")
+tracks/0/path = NodePath("BrushItself:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -35,7 +35,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BruhsItself:position")
+tracks/0/path = NodePath("BrushItself:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -54,13 +54,20 @@ _data = {
 [node name="Painter" type="Node2D" unique_id=1056665526]
 script = ExtResource("1_yx653")
 
-[node name="BruhsItself" type="Sprite2D" parent="." unique_id=510015034]
+[node name="BrushItself" type="Sprite2D" parent="." unique_id=510015034]
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_yx653")
 
-[node name="Shadow" type="Sprite2D" parent="BruhsItself" unique_id=497345482]
+[node name="ShadowCol" type="Sprite2D" parent="BrushItself" unique_id=497345482]
+visible = false
 modulate = Color(0.64, 0.64, 0.64, 0.19607843)
 position = Vector2(-2.6666667, 8)
+texture = ExtResource("2_yx653")
+
+[node name="ShadowRow" type="Sprite2D" parent="BrushItself" unique_id=1383375708]
+visible = false
+modulate = Color(0.64, 0.64, 0.64, 0.19607843)
+position = Vector2(-5.333333, -1.3333334)
 texture = ExtResource("2_yx653")
 
 [node name="Button" type="Button" parent="." unique_id=215788171]

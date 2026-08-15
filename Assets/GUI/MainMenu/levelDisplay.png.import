@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b3rdsiea4sjpu"
-path="res://.godot/imported/brush_icon.png-192a9686b7bd2fa6676d51a834d60d6c.ctex"
+uid="uid://c2ewg31ep5lhq"
+path="res://.godot/imported/levelDisplay.png-093ee5fe0001d893702ac1dac37f9fcf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/game/brush_icon.png"
-dest_files=["res://.godot/imported/brush_icon.png-192a9686b7bd2fa6676d51a834d60d6c.ctex"]
+source_file="res://Assets/GUI/MainMenu/levelDisplay.png"
+dest_files=["res://.godot/imported/levelDisplay.png-093ee5fe0001d893702ac1dac37f9fcf.ctex"]
 
 [params]
 
@@ -27,9 +27,9 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/channel_remap/red=10
-process/channel_remap/green=10
-process/channel_remap/blue=10
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
 process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false

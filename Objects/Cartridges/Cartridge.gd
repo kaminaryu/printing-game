@@ -29,7 +29,6 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 	if is_disabled: return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		ColorManager.selected_color = selected_color_index
-		CursorManager.set_cursor()
 		
 		if not ColorManager.has_signal("color_changed"):
 			get_tree().call_group("cartridges", "_on_global_color_changed")

@@ -20,6 +20,8 @@ var current_level_data: LevelData
 @onready var time_elapsed_label = $CanvasLayer/VictoryPanel/Time
 @onready var congrats_panel = $CanvasLayer/CongratsPanel
 @onready var congrats_panel_animation = $CanvasLayer/CongratsPanel/AnimationPlayer
+@onready var current_level_counter_label = $CanvasLayer/LevelCounterContainer/CurrentLevel
+@onready var total_level_counter_label = $CanvasLayer/LevelCounterContainer/TotalLevel
 
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
@@ -37,6 +39,7 @@ func _ready() -> void:
 	printing_canvas.paint_cascade_finished.connect(_on_grid_updated)
 	ink_inventory_updated.connect(ink_cartridges.update_ink_label)
 	var _load_level_by_number_successful: bool = _load_level_by_number(GameMaster.current_level_num)
+	CursorManager.set_cursor()
 
 
 func _process(delta):
@@ -79,6 +82,8 @@ func _load_level_by_number(level_num: int) -> bool:
 		preview_grid.generate_preview(level_num)
 		victory_grid.generate_preview(level_num)
 		_load_level(level_data)
+
+		_update_level_counter()
 
 		is_transitioning = false
 		return true
@@ -143,7 +148,6 @@ func _handle_level_victory() -> void:
 		victory_animation.play("Print In")
 
 
-
 func reset_entire_level() -> void:
 	SaveStatesManager.reset()
 	
@@ -152,6 +156,12 @@ func reset_entire_level() -> void:
 		ink_inventory_updated.emit(channel, remaining_ink[channel])
 			
 	printing_canvas.reset_grid_visuals(current_level_data)
+
+
+func _update_level_counter() -> void :
+	current_level_counter_label.text = str(GameMaster.current_level_num)
+
+	total_level_counter_label.text   = str(GameMaster.level_count)
 
 
 func _on_continue_button_pressed() -> void:

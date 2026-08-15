@@ -29,11 +29,11 @@ const COLOR_GLOSSARY: Dictionary = {
 	"111": "#0E0E0E",
 }
 
-var selected_color: int = -1:
+var selected_color: int = 0:
 	set(value):
 		selected_color = value
+		CursorManager.set_cursor()
 		color_changed.emit()
-
 
 
 func get_selected_color_key() -> String :
@@ -44,13 +44,16 @@ func get_selected_color_key() -> String :
 		3: return "111"
 		_: return ""
 
+
+func _ready() -> void :
+	reset()
+
+
 func reset() -> void :
-	selected_color = -1
+	selected_color = 0
 
 
 func get_selected_color() -> String :
-	if (selected_color == -1) :
-		return "#fff"
 	return CHANNEL_COLORS[selected_color]
 
 
@@ -65,6 +68,7 @@ func get_channel_name(channel: String) -> String :
 func get_channel_hexcode(channel: String) -> String :
 	var index: int = CHANNELS.find(channel)
 
+	# not found
 	if (index == -1) :
 		return "#670067"
 
