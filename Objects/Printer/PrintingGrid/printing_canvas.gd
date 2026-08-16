@@ -131,7 +131,7 @@ func setup_and_build(size: Vector2i) -> void:
 # Painting #
 ############
 func _on_paint_request(request: Dictionary) -> void:
-	if is_cascading:
+	if is_cascading or GameMaster.is_printing_completed :
 		return
 
 	var alignment: String   = request.get("grid_alignment")
@@ -263,13 +263,6 @@ func _lock_individual_cell(cell: GridCell, lock_state: bool) -> void :
 ###########
 # Actions #
 ###########
-func _clear_highlight() -> void:
-	for col in range(grid_size.x):
-		for row in range(grid_size.y):
-			var cell: Node = canvas_grid[col][row]
-			cell.highlight(false)
-
-
 func reset_grid_visuals(level_data: LevelData) -> void:
 	if is_editor_mode:
 		assert(level_editor, "CONNECT LEVEL EDITOR TO PRINTING CANVAS IN THE LEVEL EDITOR SCENE")
@@ -349,6 +342,13 @@ func get_grid_color_matrix() -> Array:
 ###########
 # Signals #
 ###########
+func _clear_highlight() -> void:
+	for col in range(grid_size.x):
+		for row in range(grid_size.y):
+			var cell: Node = canvas_grid[col][row]
+			cell.highlight(false)
+
+
 func _on_state_restored(snapshot: Dictionary) -> void:
 	if not snapshot.has("grid") or not snapshot.has("ink"):
 		return
@@ -378,6 +378,10 @@ func _on_state_restored(snapshot: Dictionary) -> void:
 
 
 func _on_arrow_hovered(alignment: String, index: int) -> void :
+	if (GameMaster.is_printing_completed) :
+		_clear_highlight()
+		return
+
 	if alignment == "col":
 		for row in range(grid_size.y):
 			var cell: Node = canvas_grid[index][row]

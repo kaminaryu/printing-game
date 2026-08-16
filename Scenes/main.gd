@@ -40,7 +40,7 @@ var target_grid_data: Array[Array] = []
 var remaining_ink: Dictionary = {}
 var _starting_ink: Dictionary = {}
 
-var timer_running: bool
+var game_in_progress: bool
 var elapsed_time := 0.0
 
 # when an ink is used
@@ -53,18 +53,18 @@ func _ready() -> void:
 	CursorManager.set_cursor()
 
 
-
 func _process(delta):
-	if timer_running:
+	if game_in_progress:
 		elapsed_time += delta
 		timer_label.text = format_time(elapsed_time)
 
 
 func _load_level(level_data: LevelData) -> void:
+	GameMaster.is_printing_completed = false
 	reset_timer()
 	level_title.text = level_data.level_name
 	level_title.play_animation()
-	timer_running = true
+	game_in_progress = true
 	main_gui.visible = true
 	paper_guide.visible = true
 	current_level_data = level_data
@@ -133,13 +133,15 @@ func check_victory_condition() -> bool:
 			var cell: Node = printing_canvas.canvas_grid[col][row]
 			if cell.color_key() != target_grid_data[col][row]:
 				return false
-				
-	return true
 	
+	return true
+
 
 func _handle_level_victory() -> void:
+	GameMaster.is_printing_completed = true
+
 	is_transitioning = true
-	timer_running = false
+	game_in_progress = false
 
 	time_elapsed_label.text = format_time_ms(elapsed_time) 
 
@@ -225,6 +227,7 @@ func format_time(time_s: float) -> String:
 	minutes %= 60
 	return "%d:%02d:%02d" % [hours, minutes, seconds]
 
+
 func format_time_ms(time_s: float) -> String:
 	@warning_ignore("INTEGER_DIVISION")
 	var minutes = int(time_s) / 60
@@ -240,11 +243,13 @@ func format_time_ms(time_s: float) -> String:
 	minutes %= 60
 	return "%d:%02d:%02d.%02d" % [hours, minutes, seconds, milliseconds]
 
+
 func reset_timer():
 	elapsed_time = 0
 
+
 func _input(event: InputEvent) -> void :
-	if printing_canvas.is_cascading:
+	if printing_canvas.is_cascading or not game_in_progress :
 		return
 	
 	if event.is_action_pressed("undo") :

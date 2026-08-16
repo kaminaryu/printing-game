@@ -5,6 +5,8 @@ signal level_decreased
 
 var current_level_num: int = 1
 var level_count: int = 0
+var is_printing_completed := false
+
 
 const SAVE_PATH := "user://level_completion_data.json"
 const LEVELS_DIR : = "res://Resources/Levels/"
