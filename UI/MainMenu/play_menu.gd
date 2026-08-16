@@ -1,10 +1,13 @@
 extends Control
 
 @export var continue_button: Button
+@export var level_editor_button: Button
 
 func _ready() -> void :
 	continue_button.text = "Continue (level %d)" % GameMaster.current_level_num
 
+	if (not BuildManager.is_dev) :
+		level_editor_button.hide()
 
 func open() -> void :
 	show()

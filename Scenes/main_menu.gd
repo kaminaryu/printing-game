@@ -12,8 +12,12 @@ func _ready() -> void:
 	fadeOutTransition();
 	CursorManager.reset()
 
-	if (OS.has_feature("web")) :
+	if (BuildManager.is_web) :
 		$VBoxContainer/Quit.hide()
+
+	if (BuildManager.is_dev) :
+		$Camera2D/VersionNumber.text = $Camera2D/VersionNumber.text + " (DEV)"
+
 
 func fadeOutTransition() -> void:
 	fadeOutScreen.modulate.a = 1.0;

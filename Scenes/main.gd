@@ -53,6 +53,7 @@ func _ready() -> void:
 	CursorManager.set_cursor()
 
 
+
 func _process(delta):
 	if timer_running:
 		elapsed_time += delta

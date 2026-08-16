@@ -32,6 +32,7 @@ GameMaster="*uid://dksb0eccot54l"
 CursorManager="*uid://bib3mqgg4b6yi"
 LevelHistoryManager="*uid://bhx3jyv6qvkfl"
 PaperSetupHistoryManager="*uid://dofriw0i70oml"
+BuildManager="*uid://bgokng4s4bfye"
 
 [display]
 

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dpjfxr6cu3vso" path="res://Assets/menu/small_paper.png" id="2_n45e2"]
 [ext_resource type="Texture2D" uid="uid://c8sxt7sm3y5cu" path="res://Assets/menu/printer_front.png" id="3_opfnp"]
 [ext_resource type="Texture2D" uid="uid://bhisqp5qtwhqg" path="res://Assets/menu/the_riso.png" id="4_cp0ys"]
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="5_n45e2"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="5_n45e2"]
 [ext_resource type="Texture2D" uid="uid://ckywh0e0xja2m" path="res://Assets/menu/novaicon.png" id="5_vr1f0"]
 [ext_resource type="Theme" uid="uid://2o6xcslxk5mu" path="res://Assets/Themes/main_theme.tres" id="6_t1dhk"]
 [ext_resource type="AudioStream" uid="uid://cdtkikwrgks4u" path="res://Assets/Audio/Game_Start.wav" id="7_cp0ys"]
@@ -535,14 +535,13 @@ anchor_mode = 0
 ignore_rotation = false
 limit_enabled = false
 
-[node name="Version Number" type="Label" parent="Camera2D" unique_id=316800472]
+[node name="VersionNumber" type="Label" parent="Camera2D" unique_id=316800472]
 offset_left = 9.0
-offset_top = 678.0
-offset_right = 85.0
-offset_bottom = 747.0
+offset_top = 674.0
+offset_right = 92.0
+offset_bottom = 711.0
 theme = ExtResource("6_t1dhk")
-text = "v0.2 (dev)
-"
+text = "v0.2"
 
 [node name="GameStart" type="AudioStreamPlayer" parent="." unique_id=104590312]
 stream = ExtResource("7_cp0ys")

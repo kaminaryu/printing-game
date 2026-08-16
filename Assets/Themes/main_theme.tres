@@ -1,6 +1,6 @@
 [gd_resource type="Theme" format=3 uid="uid://2o6xcslxk5mu"]
 
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="1_jtlpu"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="1_jtlpu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_trj04"]
 

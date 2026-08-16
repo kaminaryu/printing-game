@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://d23miep4t2qod" path="res://Assets/GUI/playmenu.png" id="1_1f4s2"]
 [ext_resource type="Script" uid="uid://bb01b8kyqj0uq" path="res://UI/MainMenu/play_menu.gd" id="1_jcw7y"]
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="2_52eiw"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="2_52eiw"]
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="3_vxkmt"]
 
-[node name="PlayMenu" type="Control" unique_id=1684481824 node_paths=PackedStringArray("continue_button")]
+[node name="PlayMenu" type="Control" unique_id=1684481824 node_paths=PackedStringArray("continue_button", "level_editor_button")]
 z_index = 2
 layout_mode = 3
 anchors_preset = 15
@@ -15,6 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jcw7y")
 continue_button = NodePath("VBoxContainer/Continue")
+level_editor_button = NodePath("VBoxContainer/Level Editor")
 
 [node name="BG" type="TextureRect" parent="." unique_id=1875340073]
 layout_mode = 1
@@ -67,7 +68,7 @@ alignment = 2
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("3_vxkmt")
-text = "Level Editor"
+text = "NOVA Level Editor"
 alignment = 2
 
 [node name="Back" type="Button" parent="." unique_id=432054600]
