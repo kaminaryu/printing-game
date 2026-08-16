@@ -5,8 +5,10 @@ var current_level_data: LevelData
 @onready var printing_canvas = $PrintingCanvas
 @onready var grid_animator = $GridAnimator
 @onready var preview_grid = $CanvasLayer/PreviewGrid
+
 @onready var victory_grid = $CanvasLayer/VictoryPanel/VictoryTarget
 @onready var victory_animation = $CanvasLayer/VictoryPanel/AnimationPlayer
+
 @onready var blur_panel = $"CanvasLayer/Blur Panel"
 @onready var ink_cartridges = $Cartridges
 
@@ -15,24 +17,33 @@ var current_level_data: LevelData
 
 @onready var main_gui = $CanvasLayer/MainGUI
 @onready var paper_guide = $CanvasLayer/PaperGuide
+
 @onready var timer_label = $CanvasLayer/Timer
 @onready var level_title = $"CanvasLayer/Level Title"
-@onready var time_elapsed_label = $CanvasLayer/VictoryPanel/Time
+
+@onready var time_elapsed_label = $CanvasLayer/VictoryPanel/TimeInfo/TimeElapsed/Time
+@onready var current_best_title = $CanvasLayer/VictoryPanel/TimeInfo/CurrentBest/Title
+@onready var current_best_label = $CanvasLayer/VictoryPanel/TimeInfo/CurrentBest/Time
+@onready var current_best_container = $CanvasLayer/VictoryPanel/TimeInfo/CurrentBest
+
 @onready var congrats_panel = $CanvasLayer/CongratsPanel
 @onready var congrats_panel_animation = $CanvasLayer/CongratsPanel/AnimationPlayer
+
 @onready var current_level_counter_label = $CanvasLayer/LevelCounterContainer/CurrentLevel
 @onready var total_level_counter_label = $CanvasLayer/LevelCounterContainer/TotalLevel
+
 
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
 
 var target_grid_data: Array[Array] = []
 var remaining_ink: Dictionary = {}
-var _starting_ink: Dictionary = {} 
+var _starting_ink: Dictionary = {}
 
 var timer_running: bool
 var elapsed_time := 0.0
 
+# when an ink is used
 signal ink_inventory_updated(channel: String, remaining_count: int)
 
 func _ready() -> void:
@@ -110,7 +121,7 @@ func _on_grid_updated() -> void:
 	if check_victory_condition():
 		is_transitioning = true
 		_handle_level_victory()
-		
+
 
 func check_victory_condition() -> bool:
 	if target_grid_data.is_empty() or printing_canvas.canvas_grid.is_empty():
@@ -141,6 +152,27 @@ func _handle_level_victory() -> void:
 	main_gui.visible = false
 	paper_guide.visible = false
 	blur_panel.visible = true
+
+	var completion_data: Dictionary = GameMaster.load_level_completion_data()
+
+	# if its a new completion
+	if (completion_data.is_empty()) :
+		current_best_label.text = format_time_ms(elapsed_time)
+		current_best_container.hide()
+	# if its a new best
+	elif (elapsed_time < completion_data["best_time"]) :
+		current_best_title.text = "New Best!"
+		current_best_title.label_settings.font_color    = Color("#E5B400")
+		current_best_title.label_settings.outline_color = Color("#E5B400")
+		current_best_label.text = format_time_ms(elapsed_time)
+		current_best_container.show()
+		
+	else :
+		current_best_title.text = "Best Time"
+		current_best_title.label_settings.font_color    = Color("#000000")
+		current_best_title.label_settings.outline_color = Color("#000000")
+		current_best_label.text = format_time_ms(completion_data["best_time"] )
+		current_best_container.show()
 
 	GameMaster.save_level_completion_data(elapsed_time)
 	
@@ -176,16 +208,36 @@ func _on_continue_button_pressed() -> void:
 		GameMaster.increase_level()
 		_load_level_by_number(GameMaster.current_level_num)
 
-func format_time(time: float) -> String:
-	var minutes = int(time) / 60
-	var seconds = int(time) % 60
-	return "%02d:%02d" % [minutes, seconds]
 
-func format_time_ms(time: float) -> String:
-	var minutes = int(time) / 60
-	var seconds = int(time) % 60
-	var milliseconds = int((time - int(time)) * 100)
-	return "%02d:%02d.%02d" % [minutes, seconds, milliseconds]
+func format_time(time_s: float) -> String:
+	@warning_ignore("INTEGER_DIVISION")
+	var minutes = int(time_s) / 60
+	var seconds = int(time_s) % 60
+
+	const one_hour_in_seconds = 3600
+
+	if (time_s < one_hour_in_seconds) :
+		return "%02d:%02d" % [minutes, seconds]
+
+	@warning_ignore("INTEGER_DIVISION")
+	var hours = minutes / 60
+	minutes %= 60
+	return "%d:%02d:%02d" % [hours, minutes, seconds]
+
+func format_time_ms(time_s: float) -> String:
+	@warning_ignore("INTEGER_DIVISION")
+	var minutes = int(time_s) / 60
+	var seconds = int(time_s) % 60
+	var milliseconds = int((time_s - int(time_s)) * 100) # get the decimals
+	const one_hour_in_seconds = 3600
+
+	if (time_s < one_hour_in_seconds) :
+		return "%02d:%02d.%02d" % [minutes, seconds, milliseconds]
+
+	@warning_ignore("INTEGER_DIVISION")
+	var hours = minutes / 60
+	minutes %= 60
+	return "%d:%02d:%02d.%02d" % [hours, minutes, seconds, milliseconds]
 
 func reset_timer():
 	elapsed_time = 0

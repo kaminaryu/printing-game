@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c4raou4qqgak3" path="res://Scenes/LevelSelect/level_select.gd" id="1_dglhw"]
 [ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="2_brah1"]
 [ext_resource type="PackedScene" uid="uid://djxx6m4jftwbu" path="res://UI/preview_grid.tscn" id="4_h4n71"]
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="6_h4n71"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="6_h4n71"]
 [ext_resource type="Texture2D" uid="uid://ca1sdns3xf5jt" path="res://Assets/game/Buttons/redo/redo.png" id="8_h4n71"]
 [ext_resource type="Texture2D" uid="uid://y41eruxfebjv" path="res://Assets/game/Buttons/redo/redo_pressed.png" id="9_1jr32"]
 [ext_resource type="Texture2D" uid="uid://ff22b01soq25" path="res://Assets/game/Buttons/undo/undo.png" id="10_yof5r"]
@@ -61,13 +61,13 @@ label_settings = SubResource("LabelSettings_yof5r")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Completed Level" type="Label" parent="." unique_id=1404370711]
+[node name="BestTimeTitle" type="Label" parent="." unique_id=1404370711]
 layout_mode = 0
 offset_left = 811.0
 offset_top = 511.0
 offset_right = 1119.0
 offset_bottom = 545.0
-text = "Uncompleted"
+text = "Best Time:"
 label_settings = SubResource("LabelSettings_yof5r")
 horizontal_alignment = 1
 vertical_alignment = 1

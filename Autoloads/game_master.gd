@@ -43,37 +43,30 @@ func save_level_completion_data(time_elapsed_ms: float) -> void:
 	# Check if this level already has a saved record
 	if save_data.has(level_key) and typeof(save_data[level_key]) == TYPE_DICTIONARY:
 		var existing_record: Dictionary = save_data[level_key]
-		if existing_record.has("time_elapsed"):
-			var saved_time: int = int(existing_record["time_elapsed"])
+
+		if existing_record.has("best_time"):
+			var saved_time: int = int(existing_record["best_time"])
 			
 			# If the saved time is valid (not -1) and is faster/smaller than our current attempt, do not overwrite it
 			if saved_time != -1 and saved_time <= time_elapsed_ms:
 				should_save_new_time = false
 	
 	# Update or create the entry if it's a new personal best
-	if should_save_new_time:
+	if should_save_new_time :
 		save_data[level_key] = {
-			"level_completed": true,
-			"time_elapsed": time_elapsed_ms
+			"best_time": time_elapsed_ms
 		}
-	else:
-		# Keep old time, but ensure the completed flag stays true
-		save_data[level_key]["level_completed"] = true
 	
 	var file_write = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+
 	if file_write:
 		file_write.store_string(JSON.stringify(save_data))
 		file_write.close()
 
 
 func load_level_completion_data() -> Dictionary:
-	var default_data = {
-		"level_completed": false,
-		"time_elapsed": -1.0
-	}
-	
 	if not FileAccess.file_exists(SAVE_PATH):
-		return default_data
+		return {}
 		
 	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
 
@@ -90,7 +83,7 @@ func load_level_completion_data() -> Dictionary:
 			if save_data.has(level_key) and typeof(save_data[level_key]) == TYPE_DICTIONARY:
 				return save_data[level_key]
 				
-	return default_data
+	return {}
 
 
 func init_level_count() -> void:

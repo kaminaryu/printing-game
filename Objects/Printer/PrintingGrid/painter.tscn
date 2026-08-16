@@ -58,6 +58,10 @@ script = ExtResource("1_yx653")
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_yx653")
 
+[node name="Highlight" type="Sprite2D" parent="BrushItself" unique_id=1281120730]
+scale = Vector2(1.1, 1.1333334)
+texture = ExtResource("2_yx653")
+
 [node name="ShadowCol" type="Sprite2D" parent="BrushItself" unique_id=497345482]
 visible = false
 modulate = Color(0.64, 0.64, 0.64, 0.19607843)
@@ -65,7 +69,6 @@ position = Vector2(-2.6666667, 8)
 texture = ExtResource("2_yx653")
 
 [node name="ShadowRow" type="Sprite2D" parent="BrushItself" unique_id=1383375708]
-visible = false
 modulate = Color(0.64, 0.64, 0.64, 0.19607843)
 position = Vector2(-5.333333, -1.3333334)
 texture = ExtResource("2_yx653")
