@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://cdtkikwrgks4u" path="res://Assets/Audio/Game_Start.wav" id="7_cp0ys"]
 [ext_resource type="PackedScene" uid="uid://1f1kykdhkpbb" path="res://Scenes/settings.tscn" id="7_trj04"]
 [ext_resource type="AudioStream" uid="uid://dvthgkuq42xui" path="res://Assets/BGM/Menu-BGM.mp3" id="8_yhxw7"]
+[ext_resource type="Script" uid="uid://c4ggbm6dmpaew" path="res://Scenes/change_bind.gd" id="9_vtepg"]
 [ext_resource type="PackedScene" uid="uid://i8y1o1fpyx4g" path="res://UI/MainMenu/play_menu.tscn" id="10_5egv6"]
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="10_16hvj"]
 
@@ -502,6 +503,15 @@ theme = SubResource("Theme_ce3w2")
 text = "credits"
 alignment = 2
 
+[node name="ChangeBind" type="Button" parent="VBoxContainer" unique_id=187811127]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+theme = SubResource("Theme_ce3w2")
+text = "ChangeBind"
+alignment = 2
+script = ExtResource("9_vtepg")
+
 [node name="Quit" type="Button" parent="VBoxContainer" unique_id=1091840923]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -657,5 +667,6 @@ text = "back"
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="button_up" from="VBoxContainer/ChangeBind" to="VBoxContainer/ChangeBind" method="_on_button_up"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="Credits/Back" to="." method="_on_back_pressed"]

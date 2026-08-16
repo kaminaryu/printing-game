@@ -256,15 +256,19 @@ func _input(event: InputEvent) -> void :
 	elif event.is_action_pressed("reset_grid") :
 		reset_entire_level()
 
-	#elif event.is_action_pressed("escape") :
-	#	pass
 
-	#if event.is_action_pressed("select_cyan"):
-		#ColorManager.selected_color = 0
-	#elif event.is_action_pressed("select_magenta"):
-		#ColorManager.selected_color = 1
-	#elif event.is_action_pressed("select_yellow"):
-		#ColorManager.selected_color = 2
-	#elif event.is_action_pressed("select_key"):
-		#ColorManager.selected_color = 3
-	#CursorManager.set_cursor()
+	if event.is_action_pressed("select_cyan"):
+		if ("c" in current_level_data.available_channels) :
+			ColorManager.selected_color = 0
+
+	elif event.is_action_pressed("select_magenta"):
+		if ("m" in current_level_data.available_channels) :
+			ColorManager.selected_color = 1
+
+	elif event.is_action_pressed("select_yellow"):
+		if ("y" in current_level_data.available_channels) :
+			ColorManager.selected_color = 2
+
+	elif event.is_action_pressed("select_key"):
+		if ("k" in current_level_data.available_channels) :
+			ColorManager.selected_color = 3
