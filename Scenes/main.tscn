@@ -39,6 +39,7 @@
 [ext_resource type="PackedScene" uid="uid://1njs5i6kxcd5" path="res://UI/Animation/fade_in_animation.tscn" id="32_jwpg7"]
 [ext_resource type="FontFile" uid="uid://jtshn6j8mt7h" path="res://Assets/Fonts/Segment7Standard.otf" id="33_536cc"]
 [ext_resource type="Texture2D" uid="uid://c2ewg31ep5lhq" path="res://Assets/GUI/MainMenu/levelDisplay.png" id="33_k2e45"]
+[ext_resource type="PackedScene" uid="uid://cwwmmocpoh4kv" path="res://UI/MainGame/tutorial.tscn" id="35_aqgau"]
 
 [sub_resource type="Animation" id="Animation_hptm8"]
 resource_name = "Level End"
@@ -894,6 +895,12 @@ offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 texture = ExtResource("4_h1bgf")
+
+[node name="Tutorial" parent="CanvasLayer" unique_id=379525756 instance=ExtResource("35_aqgau")]
+offset_left = 78.0
+offset_top = 539.0
+offset_right = 78.0
+offset_bottom = 539.0
 
 [node name="PrinterNoises" type="AudioStreamPlayer" parent="." unique_id=630669394]
 volume_db = -15.0
