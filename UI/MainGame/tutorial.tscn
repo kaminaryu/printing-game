@@ -1,59 +1,113 @@
 [gd_scene format=3 uid="uid://cwwmmocpoh4kv"]
 
 [ext_resource type="Texture2D" uid="uid://brodxbca1f6af" path="res://Assets/GUI/Tutorial/body_9patch.png" id="1_30s4c"]
+[ext_resource type="Shader" uid="uid://dltapv1sotv0b" path="res://Assets/Shaders/darken_blur.gdshader" id="1_flgah"]
+[ext_resource type="Script" uid="uid://jk5nvohet1m2" path="res://UI/MainGame/tutorial.gd" id="1_nhnjf"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="2_gan3s"]
+[ext_resource type="Script" uid="uid://i0h6t2qj2fx4" path="res://UI/MainGame/blur_screen.gd" id="2_k3h2x"]
 
-[sub_resource type="Animation" id="Animation_30s4c"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_flgah"]
+shader = ExtResource("1_flgah")
+shader_parameter/blur_amount = 1.0
+shader_parameter/darkness = 0.5
+shader_parameter/hole_centers = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/hole_sizes = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/hole_count = 0
+shader_parameter/feather = 0.02
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k3h2x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nhnjf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7eql4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_62qly"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yp66i"]
+
+[sub_resource type="Animation" id="Animation_nhnjf"]
+resource_name = "FadeIn"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Panel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 0.108818926),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7eql4"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("Panel:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(78, 571)]
+"values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_gan3s"]
-resource_name = "SlideIn"
-length = 0.75
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.75),
-"transitions": PackedFloat32Array(0.45, 1),
-"update": 0,
-"values": [Vector2(78, 735), Vector2(78, 571)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_flgah"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_62qly"]
 _data = {
-&"RESET": SubResource("Animation_30s4c"),
-&"SlideIn": SubResource("Animation_gan3s")
+&"FadeIn": SubResource("Animation_nhnjf"),
+&"RESET": SubResource("Animation_7eql4")
 }
 
-[node name="Tutorial" type="Control" unique_id=1707487666]
+[node name="Tutorial" type="Control" unique_id=635414482]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 78.0
-offset_top = 571.0
-offset_right = 78.0
-offset_bottom = 571.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nhnjf")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1273693756]
+[node name="BlurScreen" type="ColorRect" parent="." unique_id=411523341 node_paths=PackedStringArray("holes_root")]
+material = SubResource("ShaderMaterial_flgah")
 layout_mode = 1
-offset_right = 576.0
-offset_bottom = 139.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_k3h2x")
+holes_root = NodePath("../Holes")
+
+[node name="Holes" type="Control" parent="." unique_id=202001462]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HoleRect" type="ColorRect" parent="Holes" unique_id=675472662]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 191.0
+offset_right = 765.0
+offset_bottom = 448.0
+mouse_filter = 2
+color = Color(0.77, 0.77, 0.77, 0.3019608)
+
+[node name="Panel" type="MarginContainer" parent="." unique_id=1053466253]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 544.0
+offset_bottom = 96.0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Panel" unique_id=1273693756]
+layout_mode = 2
 texture = ExtResource("1_30s4c")
 region_rect = Rect2(0, 0, 256, 256)
 patch_margin_left = 48
@@ -63,22 +117,56 @@ patch_margin_bottom = 48
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="TextMargin" type="MarginContainer" parent="." unique_id=1320819868]
-layout_mode = 1
-offset_right = 576.0
-offset_bottom = 139.0
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+[node name="TextMargin" type="MarginContainer" parent="Panel" unique_id=1320819868]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="Text" type="Label" parent="TextMargin" unique_id=768748782]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/TextMargin" unique_id=1909464170]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Text" type="Label" parent="Panel/TextMargin/VBoxContainer" unique_id=768748782]
 custom_minimum_size = Vector2(512, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Sit amet consectetur adipiscing elit quisque faucibus ex. Adipiscing elit quisque faucibus ex sapien vitae pellentesque."
-autowrap_mode = 3
+theme_override_fonts/font = ExtResource("2_gan3s")
+theme_override_font_sizes/font_size = 20
+text = "Lorem ipsum dol set am "
+autowrap_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=11367231]
-libraries/ = SubResource("AnimationLibrary_flgah")
-autoplay = &"SlideIn"
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/TextMargin/VBoxContainer" unique_id=819683357]
+layout_mode = 2
+
+[node name="Prev" type="Button" parent="Panel/TextMargin/VBoxContainer/HBoxContainer" unique_id=668975504]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/font_color = Color(0.46666667, 0.67058825, 0.5803922, 1)
+theme_override_fonts/font = ExtResource("2_gan3s")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_k3h2x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_nhnjf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7eql4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_62qly")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yp66i")
+text = "< Prev"
+
+[node name="Next" type="Button" parent="Panel/TextMargin/VBoxContainer/HBoxContainer" unique_id=1222156564]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.46666667, 0.67058825, 0.5803922, 1)
+theme_override_fonts/font = ExtResource("2_gan3s")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_k3h2x")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_nhnjf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7eql4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_62qly")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yp66i")
+text = "Next >"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1111910152]
+libraries/ = SubResource("AnimationLibrary_62qly")
+
+[connection signal="button_up" from="Panel/TextMargin/VBoxContainer/HBoxContainer/Prev" to="." method="_on_prev_button_up"]
+[connection signal="button_up" from="Panel/TextMargin/VBoxContainer/HBoxContainer/Next" to="." method="_on_next_button_up"]

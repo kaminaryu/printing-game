@@ -24,7 +24,7 @@ func show_row_shadow() -> void :
 
 
 func _on_button_down() -> void :
-	if (!ColorManager.is_selecting_color()) :
+	if (!ColorManager.is_channel_selected()) :
 		return
 		
 	paint_requested.emit({

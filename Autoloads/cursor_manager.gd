@@ -42,7 +42,7 @@ func set_cursor() -> void:
 		"m": texture = CURSOR_MAGENTA
 		"y": texture = CURSOR_YELLOW
 		"k": texture = CURSOR_KEY
-		"_": texture = CURSOR_DEFAULT
+		_: texture = CURSOR_DEFAULT
 
 	Input.set_custom_mouse_cursor(texture, Input.CURSOR_ARROW, CURSOR_HOTSPOT)
 
@@ -56,6 +56,6 @@ func set_roller() -> void:
 		"m": texture = ROLLER_MAGENTA
 		"y": texture = ROLLER_YELLOW
 		"k": texture = ROLLER_KEY
-		"_": texture = ROLLER_DEFAULT
+		_: texture = ROLLER_DEFAULT
 
 	Input.set_custom_mouse_cursor(texture, Input.CURSOR_ARROW, ROLLER_HOTSPOT)

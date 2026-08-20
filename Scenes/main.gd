@@ -32,6 +32,8 @@ var current_level_data: LevelData
 @onready var current_level_counter_label = $CanvasLayer/LevelCounterContainer/CurrentLevel
 @onready var total_level_counter_label = $CanvasLayer/LevelCounterContainer/TotalLevel
 
+@onready var tutorials := $CanvasLayer/Tutorials
+
 
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
@@ -49,6 +51,8 @@ signal ink_inventory_updated(channel: String, remaining_count: int)
 func _ready() -> void:
 	printing_canvas.paint_cascade_finished.connect(_on_grid_updated)
 	ink_inventory_updated.connect(ink_cartridges.update_ink_label)
+	tutorials.tutorial_finished.connect(_on_tutorial_finished)
+
 	var _load_level_by_number_successful: bool = _load_level_by_number(GameMaster.current_level_num)
 	CursorManager.set_cursor()
 
@@ -60,11 +64,14 @@ func _process(delta):
 
 
 func _load_level(level_data: LevelData) -> void:
+	# if the level is the 1st level (which have tutorial), do not run game yet
+	if (GameMaster.current_level_num != 1) :
+		game_in_progress = true
+		
 	GameMaster.is_printing_completed = false
 	reset_timer()
 	level_title.text = level_data.level_name
 	level_title.play_animation()
-	game_in_progress = true
 	main_gui.visible = true
 	paper_guide.visible = true
 	current_level_data = level_data
@@ -246,6 +253,10 @@ func format_time_ms(time_s: float) -> String:
 
 func reset_timer():
 	elapsed_time = 0
+
+
+func _on_tutorial_finished() -> void :
+	game_in_progress = true
 
 
 func _input(event: InputEvent) -> void :

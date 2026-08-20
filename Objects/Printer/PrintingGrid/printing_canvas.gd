@@ -148,7 +148,7 @@ func _on_paint_request(request: Dictionary) -> void:
 		ink_used_in_editor.emit(channel)
 		return
 
-	var is_lock_action: bool = (channel == ColorManager.CHANNELS[3])
+	var is_lock_action: bool = (channel == ColorManager.CHANNEL_CODES[3])
 
 	is_cascading = true
 	SaveStatesManager.save_snapshot(get_grid_color_matrix(), owner.remaining_ink)
@@ -187,7 +187,7 @@ func _paint_column(col: int, channel: String) -> bool :
 	for row in range(grid_size.y):
 		var cell: GridCell = canvas_grid[col][row]
 
-		if (channel == ColorManager.CHANNELS[3]) :
+		if (channel == ColorManager.CHANNEL_CODES[3]) :
 			cell.toggle_ink_lock()
 			continue
 
@@ -227,7 +227,7 @@ func _paint_row(row: int, channel: String) -> bool :
 	for col in range(grid_size.x):
 		var cell: Node = canvas_grid[col][row]
 
-		if (channel == ColorManager.CHANNELS[3]) :
+		if (channel == ColorManager.CHANNEL_CODES[3]) :
 			cell.toggle_ink_lock()
 			continue
 

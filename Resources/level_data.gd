@@ -4,7 +4,7 @@ class_name LevelData
 
 @export_subgroup("Level Configuration")
 @export var grid_size: Vector2i = Vector2i(5, 5)
-@export var available_channels: Array[String] = ColorManager.CHANNELS.duplicate()
+@export var available_channels: Array[String] = ColorManager.CHANNEL_CODES.duplicate()
 @export var level_name: String = "Lorem Ipsum"
 @export var paper_color: String = "#FFF"
 @export var initial_grid: Array[String]

@@ -2,9 +2,9 @@ extends Node
 
 signal color_changed
 
-const CHANNELS: Array[String] = ["c", "m", "y", "k"]
-const CHANNEL_NAMES: Array[String] = ["Cyan", "Magenta", "Yellow", "Key"]
-const CHANNEL_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000"]
+const CHANNEL_CODES: Array[String] = ["c", "m", "y", "k", "u"]
+const CHANNEL_NAMES: Array[String] = ["Cyan", "Magenta", "Yellow", "Key", "Undefined"]
+const CHANNEL_COLORS: Array[String] = ["#00FFFF", "#FF00FF", "#FFFF00", "#000000", "#FFFFFF"]
 
 const COLOR_GLOSSARY: Dictionary = {
 	"000": "#FFFFFF",
@@ -29,20 +29,20 @@ const COLOR_GLOSSARY: Dictionary = {
 	"111": "#0E0E0E",
 }
 
-var selected_color: int = 0:
+enum SelectedColors {
+	CYAN,
+	MAGENTA,
+	YELLOW,
+	KEY,
+	UNDEFINED
+}
+
+
+var selected_color: int = SelectedColors.UNDEFINED:
 	set(value):
 		selected_color = value
 		CursorManager.set_cursor()
 		color_changed.emit()
-
-
-func get_selected_color_key() -> String :
-	match selected_color :
-		0: return "100"
-		1: return "010"
-		2: return "001"
-		3: return "111"
-		_: return ""
 
 
 func _ready() -> void :
@@ -50,29 +50,39 @@ func _ready() -> void :
 
 
 func reset() -> void :
-	selected_color = 0
+	selected_color = -1
 
+
+func get_selected_color_key() -> String :
+	match selected_color :
+		SelectedColors.CYAN:    return "100"
+		SelectedColors.MAGENTA: return "010"
+		SelectedColors.YELLOW:  return "001"
+		SelectedColors.KEY:     return "111"
+		_: return ""
 
 func get_selected_color() -> String :
 	return CHANNEL_COLORS[selected_color]
 
 
 func get_channel_name(channel: String) -> String :
-	var index: int = CHANNELS.find(channel)
+	var index: int = CHANNEL_CODES.find(channel)
 
 	if (index == -1) :
 		return "Undefined"
 
 	return CHANNEL_NAMES[index]
 
+
 func get_channel_hexcode(channel: String) -> String :
-	var index: int = CHANNELS.find(channel)
+	var index: int = CHANNEL_CODES.find(channel)
 
 	# not found
 	if (index == -1) :
 		return "#670067"
 
 	return CHANNEL_COLORS[index]
+
 
 func get_color_name(color_key: String) -> String :
 	match color_key :
@@ -84,8 +94,8 @@ func get_color_name(color_key: String) -> String :
 
 
 func get_color_channel() -> String :
-	return CHANNELS[selected_color]
+	return CHANNEL_CODES[selected_color]
 
 
-func is_selecting_color() -> bool :
-	return selected_color != -1
+func is_channel_selected() -> bool :
+	return selected_color != SelectedColors.UNDEFINED
