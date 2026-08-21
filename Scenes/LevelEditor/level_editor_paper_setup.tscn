@@ -64,6 +64,7 @@ theme_override_constants/separation = 15
 
 [node name="ControlButtons" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor" unique_id=823869675]
 layout_mode = 2
+theme_override_constants/separation = 64
 
 [node name="UndoDelete" type="HBoxContainer" parent="MainScreen/Controller/MarginContainer/Editor/ControlButtons" unique_id=195566034]
 layout_mode = 2
@@ -79,6 +80,11 @@ texture_normal = ExtResource("3_eyko8")
 layout_mode = 2
 tooltip_text = "Clear all ink on grid"
 texture_normal = ExtResource("4_ir2u5")
+
+[node name="Back" type="Button" parent="MainScreen/Controller/MarginContainer/Editor/ControlButtons" unique_id=2140817572]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+text = "Back"
 
 [node name="Apply" type="Button" parent="MainScreen/Controller/MarginContainer/Editor/ControlButtons" unique_id=1398045208]
 layout_mode = 2
@@ -204,6 +210,7 @@ texture_normal = ExtResource("9_rpaah")
 
 [connection signal="button_up" from="MainScreen/Controller/MarginContainer/Editor/ControlButtons/UndoDelete/Undo" to="." method="_on_undo_button_up"]
 [connection signal="button_up" from="MainScreen/Controller/MarginContainer/Editor/ControlButtons/UndoDelete/Delete" to="." method="_on_delete_button_up"]
+[connection signal="button_up" from="MainScreen/Controller/MarginContainer/Editor/ControlButtons/Back" to="." method="_on_back_button_up"]
 [connection signal="button_up" from="MainScreen/Controller/MarginContainer/Editor/ControlButtons/Apply" to="." method="_on_apply_button_up"]
 [connection signal="item_selected" from="MainScreen/Controller/MarginContainer/Editor/PaperColor/PaperColorOption" to="." method="_on_paper_color_option_item_selected"]
 [connection signal="value_changed" from="MainScreen/Controller/MarginContainer/Editor/GridSetting/Width/WidthInput" to="." method="_on_width_input_value_changed"]

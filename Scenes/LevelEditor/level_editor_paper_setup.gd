@@ -184,3 +184,7 @@ func _on_apply_button_up() -> void:
 	# submit LevelData to level_editor
 	level_editor.level_data = level_data
 	get_tree().change_scene_to_node(level_editor)
+
+
+func _on_back_button_up() -> void:
+	get_tree().change_scene_to_file("res://Scenes/LevelEditor/level_editor_mode_chooser.tscn")
