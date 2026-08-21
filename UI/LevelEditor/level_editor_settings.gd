@@ -145,6 +145,30 @@ func save_level_metadata(level_num: int) -> void :
 		print("Save failed. Godot error code: ", response)
 
 
+func increase_ink_minimum_value(channel: String, amount_of_ink_used: int) -> void :
+	var spinbox: SpinBox
+
+	match channel :
+		"c":
+			spinbox = ink_c.get_node("SpinBox")
+		"m":
+			spinbox = ink_m.get_node("SpinBox")
+		"y":
+			spinbox = ink_y.get_node("SpinBox")
+		"k":
+			spinbox = ink_k.get_node("SpinBox")
+
+	spinbox.min_value = amount_of_ink_used
+
+
+
+func set_inks_minimum_value(ink_counter: Array[int]) -> void :
+	ink_c.get_node("SpinBox").min_value = ink_counter[0]
+	ink_m.get_node("SpinBox").min_value = ink_counter[1]
+	ink_y.get_node("SpinBox").min_value = ink_counter[2]
+	ink_k.get_node("SpinBox").min_value = ink_counter[3]
+
+
 # --- Signals ---
 func _on_back_button_down() -> void:
 	slide_menu()

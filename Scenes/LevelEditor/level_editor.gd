@@ -45,8 +45,6 @@ func _init_canvas_inks() -> void :
 	printing_canvas.lock_canvas(level_data.get_lock_states_2d())
 
 
-	
-
 ###########
 # Actions #
 ###########
@@ -61,16 +59,17 @@ func _increase_amount_of_ink_used(color_channel: String) -> void :
 	var counter: Label
 
 	match color_channel :
-		"c": 
+		"c":
 			counter = ink_counter.get_node("Cyan/Label")
-		"m": 
+		"m":
 			counter = ink_counter.get_node("Magenta/Label")
-		"y": 
+		"y":
 			counter = ink_counter.get_node("Yellow/Label")
-		"k": 
+		"k":
 			counter = ink_counter.get_node("Key/Label")
 
 	counter.text = str(int(counter.text) + 1)
+	settings.increase_ink_minimum_value(color_channel, int(counter.text))
 
 
 # for history purpose
@@ -97,16 +96,24 @@ func _load_ink_counter() -> void :
 		counter.get_node("Label").text = str(level_data.amount_of_ink_used_cmyk[index])
 		index += 1
 
+	# update the constraint of the level settings so that user doesnt put less ink than possible
+	settings.set_inks_minimum_value(level_data.amount_of_ink_used_cmyk)
+
 
 func _set_ink_counter(new_ink_counter: Array[int]) -> void :
 	var index: int = 0
 
+	# update each ink counters
 	for counter in ink_counter.get_children() :
-		if not (counter is PanelContainer) : continue
+		if (not counter is PanelContainer) : continue
 
 		# WARNING: Make sure the Labels are named 'Label' and are in CMYK order
 		counter.get_node("Label").text = str(new_ink_counter[index])
 		index += 1
+
+	# update the constraint of the level settings so that user doesnt put less ink than possible
+	settings.set_inks_minimum_value(new_ink_counter)
+
 
 
 #######################
