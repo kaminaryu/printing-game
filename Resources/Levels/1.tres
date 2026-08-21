@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://bo0cdmtpaha0h"]
+[gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_envha"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_envha"]
 
 [resource]
 script = ExtResource("1_envha")
@@ -10,8 +10,8 @@ level_name = "Cyan Rows"
 target_colors = Array[String](["100", "100", "100", "000", "000", "000", "100", "100", "100"])
 ink_limits = {
 "c": -1,
-"k": 0,
+"k": 1,
 "m": -1,
-"y": 0
+"y": 1
 }
 amount_of_ink_used_cmyk = Array[int]([2, 0, 0, 0])

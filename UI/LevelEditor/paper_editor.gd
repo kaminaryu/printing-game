@@ -137,7 +137,7 @@ func paint_row(index: int, line_cells_data: Array[String]) -> void :
 	for i in range(canvas_grid.size()) :
 		var cell: GridCell = canvas_grid[i][index]
 		cell.set_color_key(line_cells_data[i].substr(0, 3))
-		cell.toggle_ink_lock(true if line_cells_data[i][-1] == "1" else false)
+		cell.toggle_ink_lock(line_cells_data[i][-1] == "1")
 
 
 
@@ -145,7 +145,7 @@ func paint_col(index: int, line_cells_data: Array[String]) -> void :
 	for i in range(canvas_grid[index].size()) :
 		var cell: GridCell = canvas_grid[index][i]
 		cell.set_color_key(line_cells_data[i].substr(0, 3))
-		cell.toggle_ink_lock(true if line_cells_data[i][-1] == "1" else false)
+		cell.toggle_ink_lock(line_cells_data[i][-1] == "1")
 
 
 # -- for clearing and redrawing cleared grid -- 
@@ -156,4 +156,4 @@ func paint_whole_grid(p_canvas_grid_cmyk: Array[Array]) :
 			var cell_cmyk: String = p_canvas_grid_cmyk[col][row]
 
 			cell.set_color_key(cell_cmyk.substr(0, 3))
-			cell.toggle_ink_lock(true if cell_cmyk[-1] == "1" else false)
+			cell.toggle_ink_lock(cell_cmyk[-1] == "1")

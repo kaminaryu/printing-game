@@ -75,11 +75,19 @@ func _get_parent() -> Control :
 func load_level_metadata(level_name: String, ink_limits: Dictionary, available_channels: Array[String]) -> void :
 	level_name_input_box.text = level_name
 	
+	# set the ink limit
 	ink_c.get_node("SpinBox").value = ink_limits["c"]
 	ink_m.get_node("SpinBox").value = ink_limits["m"]
 	ink_y.get_node("SpinBox").value = ink_limits["y"]
 	ink_k.get_node("SpinBox").value = ink_limits["k"]
 
+	# set the ink infinite ink
+	ink_c.get_node("ToggleInfInk").button_pressed = ink_limits["c"] == -1
+	ink_m.get_node("ToggleInfInk").button_pressed = ink_limits["m"] == -1
+	ink_y.get_node("ToggleInfInk").button_pressed = ink_limits["y"] == -1
+	ink_k.get_node("ToggleInfInk").button_pressed = ink_limits["k"] == -1
+
+	# set the visibility button to the level's available channels
 	ink_c.get_node("ToggleVisibility").button_pressed = available_channels.has("c")
 	ink_m.get_node("ToggleVisibility").button_pressed = available_channels.has("m")
 	ink_y.get_node("ToggleVisibility").button_pressed = available_channels.has("y")
@@ -91,10 +99,18 @@ func save_level_metadata(level_num: int) -> void :
 
 	# set ink limits
 	level_data.ink_limits = {
-		"c": int(ink_c.get_node("SpinBox").value),
-		"m": int(ink_m.get_node("SpinBox").value),
-		"y": int(ink_y.get_node("SpinBox").value),
-		"k": int(ink_k.get_node("SpinBox").value)
+		"c": -1
+			if ink_c.get_node("ToggleInfInk").button_pressed
+			else int(ink_c.get_node("SpinBox").value),
+		"m": -1
+			if ink_m.get_node("ToggleInfInk").button_pressed
+			else int(ink_m.get_node("SpinBox").value),
+		"y": -1
+			if ink_y.get_node("ToggleInfInk").button_pressed
+			else int(ink_y.get_node("SpinBox").value),
+		"k": -1
+			if ink_k.get_node("ToggleInfInk").button_pressed
+			else int(ink_k.get_node("SpinBox").value),
 	}
 
 	# set avaiable color channel

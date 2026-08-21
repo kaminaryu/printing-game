@@ -2,11 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cqxambkwo6rbh" path="res://UI/LevelEditor/level_editor_settings.gd" id="1_dd02n"]
 [ext_resource type="Texture2D" uid="uid://bxw8rrv8an6wb" path="res://Assets/GUI/settings_menu_no_shadow.png" id="2_dd02n"]
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_66ljn"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="3_66ljn"]
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="4_pbu4j"]
 [ext_resource type="Texture2D" uid="uid://gwiugx4wx15c" path="res://Assets/GUI/background_shadow.png" id="5_p78wg"]
 [ext_resource type="Texture2D" uid="uid://pi8bvy0a0xy7" path="res://Assets/menu/LevelEditor/Shown.svg" id="6_pbu4j"]
 [ext_resource type="Texture2D" uid="uid://b338675lwldtt" path="res://Assets/menu/LevelEditor/Hidden.svg" id="7_sg72d"]
+[ext_resource type="Texture2D" uid="uid://d0ow3ljrb1uiv" path="res://Assets/menu/LevelEditor/InfinityDisabled.svg" id="8_j1w51"]
+[ext_resource type="Texture2D" uid="uid://btpjcuysr5rku" path="res://Assets/menu/LevelEditor/Infinity.svg" id="9_1esav"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_dd02n"]
 color = Color(0.5882353, 0.74509805, 0.6784314, 1)
@@ -185,11 +187,20 @@ toggle_mode = true
 texture_normal = ExtResource("7_sg72d")
 texture_pressed = ExtResource("6_pbu4j")
 
+[node name="ToggleInfInk" type="TextureButton" parent="Menu/CatrigeSection/Cyan" unique_id=586487365]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Toggle availability of the ink in the level"
+toggle_mode = true
+texture_normal = ExtResource("8_j1w51")
+texture_pressed = ExtResource("9_1esav")
+
 [node name="SpinBox" type="SpinBox" parent="Menu/CatrigeSection/Cyan" unique_id=1255668398]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-min_value = -1.0
+min_value = 1.0
+value = 1.0
 alignment = 2
 
 [node name="Magenta" type="HBoxContainer" parent="Menu/CatrigeSection" unique_id=1065068026]
@@ -211,11 +222,20 @@ toggle_mode = true
 texture_normal = ExtResource("7_sg72d")
 texture_pressed = ExtResource("6_pbu4j")
 
+[node name="ToggleInfInk" type="TextureButton" parent="Menu/CatrigeSection/Magenta" unique_id=2100187938]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Toggle availability of the ink in the level"
+toggle_mode = true
+texture_normal = ExtResource("8_j1w51")
+texture_pressed = ExtResource("9_1esav")
+
 [node name="SpinBox" type="SpinBox" parent="Menu/CatrigeSection/Magenta" unique_id=1083933248]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-min_value = -1.0
+min_value = 1.0
+value = 1.0
 alignment = 2
 
 [node name="Yellow" type="HBoxContainer" parent="Menu/CatrigeSection" unique_id=410272554]
@@ -237,11 +257,20 @@ toggle_mode = true
 texture_normal = ExtResource("7_sg72d")
 texture_pressed = ExtResource("6_pbu4j")
 
+[node name="ToggleInfInk" type="TextureButton" parent="Menu/CatrigeSection/Yellow" unique_id=88662378]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Toggle availability of the ink in the level"
+toggle_mode = true
+texture_normal = ExtResource("8_j1w51")
+texture_pressed = ExtResource("9_1esav")
+
 [node name="SpinBox" type="SpinBox" parent="Menu/CatrigeSection/Yellow" unique_id=1756082250]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-min_value = -1.0
+min_value = 1.0
+value = 1.0
 alignment = 2
 
 [node name="Key" type="HBoxContainer" parent="Menu/CatrigeSection" unique_id=1574195571]
@@ -263,11 +292,20 @@ toggle_mode = true
 texture_normal = ExtResource("7_sg72d")
 texture_pressed = ExtResource("6_pbu4j")
 
+[node name="ToggleInfInk" type="TextureButton" parent="Menu/CatrigeSection/Key" unique_id=1747398793]
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Toggle availability of the ink in the level"
+toggle_mode = true
+texture_normal = ExtResource("8_j1w51")
+texture_pressed = ExtResource("9_1esav")
+
 [node name="SpinBox" type="SpinBox" parent="Menu/CatrigeSection/Key" unique_id=1984917094]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-min_value = -1.0
+min_value = 1.0
+value = 1.0
 alignment = 2
 
 [node name="Back" type="Button" parent="." unique_id=432054600]
