@@ -1,16 +1,14 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://b8wjw3mwvljmr"]
+[gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_0dcih"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_0dcih"]
 
 [resource]
 script = ExtResource("1_0dcih")
-grid_size = Vector2i(3, 3)
-available_channels = Array[String](["c", "y", "m"])
-level_name = "Green Present"
-target_colors = Array[String](["100", "101", "100", "101", "101", "101", "100", "101", "100"])
-ink_limits = {
-"c": 3,
-"k": 0,
-"m": 0,
-"y": 2
-}
+grid_size = Vector2i(6, 7)
+available_channels = Array[String](["c", "m", "y"])
+level_name = "Scenary"
+paper_color = "#ffffff"
+initial_grid = Array[String](["0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"])
+target_colors = Array[String](["100", "000", "000", "000", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "100", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101", "101"])
+lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+amount_of_ink_used_cmyk = Array[int]([9, 0, 3, 0])

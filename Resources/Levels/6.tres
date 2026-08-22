@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_tqgsa"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_2dfw5"]
 
 [resource]
-script = ExtResource("1_tqgsa")
+script = ExtResource("1_2dfw5")
 grid_size = Vector2i(3, 3)
 available_channels = Array[String](["c", "m"])
-level_name = "Flower"
-target_colors = Array[String](["100", "110", "100", "110", "010", "110", "100", "110", "100"])
-amount_of_ink_used_cmyk = Array[int]([4, 2, 0, 0])
+level_name = "Birthday Present"
+target_colors = Array[String](["010", "110", "010", "110", "110", "110", "010", "110", "010"])
+amount_of_ink_used_cmyk = Array[int]([2, 3, 0, 0])

@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://26w2lwv0s8nb"]
+[gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_82fmj"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_82fmj"]
 
 [resource]
 script = ExtResource("1_82fmj")
 grid_size = Vector2i(4, 4)
-available_channels = Array[String](["c", "m"])
-level_name = "2x2"
-target_colors = Array[String](["110", "110", "100", "100", "110", "110", "100", "100", "010", "010", "110", "110", "010", "010", "110", "110"])
+available_channels = Array[String](["c", "m", "y"])
+level_name = "Red Flag"
+paper_color = "#ffffff"
+initial_grid = Array[String](["0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"])
+target_colors = Array[String](["111", "011", "011", "011", "111", "011", "011", "011", "111", "000", "000", "000", "111", "000", "000", "000"])
+lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+amount_of_ink_used_cmyk = Array[int]([0, 5, 3, 0])

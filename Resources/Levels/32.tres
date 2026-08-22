@@ -4,6 +4,11 @@
 
 [resource]
 script = ExtResource("1_ngmy0")
-grid_size = Vector2i(4, 3)
-level_name = "huh"
-target_colors = Array[String](["100", "000", "100", "000", "110", "010", "110", "010", "110", "010", "110", "010"])
+grid_size = Vector2i(10, 6)
+available_channels = Array[String](["c", "m", "y", "k"])
+level_name = "MERDEKA"
+paper_color = "#ffffff"
+initial_grid = Array[String](["0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"])
+target_colors = Array[String](["110", "110", "110", "110", "110", "011", "011", "011", "011", "011", "110", "001", "110", "110", "110", "000", "000", "000", "000", "000", "110", "001", "110", "001", "110", "011", "011", "011", "011", "011", "110", "110", "110", "110", "110", "000", "000", "000", "000", "000", "011", "011", "011", "011", "011", "011", "011", "011", "011", "011", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000"])
+lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+amount_of_ink_used_cmyk = Array[int]([5, 8, 5, 23])

@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://cuywltey3d32h"]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://bjymifsixs6wy"]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_gyksq"]
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_p1l2n"]
 
 [resource]
-script = ExtResource("1_gyksq")
-grid_size = Vector2i(4, 4)
-available_channels = Array[String](["c", "m"])
-level_name = "Bars"
-target_colors = Array[String](["110", "010", "110", "010", "110", "110", "110", "110", "110", "010", "110", "010", "110", "010", "110", "010"])
+script = ExtResource("1_p1l2n")
+grid_size = Vector2i(3, 3)
+available_channels = Array[String](["c", "y", "m"])
+level_name = "Colors"
+target_colors = Array[String](["001", "011", "101", "011", "010", "110", "101", "110", "100"])

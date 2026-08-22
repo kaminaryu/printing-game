@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_3hx8e"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_7ptsx"]
 
 [resource]
-script = ExtResource("1_3hx8e")
+script = ExtResource("1_7ptsx")
 grid_size = Vector2i(3, 3)
 available_channels = Array[String](["c", "m"])
-level_name = "Bagel"
-target_colors = Array[String](["010", "010", "010", "010", "000", "010", "010", "010", "010"])
-amount_of_ink_used_cmyk = Array[int]([0, 4, 0, 0])
+level_name = "Combinations"
+target_colors = Array[String](["000", "010", "000", "100", "110", "100", "000", "010", "000"])
+amount_of_ink_used_cmyk = Array[int]([1, 1, 0, 0])

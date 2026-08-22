@@ -1,10 +1,20 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://4fdij3xa5bj7"]
+[gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_tsfje"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_tsfje"]
 
 [resource]
 script = ExtResource("1_tsfje")
-grid_size = Vector2i(3, 3)
-available_channels = Array[String](["c", "y", "m"])
-level_name = "Baguette"
-target_colors = Array[String](["110", "000", "011", "110", "000", "011", "110", "000", "011"])
+grid_size = Vector2i(4, 5)
+available_channels = Array[String](["c", "m", "y"])
+level_name = "Nether Portal"
+paper_color = "#ffffff"
+initial_grid = Array[String](["0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"])
+target_colors = Array[String](["120", "120", "120", "120", "120", "010", "010", "120", "120", "010", "010", "120", "120", "010", "010", "120", "120", "120", "120", "120"])
+lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+ink_limits = {
+"c": -1,
+"k": 0,
+"m": -1,
+"y": -1
+}
+amount_of_ink_used_cmyk = Array[int]([4, 8, 0, 0])

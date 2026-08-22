@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://d18loqri5mp66"]
+[gd_resource type="Resource" script_class="LevelData" format=3]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_p3n5q"]
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_gyksq"]
 
 [resource]
-script = ExtResource("1_p3n5q")
-grid_size = Vector2i(3, 3)
-available_channels = Array[String](["c", "y", "m"])
-level_name = "3 Layers"
-target_colors = Array[String](["100", "100", "100", "010", "010", "010", "001", "001", "001"])
+script = ExtResource("1_gyksq")
+grid_size = Vector2i(5, 4)
+available_channels = Array[String](["c", "m", "y"])
+level_name = "Bars"
+paper_color = "#ffffff"
+initial_grid = Array[String](["0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"])
+target_colors = Array[String](["110", "010", "110", "010", "110", "110", "110", "110", "110", "110", "110", "010", "110", "010", "110", "110", "010", "110", "010", "110"])
+lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+amount_of_ink_used_cmyk = Array[int]([4, 5, 0, 0])

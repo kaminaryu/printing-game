@@ -4,16 +4,17 @@
 
 [resource]
 script = ExtResource("1_x4hqx")
+grid_size = Vector2i(6, 6)
 available_channels = Array[String](["c", "m", "y", "k"])
-level_name = "Racing Point"
-paper_color = "#ff00ff"
-initial_grid = Array[String](["0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100"])
-target_colors = Array[String](["120", "010", "011", "010", "120", "010", "010", "011", "010", "010", "011", "011", "012", "011", "011", "010", "010", "011", "010", "010", "120", "010", "011", "010", "120"])
-lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+level_name = "Root"
+paper_color = "#ffffff"
+initial_grid = Array[String](["0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"])
+target_colors = Array[String](["000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "111", "111", "111", "111", "111", "000", "111", "000", "000", "000", "000", "111", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000"])
+lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
 ink_limits = {
-"c": 2,
-"k": 4,
-"m": 2,
-"y": 2
+"c": 4,
+"k": 7,
+"m": 3,
+"y": 3
 }
-amount_of_ink_used_cmyk = Array[int]([2, 2, 2, 4])
+amount_of_ink_used_cmyk = Array[int]([3, 3, 3, 7])

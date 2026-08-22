@@ -4,10 +4,17 @@
 
 [resource]
 script = ExtResource("1_02jba")
+grid_size = Vector2i(4, 4)
 available_channels = Array[String](["c", "m", "y", "k"])
-level_name = "RandomAssBS"
-paper_color = "#ff00ff"
-initial_grid = Array[String](["0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100", "0100"])
-target_colors = Array[String](["010", "010", "010", "010", "010", "011", "011", "011", "011", "011", "010", "010", "010", "010", "010", "011", "011", "011", "011", "011", "010", "010", "010", "010", "010"])
-lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
-amount_of_ink_used_cmyk = Array[int]([0, 0, 2, 0])
+level_name = "XP"
+paper_color = "#ffffff"
+initial_grid = Array[String](["0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"])
+target_colors = Array[String](["012", "012", "101", "101", "012", "012", "101", "101", "110", "110", "001", "001", "110", "110", "001", "001"])
+lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
+ink_limits = {
+"c": 5,
+"k": 10,
+"m": 4,
+"y": 6
+}
+amount_of_ink_used_cmyk = Array[int]([4, 2, 6, 10])

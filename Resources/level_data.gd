@@ -65,7 +65,7 @@ func get_initial_lock_states_by_coords(x: int, y: int) -> bool :
 	if (index >= initial_grid.size()) :
 		return false
 
-	return true if initial_grid[index] == "1" else false
+	return initial_grid[index][3] == "1"
 
 
 # return the end result in a 2D Array of x by y

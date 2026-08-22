@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="LevelData" format=3]
+
+[ext_resource type="Script" path="res://Resources/level_data.gd" id="1_x4hqx"]
+
+[resource]
+script = ExtResource("1_x4hqx")
+available_channels = Array[String](["c", "m", "y", "k"])
+level_name = "Cactus"
+paper_color = "#ffffff"
+initial_grid = Array[String](["0001", "0000", "0000", "0000", "0001", "0001", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0001", "0000", "0000", "0000", "0001"])
+target_colors = Array[String](["000", "000", "101", "000", "000", "000", "000", "101", "000", "101", "101", "000", "101", "000", "101", "101", "101", "101", "101", "101", "000", "000", "101", "000", "000"])
+lock_states = Array[bool]([true, false, false, false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, true])
+ink_limits = {
+"c": 4,
+"k": 2,
+"m": 0,
+"y": 4
+}
+amount_of_ink_used_cmyk = Array[int]([4, 0, 4, 2])

@@ -1,16 +1,20 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://c3yvm14k60nn7"]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://dd2xqp5d2oq0t"]
 
 [ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_2ot0x"]
 
 [resource]
 script = ExtResource("1_2ot0x")
-grid_size = Vector2i(4, 4)
-available_channels = Array[String](["c", "y", "m"])
-level_name = "Jonathan"
-target_colors = Array[String](["000", "001", "001", "000", "011", "011", "011", "011", "010", "011", "011", "010", "000", "001", "001", "000"])
+grid_size = Vector2i(5, 3)
+available_channels = Array[String](["c", "m", "y", "k"])
+level_name = "Cut off?"
+paper_color = "#ffffff"
+initial_grid = Array[String](["0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000", "0000"])
+target_colors = Array[String](["100", "100", "000", "100", "100", "010", "010", "000", "010", "010", "001", "001", "000", "001", "001"])
+lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
 ink_limits = {
-"c": 0,
-"k": 0,
-"m": 2,
-"y": 3
+"c": 1,
+"k": 1,
+"m": 1,
+"y": 1
 }
+amount_of_ink_used_cmyk = Array[int]([1, 1, 1, 1])

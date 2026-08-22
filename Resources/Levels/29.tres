@@ -1,14 +1,8 @@
-[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://ctr0mbjst8pim"]
+[gd_resource type="Resource" script_class="LevelData" format=3 uid="uid://dyhlimdscdidx"]
 
-[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_0yfut"]
+[ext_resource type="Script" uid="uid://cioivj6k56epn" path="res://Resources/level_data.gd" id="1_4w2ud"]
 
 [resource]
-script = ExtResource("1_0yfut")
-level_name = "Ball"
-target_colors = Array[String](["011", "011", "011", "011", "011", "011", "011", "011", "011", "011", "011", "011", "000", "011", "011", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000"])
-ink_limits = {
-"c": 0,
-"k": -1,
-"m": 3,
-"y": 3
-}
+script = ExtResource("1_4w2ud")
+level_name = "Happy Valentines"
+target_colors = Array[String](["000", "011", "000", "011", "000", "011", "011", "011", "011", "011", "011", "011", "011", "011", "011", "000", "011", "011", "011", "000", "000", "000", "011", "000", "000"])
