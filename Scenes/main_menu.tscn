@@ -30,7 +30,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0, 0.71, 0.4733334, 0.1882353)]
+"values": [Color(1, 1, 1, 0.1882353)]
 }
 
 [sub_resource type="Animation" id="Animation_vtepg"]
@@ -47,7 +47,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1.5, 3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(0, 0.71, 0.4733334, 0.09803922), Color(0, 0.71, 0.4733334, 0.19607843), Color(0, 0.71, 0.4733334, 0.09803922)]
+"values": [Color(1, 1, 1, 0.09803922), Color(1, 1, 1, 0.19607843), Color(1, 1, 1, 0.09803922)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8dnnj"]
@@ -450,7 +450,7 @@ texture = ExtResource("3_opfnp")
 metadata/_edit_lock_ = true
 
 [node name="NOVALogo" type="TextureRect" parent="Printer" unique_id=36651691]
-modulate = Color(0, 0.71, 0.4733334, 0.1882353)
+modulate = Color(1, 1, 1, 0.1882353)
 layout_mode = 0
 offset_left = 299.555
 offset_top = 87.0
