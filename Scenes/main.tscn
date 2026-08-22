@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://iivroqoa8ayc" path="res://Objects/Printer/PrintingGrid/printing_canvas.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://bfro6yuwkgdkj" path="res://Scenes/main.gd" id="1_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://csrcor6thlawd" path="res://Assets/game/game_background.png" id="2_o1aky"]
 [ext_resource type="AudioStream" uid="uid://65xy81ra2plr" path="res://Assets/Audio/Level_Win.wav" id="3_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://l342n04opod6" path="res://Assets/game/game_foreground.png" id="4_h1bgf"]
 [ext_resource type="PackedScene" uid="uid://cdypfd1fot60v" path="res://Objects/Cartridges/Cartridges.tscn" id="4_hibaj"]
@@ -15,23 +16,25 @@
 [ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="8_344ge"]
 [ext_resource type="AudioStream" uid="uid://b7ipjcgdsebph" path="res://Assets/BGM/Morning Routine - Ghostrifter Official.mp3" id="8_k12tt"]
 [ext_resource type="AudioStream" uid="uid://bobx154qyysuw" path="res://Assets/BGM/George Street Shuffle - Kevin Macleod.mp3" id="9_h1bgf"]
+[ext_resource type="Texture2D" uid="uid://78xjowrjg1v0" path="res://Assets/game/small_display.png" id="12_aa8k8"]
 [ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="12_b3802"]
 [ext_resource type="Script" uid="uid://dflo07lks266m" path="res://Scenes/level_title.gd" id="13_fevyy"]
 [ext_resource type="Texture2D" uid="uid://b7xh4mqfvi638" path="res://Assets/game/Buttons/hint/hint.png" id="14_kltya"]
 [ext_resource type="Texture2D" uid="uid://dxklmsvpwrsln" path="res://Assets/game/Buttons/hint/hint_pressed.png" id="15_e08e2"]
-[ext_resource type="Texture2D" uid="uid://sdh7ppbk84vu" path="res://Assets/game/game_menu_bg.png" id="16_k12tt"]
 [ext_resource type="Script" uid="uid://dksq666p5nv78" path="res://Scenes/hint.gd" id="16_neg2b"]
 [ext_resource type="Texture2D" uid="uid://dw2bxbfrm37r2" path="res://Assets/game/paper_guide.png" id="18_hpc6h"]
 [ext_resource type="PackedScene" uid="uid://djxx6m4jftwbu" path="res://UI/preview_grid.tscn" id="21_hdf80"]
 [ext_resource type="PackedScene" uid="uid://dur7se0w0i3oa" path="res://UI/UtilityButtons/UtilityButtons.tscn" id="21_pdsj5"]
 [ext_resource type="Script" uid="uid://8pf2doejll8b" path="res://Scenes/victory_target.gd" id="22_6vcvc"]
 [ext_resource type="Script" uid="uid://dg5mprsta4fsr" path="res://Assets/Audio/printer_noises.gd" id="22_ee4r6"]
+[ext_resource type="Texture2D" uid="uid://qk8sjqu7pbsh" path="res://Assets/game/big_display.png" id="22_kwxat"]
 [ext_resource type="AudioStream" uid="uid://dk65n0rjxk5q" path="res://Assets/Audio/printer_noise_1.wav" id="23_cbgmd"]
+[ext_resource type="Texture2D" uid="uid://52fit8lc0m7y" path="res://Assets/game/wires thing.png" id="23_kqrg6"]
 [ext_resource type="Script" uid="uid://ubr0v3ocqq0e" path="res://Scenes/paper_guide.gd" id="23_ueoa1"]
 [ext_resource type="AudioStream" uid="uid://clyxjd0d36iib" path="res://Assets/Audio/printer_noise_2.wav" id="24_1w6v2"]
 [ext_resource type="AudioStream" uid="uid://d32ith8mmjq81" path="res://Assets/Audio/printer_noise_3.wav" id="25_ueoa1"]
 [ext_resource type="AudioStream" uid="uid://kefonkcuwp6" path="res://Assets/Audio/printer_noise_4.wav" id="26_6vcvc"]
-[ext_resource type="Script" path="res://Scenes/congrats_panel.gd" id="27_jwpg7"]
+[ext_resource type="Script" uid="uid://bh8utd260rok2" path="res://Scenes/congrats_panel.gd" id="27_jwpg7"]
 [ext_resource type="Texture2D" uid="uid://hb8emu7epfv7" path="res://Assets/GUI/discord-def.png" id="27_r33sp"]
 [ext_resource type="Texture2D" uid="uid://dby6cu43gvfmw" path="res://Assets/GUI/itch-def.png" id="28_hdf80"]
 [ext_resource type="Texture2D" uid="uid://dcyxl3p6n14g6" path="res://Assets/GUI/discord-hov.png" id="28_jwpg7"]
@@ -94,6 +97,10 @@ _data = {
 &"Level Start": SubResource("Animation_344ge"),
 &"RESET": SubResource("Animation_ynf5e")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nwwfm"]
+atlas = ExtResource("12_aa8k8")
+region = Rect2(52.545, 0, 0, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_fevyy"]
 font = ExtResource("12_b3802")
@@ -290,6 +297,10 @@ _data = {
 &"NowPlaying In": SubResource("Animation_pdsj5"),
 &"RESET": SubResource("Animation_gt3je")
 }
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aa8k8"]
+atlas = ExtResource("22_kwxat")
+region = Rect2(-26.94, 100.78, 600, 400)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_21xkr"]
 shader = ExtResource("5_21xkr")
@@ -499,7 +510,7 @@ script = ExtResource("1_ynf5e")
 [node name="BG" type="TextureRect" parent="." unique_id=648084875]
 offset_right = 1280.0
 offset_bottom = 720.0
-texture = ExtResource("16_k12tt")
+texture = ExtResource("2_o1aky")
 
 [node name="PrintingCanvas" parent="." unique_id=1528432382 instance=ExtResource("1_jjgbg")]
 position = Vector2(327, -380)
@@ -542,12 +553,19 @@ texture_normal = ExtResource("14_kltya")
 texture_pressed = ExtResource("15_e08e2")
 script = ExtResource("16_neg2b")
 
+[node name="TopScreenContainer" type="TextureRect" parent="CanvasLayer" unique_id=1009511976]
+offset_left = 673.0
+offset_top = -10.0
+offset_right = 1348.0
+offset_bottom = 214.0
+texture = SubResource("AtlasTexture_nwwfm")
+
 [node name="Timer" type="Label" parent="CanvasLayer" unique_id=406849922]
 modulate = Color(1, 1, 1, 0)
 offset_left = 808.0
-offset_top = 68.0
+offset_top = 58.0
 offset_right = 1131.255
-offset_bottom = 102.0
+offset_bottom = 92.0
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("33_536cc")
 text = "00:00"
@@ -559,9 +577,9 @@ libraries/ = SubResource("AnimationLibrary_pdsj5")
 
 [node name="Level Title" type="Label" parent="CanvasLayer" unique_id=447130284]
 offset_left = 817.0
-offset_top = 68.0
+offset_top = 58.0
 offset_right = 1125.0
-offset_bottom = 102.0
+offset_bottom = 92.0
 text = "The Basics"
 label_settings = SubResource("LabelSettings_fevyy")
 horizontal_alignment = 1
@@ -606,11 +624,36 @@ vertical_alignment = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/NowPlaying Label" unique_id=1973273657]
 libraries/ = SubResource("AnimationLibrary_3pmx8")
 
+[node name="PreviewContainer" type="TextureRect" parent="CanvasLayer" unique_id=727434445]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 28.0
+offset_top = -287.0
+offset_right = 628.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+texture = SubResource("AtlasTexture_aa8k8")
+
+[node name="Wires" type="TextureRect" parent="CanvasLayer/PreviewContainer" unique_id=1328670209]
+show_behind_parent = true
+layout_mode = 0
+offset_top = -78.0
+offset_right = 591.0
+offset_bottom = 535.0
+mouse_filter = 2
+texture = ExtResource("23_kqrg6")
+
 [node name="PreviewGrid" parent="CanvasLayer" unique_id=2091719018 instance=ExtResource("21_hdf80")]
-offset_left = 965.0
-offset_top = 290.0
-offset_right = 965.0
-offset_bottom = 290.0
+offset_left = 971.0
+offset_top = 259.0
+offset_right = 971.0
+offset_bottom = 259.0
 
 [node name="LevelCounterContainer" type="TextureRect" parent="CanvasLayer" unique_id=1915507802]
 visible = false

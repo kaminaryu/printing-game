@@ -107,9 +107,9 @@ offset_right = 544.0
 offset_bottom = 96.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Panel" unique_id=1273693756]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("1_30s4c")
-region_rect = Rect2(0, 0, 256, 256)
 patch_margin_left = 48
 patch_margin_top = 48
 patch_margin_right = 48
