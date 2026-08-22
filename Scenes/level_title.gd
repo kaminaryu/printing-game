@@ -28,6 +28,6 @@ func play_animation():
 	timer.visible = false
 	await title_in()
 	await get_tree().create_timer(wait_time).timeout
-	await title_out()
+	#await title_out()
 	timer_anim.play("Timer In")
 	timer.visible = true
