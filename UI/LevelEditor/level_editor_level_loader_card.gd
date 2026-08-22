@@ -22,10 +22,26 @@ func generate_card(level_num: int) -> void :
 		level_name_label.text = level_data.level_name
 
 		ink_used_values.text = "%s, %s, %s, %s" % [
-			"INF" if level_data.ink_limits["c"] == -1 else str(level_data.ink_limits["c"]),
-			"INF" if level_data.ink_limits["m"] == -1 else str(level_data.ink_limits["m"]),
-			"INF" if level_data.ink_limits["y"] == -1 else str(level_data.ink_limits["y"]),
-			"INF" if level_data.ink_limits["k"] == -1 else str(level_data.ink_limits["k"]),
+			"X"
+				if not "c" in level_data.available_channels
+				else "INF"
+					if level_data.ink_limits["c"] == -1
+					else str(level_data.ink_limits["c"]),
+			"X"
+				if not "m" in level_data.available_channels
+				else "INF"
+					if level_data.ink_limits["m"] == -1
+					else str(level_data.ink_limits["m"]),
+			"X"
+				if not "y" in level_data.available_channels
+				else "INF"
+					if level_data.ink_limits["y"] == -1
+					else str(level_data.ink_limits["y"]),
+			"X"
+				if not "k" in level_data.available_channels
+				else "INF"
+					if level_data.ink_limits["k"] == -1
+					else str(level_data.ink_limits["k"]),
 		]
 
 
