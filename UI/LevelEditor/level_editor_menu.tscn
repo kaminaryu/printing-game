@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://vuhcde72tldl" path="res://UI/LevelEditor/level_editor_menu.gd" id="1_cf1dl"]
 [ext_resource type="Texture2D" uid="uid://gwiugx4wx15c" path="res://Assets/GUI/background_shadow.png" id="2_5rtyc"]
 [ext_resource type="Texture2D" uid="uid://diqsu1slno6rd" path="res://Assets/GUI/level_editor_menu_no_shadow.png" id="2_kg6vw"]
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_kg6vw"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="3_kg6vw"]
 [ext_resource type="PackedScene" uid="uid://djxx6m4jftwbu" path="res://UI/preview_grid.tscn" id="4_k6sis"]
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="6_nbykm"]
 [ext_resource type="Texture2D" uid="uid://b2svdcaaki61g" path="res://Assets/menu/LevelEditor/Double Arrow.svg" id="7_5rtyc"]
@@ -53,7 +53,6 @@ offset_bottom = 720.0
 mouse_filter = 2
 mouse_behavior_recursive = 2
 texture = ExtResource("2_kg6vw")
-metadata/_edit_group_ = true
 
 [node name="PencilButton" type="TextureButton" parent="MenuBody" unique_id=334223556]
 layout_mode = 0
@@ -69,9 +68,18 @@ offset_top = 40.0
 offset_right = 513.0
 offset_bottom = 660.0
 theme_override_constants/separation = 38
-metadata/_edit_group_ = true
 
-[node name="Exit" type="Button" parent="MenuBody/Menu" unique_id=1766296260]
+[node name="NavBar" type="HBoxContainer" parent="MenuBody/Menu" unique_id=305948309]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="MenuBody/Menu/NavBar" unique_id=1017665086]
+layout_mode = 2
+size_flags_horizontal = 2
+theme = ExtResource("6_nbykm")
+text = "back"
+alignment = 2
+
+[node name="Exit" type="Button" parent="MenuBody/Menu/NavBar" unique_id=1766296260]
 layout_mode = 2
 size_flags_horizontal = 8
 theme = ExtResource("6_nbykm")
@@ -169,7 +177,8 @@ alignment = 2
 [connection signal="button_down" from="MenuBody/PencilButton" to="." method="_on_pencil_button_button_down"]
 [connection signal="mouse_entered" from="MenuBody/PencilButton" to="." method="_on_pencil_button_mouse_entered"]
 [connection signal="mouse_exited" from="MenuBody/PencilButton" to="." method="_on_pencil_button_mouse_exited"]
-[connection signal="button_down" from="MenuBody/Menu/Exit" to="." method="_on_exit_button_down"]
+[connection signal="button_up" from="MenuBody/Menu/NavBar/Back" to="." method="_on_back_button_up"]
+[connection signal="button_down" from="MenuBody/Menu/NavBar/Exit" to="." method="_on_exit_button_down"]
 [connection signal="button_down" from="MenuBody/Menu/HBoxContainer/DoublePrevLevel" to="." method="_on_double_prev_level_button_down"]
 [connection signal="mouse_entered" from="MenuBody/Menu/HBoxContainer/DoublePrevLevel" to="MenuBody/Menu/HBoxContainer/DoublePrevLevel" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MenuBody/Menu/HBoxContainer/DoublePrevLevel" to="MenuBody/Menu/HBoxContainer/DoublePrevLevel" method="_on_mouse_exited"]
