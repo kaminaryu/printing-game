@@ -159,3 +159,8 @@ func _on_load_button_up() -> void:
 func _on_save_button_up() -> void:
 	level_editor_settings.save_level_metadata(selected_level)
 	_display_preview()
+
+
+func _on_back_button_up() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://Scenes/LevelEditor/level_editor_mode_chooser.tscn")
