@@ -586,6 +586,7 @@ offset_left = 673.0
 offset_top = -10.0
 offset_right = 1348.0
 offset_bottom = 214.0
+mouse_filter = 2
 texture = SubResource("AtlasTexture_nwwfm")
 
 [node name="Level Title" type="Label" parent="CanvasLayer" unique_id=447130284]
