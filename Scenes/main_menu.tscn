@@ -546,12 +546,13 @@ ignore_rotation = false
 limit_enabled = false
 
 [node name="VersionNumber" type="Label" parent="Camera2D" unique_id=316800472]
-offset_left = 9.0
-offset_top = 674.0
-offset_right = 92.0
-offset_bottom = 711.0
+offset_left = 11.0
+offset_top = 685.0
+offset_right = 97.0
+offset_bottom = 722.0
 theme = ExtResource("6_t1dhk")
-text = "v0.2"
+theme_override_font_sizes/font_size = 18
+text = "v0.2.1"
 
 [node name="GameStart" type="AudioStreamPlayer" parent="." unique_id=104590312]
 stream = ExtResource("7_cp0ys")
