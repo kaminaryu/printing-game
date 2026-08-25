@@ -1,7 +1,6 @@
 extends ColorRect
 
 @export var holes_root: Control
-@export var feather: float = 0.02
 
 func _process(_delta: float) -> void:
 	if not Engine.is_editor_hint() and not is_visible_in_tree():
@@ -35,4 +34,3 @@ func _process(_delta: float) -> void:
 	mat.set_shader_parameter("hole_centers", centers)
 	mat.set_shader_parameter("hole_sizes", sizes)
 	mat.set_shader_parameter("hole_count", centers.size())
-	mat.set_shader_parameter("feather", feather)

@@ -7,6 +7,8 @@ uniform vec2 hole_centers[16];
 uniform vec2 hole_sizes[16];
 uniform int hole_count = 0;
 uniform float feather : hint_range(0.0, 0.5) = 0.02;
+uniform float pulse_strength : hint_range(0.0, 1.0) = 0.25;
+uniform float pulse_speed : hint_range(0.0, 20.0) = 4.0;
 
 uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
 
@@ -24,6 +26,10 @@ void fragment() {
         mask = min(mask, smoothstep(-feather, feather, dist));
     }
 
-    blurred_color.a *= mask;
+    // Pulse: the hole region periodically lets a bit of the darkened blur through
+    float pulse = (sin(TIME * pulse_speed) * 0.5 + 0.5) * pulse_strength;
+    float alpha = mix(mask, pulse, 1.0 - mask);
+
+    blurred_color.a *= alpha;
     COLOR = blurred_color;
 }

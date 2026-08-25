@@ -1103,14 +1103,13 @@ size_flags_horizontal = 0
 size_flags_horizontal = 10
 
 [node name="Tutorial3" parent="CanvasLayer/Tutorials" unique_id=749215763 instance=ExtResource("35_aqgau")]
-visible = false
 layout_mode = 1
 
 [node name="HoleRect" parent="CanvasLayer/Tutorials/Tutorial3/Holes" parent_id_path=PackedInt32Array(749215763, 202001462) index="0" unique_id=675472662]
-offset_left = 808.0
-offset_top = 167.0
-offset_right = 1124.0
-offset_bottom = 422.0
+offset_left = 813.0
+offset_top = 117.0
+offset_right = 1129.0
+offset_bottom = 372.0
 
 [node name="Panel" parent="CanvasLayer/Tutorials/Tutorial3" index="2" unique_id=1053466253]
 offset_left = 212.0
