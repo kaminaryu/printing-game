@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://b7xh4mqfvi638" path="res://Assets/game/Buttons/hint/hint.png" id="14_kltya"]
 [ext_resource type="Texture2D" uid="uid://dxklmsvpwrsln" path="res://Assets/game/Buttons/hint/hint_pressed.png" id="15_e08e2"]
 [ext_resource type="Script" uid="uid://dksq666p5nv78" path="res://Scenes/hint.gd" id="16_neg2b"]
+[ext_resource type="AudioStream" uid="uid://co686d7b0iley" path="res://Assets/Audio/ButtonClick.mp3" id="17_nwwfm"]
 [ext_resource type="Texture2D" uid="uid://dw2bxbfrm37r2" path="res://Assets/game/paper_guide.png" id="18_hpc6h"]
 [ext_resource type="PackedScene" uid="uid://djxx6m4jftwbu" path="res://UI/preview_grid.tscn" id="21_hdf80"]
 [ext_resource type="PackedScene" uid="uid://dur7se0w0i3oa" path="res://UI/UtilityButtons/UtilityButtons.tscn" id="21_pdsj5"]
@@ -39,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://dby6cu43gvfmw" path="res://Assets/GUI/itch-def.png" id="28_hdf80"]
 [ext_resource type="Texture2D" uid="uid://dcyxl3p6n14g6" path="res://Assets/GUI/discord-hov.png" id="28_jwpg7"]
 [ext_resource type="Texture2D" uid="uid://dusijred1c1qg" path="res://Assets/GUI/itch-hov.png" id="29_jwpg7"]
+[ext_resource type="AudioStream" uid="uid://dik8qhhjfaanw" path="res://Assets/Audio/PaperNoises.wav" id="29_s8vy0"]
 [ext_resource type="PackedScene" uid="uid://1njs5i6kxcd5" path="res://UI/Animation/fade_in_animation.tscn" id="32_jwpg7"]
 [ext_resource type="FontFile" uid="uid://jtshn6j8mt7h" path="res://Assets/Fonts/Segment7Standard.otf" id="33_536cc"]
 [ext_resource type="Texture2D" uid="uid://c2ewg31ep5lhq" path="res://Assets/GUI/MainMenu/levelDisplay.png" id="33_k2e45"]
@@ -541,6 +543,16 @@ bus = &"Music"
 script = ExtResource("6_fdnlq")
 playlist = Array[AudioStream]([ExtResource("5_d1ilt"), ExtResource("7_wsu2k"), ExtResource("8_k12tt"), ExtResource("9_h1bgf")])
 
+[node name="PrinterNoises" type="AudioStreamPlayer" parent="." unique_id=630669394]
+volume_db = -15.0
+bus = &"SFX"
+script = ExtResource("22_ee4r6")
+sounds = Array[AudioStream]([ExtResource("23_cbgmd"), ExtResource("24_1w6v2"), ExtResource("25_ueoa1"), ExtResource("26_6vcvc")])
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="." unique_id=595989304]
+stream = ExtResource("17_nwwfm")
+bus = &"SFX"
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1606522880]
 
 [node name="UtilityButtons" parent="CanvasLayer" unique_id=939083526 instance=ExtResource("21_pdsj5")]
@@ -621,6 +633,9 @@ offset_bottom = 149.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/PaperGuide" unique_id=1416924504]
 libraries/ = SubResource("AnimationLibrary_kltya")
+
+[node name="PaperNoises" type="AudioStreamPlayer" parent="CanvasLayer/PaperGuide" unique_id=1393888301]
+stream = ExtResource("29_s8vy0")
 
 [node name="NowPlaying Label" type="Label" parent="CanvasLayer" unique_id=1052440976]
 modulate = Color(1, 1, 1, 0)
@@ -1090,12 +1105,6 @@ size_flags_horizontal = 0
 [node name="Next" parent="CanvasLayer/Tutorials/Tutorial3/Panel/TextMargin/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(749215763, 819683357) index="1" unique_id=1222156564]
 size_flags_horizontal = 10
 text = "< Play >"
-
-[node name="PrinterNoises" type="AudioStreamPlayer" parent="." unique_id=630669394]
-volume_db = -15.0
-bus = &"SFX"
-script = ExtResource("22_ee4r6")
-sounds = Array[AudioStream]([ExtResource("23_cbgmd"), ExtResource("24_1w6v2"), ExtResource("25_ueoa1"), ExtResource("26_6vcvc")])
 
 [connection signal="animation_finished" from="GridAnimator" to="CanvasLayer/Tutorials" method="_on_grid_animator_animation_finished"]
 [connection signal="pressed" from="CanvasLayer/Hint" to="CanvasLayer/Hint" method="_on_pressed"]

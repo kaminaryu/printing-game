@@ -17,7 +17,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if not rect.has_point(local_mouse_pos):
 				var button_rect = Rect2(button.position, button.size)
 				if not button_rect.has_point(button.get_local_mouse_position()):
-					show_hint()
+					toggle_hint()
 
 func _on_arrow_button_mouse_entered() -> void:
 	if in_view: return
@@ -34,13 +34,24 @@ func _on_arrow_button_mouse_exited() -> void:
 
 
 func _on_arrow_button_pressed() -> void:
-	show_hint()
+	toggle_hint()
 
-func show_hint() -> void:
+func toggle_hint() -> void:
 	if !in_view:
 		in_view = true
 		animation.play("slide_in")
+		_play_sound()
+
 	else:
 		animation.play("slide_out")
+		_play_sound()
 		await animation.animation_finished
 		in_view = false
+
+
+func _play_sound() -> void :
+	var pitch := randf_range(0.90, 1.1)
+	var sfx   := $PaperNoises
+
+	sfx.pitch_scale = pitch
+	sfx.play()

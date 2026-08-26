@@ -26,8 +26,19 @@ func fadeOutTransition() -> void:
 	await fadeout_tween.finished;
 	fadeOutScreen.visible = false;
 
+
+func _play_digital_button_sound() -> void : 
+	var pitch := randf_range(0.7, 0.8)
+	var main  := get_tree().current_scene
+	var sfx   := main.get_node("DigitalButtonClick")
+
+	sfx.pitch_scale = pitch
+	sfx.play()
+	
+
 func _on_play_pressed() -> void:
 	$PlayMenu.open()
+	_play_digital_button_sound()
 
 
 func _on_options_pressed() -> void:
@@ -36,10 +47,12 @@ func _on_options_pressed() -> void:
 
 func _on_credits_pressed() -> void:
 	animationPlayer.play("show_credits")
+	_play_digital_button_sound()
 
 
 func _on_back_pressed() -> void:
 	animationPlayer.play("show_credits_2")
+	_play_digital_button_sound()
 
 
 func _on_quit_pressed() -> void:

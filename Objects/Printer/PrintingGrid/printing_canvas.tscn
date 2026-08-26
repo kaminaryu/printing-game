@@ -16,3 +16,4 @@ texture = ExtResource("2_whvfb")
 [node name="Paint Roll SFX" type="AudioStreamPlayer" parent="." unique_id=923948313]
 stream = ExtResource("3_f5pb8")
 volume_db = -5.0
+bus = &"SFX"

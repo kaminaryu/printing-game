@@ -34,6 +34,8 @@ var current_level_data: LevelData
 
 @onready var tutorials := $CanvasLayer/Tutorials
 
+@onready var button_click_sfx := $ButtonClick
+
 
 # Safety gate to prevent rapid multiple level loads
 var is_transitioning: bool = false
@@ -259,18 +261,27 @@ func _on_tutorial_finished() -> void :
 	game_in_progress = true
 
 
+func play_button_sound() -> void :
+	var pitch := randf_range(0.9, 1.1)
+
+	button_click_sfx.pitch_scale = pitch
+	button_click_sfx.play()
+
+
 func _input(event: InputEvent) -> void :
 	if printing_canvas.is_cascading or not game_in_progress :
 		return
 	
 	if event.is_action_pressed("undo") :
 		SaveStatesManager.undo_action()
+		play_button_sound()
 
 	elif event.is_action_pressed("redo") :
 		SaveStatesManager.redo_action()
 		
 	elif event.is_action_pressed("reset_grid") :
 		reset_entire_level()
+		play_button_sound()
 
 
 	if event.is_action_pressed("select_cyan"):

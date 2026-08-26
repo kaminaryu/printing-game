@@ -37,12 +37,30 @@ enum SelectedColors {
 	UNDEFINED
 }
 
+var cartridge_pickup_sfx: AudioStream = preload("res://Assets/Audio/CartridgePickup.wav")
+
+var selected_color_had_init := false
 
 var selected_color: int = SelectedColors.UNDEFINED:
 	set(value):
 		selected_color = value
 		CursorManager.set_cursor()
 		color_changed.emit()
+
+		# so it doesnt play on main menu when the selected_color is just initting
+		if (selected_color_had_init) :
+			_play_sound()
+
+		selected_color_had_init = true
+
+
+func _play_sound() -> void :
+	var sfx = AudioStreamPlayer.new()
+	sfx.stream = cartridge_pickup_sfx
+	sfx.autoplay = true
+	sfx.finished.connect(sfx.queue_free)
+
+	get_tree().root.add_child.call_deferred(sfx)
 
 
 func _ready() -> void :

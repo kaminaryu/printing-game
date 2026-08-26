@@ -2,7 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://cs34divjhgm0t" path="res://Assets/Catridges/C.png" id="1_2e48p"]
 [ext_resource type="Script" uid="uid://ugwirocqjen1" path="res://Objects/Cartridges/Cartridge.gd" id="1_qn2dy"]
-[ext_resource type="FontFile" uid="uid://jb0n6fii25ja" path="res://Assets/font.ttf" id="3_s5oj6"]
+[ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="3_s5oj6"]
+[ext_resource type="AudioStream" uid="uid://bdpde7a8leawu" path="res://Assets/Audio/CartridgePickup.wav" id="4_7v2yl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2e48p"]
 size = Vector2(67, 351)
@@ -33,3 +34,7 @@ text = "INF"
 label_settings = SubResource("LabelSettings_7v2yl")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CartridgePickup" type="AudioStreamPlayer" parent="." unique_id=1646408122]
+stream = ExtResource("4_7v2yl")
+bus = &"SFX"

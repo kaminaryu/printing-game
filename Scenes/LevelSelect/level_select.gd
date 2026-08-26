@@ -14,6 +14,7 @@ func _ready() -> void:
 
 
 func _on_forward_pressed() -> void:
+	_play_sound()
 	GameMaster.current_level_num += 1
 	#                                             1-based indexing
 	GameMaster.current_level_num = posmod((GameMaster.current_level_num - 1), GameMaster.level_count) + 1
@@ -24,6 +25,7 @@ func _on_forward_pressed() -> void:
 
 
 func _on_backward_pressed() -> void:
+	_play_sound()
 	GameMaster.current_level_num += -1
 	#                                             1-based indexing
 	GameMaster.current_level_num = posmod((GameMaster.current_level_num - 1), GameMaster.level_count) + 1
@@ -51,7 +53,6 @@ func _load_level_completion_data() -> void :
 		$"Time Elapsed".text = str(_format_time_ms(completion_data["best_time"]))
 
 
-
 func _format_time_ms(time_s: float) -> String:
 	@warning_ignore("INTEGER_DIVISION")
 	var minutes = int(time_s) / 60
@@ -66,3 +67,11 @@ func _format_time_ms(time_s: float) -> String:
 	var hours = minutes / 60
 	minutes %= 60
 	return "%d:%02d:%02d.%02d" % [hours, minutes, seconds, milliseconds]
+
+
+func _play_sound() -> void :
+	var pitch := randf_range(0.9, 1.1)
+	var sfx := $ButtonClick
+
+	sfx.pitch_scale = pitch
+	sfx.play()

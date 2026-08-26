@@ -18,12 +18,22 @@ func _hide_animation() -> void :
 	await create_tween().tween_property(self, "position:x", 655, .3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).finished;
 
 
+func _play_sound() -> void :
+	var pitch := randf_range(0.7, 0.8)
+	var sfx   := $"DigitalButtonClick"
+
+	sfx.pitch_scale = pitch
+	sfx.play()
+
+
 func _on_back_button_down() -> void:
+	_play_sound()
 	await _hide_animation()
 	hide()
 
 
 func _on_continue_button_down() -> void:
+	_play_sound()
 	var parent: Node = get_parent()
 
 	_hide_animation()
@@ -36,6 +46,7 @@ func _on_continue_button_down() -> void:
 
 
 func _on_level_selection_button_down() -> void:
+	_play_sound()
 	var parent: Node = get_parent()
 
 	_hide_animation()
@@ -48,6 +59,7 @@ func _on_level_selection_button_down() -> void:
 
 
 func _on_level_editor_button_down() -> void:
+	_play_sound()
 	var parent: Node = get_parent()
 
 	_hide_animation()
@@ -60,6 +72,7 @@ func _on_level_editor_button_down() -> void:
 
 
 func _on_new_game_button_down() -> void:
+	_play_sound()
 	GameMaster.current_level_num = 1
 
 	var parent: Node = get_parent()

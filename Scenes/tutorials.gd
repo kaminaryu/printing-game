@@ -23,10 +23,16 @@ func _ready() -> void :
 
 
 func on_prev_requested() :
+	if (GameMaster.current_level_num != 1) :
+		return
+
 	current_tutorial_scene_index -= 1
 	change_tutorial()
 
 func on_next_requested() :
+	if (GameMaster.current_level_num != 1) :
+		return
+
 	current_tutorial_scene_index += 1
 	change_tutorial()
 
@@ -44,6 +50,9 @@ func change_tutorial() -> void :
 
 
 func _on_grid_animator_animation_finished(anim_name: StringName) -> void:
+	if (GameMaster.current_level_num != 1) :
+		return
+
 	if (anim_name == "Level Start") :
 		current_tutorial_scene_index = 1
 		change_tutorial()

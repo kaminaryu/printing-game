@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://c4ggbm6dmpaew" path="res://Scenes/change_bind.gd" id="9_vtepg"]
 [ext_resource type="PackedScene" uid="uid://i8y1o1fpyx4g" path="res://UI/MainMenu/play_menu.tscn" id="10_5egv6"]
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="10_16hvj"]
+[ext_resource type="AudioStream" uid="uid://sfeabaa0iqf8" path="res://Assets/Audio/DigitalButtonClick.mp3" id="12_8dnnj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opfnp"]
 bg_color = Color(0.91764706, 0.9137255, 0.9019608, 1)
@@ -553,6 +554,12 @@ offset_bottom = 722.0
 theme = ExtResource("6_t1dhk")
 theme_override_font_sizes/font_size = 18
 text = "v0.2.1"
+
+[node name="DigitalButtonClick" type="AudioStreamPlayer" parent="." unique_id=51736902]
+stream = ExtResource("12_8dnnj")
+volume_db = -5.0
+pitch_scale = 0.75
+bus = &"SFX"
 
 [node name="GameStart" type="AudioStreamPlayer" parent="." unique_id=104590312]
 stream = ExtResource("7_cp0ys")

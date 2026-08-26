@@ -4,10 +4,13 @@ extends Control
 @onready var music_slider  := $VBoxContainer2/MusicVol/MusicSlider
 @onready var sfx_slider    := $VBoxContainer2/SFXVol/SFXSlider
 
+
 func open() -> void :
 	_set_sliders_to_bus_values()
 	show()
+	_play_open_menu_sound()
 	create_tween().tween_property(self, "position:x", 0, .3).from(655).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART);
+
 
 func _set_sliders_to_bus_values() -> void :
 	# &"Master" makes it a StringName instead of normal string
@@ -31,10 +34,33 @@ func _set_bus_volume_percent(bus_name: String, percent: float) -> void:
 	var bus_index = AudioServer.get_bus_index(bus_name)
 
 	if bus_index != -1:
-			# linear_to_db handles the logarithmic math for you
+		# linear_to_db handles the logarithmic math for you
 		var db_value = linear_to_db(percent)
 		AudioServer.set_bus_volume_db(bus_index, db_value)
 
+
+func _play_button_sound() -> void :
+	var pitch := randf_range(0.7, 0.8)
+	var sfx   := $"DigitalButtonClick"
+
+	sfx.pitch_scale = pitch
+	sfx.play()
+
+
+func _play_open_menu_sound() -> void :
+	var pitch := randf_range(0.95, 1.05)
+	var sfx   := $"MenuOpen"
+
+	sfx.pitch_scale = pitch
+	sfx.play()
+
+
+func _play_close_menu_sound() -> void :
+	var pitch := randf_range(0.95, 1.05)
+	var sfx   := $"MenuClose"
+
+	sfx.pitch_scale = pitch
+	sfx.play()
 
 
 func _on_master_slider_value_changed(value: float) -> void:
@@ -47,24 +73,29 @@ func _on_music_slider_value_changed(value: float) -> void:
 
 func _on_audio_slider_value_changed(value: float) -> void:
 	_set_bus_volume_percent(&"SFX", value)
+	# _play_sound()
 
 
-func _on_texture_button_button_down() -> void:
-	
+func _on_back_button_down() -> void:
+	_play_close_menu_sound()
 	await create_tween().tween_property(self, "position:x", 655, .3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_QUART).finished;
 	hide()
 
 
 func _on_discord_pressed() -> void:
+	_play_button_sound()
 	OS.shell_open("https://discord.gg/gSKz8u7G8m")
 
 func _on_itchio_pressed() -> void:
+	_play_button_sound()
 	OS.shell_open("https://novarchitects.itch.io")
 
 func _on_x_pressed() -> void:
+	_play_button_sound()
 	OS.shell_open("https://x.com/novaarchitects")
 
 func _on_threads_pressed() -> void:
+	_play_button_sound()
 	OS.shell_open("https://www.threads.com/@supernovarchitects")
 
 

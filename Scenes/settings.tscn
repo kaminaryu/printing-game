@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://cax5fcd538e17" path="res://Assets/menu/Options/x_hover.png" id="8_ieo4m"]
 [ext_resource type="Texture2D" uid="uid://bk40ybuqr88dl" path="res://Assets/menu/Options/threads.png" id="9_1c72s"]
 [ext_resource type="Texture2D" uid="uid://carrfufhno4tt" path="res://Assets/menu/Options/threads_hover.png" id="10_vmqi3"]
+[ext_resource type="AudioStream" uid="uid://sfeabaa0iqf8" path="res://Assets/Audio/DigitalButtonClick.mp3" id="13_ieo4m"]
+[ext_resource type="AudioStream" uid="uid://dlhnyka64gbr6" path="res://Assets/Audio/MenuOpen.mp3" id="14_vmqi3"]
+[ext_resource type="AudioStream" uid="uid://bgjchmr81g687" path="res://Assets/Audio/MenuClose.mp3" id="15_g8dc3"]
 
 [node name="Settings" type="Control" unique_id=1684481824]
 z_index = 2
@@ -244,6 +247,26 @@ offset_bottom = 220.0
 theme = ExtResource("4_6vr2p")
 alignment = 2
 
+[node name="DigitalButtonClick" type="AudioStreamPlayer" parent="." unique_id=1885491891]
+stream = ExtResource("13_ieo4m")
+volume_db = -5.0
+pitch_scale = 0.75
+bus = &"SFX"
+
+[node name="MenuOpen" type="AudioStreamPlayer" parent="." unique_id=1778947751]
+process_mode = 3
+stream = ExtResource("14_vmqi3")
+volume_db = -10.0
+pitch_scale = 0.95
+bus = &"SFX"
+
+[node name="MenuClose" type="AudioStreamPlayer" parent="." unique_id=467555581]
+process_mode = 3
+stream = ExtResource("15_g8dc3")
+volume_db = -10.0
+pitch_scale = 0.95
+bus = &"SFX"
+
 [connection signal="value_changed" from="VBoxContainer2/MasterVol/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/MusicVol/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer2/SFXVol/SFXSlider" to="." method="_on_audio_slider_value_changed"]
@@ -252,5 +275,5 @@ alignment = 2
 [connection signal="pressed" from="VBoxContainer2/HBoxContainer/X" to="." method="_on_x_pressed"]
 [connection signal="pressed" from="VBoxContainer2/HBoxContainer/Threads" to="." method="_on_threads_pressed"]
 [connection signal="pressed" from="VBoxContainer2/HBoxContainer/Itchio" to="." method="_on_itchio_pressed"]
-[connection signal="button_down" from="Back" to="." method="_on_texture_button_button_down"]
-[connection signal="button_down" from="Back2" to="." method="_on_texture_button_button_down"]
+[connection signal="button_down" from="Back" to="." method="_on_back_button_down"]
+[connection signal="button_down" from="Back2" to="." method="_on_back_button_down"]

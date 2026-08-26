@@ -5,7 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://cc0uj8pea82ro" path="res://Assets/GUI/pausemenu.png" id="4_13gl4"]
 [ext_resource type="FontFile" uid="uid://bicjrh4xpuccl" path="res://Assets/font.ttf" id="4_gjtyi"]
 [ext_resource type="Theme" uid="uid://bb4raws7qrg7t" path="res://Assets/Themes/pause_menu_buttons.tres" id="5_gjtyi"]
+[ext_resource type="AudioStream" uid="uid://sfeabaa0iqf8" path="res://Assets/Audio/DigitalButtonClick.mp3" id="7_c3wv2"]
 [ext_resource type="PackedScene" uid="uid://1f1kykdhkpbb" path="res://Scenes/settings.tscn" id="7_qtvxg"]
+[ext_resource type="AudioStream" uid="uid://dlhnyka64gbr6" path="res://Assets/Audio/MenuOpen.mp3" id="8_c3wv2"]
+[ext_resource type="AudioStream" uid="uid://bgjchmr81g687" path="res://Assets/Audio/MenuClose.mp3" id="9_gtgia"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c3wv2"]
 shader = ExtResource("3_qtvxg")
@@ -100,6 +103,27 @@ alignment = 2
 [node name="Settings" parent="Pause" unique_id=1684481824 instance=ExtResource("7_qtvxg")]
 visible = false
 layout_mode = 1
+
+[node name="DigitalButtonClick" type="AudioStreamPlayer" parent="." unique_id=2082078407]
+process_mode = 3
+stream = ExtResource("7_c3wv2")
+volume_db = -5.0
+pitch_scale = 0.75
+bus = &"SFX"
+
+[node name="MenuOpen" type="AudioStreamPlayer" parent="." unique_id=1382686813]
+process_mode = 3
+stream = ExtResource("8_c3wv2")
+volume_db = -10.0
+pitch_scale = 0.95
+bus = &"SFX"
+
+[node name="MenuClose" type="AudioStreamPlayer" parent="." unique_id=198729991]
+process_mode = 3
+stream = ExtResource("9_gtgia")
+volume_db = -10.0
+pitch_scale = 0.95
+bus = &"SFX"
 
 [connection signal="button_down" from="Pause/PauseMenu2/PauseButton" to="." method="_on_pause_button_button_down"]
 [connection signal="mouse_entered" from="Pause/PauseMenu2/PauseButton" to="." method="_on_pause_button_focus_entered"]

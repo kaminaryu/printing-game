@@ -25,6 +25,7 @@ func _ready() -> void:
 		
 	_update_selection_state(false)
 
+
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if is_disabled: return
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -33,7 +34,8 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 		if not ColorManager.has_signal("color_changed"):
 			get_tree().call_group("cartridges", "_on_global_color_changed")
 
-## 🎯 This handles the visual state transition (selected vs unselected)
+
+# This handles the visual state transition (selected vs unselected)
 func _update_selection_state(animate: bool = true) -> void:
 	if is_disabled: return
 	
@@ -63,7 +65,8 @@ func update_ink(remaining_count: int) -> void:
 		_disable_cartridge()
 	else:
 		_enable_cartridge()
-			
+
+
 func _on_mouse_entered():
 	if is_disabled: return
 	if ColorManager.selected_color == selected_color_index: return
@@ -75,6 +78,7 @@ func _on_mouse_entered():
 	active_tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	active_tween.tween_property(self, "position:y", base_y - POPUP_HEIGHT, 0.15)
 	
+
 func _on_mouse_exited():
 	if is_disabled: return
 	if ColorManager.selected_color == selected_color_index: return

@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://dl7lt4boi3qlk" path="res://Scenes/main_gui.tscn" id="13_t45ri"]
 [ext_resource type="PackedScene" uid="uid://1njs5i6kxcd5" path="res://UI/Animation/fade_in_animation.tscn" id="14_1jr32"]
 [ext_resource type="Texture2D" uid="uid://tradybmvlqef" path="res://Assets/game/Buttons/start/start_pressed.png" id="14_yof5r"]
+[ext_resource type="AudioStream" uid="uid://co686d7b0iley" path="res://Assets/Audio/ButtonClick.mp3" id="15_t45ri"]
 [ext_resource type="AudioStream" uid="uid://dvthgkuq42xui" path="res://Assets/BGM/Menu-BGM.mp3" id="15_yof5r"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yof5r"]
@@ -119,6 +120,10 @@ bus = &"Music"
 
 [node name="FadeInAnimation" parent="." unique_id=2054330651 instance=ExtResource("14_1jr32")]
 layout_mode = 1
+
+[node name="ButtonClick" type="AudioStreamPlayer" parent="." unique_id=1343873941]
+stream = ExtResource("15_t45ri")
+bus = &"SFX"
 
 [connection signal="pressed" from="VBoxContainer2/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer2/Backward" to="." method="_on_backward_pressed"]
