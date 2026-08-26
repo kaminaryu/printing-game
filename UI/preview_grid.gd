@@ -34,18 +34,31 @@ func _draw_grid(level_data: LevelData) -> void:
 
 	var grid_2d: Array[Array] = level_data.get_target_grid_2d()
 	
+	var center: Vector2 = Vector2(grid_x, grid_y) / 2.0
+	var delay_per_unit: float = 0.04 * (grid_x * grid_y) * 0.01
+	var pop_duration: float = 0.3
+
 	for row in range(grid_y):
 		for col in range(grid_x):
 			var pixel: ColorRect = ColorRect.new()
-			
+
 			pixel.size = pixel_size
-			
+			pixel.pivot_offset = pixel_size / 2.0
+			pixel.scale = Vector2.ZERO
+
 			var pos_x: float = offset.x + (col * (calculated_block_size + cell_gap))
 			var pos_y: float = offset.y + (row * (calculated_block_size + cell_gap))
 			pixel.position = Vector2(pos_x, pos_y)
-			
+
 			var target_key: String = grid_2d[col][row]
 			var hex: String = ColorManager.COLOR_GLOSSARY.get(target_key, "#676767")
 			pixel.color = Color.from_string(hex, Color.PURPLE)
-			
+
 			add_child(pixel)
+
+			var distance_from_top_left: float = Vector2(col, row).distance_to(center)
+			var tween: Tween = create_tween()
+
+			tween.tween_interval(distance_from_top_left * delay_per_unit)
+			tween.tween_property(pixel, "scale", Vector2.ONE, pop_duration) \
+				.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)

@@ -12,7 +12,7 @@ initial_grid = Array[String](["0000", "0000", "0000", "0000", "0000", "0000", "0
 target_colors = Array[String](["000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000", "111", "111", "111", "111", "111", "000", "111", "000", "000", "000", "000", "111", "000", "000", "000", "000", "000", "000", "000", "000", "000", "000"])
 lock_states = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false])
 ink_limits = {
-"c": 4,
+"c": 3,
 "k": 7,
 "m": 3,
 "y": 3
