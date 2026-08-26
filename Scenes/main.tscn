@@ -965,6 +965,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("35_8cuat")
 tutorial_scenes = [NodePath("StartingTutorial"), NodePath("Tutorial"), NodePath("Tutorial2"), NodePath("Tutorial3")]
 
@@ -988,7 +989,7 @@ offset_right = 1035.0
 offset_bottom = 476.0
 
 [node name="Text" parent="CanvasLayer/Tutorials/StartingTutorial/Panel/TextMargin/VBoxContainer" parent_id_path=PackedInt32Array(635414482, 1909464170) index="0" unique_id=768748782]
-text = "Click on the cartridges to choose an ink."
+text = "This is just for the background lol, this isnt the first tutorial"
 
 [node name="Prev" parent="CanvasLayer/Tutorials/StartingTutorial/Panel/TextMargin/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(635414482, 819683357) index="0" unique_id=668975504]
 visible = false
@@ -1000,6 +1001,7 @@ size_flags_horizontal = 10
 [node name="Tutorial" parent="CanvasLayer/Tutorials" unique_id=1562969923 instance=ExtResource("35_aqgau")]
 visible = false
 layout_mode = 1
+tutorial_condition = 0
 
 [node name="HoleRect" parent="CanvasLayer/Tutorials/Tutorial/Holes" parent_id_path=PackedInt32Array(1562969923, 202001462) index="0" unique_id=675472662]
 offset_left = 779.0
@@ -1025,16 +1027,21 @@ offset_bottom = 476.0
 [node name="Text" parent="CanvasLayer/Tutorials/Tutorial/Panel/TextMargin/VBoxContainer" parent_id_path=PackedInt32Array(1562969923, 1909464170) index="0" unique_id=768748782]
 text = "Click on the cartridges to choose an ink."
 
-[node name="Prev" parent="CanvasLayer/Tutorials/Tutorial/Panel/TextMargin/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(1562969923, 819683357) index="0" unique_id=668975504]
+[node name="HBoxContainer" parent="CanvasLayer/Tutorials/Tutorial/Panel/TextMargin/VBoxContainer" parent_id_path=PackedInt32Array(1562969923, 1909464170) index="1" unique_id=819683357]
+visible = false
+
+[node name="Prev" parent="CanvasLayer/Tutorials/Tutorial/Panel/TextMargin/VBoxContainer/HBoxContainer" index="0" unique_id=668975504]
 visible = false
 size_flags_horizontal = 0
 
-[node name="Next" parent="CanvasLayer/Tutorials/Tutorial/Panel/TextMargin/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(1562969923, 819683357) index="1" unique_id=1222156564]
+[node name="Next" parent="CanvasLayer/Tutorials/Tutorial/Panel/TextMargin/VBoxContainer/HBoxContainer" index="1" unique_id=1222156564]
+visible = false
 size_flags_horizontal = 10
 
 [node name="Tutorial2" parent="CanvasLayer/Tutorials" unique_id=846014921 instance=ExtResource("35_aqgau")]
 visible = false
 layout_mode = 1
+tutorial_condition = 1
 
 [node name="HoleRect" parent="CanvasLayer/Tutorials/Tutorial2/Holes" parent_id_path=PackedInt32Array(846014921, 202001462) index="0" unique_id=675472662]
 offset_left = 116.0
@@ -1042,56 +1049,11 @@ offset_top = 218.0
 offset_right = 208.0
 offset_bottom = 272.0
 
-[node name="HoleRect2" type="ColorRect" parent="CanvasLayer/Tutorials/Tutorial2/Holes" parent_id_path=PackedInt32Array(846014921, 202001462) index="1" unique_id=2012541766]
-layout_mode = 0
-offset_left = 116.0
-offset_top = 336.0
-offset_right = 208.0
-offset_bottom = 390.0
-mouse_filter = 2
-color = Color(0.77, 0.77, 0.77, 0.3019608)
-
-[node name="HoleRect3" type="ColorRect" parent="CanvasLayer/Tutorials/Tutorial2/Holes" parent_id_path=PackedInt32Array(846014921, 202001462) index="2" unique_id=1299568810]
-layout_mode = 0
-offset_left = 116.0
-offset_top = 454.0
-offset_right = 208.0
-offset_bottom = 508.0
-mouse_filter = 2
-color = Color(0.77, 0.77, 0.77, 0.3019608)
-
-[node name="HoleRect4" type="ColorRect" parent="CanvasLayer/Tutorials/Tutorial2/Holes" parent_id_path=PackedInt32Array(846014921, 202001462) index="3" unique_id=1858215014]
-layout_mode = 0
-offset_left = 249.0
-offset_top = 88.0
-offset_right = 303.0
-offset_bottom = 180.0
-mouse_filter = 2
-color = Color(0.77, 0.77, 0.77, 0.3019608)
-
-[node name="HoleRect5" type="ColorRect" parent="CanvasLayer/Tutorials/Tutorial2/Holes" parent_id_path=PackedInt32Array(846014921, 202001462) index="4" unique_id=1537601370]
-layout_mode = 0
-offset_left = 367.0
-offset_top = 88.0
-offset_right = 421.0
-offset_bottom = 180.0
-mouse_filter = 2
-color = Color(0.77, 0.77, 0.77, 0.3019608)
-
-[node name="HoleRect6" type="ColorRect" parent="CanvasLayer/Tutorials/Tutorial2/Holes" parent_id_path=PackedInt32Array(846014921, 202001462) index="5" unique_id=432494319]
-layout_mode = 0
-offset_left = 485.0
-offset_top = 88.0
-offset_right = 539.0
-offset_bottom = 180.0
-mouse_filter = 2
-color = Color(0.77, 0.77, 0.77, 0.3019608)
-
 [node name="Panel" parent="CanvasLayer/Tutorials/Tutorial2" index="2" unique_id=1053466253]
-offset_left = 252.0
-offset_top = 218.0
-offset_right = 804.0
-offset_bottom = 348.0
+offset_left = 232.0
+offset_top = 311.0
+offset_right = 784.0
+offset_bottom = 441.0
 
 [node name="Text" parent="CanvasLayer/Tutorials/Tutorial2/Panel/TextMargin/VBoxContainer" parent_id_path=PackedInt32Array(846014921, 1909464170) index="0" unique_id=768748782]
 text = "Click on the paint brushes to start painting."
@@ -1100,9 +1062,11 @@ text = "Click on the paint brushes to start painting."
 size_flags_horizontal = 0
 
 [node name="Next" parent="CanvasLayer/Tutorials/Tutorial2/Panel/TextMargin/VBoxContainer/HBoxContainer" parent_id_path=PackedInt32Array(846014921, 819683357) index="1" unique_id=1222156564]
+visible = false
 size_flags_horizontal = 10
 
 [node name="Tutorial3" parent="CanvasLayer/Tutorials" unique_id=749215763 instance=ExtResource("35_aqgau")]
+visible = false
 layout_mode = 1
 
 [node name="HoleRect" parent="CanvasLayer/Tutorials/Tutorial3/Holes" parent_id_path=PackedInt32Array(749215763, 202001462) index="0" unique_id=675472662]

@@ -14,7 +14,7 @@ shader_parameter/hole_centers = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 shader_parameter/hole_sizes = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/hole_count = 0
 shader_parameter/feather = 0.02
-shader_parameter/pulse_strength = 1.0
+shader_parameter/pulse_strength = 0.50000002375
 shader_parameter/pulse_speed = 4.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k3h2x"]
@@ -71,6 +71,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_nhnjf")
 
 [node name="BlurScreen" type="ColorRect" parent="." unique_id=411523341 node_paths=PackedStringArray("holes_root")]
@@ -81,6 +82,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("2_k3h2x")
 holes_root = NodePath("../Holes")
 
@@ -107,6 +109,7 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 544.0
 offset_bottom = 96.0
+mouse_filter = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Panel" unique_id=1273693756]
 texture_filter = 1
@@ -130,6 +133,7 @@ theme_override_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/TextMargin" unique_id=1909464170]
 layout_mode = 2
 theme_override_constants/separation = 8
+alignment = 1
 
 [node name="Text" type="Label" parent="Panel/TextMargin/VBoxContainer" unique_id=768748782]
 custom_minimum_size = Vector2(512, 0)
