@@ -553,7 +553,7 @@ offset_right = 97.0
 offset_bottom = 722.0
 theme = ExtResource("6_t1dhk")
 theme_override_font_sizes/font_size = 18
-text = "v0.2.1"
+text = "v0.2.2"
 
 [node name="DigitalButtonClick" type="AudioStreamPlayer" parent="." unique_id=51736902]
 stream = ExtResource("12_8dnnj")
